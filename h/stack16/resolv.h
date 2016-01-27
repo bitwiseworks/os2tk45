@@ -62,4 +62,3 @@ struct state {
 extern struct state _res;
 
 #endif /*__RESOLV_32H */
-

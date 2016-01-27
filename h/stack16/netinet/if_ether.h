@@ -111,4 +111,3 @@ char *ether_sprintf();
 #endif
 
 #endif /* __IF_ETHER_32H */
-

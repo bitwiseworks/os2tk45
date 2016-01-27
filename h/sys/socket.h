@@ -424,4 +424,3 @@ struct sostats {
 
 #endif /* TCPV40HDRS */
 #endif /* !_SYS_SOCKET_H_ */
-

@@ -261,4 +261,3 @@ ULONG APIENTRY TimerGetPointer ( PPULONG ppulHRTCurrentTime,
 }
 #endif
 
-

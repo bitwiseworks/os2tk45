@@ -81,4 +81,3 @@ extern int registerrpc(u_long, u_long, u_long, char *(*procname) (), xdrproc_t, 
 #pragma pack()
 
 #endif /* __RPC_32H  */
-

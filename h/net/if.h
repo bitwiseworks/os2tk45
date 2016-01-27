@@ -310,4 +310,3 @@ struct ifstat {
 };
 
 #endif /* _NET_IF_H_ */
-

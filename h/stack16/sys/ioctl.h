@@ -158,4 +158,3 @@
 /* ioctls which return the cnt of the arp and route entris */
 #define SIOSTATCNTRT   ioc('n', 52)
 #define SIOSTATCNTAT   ioc('n', 53)
-

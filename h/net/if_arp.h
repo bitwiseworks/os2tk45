@@ -113,4 +113,3 @@ struct arpreq_tr {
 
 #endif /* TCPV40HDRS */
 #endif /* _NET_IF_ARP_H_ */
-

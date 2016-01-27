@@ -161,4 +161,3 @@ __END_DECLS
 
 #endif /* TCPV40HDRS */
 #endif /* _NETDB_H_ */
-

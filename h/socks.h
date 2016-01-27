@@ -94,4 +94,3 @@ typedef struct socksdata {
    struct sockaddr_in socks_nsin;
    struct sockaddr_in me;
 } SD;
-

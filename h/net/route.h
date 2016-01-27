@@ -228,4 +228,3 @@ struct route_cb {
 #endif
 #endif /* TCPV40HDRS */
 #endif /* _NET_ROUTE_H_ */
-

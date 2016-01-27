@@ -59,4 +59,3 @@ typedef u_long  n_time;                 /* ms since 00:00 GMT, byte rev */
 
 #endif /* TCPV40HDRS */
 #endif /* _NETINET_IN_SYSTM_H_ */
-

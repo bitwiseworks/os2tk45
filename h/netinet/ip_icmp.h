@@ -161,4 +161,3 @@ struct icmp {
 
 #endif /* TCPV40HDRS */
 #endif /* _NETINET_IP_ICMP_H_ */
-

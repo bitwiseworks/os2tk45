@@ -296,4 +296,3 @@ __END_DECLS
 
 #endif /* TCPV40HDRS */
 #endif /* !_RESOLV_H_ */
-

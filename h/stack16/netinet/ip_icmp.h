@@ -158,4 +158,3 @@ struct  icmpstat {
 #pragma pack()
 
 #endif /* __IP_ICMP_32H */
-

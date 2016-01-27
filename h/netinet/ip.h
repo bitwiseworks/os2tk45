@@ -183,4 +183,3 @@ struct  ip_timestamp {
 
 #endif /* TCPV40HDRS */
 #endif /* _NETINET_IP_H_ */
-

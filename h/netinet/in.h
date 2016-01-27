@@ -227,4 +227,3 @@ struct ip_mreq {
 
 #endif /* TCPV40HDRS */
 #endif /* _NETINET_IN_H_ */
-

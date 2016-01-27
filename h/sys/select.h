@@ -53,4 +53,3 @@ struct selinfo {
 
 #endif /* TCPV40HDRS */
 #endif /* !_SYS_SELECT_H_ */
-

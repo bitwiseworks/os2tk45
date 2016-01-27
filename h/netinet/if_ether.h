@@ -81,4 +81,3 @@ struct  oarptab {
 
 #endif /* TCPV40HDRS */
 #endif /* _NETINET_IF_ETHER_H_ */
-

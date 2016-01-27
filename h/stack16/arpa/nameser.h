@@ -216,4 +216,3 @@ int _System res_querydomain(char *, char *, int, int, u_char *, int);
 
 #endif /* __NAMESER_32H */
 
-

@@ -155,4 +155,3 @@ unsigned long _System inet_netof(struct in_addr);
 
 #endif /* __IN_32H */
 
-

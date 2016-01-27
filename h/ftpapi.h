@@ -81,4 +81,3 @@ void _System ftpsetencodemode(int code);
 void _System ftpsetdecodemode(int code);
 #endif
 #endif /* __FTPAPI_32H */
-

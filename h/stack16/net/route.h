@@ -110,4 +110,3 @@ struct rtentries {
 #pragma pack()
 
 #endif /* __ROUTE_32H */
-

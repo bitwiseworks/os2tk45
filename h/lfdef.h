@@ -747,4 +747,3 @@ extern APIRET APIENTRY LogChangeEventFilter(ULONG service, PVOID pChangeEventFil
 extern APIRET APIENTRY LogWaitEvent(ULONG service, PVOID pWaitEvent);
 
 #endif
-

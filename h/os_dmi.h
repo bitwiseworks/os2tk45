@@ -38,4 +38,3 @@ typedef unsigned short boolean;
 DMI_UNSIGNED DMI_FUNC_ENTRY sDmiInvoke(void _FAR *dmiCommand);   /* syncronout invoke entry point */
 
 #endif
-

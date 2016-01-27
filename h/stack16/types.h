@@ -39,4 +39,3 @@ typedef long daddr_t;
 #define SIGALRM 0
 
 #endif /* __TYPES_32H */
-

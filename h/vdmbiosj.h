@@ -451,4 +451,3 @@ typedef BIOSJDATA *PBIOSJDATA;
 
 //J-YF004 08/27/91 DOS/V mode support
 //J-YF005 10/15/91 Bug Fix (EBIOS length field is BYTE)
-

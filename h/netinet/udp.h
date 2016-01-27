@@ -54,4 +54,3 @@ struct udphdr {
 
 #endif /* TCPV40HDRS */
 #endif /* _NETINET_UDP_H_ */
-

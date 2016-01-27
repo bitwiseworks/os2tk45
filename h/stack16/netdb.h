@@ -138,4 +138,3 @@ struct hostent * _System Rgethostbyname(char *);
 
 #endif /* __NETDB_32H  */
 
-

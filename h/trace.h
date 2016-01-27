@@ -100,4 +100,3 @@ USHORT _Far16 _Pascal DosSysTrace(
 APIRET _System TraceCreateEntry(PTCEREQUEST pTraceCreateEntry);
 
 #endif  /* __TRACEH__ */
-

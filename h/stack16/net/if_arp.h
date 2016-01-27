@@ -74,4 +74,3 @@ struct arpreq {
 
 
 #endif /* __IF_ARP_32H */
-

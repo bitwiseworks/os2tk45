@@ -211,4 +211,3 @@ extern bool_t   xdr_rejected_reply(XDR *, struct rejected_reply *);
 extern void     _seterr_reply(struct rpc_msg *,struct rpc_err *);
 
 #endif /* __RPC_MSG_32H */
-

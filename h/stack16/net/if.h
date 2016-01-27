@@ -316,4 +316,3 @@ struct  ifconf {
 #include <net/if_arp.h>
 
 #endif /* __IF_32H */
-

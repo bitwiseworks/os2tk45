@@ -180,4 +180,3 @@ struct  ipstat {
 #pragma pack()
 
 #endif /* __IP_32H */
-

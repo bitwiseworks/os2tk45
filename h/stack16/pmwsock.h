@@ -839,4 +839,3 @@ typedef struct timeval *LPTIMEVAL;
 #define WSAGETSELECTERROR(lParam)           HIUSHORT(lParam)
 
 #endif  /* _WINSOCKAPI_ */
-

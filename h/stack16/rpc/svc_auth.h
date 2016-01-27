@@ -56,4 +56,3 @@
 extern enum auth_stat _authenticate(struct svc_req *, struct rpc_msg *);
 
 #endif /* __SVC_AUTH_32H */
-

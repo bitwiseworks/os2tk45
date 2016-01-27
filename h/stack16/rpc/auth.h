@@ -174,4 +174,3 @@ extern AUTH *authnone_create(void);         /* takes no parameters */
 #define AUTH_SHORT      2               /* short hand unix style */
 
 #endif /* __AUTH_32H */
-

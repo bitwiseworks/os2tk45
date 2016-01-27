@@ -469,4 +469,3 @@ typedef struct DmiEventData {
 } DMI_EventData_t;
 
 #endif
-

@@ -116,4 +116,3 @@ extern bool_t xdr_pmaplist(XDR *, struct pmaplist **);
 extern void get_myaddress( struct sockaddr_in *);
 
 #endif /* __PMAP_PRO_32H */
-

@@ -26,4 +26,3 @@ struct rpcent   *getrpcbynumber(u_long);
 struct rpcent   *getrpcent(void);
 
 #endif /* __RPCNETDB_32H */
-

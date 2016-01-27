@@ -293,4 +293,3 @@ extern unsigned long * ptkssbase;   /* this will be the pointer to SS base (For 
 /* int sleep(char *wait_addr, unsigned priority); */
 
 #endif /* DRIVER_H */
-

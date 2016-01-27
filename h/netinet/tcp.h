@@ -129,4 +129,3 @@ struct tcphdr {
 
 #endif /* TCPV40HDRS */
 #endif /* _NETINET_TCP_H_ */
-

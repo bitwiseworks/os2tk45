@@ -85,4 +85,3 @@ enum clnt_stat          clnt_broadcast(u_long, u_long, u_long, xdrproc_t, caddr_
                                        xdrproc_t, caddr_t, resultproc_t);
 
 #endif /* __PMAP_CLN_32H */
-

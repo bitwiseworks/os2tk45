@@ -79,4 +79,3 @@ int _System ftptrcoff(void);
 void _System ftpxferwnd(HWND hwnd);
 #endif /* __FTPAPI_32H */
 
-

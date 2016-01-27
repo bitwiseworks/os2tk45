@@ -844,4 +844,3 @@ typedef struct timeval *LPTIMEVAL;
 
 #endif /* TCPV40HDRS */
 #endif  /* _WINSOCKAPI_ */
-
