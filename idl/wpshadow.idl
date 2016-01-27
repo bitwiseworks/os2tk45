@@ -1,0 +1,107 @@
+
+//  Module Header
+//
+//  Module Name: WPSHADOW
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpshadow_idl
+#define wpshadow_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface M_WPShadow;
+
+interface WPShadow : WPAbstract
+
+{
+  WPObject wpQueryShadowedObject(in BOOL fLock);
+
+  BOOL wpSetShadowTitle(in PSZ pszNewTitle);
+
+  BOOL wpSetLinkToObject(in WPObject FromObject);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpSetLinkToObject,withdrawn,wpSetShadowTitle,wpQueryShadowedObject;
+
+    externalstem = wplink;
+    local;
+    externalprefix = shd_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpshadow;
+    metaclass = M_WPShadow;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+
+
+    wpQueryTitle: override;
+    wpSetup: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpQueryStyle: override;
+    wpInitData: override;
+    wpUnInitData: override;
+    wpSetTitle: override;
+    wpFilterPopupMenu: override;
+    wpModifyPopupMenu: override;
+    wpMenuItemSelected: override;
+    wpViewObject: override;
+    wpMenuItemHelpSelected: override;
+    wpCreateFromTemplate: override;
+    wpOpen: override;
+    wpInsertPopupMenuItems: override;
+    wpInsertMenuItems: override;                                                
+    wpCreateShadowObject: override;
+    wpDragOver: override;
+    wpDrop: override;
+    wpQueryDefaultHelp: override;
+    wpConfirmDelete: override;
+    wpConfirmObjectTitle: override;
+    wpPrintObject: override;
+    wpFormatDragItem: override;
+    wpDraggedOverObject: override;
+    wpDroppedOnObject: override;
+    wpQueryNameClashOptions: override;
+    wpFilterMenu: override;                                                     
+    wpModifyMenu: override;                                                     
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPShadow : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wplink;
+    local;
+    externalprefix = shdM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpshadow;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryTitle: override;
+    wpclsQueryStyle: override;
+    wpclsQueryIconData: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpshadow_idl */

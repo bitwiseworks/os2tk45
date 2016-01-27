@@ -1,0 +1,133 @@
+//
+//   COMPONENT_NAME: some
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) somc/somstrt.idl 2.7 12/26/95 16:27:45 [7/30/96 14:46:06]
+
+
+#ifndef somstrt_idl
+#define somstrt_idl
+
+#include <somobj.idl>
+
+// We try to map "typedef entryT *(*tablePT)[]" onto the following
+// IDL strucuture.  It doesn't appear to work correctly.
+  typedef struct entryT {
+      string key;
+      string value;
+      entryT *next;
+  } ***tablePT;
+
+interface SOMStringTableC : SOMObject
+
+// Objects of the SOMStringTableC class are symbol tables that map null
+// terminated strings to null terminated strings.  While any instance
+// of this class can hold an indefinite number of sysbols, performance
+// will be inproved if the instance is created with an appropriate
+// maximum target capacity.
+
+{
+
+  attribute unsigned long somstTargetCapacity;
+  // The expected maximum number of associations for this table.
+  // Accuracy can result in improved performance.  A low target may
+  // result in some storage saving, but at the cost of performance.
+  // Note: this attribute must be set before any strings are added to
+  // the string table or it will not be setable.
+
+  readonly attribute unsigned long somstAssociationsCount;
+  // The number of associations currently in this table
+
+  short somstAssociate(in string key, in string value);
+  // Associates <key> and <value>.  After this call, whenever <key> is
+  // lookedup, <value> will be returned.
+  // Zero will be returned if the association cannot be accomplished
+  // (<key> is null, or memory is not available), -1 will be returned
+  // if the association suceeds, but <key> had a previous association,
+  // and 1 is returned if the association suceeds and <key> had no
+  // previous association.
+  // Note: the string table takes over ownership of both <key> and
+  // <value>.
+
+  short somstAssociateCopyKey(in string key, in string value);
+  // Same as <somstAssociate> except don't take ownership of <key>.
+
+  short somstAssociateCopyValue(in string key, in string value);
+  // Same as <somstAssociate> except don't take ownership of <value>.
+
+  short somstAssociateCopyBoth(in string key, in string value);
+  // Same as <somstAssociate> except don't take ownership of <key> or
+  // <value>.
+
+  string somstGetAssociation(in string key);
+  
+  // The string associated with <key> is returned if there is one and
+  // NULL is returned if <key> has no association.
+  // The string table will maintain ownership of any returned value.
+
+  boolean somstClearAssociation(in string key);
+  
+  // The association for <key>, if any, is removed.
+  // 1 is returned if <key> had an association, and 0 is returned if
+  // it did not.
+
+  string somstGetIthKey(in unsigned long i);
+  
+  // Returns the key part of the <i> association in this string table
+  // if there is one and null otherwise.
+  // The order of associations in a string table is not specified, but
+  // will not change unless changes are made in the table.
+  // Ownership of the key is retained, the pointer returned is valid
+  // until any changes are made in the table.
+
+  string somstGetIthValue(in unsigned long i);
+  
+  // Returns the value part of the <i> association in this string table
+  // if there is one and null otherwise.
+  // The order of associations in a string table is not specified, but
+  // will not change unless changes are made in the table.
+  // Ownership of the value is retained, the pointer returned is valid
+  // until any changes are made in the table.
+
+#ifdef __SOMIDL__
+  implementation {
+    releaseorder: _get_somstTargetCapacity, _set_somstTargetCapacity,
+  		_get_somstAssociationsCount, 
+                  somstAssociate,somstAssociateCopyKey,somstAssociateCopyValue, 
+                  somstAssociateCopyBoth,somstGetAssociation,
+  		somstClearAssociation,somstGetIthKey,somstGetIthValue;
+  
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = somstrt;
+    callstyle = oidl;
+  
+    passthru C_h_after =  "extern char * SOMLINK somstDupStr(char *str);";
+  
+    //# Internal Instance Variables
+    unsigned long tableSize;        
+    tablePT table;                  
+    unsigned long numberOfEntries;  
+  
+    //# Method Modifiers
+    somInit: override;
+    somUninit: override;
+    somPrintSelf: override;
+    somDumpSelfInt: override;
+  
+    somstTargetCapacity: nodata;
+  };
+#endif /* __SOMIDL__ */
+};
+
+
+#endif  /* somstrt_idl */

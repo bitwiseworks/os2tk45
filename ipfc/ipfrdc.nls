@@ -1,0 +1,19 @@
+REM="Canadian French"
+REM="(C) Copyright IBM Corporation 1989, 1991"
+
+NOTE="Remarque :  "
+CAUTION="ATTENTION !"
+WARNING="Avertissement.  "
+OLCHARS=abcdefghijklmnopqrstuvwxyz
+OLCLOSE1=.
+OLCLOSE2=)
+ULITEMID1=
+ULITEMID2=-
+ULITEMID3=--
+CGRAPHICFONTFACENAME="Courier"
+CGRAPHICFONTWIDTH=11
+CGRAPHICFONTHEIGHT=18
+GRAMMAR
+WORDS=0 - 9 + A - Z + a - z
+EGRAMMAR
+

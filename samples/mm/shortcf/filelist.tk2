@@ -1,0 +1,75 @@
+/***********************************************************************/
+/* This file contains install information.  Comments are delimited     */
+/* as these comments are.  Blank lines are ignored.  Non-blank lines   */
+/* will be parsed and extraneous characters will cause errors.  First  */
+/* non-comment line must be the total number of files to be installed. */
+/*                                                                     */
+/*   for release 1 - driver 1.0.9                                      */
+/*                                                                     */
+/***********************************************************************/
+/* all files on the install disk(s) are listed below. Other            */
+/* information is also given, as follows:                              */
+/*                                                                     */
+/* Disk#    - The number of the disk on which the file resides.        */
+/*            (Ignored if installing from CD-ROM). These are sorted    */
+/*            from 0 to the number of disks, ascending.                */
+/*                                                                     */
+/* Group#   - The logical group to which the file belongs. Group       */
+/*            starts at 0.                                             */
+/*                                                                     */
+/* Dest#    - The destination subdirectory into which the file will be */
+/*            copied.  Dest# starts at 0.                              */
+/*                                                                     */
+/* Source #- The installation disk(s) subdirectory where the file      */
+/*            resides.                                                 */
+/*                                                                     */
+/* FileName - The base filename.                                       */
+/*                                                                     */
+/*sourcedir="\\"                     = 4                               */
+/*sourcedir="\\MCISTRNG\\"           = 11                              */
+/*                                                                     */
+/* destindir="\\MMOS2\\"                                = 0            */
+/* destindir="\\MMOS2\\INSTALL\\"                       = 4            */
+/* destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\MCISTRNG\\"   = 11           */
+/*                                                                     */
+/*        groups                                                       */
+/*                0 = Base                                             */
+/*            - 11 = MCI String Test                                   */
+/*                                                                     */
+/***********************************************************************/
+/* Total number of entries is 20. This must be the first paramater other*/
+/*than comments*/
+/***********************************************************************/
+
+    20
+
+/*It is a good practice to make groups and list the amount of files in
+/*them (9 files)*/
+/*A comment can not be the last line in a filelist.*/
+
+/*            mmtoolkt\samples\cf  9   41K           */
+
+    0    0   11     4    "CONTROL.SCR"
+    0    0   11     4    "FILELIST.TK2"
+    0    0   11      4   "TLKSTRN.SCR"
+    0    0   11     4    "TLKBASE.SCR"
+    0    0    4     4    "TLKSTRN.SCR"
+    0    0    4     4    "TLKBASE.SCR"
+    0    0    4     4    "MCISTRNG.ICO"
+    0    0    4    4     "MMTOOLKT.ICO"
+    0    0   11    4    "TOOLKIT.CH"
+
+/* 11 files */
+/*           mmtoolkt\samples\mcistrng  11   197K   */
+    0   11   11   11   "mcistrng.c"
+    0   11   11   11   "mcistrng.h"
+    0   11   11   11   "mcistrng.rc"
+    0   11   11   11   "mcistrng.dlg"
+    0   11   11   11   "mcistrng.def"
+    0   11   11   11   "makefile"
+    0   11   11   11   "UMB.DAT"
+    0   11   11   11   "mcistrng.exe"
+    0   11   11   11   "mcistrng.hlp"
+    0   11   11   11   "mcistrng.ipf"
+    0   11   11   11   "mcistrng.ico"
+

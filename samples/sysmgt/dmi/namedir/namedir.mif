@@ -1,0 +1,137 @@
+Start Component
+    Name = "DMI Service Layers - Direct Interface (DI) version"
+    Description = "This is a list of the DMI service layers, the copmany that wrote them "
+                       "and the OS they run on."
+//
+//   Enumerations for this group
+//
+           Start Enum
+             Name = "Verify_Type"
+             Type = Integer
+             0x00 = "An error occurred; check status code"
+             0x01 = "This component does not exist"
+             0x02 = "The verify is not supported"
+             0x03 = "Reserved"
+             0x04 = "This component exists, but the functionality is untested"
+             0x05 = "This component exists, but the functionality is unknown"
+             0x06 = "This component exists, and is not functioning correctly"
+             0x07 = "This component exists, and is functioning correctly"
+           End Enum
+
+
+    start group
+        name    = "ComponentID"
+        id      = 1
+        class   = "DMTF|ComponentID|1.0"
+        description = "This group defines attributes common to all components."
+                      "This group is required."
+
+        start attribute
+            name    = "Manufacturer"
+            id      = 1
+            description = "The name of the manufacturer that produces this component."
+            access  = READ-ONLY
+            storage = COMMON
+            type    = STRING(64)
+            value   = "IBM Corp."
+        end attribute
+
+        start attribute
+            name    = "Product"
+            id      = 2
+            description = "The name of the component."
+            access  = READ-ONLY
+            storage = COMMON
+            type    = STRING(64)
+            value   = "DMI Demonstration"
+        end attribute
+
+        start attribute
+            name    = "Version"
+            id      = 3
+            description = "The version for the component."
+            access  = READ-ONLY
+            storage = COMMON
+            type    = STRING(64)
+            value   = "Version 1.0"
+        end attribute
+
+        start attribute
+            name    = "Serial Number"
+            id      = 4
+            description = "The serial number for this instance of this component."
+            access  = READ-ONLY
+            storage = SPECIFIC
+            type    = STRING(64)
+            value   = "1.00000"
+        end attribute
+
+        start attribute
+            name    = "Installation"
+            id      = 5
+            description = "The time and date of the last install of this component."
+            access  = READ-ONLY
+            storage = SPECIFIC
+            type    = DATE
+            value   = ""
+        end attribute
+
+        Start Attribute
+            Name = "Verify"
+            Id = 6
+            Access = Read-Only
+            Storage = Specific
+            Type = "Verify_Type"
+            Description = "A code that provides a level of verification "
+                          "that the component is still installed and working."
+            Value = 0x07
+        End Attribute
+
+     end group
+
+    Start Group
+        Name = "Names"
+        ID   = 2
+        Class = "IBM|SLNames|1.0"
+        Description = "DMI Service Layer names. Direct Interface Version"
+        Key=1
+
+        Start Attribute
+            Name   = "Index"
+            ID     = 1
+            Description = "Index into names table."
+            Access = READ-ONLY
+            Type   = INTEGER
+            Value  = 1
+        End Attribute
+
+        Start Attribute
+            Name   = "Operating System / Env."
+            ID     = 2
+            Description = "Name of the operating system."
+            Access = READ-WRITE
+            Type   = DISPLAYSTRING(32)
+            Value  = "Name of OS"
+        End Attribute
+
+        Start Attribute
+            Name   = "Company"
+            ID     = 3
+            Description = "Corporation that wrote this service layer."
+            Access = READ-WRITE
+            Type   = DISPLAYSTRING(32)
+            Value  = "Company"
+       End Attribute
+
+        Start Attribute
+            Name   = "Name"
+            ID     = 4
+            Description = "The name of the service layer."
+            Access = READ-WRITE
+            Type   = DISPLAYSTRING(32)
+            Value  = "SL Name"
+       End Attribute
+    End Group
+
+End Component
+

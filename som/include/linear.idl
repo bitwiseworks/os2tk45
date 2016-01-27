@@ -1,0 +1,61 @@
+//
+//   COMPONENT_NAME: somr
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.8 src/somr/linear.idl, somr, som2.1 9/1/94 15:50:45 [7/30/96 14:49:24]
+
+
+
+#ifndef linear_idl
+#define linear_idl
+
+#include <somobj.idl>
+interface SOMRLinearizable : SOMObject
+
+//This is a mixin class which defines the property "linearizable".
+//Any object that supports the two methods "somrGetState" and
+//"somrSetState" is linearizable.  This is an abstract base class
+//and hence any derived class MUST OVERRIDE these two methods.
+
+{
+  void somrGetState(inout string buf);
+
+  // Converts its internal state into a linear string and returns a
+  // pointer to the string (the length of the string is in the
+  // first sizeof(int) bytes of this string).   The implementer of this
+  // method should allocate the necessary memory for the string.
+  // The OWNERSHIP of this string is transferred to the caller of this method.
+
+  void somrSetState(in string buf);
+
+  // The reverse of Get State. It converts the given linear string into
+  // its internal state.  The ownership of buf stays with the caller.
+
+
+   #ifdef __SOMIDL__
+
+   implementation
+   {
+      callstyle=idl;
+
+      releaseorder: somrGetState, somrSetState;
+
+      // Class Modifiers
+      majorversion = 2;
+      minorversion = 1;
+      filestem = linear;
+      // Internal Instance Variables
+
+    };
+    #endif /* __SOMIDL__ */
+
+};
+#endif  /* linear_idl */

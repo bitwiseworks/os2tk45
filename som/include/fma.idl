@@ -1,0 +1,212 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.10 src/somp/fma.idl, somp, som2.1 12/26/95 16:54:24 [7/30/96 14:46:49]
+
+
+#ifndef fma_idl
+#define fma_idl
+
+#include <somobj.idl>
+#include <somp.idl>
+#include <mia.idl>
+#include <somperrd.idl>
+
+interface SOMPFileMediaAbstract : SOMPMediaInterfaceAbstract
+
+// This is the abstract class definition for an interface to
+// a file media.
+
+{
+   void sompInitReadWrite(in string mediaInfo) raises (SOMPError::sompException);
+// Initialize the media interface for read-write access.
+
+   void sompInitReadOnly(in string mediaInfo) raises (SOMPError::sompException);
+// Initialize the media interface for read-only access.
+
+
+   void sompSeekPosition(in long offset) raises (SOMPError::sompException);
+// Position the media to an offset.  Any further reading
+// or writing will begin from that point.  Reading and writing
+// implicitly repositions the file, so usually this is not needed.
+
+   void sompSeekPositionRel(in long offset) raises (SOMPError::sompException);
+// Like Position, but offset is relative to current.
+
+   long sompGetOffset();
+// Returns the current offset within the file.
+
+   void sompReadBytes(in string byteStream, in long length) raises (SOMPError::sompException);
+// Read a byte stream of the given length from the media.
+
+   void sompWriteBytes(in string byteStream, in long length) raises (SOMPError::sompException);
+// Write a byte stream of the given length to the media.
+
+   void sompWriteOctet(in octet i1) raises (SOMPError::sompException);
+// Writes the given 8-bit integer
+
+   void sompWriteShort(in short i2) raises (SOMPError::sompException);
+// Writes the given short integer
+
+   void sompWriteUnsignedShort(in unsigned short u2) raises (SOMPError::sompException);
+// Writes the given unsigned short integer
+
+   void sompWriteLong(in long i4) raises (SOMPError::sompException);
+// Writes the given long integer
+
+   void sompWriteUnsignedLong(in unsigned long u4) raises (SOMPError::sompException);
+// Writes the given unsigned long integer
+
+   void sompWriteDouble(in double f8) raises (SOMPError::sompException);
+// Writes the given double-precision float
+
+   void sompWriteFloat(in float f4) raises (SOMPError::sompException);
+// Writes the given float
+
+   void sompWriteCharacter(in char c) raises (SOMPError::sompException);
+// Writes the given character
+
+   void sompWriteSomobject(in SOMObject so, in SOMObject parentObject)
+			    raises (SOMPError::sompException);
+// Writes the given object.  Uses parentObject to determine whether relative
+// Ids are used.  If object (so) has no persistent parent, client passes
+// NULL parentObject.
+
+   void sompWriteString(in string wstring) raises (SOMPError::sompException);
+// Writes the given string to the media.
+//
+
+   void sompReadOctet(inout octet i1) raises (SOMPError::sompException);
+// Reads an 8-bit integer into memory at given the pointer
+
+   void sompReadShort(inout short i2) raises (SOMPError::sompException);
+// Reads a short integer into memory at given the pointer
+
+   void sompReadUnsignedShort(inout unsigned short u2) raises (SOMPError::sompException);
+// Reads an unsigned short integer into memory at given the pointer
+
+   void sompReadLong(inout long i4) raises (SOMPError::sompException);
+// Reads a long integer into memory at given the pointer
+
+   void sompReadUnsignedLong(inout unsigned long i4) raises (SOMPError::sompException);
+// Reads a long integer into memory at given the pointer
+
+   void sompReadDouble(inout double f8) raises (SOMPError::sompException);
+// Reads a float into memory at given the pointer
+
+   void sompReadFloat(inout float f4) raises (SOMPError::sompException);
+// Reads a float into memory at given the pointer
+
+   void sompReadCharacter(inout char c) raises (SOMPError::sompException);
+// Reads a character into memory at given the pointer
+
+   void sompReadSomobject(inout SOMObject so) raises (SOMPError::sompException);
+// Instantiates and returns a new object of the class specified in
+// the file. Standard SOM objects are simply instantiated. Persistent
+// objects are instantiated and marked for restoration.
+
+   void sompReadString(inout string rstring) raises (SOMPError::sompException);
+// Read and allocate a string. Input is a pointer to a string. The input
+// pointer is modified to point to a newly allocated buffer which
+// will contain the string read from the media.
+// Callers are responsible for freeing the returned buffer with SOMFree.
+// If you want to read a string into a predefined buffer,
+// use sompReadStringToBuffer.
+//
+// This method can be used to read strings which were stored by
+// sompWriteString.
+
+   void sompReadStringToBuffer(in string buffer, in long bufsize) raises (SOMPError::sompException);
+// Read a string into the preallocated buffer given. The size of the
+// buffer is given in <bufsize>. If the string read is larger than
+// bufsize it is truncated to fit in bufsize.
+//
+// This method can be used to read strings which were stored by
+// sompWriteString.
+
+   void sompWriteLine(in string buffer) raises (SOMPError::sompException);
+
+// Writes the given string in <buffer> at the current position.
+// The terminating null character (\0) is not written.
+//
+// This method does NOT append a newline character (\n) to the
+// given string before writing. If the user of this method intends to
+// restore this <buffer> of data with sompReadLine, the user must
+// put the newline character in the <buffer> before calling this
+// method.
+
+   void sompReadLine(in string buffer, in long bufsize) raises (SOMPError::sompException);
+// Read a string up to and including the first newline character (\n)
+// into the preallocated buffer given.
+// Use this method for reading strings stored with sompWriteLine.
+//
+// The size of the buffer is given in <bufsize>. If the string read is
+// larger than bufsize it is truncated to fit in bufsize.
+//
+// The characters read are stored in <buffer>, and a null character (\0)
+// is appended. The newline character, if read, is included in the string.
+
+   void sompWriteTypeCode(in TypeCode tc) raises (SOMPError::sompException);
+// Writes a restoreable version of an IDL type code. Restore with
+// sompReadTypeCode().
+
+   void sompReadTypeCode(inout TypeCode tc) raises (SOMPError::sompException);
+// Restores an IDL type code that was stored with sompWriteTypeCode().
+
+#ifdef __SOMIDL__
+
+implementation
+{
+    callstyle=idl;
+    dllname="somp.dll";
+
+    // #####  Methods sompWriteInteger and sompReadInteger have been deleted.
+    //        They remain in the release order for binary / ir compatibility
+    //        with the remainder of the SOM beta world.  New release orders
+    //        should be generated at GA.
+
+    releaseorder: sompInitReadWrite, sompInitReadOnly,
+		  somReserved1,
+		  somReserved2, sompSeekPosition,
+		  sompSeekPositionRel, sompGetOffset,
+		  sompReadBytes, sompWriteBytes,
+		  sompWriteOctet, sompWriteShort,
+		  sompWriteUnsignedShort, sompWriteInteger,
+		  sompWriteLong, sompWriteUnsignedLong,
+		  sompWriteDouble, sompWriteFloat,
+		  sompWriteCharacter, sompWriteSomobject,
+		  sompWriteString,
+		  sompReadOctet, sompReadShort,
+		  sompReadUnsignedShort, sompReadInteger,
+		  sompReadLong, sompReadUnsignedLong,
+		  sompReadDouble, sompReadFloat,
+		  sompReadCharacter, sompReadSomobject,
+		  sompReadString,
+		  sompReadStringToBuffer, sompWriteLine,
+		  sompReadLine, sompWriteTypeCode,
+		  sompReadTypeCode;
+
+
+// Class Modifiers
+   majorversion = 2;
+   minorversion = 1;
+   filestem = fma;
+
+// Method Modifiers
+   sompOpen  : override;
+   sompClose : override;
+
+};
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* fma_idl */

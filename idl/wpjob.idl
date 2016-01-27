@@ -1,0 +1,175 @@
+
+//  Module Header
+//
+//  Module Name: WPJOB
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpjob_idl
+#define wpjob_idl
+
+#include "wptrans.idl"
+#include <somcls.idl>
+#include <wprttype.idl>
+
+interface WPPrinter;
+interface M_WPJob;
+
+interface WPJob : WPTransient
+
+//
+// CLASS: WPJob
+//
+// CLASS HIERARCHY:
+//    SOMObject
+//      ÀÄÄ WPObject
+//            ÀÄÄ WPTransient
+//                  ÀÄÄ WPJob
+//
+// DESCRIPTION:
+//    This is the job object class.
+//    An instance of this class is created by the Print Destination object
+//    in its icon or detail view.
+//
+
+{
+  BOOL wpDeleteJob();
+
+  // Delete a job object
+
+  BOOL wpHoldJob();
+
+  // Hold printing a job object
+
+  BOOL wpReleaseJob();
+
+  // Release printing a job object
+
+  BOOL wpPrintJobNext();
+
+  // Move this job object to be printed next
+
+  BOOL wpStartJobAgain();
+
+  // Start the job again
+
+  WPObject wpQueryPrintObject();
+  // Return a pointer to the PrintObject this job is in.
+
+  ULONG wpQueryJobId();
+  // Returns the JobId of this job
+
+  BOOL  wpQueryJobFile(in PSZ pBuf, in PULONG pcbBuf );
+  // Return the spool file name in the pBuf
+
+  BOOL  wpQueryJobType(in PSZ pBuf, in PULONG pcbBuf);
+  // Return the job type int pBuf
+
+  BOOL  wpMoveJobObject(in WPPrinter DestPrinter,
+                        in ULONG     ulReserved);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: prtGetJobID,prtSetJobID,prtGetJobInfo2,prtSetJobInfo2,
+                  prtGetJobInfo3,prtSetJobInfo3,prtFreeJobInfo2,prtFreeJobInfo3,
+                  prtGetPDObject,prtSetPDObject,prtGetDocument,prtSetDocument,
+                  prtDupJobInfo2,prtDupJobInfo3,wpDeleteJob,wpHoldJob,
+                  wpReleaseJob,wpPrintJobNext,wpStartJobAgain,
+                  wpQueryPrintObject,
+                  wpQueryJobId,
+                  wpQueryJobFile,
+                  wpQueryJobType,
+                  prtGetJobInfo4, prtSetJobInfo4,
+                  prtFreeJobInfo4,prtDupJobInfo4,
+                  wpMoveJobObject,
+                  prtSetOutputPortname,
+                  prtSetJobState,
+                  prtQueryJobState;
+
+    externalstem = WPjob;
+    local;
+    externalprefix = job_;
+    majorversion = 1;
+    minorversion = 1;
+    filestem = wpjob;
+    metaclass = M_WPJob;
+    callstyle = oidl;
+
+    passthru C_h =      ""
+"/* common context menu ids */"
+"#define WPPOICM_JOB_MENU            5000"
+"#define WPPOIDM_JOB_COPY            5001"
+"#define WPPOIDM_JOB_DEL             5002"
+"#define WPPOIDM_JOB_STATUS          5013"
+"#define WPPOIDM_JOB_HOLD            5009"
+"#define WPPOIDM_JOB_RELEASE         5008"
+"#define WPPOIDM_JOB_STARTAGAIN      5006"
+"#define WPPOIDM_JOB_PRINTNEXT       5007"
+"#define WPPOICM_JOB_OPENMENU        5050"
+"#define WPPOIDM_JOB_CONTENT         5011"
+"";
+
+
+    wpInitData: override;
+    wpUnInitData: override;
+    somDumpSelfInt: override;
+    wpAddSettingsPages: override;
+    wpAddObjectGeneralPage: override;
+    wpQueryTitle: override;
+    wpQueryIcon: override;
+    wpFilterPopupMenu: override;
+    wpFree: override;
+    wpConfirmDelete: override;
+    wpModifyPopupMenu: override;
+    wpMenuItemSelected: override;
+    wpMenuItemHelpSelected: override;
+    wpOpen: override;
+    wpDrop: override;
+    wpDragOver: override;
+    wpPrintObject: override;
+    wpQueryDetailsData: override;
+    wpSetTitle: override;
+    wpAddToObjUseList: override;
+    wpDeleteFromObjUseList: override;
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPJob
+{
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: prtclsManageSelected;
+
+    externalstem = WPjob;
+    local;
+    externalprefix = jobM_;
+    functionprefix = jobM_;
+    majorversion = 1;
+    minorversion = 1;
+    filestem = wpjob;
+    callstyle = oidl;
+
+
+    wpclsQueryTitle: override;
+    wpclsQueryIcon: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryDetailsInfo: override;
+    wpclsQueryStyle: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpjob_idl */

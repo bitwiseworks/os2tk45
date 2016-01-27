@@ -1,0 +1,16 @@
+
+/*  The TLKCONV.SCR change file for MMPM2.INI  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPProgram"
+    WPTitle       = "MIDI Conversion\nUtility"
+    WPSetupString = "EXENAME=$(DEST)MIDICONV.EXE;PROGTYPE=PM;STARTUPDIR=$(DIR)0;OBJECTID=<MPM2TLK_MIDICON>"
+    WPLocation    = "<MMPMTLK>"
+    WPFlags       = 1L
+    )
+
+/* end of TLKCONV.SCR */

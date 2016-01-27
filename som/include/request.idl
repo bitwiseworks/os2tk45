@@ -1,0 +1,171 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.17.1.1 src/somd/request.idl, somd, som2.1 4/1/95 14:52:41 [7/30/96 14:45:41]
+
+
+//   IDL interface spec for CORBA Request object.
+
+
+#ifndef request_idl
+#define request_idl
+
+#include <somobj.idl>
+#include <somdtype.idl>
+
+
+interface Request : SOMObject
+{
+  ORBStatus add_arg(in Identifier name, in TypeCode arg_type, in void *value, 
+                    in long len, in Flags arg_flags);
+  
+  // Incrementally adds an arg to the Request.
+  // The Request must have been created using the "create_request"
+  // method, with an empty argument list.  (We can't add args to a
+  // list that was passed in to the create_request call. [pg. 109])
+
+  ORBStatus invoke(in Flags invoke_flags);
+  
+  // Invokes the Request synchronously, waiting for the response.
+
+  ORBStatus send(in Flags invoke_flags);
+  
+  // Invokes the Request asynchronously.  The response must eventually
+  // be checked by invoking get_response or get_next_response.
+
+  ORBStatus get_response(in Flags response_flags);
+  
+  // Determines whether an asynchronous Request has completed.
+
+  ORBStatus destroy();
+  
+  // Deletes the memory allocated by the ORB for the Request.
+
+
+#ifdef __SOMIDL__
+
+  implementation 
+  {
+    releaseorder: add_arg, invoke, send, get_response, destroy,
+		  _get_objref, _set_objref, _get_ctx, _set_ctx,
+		  _get_operation, _set_operation, 
+		  _get_argument_list, _set_argument_list,
+		  _get_return_result, _set_return_result,
+		  _get_req_flags, _set_req_flags, _get_env, _set_env;
+  
+    //# Class Modifiers
+    callstyle = idl;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+  
+    //# Passthrus
+    #define COMMON_H_PASSTHRU						  \
+      "/*"								  \
+      " *  Flags defined on requests" 					  \
+      " */" 								  \
+      ""								  \
+      "#define ARG_IN		0x00000001  	/* defined in somir.h */" \
+      "#define ARG_OUT		0x00000002	/* defined in somir.h */" \
+      "#define ARG_INOUT	0x00000004	/* defined in somir.h */" \
+      "#define IN_COPY_VALUE	0x00000008	/* add_arg flag */" 	  \
+      "#define DEPENDENT_LIST	0x00000010	/* add_item flag */" 	  \
+      "#define OUT_LIST_MEMORY	0x00000020	/* req flag */" 	  \
+      "#define INV_NO_RESPONSE	0x00000040	/* invoke flag */" 	  \
+      "#define INV_TERM_ON_ERR	0x00000080	/* invoke flag */" 	  \
+      "#define RESP_NO_WAIT	0x00000100	/* response flag */" 	  \
+      "/* Internal Use Flags */"                                          \
+      "#define AUTH_IN_MSG      0x00010000      /* msg includes auth info */" \
+      "#define ACKONEWAY        0x00020000      /* ack oneway messages */" \
+      "#define ENV_IN_MSG       0x00040000      /* msg includes env info */" \
+      "#define CTX_IN_MSG       0x00080000      /* msg includes ctx info */" \
+      "#define OBJ_OWNED        0x00100000	/* arg. mem. is obj. owned */" \
+      "#define CALLER_OWNED     0x00200000	/* arg mem is caller owned */" \
+      "#define RESULT_OUT       0x00400000	/* method result, not arg  */" \
+      "#define CLIENT_SIDE      0x00800000	/* client side of request */" \
+      "#define SERVER_SIDE      0x01000000	/* server side of request */" \
+      "#define TXCTX_IN_MSG     0x02000000      /* msg includes trans info */" \
+      "#define ARG_IS_PTRARG    0x10000000      /* ptr to arg, !aggregate */" \ 
+      "#define ARG_IS_COMPONENT 0x20000000      /* comp of aggregate type */" \
+      "#define ROOT_NOT_PTRARG  0x40000000      /* root struct not ptr */" \
+      "#define RESERVED_FLAGS	0x8c00fe00	/* future/internal use */" \
+      ""
+
+    passthru C_xh_after = COMMON_H_PASSTHRU
+      "class Request;"
+      "/*"
+      " *  Functions for multiple deferred-synchronous requests."
+      " */"
+      "ORBStatus SOMLINK send_multiple_requests ("
+      "	IN	Request*	reqs[],		/* array of Requests */"
+      "	IN	Environment	*env,"
+      "	IN	long		count,		/* number of Requests */"
+      "	IN	Flags		invoke_flags"
+      "    );"
+      ""
+      "ORBStatus SOMLINK get_next_response ("
+      "	INOUT	Environment	*env,"
+      "	IN	Flags		response_flags,"
+      "	OUT	Request*	*req"
+      ");"
+      "";
+
+    passthru C_h_after  = COMMON_H_PASSTHRU
+      "/*"
+      " *  Functions for multiple deferred-synchronous requests."
+      " */"
+      "#ifdef SOM_STRICT_IDL"
+      "ORBStatus SOMLINK send_multiple_requests ("
+      "	IN	Request		reqs[],		/* array of Requests */"
+      "	IN	Environment	*env,"
+      "	IN	long		count,		/* number of Requests */"
+      "	IN	Flags		invoke_flags"
+      "    );"
+      ""
+      "ORBStatus SOMLINK get_next_response ("
+      "	INOUT	Environment	*env,"
+      "	IN	Flags		response_flags,"
+      "	OUT	Request		*req"
+      ");"
+      "#else /* SOM_STRICT_IDL */"
+      "ORBStatus SOMLINK send_multiple_requests ("
+      "	IN	Request*	reqs[],		/* array of Requests */"
+      "	IN	Environment	*env,"
+      "	IN	long		count,		/* number of Requests */"
+      "	IN	Flags		invoke_flags"
+      "    );"
+      ""
+      "ORBStatus SOMLINK get_next_response ("
+      "	INOUT	Environment	*env,"
+      "	IN	Flags		response_flags,"
+      "	OUT	Request*	*req"
+      ");"
+      "#endif /* SOM_STRICT_IDL */"
+      ""
+      "/* define alias for CORBA compatibility */"
+      "#ifndef Request_delete"
+      "#define Request_delete Request_destroy"
+      "#endif"
+      "";
+
+
+    //# Method Modifiers
+    somInit: override;
+    somUninit: override;
+  
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* request_idl */

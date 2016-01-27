@@ -1,0 +1,115 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.7 src/somd/om.idl, somd, som2.1 9/1/94 16:53:44 [7/30/96 14:45:30]
+
+
+
+// 
+//   IDL interface spec for generic Object Manager.
+// 
+//   The Object Manager (abstract) class provides a uniform abstraction
+//   for various sorts of object managers.  Object Request Brokers, persistent
+//   storage managers, and OODBMSs are examples of object managers.
+// 
+//   This is an abstract base class, which defines the "core" interface for
+//   an object manager.  The basic groups of methods are:
+// 
+// 	- object creation (basic)
+// 	- object identification & location/activation
+// 	- object release & destruction
+// 
+//   If a desired object cannot be mapped into the client's address space, the
+//   object manager is responsible for building a local "proxy" for the remote
+//   object.  The client invokes methods on the proxy, and the proxy should
+//   redispatch the requests to the remote object in an appropriate and
+//   transparent way.
+//
+//   NOTE: Since this is only intended to be an abstract base class, there
+//   is no underlying implementation, and ObjectMgr objects should not actually
+//   be instantiated.
+//
+
+
+#ifndef om_idl
+#define om_idl
+
+#include <somobj.idl>
+#include <somdtype.idl>
+#include <snglicls.idl>
+
+
+interface ObjectMgr : SOMObject
+{
+	// methods for creation
+
+  SOMObject somdNewObject(in Identifier objclass, in string hints);
+  
+  // Returns a new object of the named class.  This is a "basic" creation
+  // method, where the decisions about where and how to create the object
+  // are mostly left up to the Object Manager.  However, the Object Manager
+  // may optionally define creation "hints" which the client may specify in 
+  // this call.
+  //
+  // OWNERSHIP of returned object is transferred to the caller.
+
+	// methods for identification & location/activation
+
+  string somdGetIdFromObject(in SOMObject obj);
+  
+  // Returns a external id for an object managed by this Object Manager.
+  // The id is unambiguous -- it always refers to the same object (as long
+  // as the object exists).
+  //
+  // OWNERSHIP of returned id string is transferred to the caller.
+
+  SOMObject somdGetObjectFromId(in string id);
+  
+  // Finds and/or activates an object implemented by this Object Manager,
+  // given its id.
+  //
+  // OWNERSHIP of returned object is transferred to the caller.
+
+	// methods for releasing / destroying objects
+
+  void somdReleaseObject(in SOMObject obj);
+  
+  // Indicates that the client has finished using the object, and the
+  // "connection" to the object, if any, can be released.
+
+  void somdDestroyObject(in SOMObject obj);
+  
+  // Causes the specified object to be destroyed.  (There is an implicit
+  // somoReleaseObject call made.)
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+    releaseorder: somdNewObject,
+  		somdGetIdFromObject,somdGetObjectFromId,
+  		somdReleaseObject,somdDestroyObject;
+  
+    //# Class Modifiers
+    callstyle = idl;
+    metaclass = SOMMSingleInstance;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+  
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* om_idl */

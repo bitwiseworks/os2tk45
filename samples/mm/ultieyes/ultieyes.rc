@@ -1,0 +1,24 @@
+/*************************************************************************
+ *
+ * File Name    : ultieyes.rc
+ *
+ * Description  : This is the resource file for the non-linear video sample
+ *                application.
+ *
+ * Concepts     : See the C source file for this program.
+ *
+ * MMPM/2 API's : See the C source file for this program.
+ *
+ * Required
+ *    Files     : See the C source file for this program.
+ *
+ * Copyright (C) IBM 1994
+ *************************************************************************/
+
+#define  INCL_WIN
+
+#include <os2.h>
+
+#include "ultieyes.h"
+
+ICON ID_ICON ultieyes.ico

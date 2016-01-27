@@ -1,0 +1,24 @@
+/**********************************************/
+/* Copyright (c) IBM Corporation  1992, 1993  */
+/**********************************************/
+
+package="IBM Multimedia Presentation Manager Toolkit/2 Resource file update to SPI.INI"
+codepage=437
+filelist="shrclst.scr"
+groupcount=2
+munitcount=1
+medianame="IBM Multimedia Presentation Manager Toolkit/2 Resource file update to SPI.INI"
+
+sourcedir = "\\"                                      = 0
+destindir = "\\MMOS2\\MMTOOLKT\\SAMPLES\\SHRC\\"      = 0
+
+ssgroup=0               /* base group */
+sssize=0
+ssname="Base"
+ssversion="1.0.0"
+
+ssgroup=1               /* resource group */
+sssize=10
+ssname="Sample Resource file"
+ssversion="1.0.0"
+ssinich="SHRCINI.SCR"

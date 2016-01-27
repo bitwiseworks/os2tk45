@@ -1,0 +1,119 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.9 src/somp/fmi.idl, somp, som2.1 12/26/95 16:54:13 [7/30/96 14:46:49]
+
+
+#ifndef fmi_idl
+#define fmi_idl
+
+#include <somp.idl>
+#include <fma.idl>
+#include <somperrd.idl>
+#include <sompstad.idl> /* stat */
+
+interface SOMPAsciiMediaInterface : SOMPFileMediaAbstract
+
+// The AsciiMediaInterface class is responsible for providing the
+// interface to the file system. The numeric data it writes is in
+// ASCII format.
+
+{
+typedef struct mediaFlags_Type {
+  octet  open_for_read;                 /* 1=read only                       */
+  octet  open_for_readwrite;            /* 1=read/write                      */
+  octet  create_if_nonexistent;         /* 1=create if file nonexistent      */
+  octet  share;                         /* 1=allow multiple readers          */
+} mediaFlagsType;
+
+typedef struct mediaInfo_Type {
+  string Name;                          /* file name                         */
+  mediaFlagsType Flags;                 /* flags, see mediaFlagsType         */
+  unsigned short unix_file_permissions; /* file permissions (unused on OS/2) */
+} mediaInfoType;
+
+   void sompInitSpecific(inout mediaInfoType mediaInfo);
+// Initialize MediaInterface with specific permissions and/or flags.
+
+   void sompStat(inout SOMPStatDef::sompstat fileStats) raises (SOMPError::sompException);
+// Fills the stat structure for the file associated with this object.
+
+
+   unsigned long sompQueryBlockSize();
+// This method returns an optimal block size for I/O operations. This
+// method would likely be called prior to allocating a buffer to be used
+// for reading/writing.
+
+   string sompGetMediaName (in string toBuffer);
+// Puts the name of the file for the fmi object into toBuffer and returns
+// the address of the buffer.  The buffer must be allocated (and freed)
+// by the client.
+
+#ifdef __SOMIDL__
+
+implementation
+{
+   callstyle=idl;
+   dllname="somp.dll";
+
+   releaseorder: sompStat, sompTruncate, sompQueryBlockSize, sompGetMediaName,
+		 sompInitSpecific;
+
+// Class Modifiers
+   majorversion = 2;
+   minorversion = 1;
+   filestem = fmi;
+
+
+// Method Modifiers
+   sompInitReadWrite: override;
+   sompInitReadOnly: override;
+   sompOpen: override;
+   sompClose: override;
+   sompSeekPosition: override;
+   sompSeekPositionRel: override;
+   sompGetOffset: override;
+   sompReadBytes: override;
+   sompWriteBytes: override;
+   somInit: override;
+   somUninit: override;
+   sompWriteOctet: override;
+   sompWriteShort: override;
+   sompWriteUnsignedShort: override;
+   sompWriteLong: override;
+   sompWriteUnsignedLong: override;
+   sompWriteDouble: override;
+   sompWriteFloat: override;
+   sompWriteCharacter: override;
+   sompWriteSomobject: override;
+   sompWriteString: override;
+   sompReadOctet: override;
+   sompReadShort: override;
+   sompReadUnsignedShort: override;
+   sompReadLong: override;
+   sompReadUnsignedLong: override;
+   sompReadDouble: override;
+   sompReadFloat: override;
+   sompReadCharacter: override;
+   sompReadSomobject: override;
+   sompReadString: override;
+   sompReadStringToBuffer: override;
+   sompWriteLine: override;
+   sompReadLine: override;
+   sompWriteTypeCode: override;
+   sompReadTypeCode: override;
+
+};
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* fmi_idl */

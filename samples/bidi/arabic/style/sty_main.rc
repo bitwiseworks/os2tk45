@@ -1,0 +1,346 @@
+/*************************************************************************
+*
+*  File Name   : STY_MAIN.RC
+*
+*  Description : This module contains resources used in the Style Sample
+*
+*  Copyright (C) 1992 IBM Corporation
+*
+*      DISCLAIMER OF WARRANTIES.  The following [enclosed] code is
+*      sample code created by IBM Corporation. This sample code is not
+*      part of any standard or IBM product and is provided to you solely
+*      for  the purpose of assisting you in the development of your
+*      applications.  The code is provided "AS IS", without
+*      warranty of any kind.  IBM shall not be liable for any damages
+*      arising out of your use of the sample code, even if they have been
+*      advised of the possibility of such damages.                                                    *
+*
+*************************************************************************/
+#include <os2.h>
+#include "sty_main.h"
+#include "sty_dlg.h"
+
+ICON IDR_MAIN sty_main.ico
+ICON IDR_TOWER tower.ico
+ICON IDR_GLOBE pcglobe.ico
+ICON IDR_WATERFALL waterfal.ico
+ICON IDR_KEY   key.ico
+ICON IDR_ICON1 sty_ico1.ico
+ICON IDR_ICON2 sty_ico2.ico
+ICON IDR_ICON3 sty_ico3.ico
+ICON IDR_ICON4 sty_ico4.ico
+
+BITMAP IDR_BITMAP prodinfo.bmp
+
+MENU IDR_MAIN
+{
+   SUBMENU     "~File", IDM_FILE, MIS_TEXT
+   {
+      MENUITEM    "~New",             IDM_FILENEW,        MIS_TEXT
+      MENUITEM    "~Open...",         IDM_FILEOPEN,       MIS_TEXT
+      MENUITEM SEPARATOR
+      MENUITEM    "~Save",            IDM_FILESAVE,       MIS_TEXT
+      MENUITEM    "Save ~as...",      IDM_FILESAVEAS,     MIS_TEXT
+   }
+
+   SUBMENU     "~Edit", IDM_EDIT, MIS_TEXT
+   {
+      SUBMENU    "~Copy",  0,    MIS_TEXT
+      {
+         MENUITEM "No Conversion",  IDM_EDITCOPY_NOCONV,       MIS_TEXT
+         MENUITEM "Auto Conversion",IDM_EDITCOPY_AUTOCONV,     MIS_TEXT
+         MENUITEM "Copy Visual",    IDM_EDITCOPY_CONV_VISUAL,  MIS_TEXT
+         MENUITEM "Copy Implicit",  IDM_EDITCOPY_CONV_IMPLICIT,MIS_TEXT
+      }
+      SUBMENU    "~Paste", 0,    MIS_TEXT
+      {
+         MENUITEM "No Conversion",  IDM_EDITPASTE_NOCONV,       MIS_TEXT
+         MENUITEM "Auto Conversion",IDM_EDITPASTE_AUTOCONV,     MIS_TEXT
+         MENUITEM "Paste Visual",   IDM_EDITPASTE_CONV_VISUAL,  MIS_TEXT
+         MENUITEM "Paste Implicit", IDM_EDITPASTE_CONV_IMPLICIT,MIS_TEXT
+      }
+   }
+
+   SUBMENU     "~Options", IDM_OPTIONS, MIS_TEXT
+   {
+      SUBMENU     "~Foreground color",  IDM_OPTIONSFORECOLOR, MIS_TEXT
+      {
+         MENUITEM    "~Black",   IDM_OPTIONSFORECOLORBLACK,  MIS_TEXT
+         MENUITEM    "B~lue",    IDM_OPTIONSFORECOLORBLUE,   MIS_TEXT
+         MENUITEM    "~Red",     IDM_OPTIONSFORECOLORRED,    MIS_TEXT
+         MENUITEM    "~Default", IDM_OPTIONSFORECOLORDEFAULT,MIS_TEXT
+      }
+
+      SUBMENU     "~Background color",  IDM_OPTIONSBACKCOLOR, MIS_TEXT
+      {
+         MENUITEM    "~Yellow",  IDM_OPTIONSBACKCOLORYELLOW, MIS_TEXT
+         MENUITEM    "~Pink",    IDM_OPTIONSBACKCOLORPINK,   MIS_TEXT
+         MENUITEM    "~Cyan",    IDM_OPTIONSBACKCOLORCYAN,   MIS_TEXT
+         MENUITEM    "~Default", IDM_OPTIONSBACKCOLORDEFAULT,MIS_TEXT
+      }
+
+      MENUITEM SEPARATOR
+      MENUITEM    "F~ont...\tCtrl+F",      IDM_OPTIONSFONT,     MIS_TEXT
+   }
+
+  SUBMENU     "~Controls",    IDM_DEMO, MIS_TEXT
+  {
+     SUBMENU     "~Dialog controls",     IDM_DEMODLG,    MIS_TEXT
+     {
+        MENUITEM    "~Buttons...",      IDM_DEMODLGBUTTONS,     MIS_TEXT
+        MENUITEM    "~List boxes...",   IDM_DEMODLGLISTBOXES,   MIS_TEXT
+        MENUITEM    "~Combo boxes...",  IDM_DEMODLGCOMBOBOXES,  MIS_TEXT
+        MENUITEM    "S~ingle Line Entry fields...", IDM_DEMODLG_SL_ENTRYFIELDS, MIS_TEXT
+        MENUITEM    "~Multi Lines Entry fields...",  IDM_DEMODLG_ML_ENTRYFIELDS, MIS_TEXT
+        MENUITEM    "~Static...",       IDM_DEMODLGSTATIC,      MIS_TEXT
+        MENUITEM    "~Presentation parameters...",   IDM_DEMODLGPP,  MIS_TEXT
+        MENUITEM SEPARATOR
+        SUBMENU     "C~ua controls",    IDM_DEMOCUACONTROLS,    MIS_TEXT
+        {
+           MENUITEM    "Sl~iders...",      IDM_DEMODLGSLIDER,     MIS_TEXT
+           MENUITEM    "S~pin Buttons...", IDM_DEMODLGSPINBUTTON, MIS_TEXT
+           MENUITEM    "~Notebook...",     IDM_DEMODLGNOTEBOOK,   MIS_TEXT
+           MENUITEM    "~Value Set...",    IDM_DEMODLGVALUESET,   MIS_TEXT
+           MENUITEM    "C~ontainer...",    IDM_DEMODLGCONTAINER,  MIS_TEXT
+        }
+     }
+
+     SUBMENU     "~Message boxes",     IDM_DEMOMSGBOX,    MIS_TEXT
+     {
+        MENUITEM    "~Ok Button...",  IDM_DEMOMSGBOXOK, MIS_TEXT
+        MENUITEM    "O~k/Cancel Buttons...", IDM_DEMOMSGBOXOKCANCEL, MIS_TEXT
+        MENUITEM    "~Yes/No Buttons...", IDM_DEMOMSGBOXYESNO, MIS_TEXT
+        MENUITEM    "Ye~s/No/Cancel Buttons...", IDM_DEMOMSGBOXYESNOCANCEL, MIS_TEXT
+        MENUITEM    "~Retry/Cancel Buttons...",   IDM_DEMOMSGBOXRETRYCANCEL,  MIS_TEXT
+        MENUITEM    "~Abort/Retry/Ignore Buttons...",   IDM_DEMOMSGBOXABORT,  MIS_TEXT
+        MENUITEM    "~Enter Button...",   IDM_DEMOMSGBOXENTER,  MIS_TEXT
+        MENUITEM    "E~nter/Cancel Buttons...",   IDM_DEMOMSGBOXENTERCANCEL,  MIS_TEXT
+        MENUITEM SEPARATOR
+        MENUITEM    "~Query Icon...",   IDM_DEMOMSGBOXQUERY, MIS_TEXT
+        MENUITEM    "~Warning Icon...",   IDM_DEMOMSGBOXWARNING, MIS_TEXT
+        MENUITEM    "~Information Icon...",   IDM_DEMOMSGBOXINFO, MIS_TEXT
+        MENUITEM    "~Action...",   IDM_DEMOMSGBOXCRITICAL, MIS_TEXT
+        MENUITEM SEPARATOR
+        MENUITEM    "~Application modal...", IDM_DEMOMSGBOXAPP, MIS_TEXT
+        MENUITEM    "~System modal...", IDM_DEMOMSGBOXSYS, MIS_TEXT
+        MENUITEM    "~Help...",  IDM_DEMOMSGBOXHELP,    MIS_TEXT
+     }
+  }
+
+
+  SUBMENU     "~Menu",    IDM_MENU,   MIS_TEXT
+  {
+     SUBMENU    "~Simple Text",   IDM_MENU_SIMPLETEXT, MIS_TEXT
+     {
+        MENUITEM  "~Simple Text1",  0, MIS_TEXT
+        MENUITEM  "S~imple Text2",  0, MIS_TEXT
+        MENUITEM  "Si~mple Text3",  0, MIS_TEXT
+     }
+
+     SUBMENU    "~Text in columns",  IDM_MENU_COLUMNS, MIS_TEXT
+     {
+        MENUITEM  "~Col1: Text1",    0, MIS_TEXT
+        MENUITEM  "C~ol1: Text22",   0, MIS_TEXT
+        MENUITEM  "Co~l1: Text333",  0, MIS_TEXT
+        MENUITEM  "~Col2: Text1",    0, MIS_TEXT | MIS_BREAK
+        MENUITEM  "C~ol2: Text22",   0, MIS_TEXT
+        MENUITEM  "Co~l2: Text333",  0, MIS_TEXT
+     }
+
+     SUBMENU    "~Tab Text", IDM_MENU_TABTEXT, MIS_TEXT
+     {
+        MENUITEM "~FirstText\tTabText",        0, MIS_TEXT
+        MENUITEM "FirstText2\tTab~Text2",      0, MIS_TEXT
+        MENUITEM "Fi~rstText33\tTabText33",    0, MIS_TEXT
+        MENUITEM "FirstText444\tTabT~ext444",  0, MIS_TEXT
+
+     }
+
+     SUBMENU    "~Alligned text", IDM_MENU_ALLIGNTEXT, MIS_TEXT
+     {
+        MENUITEM "First Text1\aAligned~Text1",     0, MIS_TEXT
+        MENUITEM "First Text22\aAlignedT~ext22",   0, MIS_TEXT
+        MENUITEM "First Text333\aAlignedTe~xt333", 0, MIS_TEXT
+     }
+
+
+     MENUITEM "~Inverse Window", IDM_MENU_INVERSE, MIS_TEXT
+  }
+
+  MENUITEM    "~Text",    IDM_TEXTCONV,  MIS_TEXT
+
+
+  SUBMENU     "~Help",    IDM_HELP,   MIS_TEXT | MIS_BUTTONSEPARATOR
+  {
+     MENUITEM    "Help ~index",          IDM_HELPINDEX,      MIS_TEXT
+     MENUITEM    "~General help",        IDM_HELPGENERAL,    MIS_TEXT
+     MENUITEM    "~Keys help",           IDM_HELPKEYS,       MIS_TEXT
+     MENUITEM    "~Using help",          IDM_HELPUSINGHELP,  MIS_TEXT
+     MENUITEM SEPARATOR
+     MENUITEM    "~Product information", IDM_HELPPRODINFO,   MIS_TEXT
+  }
+}
+
+MENU    IDD_CONTAINERMENU
+{
+   SUBMENU  "~Views", IDM_VIEWS
+   {
+      MENUITEM "ICON",      IDM_ICON,      MIS_TEXT
+      MENUITEM "NAME",      IDM_NAME,      MIS_TEXT
+      MENUITEM "TEXT",      IDM_TEXT,      MIS_TEXT
+      MENUITEM "DETAIL",    IDM_DETAIL,    MIS_TEXT
+    }
+}
+
+ACCELTABLE IDR_MAIN
+{
+   VK_F3,          IDM_EXIT,           VIRTUALKEY
+   "c",    IDM_OPTIONSFORECOLOR,    CHAR,  CONTROL
+   "f",    IDM_OPTIONSFONT,         CHAR,  CONTROL
+}
+
+STRINGTABLE
+{
+   IDS_APPNAME                 "Bidirectional Style"
+   IDS_FILEOPENEXT             "*.TXT"
+   IDS_HELPLIBRARYNAME         "STYLE.HLP"
+   IDS_OPENDLGTITLE            "Open"
+   IDS_OPENDLGBUTTON           "~Open"
+   IDS_HELPWINDOWTITLE         "Style Help"
+   IDS_SAVEDLGTITLE            "Save"
+   IDS_SAVEDLGBUTTON           "Save"
+   IDS_UNTITLED                "Untitled"
+   IDS_TITLEBARSEPARATOR       " - "
+   IDS_FONTDLGTITLE            "Font"
+   IDS_PPFONTPOINT             "8."
+   IDS_DEMOMSGBOXOK            "Ok button"
+   IDS_DEMOMSGBOXOKCANCEL      "Ok and Cancel buttons"
+   IDS_DEMOMSGBOXYESNO         "Yes and No buttons"
+   IDS_DEMOMSGBOXYESNOCANCEL   "Yes, No, and Cancel buttons"
+   IDS_DEMOMSGBOXRETRYCANCEL   "Retry and Cancel buttons"
+   IDS_DEMOMSGBOXABORT         "Abort, Retry, and Ignore buttons"
+   IDS_DEMOMSGBOXENTER         "Enter button"
+   IDS_DEMOMSGBOXENTERCANCEL   "Enter and Cancel buttons"
+   IDS_DEMOMSGBOXQUERY         "Query icon"
+   IDS_DEMOMSGBOXWARNING       "Warning icon"
+   IDS_DEMOMSGBOXINFO          "Information icon"
+   IDS_DEMOMSGBOXCRITICAL      "Action icon"
+   IDS_DEMOMSGBOXAPP           "Application modal message box"
+   IDS_DEMOMSGBOXSYS           "System modal message box"
+   IDS_DEMOMSGBOXHELP          "Help button"
+
+   IDS_BLUE                    "Blue"
+   IDS_RED                     "Red"
+   IDS_PINK                    "Pink"
+   IDS_GREEN                   "Green"
+   IDS_CYAN                    "Cyan"
+   IDS_YELLOW                  "Yellow"
+   IDS_DARKGRAY                "Dark Gray"
+   IDS_DARKBLUE                "Dark Blue"
+   IDS_DARKRED                 "Dark Red"
+   IDS_DARKPINK                "Dark Pink"
+   IDS_DARKGREEN               "Dark Green"
+   IDS_DARKCYAN                "Dark Cyan"
+   IDS_BROWN                   "Brown"
+   IDS_PALEGRAY                "Pale Gray"
+   IDS_DEFAULT                 "Default"
+
+}
+
+STRINGTABLE
+{
+   ARA_OFF+IDS_LISTBOX1_1     "œÕ«Ë"
+   ARA_OFF+IDS_LISTBOX1_2     "Ê«ÊÀ«"
+   ARA_OFF+IDS_LISTBOX1_3     "…À«‰À"
+   ARA_OFF+IDS_LISTBOX1_4     "…Ÿ»—«"
+   ARA_OFF+IDS_LISTBOX1_5     "…”ÂŒ"
+   ARA_OFF+IDS_LISTBOX1_6     "… ”"
+   ARA_OFF+IDS_LISTBOX1_7     "…Ÿ»”"
+   ARA_OFF+IDS_LISTBOX1_8     "…ÍÊ«ÂÀ"
+   ARA_OFF+IDS_LISTBOX1_9     "…Ÿ” "
+   ARA_OFF+IDS_LISTBOX1_10    "…—‘Ÿ"
+
+   ARA_OFF+IDS_LISTBOX2_1                "‘Â” "
+   ARA_OFF+IDS_LISTBOX2_2                "‚Â—"
+   ARA_OFF+IDS_LISTBOX2_3                "ÊÃËÂ"
+   ARA_OFF+IDS_LISTBOX2_4                "„Ë«„»"
+   ARA_OFF+IDS_LISTBOX2_5                "”Õ«»"
+   ARA_OFF+IDS_LISTBOX2_6                "»—‚"
+   ARA_OFF+IDS_LISTBOX2_7                "—Ÿœ"
+   ARA_OFF+IDS_LISTBOX2_8                "√Â◊«—"
+   ARA_OFF+IDS_LISTBOX2_9                "—Í«Õ"
+   ARA_OFF+IDS_LISTBOX2_10               "À‰ËÃ"
+
+   ARA_OFF+IDS_CNR_TOWER        "»—Ã"
+   ARA_OFF+IDS_CNR_WATERFALL    "‘‰«‰"
+   ARA_OFF+IDS_CNR_GLOBE        "«‰„—… «‰√—÷Í…"
+
+   ARA_OFF+IDS_CNR_TITLE        "Õ«ËÍ…)Container("
+   ARA_OFF+IDS_CNR_COLUMNTITLE  "Ÿ—»Í"
+   ARA_OFF+IDS_CNR_PICTURE      "’Ë—…"
+
+   ARA_OFF+IDS_CNR_KEY          "Â· «Õ"
+   ARA_OFF+IDS_BOOK_PAGE2       "ŸÊË«Ê «‰’·Õ… «‰À«ÊÍ… ·Í «‰Â·„—…"
+   ARA_OFF+IDS_BOOK_STL1        "’·Õ… 1 ÂÊ 3"
+   ARA_OFF+IDS_BOOK_STL2        "’·Õ… 2 ÂÊ 3"
+   ARA_OFF+IDS_BOOK_STL3        "’·Õ… 3 ÂÊ 3"
+   ARA_OFF+IDS_BOOK_TAB1MA      "~Ÿ‰«Â« "
+   ARA_OFF+IDS_BOOK_TAB1MI1     "Ÿ‰«Â«  2/S~O"
+   ARA_OFF+IDS_BOOK_TAB1MI2     "Ÿ‰«Â«  √Œ—È"
+   ARA_OFF+IDS_BOOK_TAB2MA      " ’Ê"
+   ARA_OFF+IDS_BOOK_TITLE       "·Á—”  - xednI"
+   ARA_OFF+IDS_SPIN_WHITE       "√»Í÷ "
+   ARA_OFF+IDS_SPIN_BLACK       "√”Ëœ"
+   ARA_OFF+IDS_SPIN_BLUE        "√“—‚"
+   ARA_OFF+IDS_SPIN_RED         "√ÕÂ—"
+   ARA_OFF+IDS_SPIN_PINK        "Ë—œÍ"
+   ARA_OFF+IDS_SPIN_GREEN       "√Œ÷—"
+   ARA_OFF+IDS_SPIN_CYAN        "”Â«ËÍ"
+   ARA_OFF+IDS_SPIN_YELLOW      "√’·—"
+   ARA_OFF+IDS_SPIN_DARKGREY    "—Â«œÍ ⁄«Â‚"
+   ARA_OFF+IDS_SPIN_DARKBLUE    "√“—‚ ⁄«Â‚"
+   ARA_OFF+IDS_SPIN_DARKRED     "√ÕÂ— ⁄«Â‚"
+   ARA_OFF+IDS_SPIN_DARKPINK    "Ë—œÍ ⁄«Â‚"
+   ARA_OFF+IDS_SPIN_DARKGREEN   "√Œ÷— ⁄«Â‚"
+   ARA_OFF+IDS_SPIN_DARKCYAN    "”Â«ËÍ ⁄«Â‚"
+   ARA_OFF+IDS_SPIN_BROWN       "»ÊÍ ⁄«Â‚"
+   ARA_OFF+IDS_SPIN_PALEGREY    "—Â«œÍ ⁄«Â‚"
+
+
+   ARA_OFF+IDS_COPYVISUALTEXT    "ABCD√»Ãœ"
+   ARA_OFF+IDS_COPYIMPLICITTEXT  "ABCDœÃ»√"
+
+   ARA_OFF+IDS_CONVTEXT          "Sample 123 Arabic text ÂÀ«‰ 123 ‰Ê’  Ÿ—»Í"
+}
+
+MESSAGETABLE
+{
+   IDMSG_INITFAILED            "Initalization failed."
+   IDMSG_MAINWINCREATEFAILED   "Failed to create main window."
+   IDMSG_CANNOTOPENINPUTFILE   "Cannot open input file."
+   IDMSG_CANNOTOPENOUTPUTFILE  "Cannot open output file."
+   IDMSG_CANNOTRUNCOLOR        "Cannot run Color dialog."
+   IDMSG_CANNOTGETHPS          "Cannot get HPS for window."
+   IDMSG_HELPLOADERROR         "Failed to load help manager."
+   IDMSG_CANNOTLOADSTRING      "Failed to load string."
+   IDMSG_CANNOTOPENPRINTER     "Failed to open printer."
+   IDMSG_HELPDISPLAYERROR      "Failed to display help panel."
+   IDMSG_CANNOTLOADEXITLIST    "Cannot load Exit List processor."
+   IDMSG_OVERWRITEFILE         "The file exists.  Do you want to overwrite it?"
+   IDMSG_FILECHANGED           "The file has changed.  Do you want to save it?"
+   IDMSG_UNDOFAILED            "Failed to Undo."
+   IDMSG_CANNOTGETFILEINFO     "Error getting file information."
+   IDMSG_CANNOTALLOCATEMEMORY  "Not enough memory."
+   IDMSG_CANNOTREADFILE        "Error reading file."
+   IDMSG_CANNOTWRITETOFILE     "Error writing file."
+   IDMSG_CANNOTLOADFONTS       "Cannot load fonts."
+   IDMSG_CANNOTSETPP           "Error setting presentation parameters."
+
+   IDMSG_TEST_SUCCESSFUL       "Test Success!"
+   IDMSG_TEST_ERROR            "Test Error!"
+}
+
+/* include dialog templates created by dialog box editor */
+
+rcinclude sty_help.rc
+rcinclude sty_main.dlg

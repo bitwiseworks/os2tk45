@@ -1,0 +1,123 @@
+//#  @(#) 2.13 src/somuc/morder.idl, somuc, som2.1 1/16/96 11:32:18 [7/30/96 14:50:00]
+//
+//   COMPONENT_NAME: somuc
+//
+//   ORIGINS: 82, 81, 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1996,1996
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//   Copyright © 1988-92 Apple Computer, Inc.  All rights reserved.
+
+/*
+ * CLASS_NAME: somf_MOrderableCollectible
+ *
+ * DESCRIPTION: MOrderableCollectible should be mixed into objects which
+ *              might want to be ordered.
+ *
+ */
+
+#ifndef MOrder_idl
+#define MOrder_idl
+
+#include "mcollect.idl"
+
+
+interface somf_MOrderableCollectible : somf_MCollectible
+{
+  enum EComparisonResult { kLessThan, kEqual, kGreaterThan } ;
+
+typedef somMToken somf_MOrderableCompareFn;
+typedef somMToken somf_MBetterOrderableCompareFn;
+typedef somf_MOrderableCollectible* somf_MOrderableCollectiblePtr;
+
+
+
+  //# not converted to SOM since this class has no data to clean up
+  //#   virtual ~MOrderableCollectible();
+
+  boolean somfIsGreaterThan(in somf_MOrderableCollectible obj);
+  // Returns TRUE if obj is "greater than" this.
+  //#   virtual Boolean IsGreaterThan(const MOrderableCollectible* obj) const;
+
+  boolean somfIsLessThan(in somf_MOrderableCollectible obj);
+  // Returns TRUE if obj is "less than" this.
+  //#   virtual Boolean IsLessThan(const MOrderableCollectible* obj) const;
+
+  EComparisonResult somfCompare(in somf_MOrderableCollectible obj);
+  // This method compares obj to this.
+  //#  virtual EComparisonResult Compare(const MOrderableCollectible* obj) const;
+
+  //# Not ported since these methods are the same as IsGreaterThan and
+  //# IsLessThan
+  //#   Boolean operator<(const MOrderableCollectible& obj) const;
+  //#   Boolean operator>(const MOrderableCollectible& obj) const;
+
+  boolean somfIsGreaterThanOrEqualTo(in somf_MOrderableCollectible obj);
+  // Returns TRUE if obj is "greater than" or "equal to" this.
+  //#   Boolean operator>=(const MOrderableCollectible& obj) const;
+
+  boolean somfIsLessThanOrEqualTo(in somf_MOrderableCollectible obj);
+  // Returns TRUE if obj is "less than" or "equal to" this.
+  //#   Boolean operator<=(const MOrderableCollectible& obj) const;
+
+  //# The following streaming operators are not ported until the TStream
+  //# approach is resolved.
+  //#   virtual TStream& operator>>=(TStream& towhere) const;
+  //#   virtual TStream& operator<<=(TStream& towhere);
+  //#   MCollectibleDeclarationsMacro(MOrderableCollectible);
+
+  //# protected:
+  //#   MOrderableCollectible();
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+
+    releaseorder: somfClone, somfClonePointer,
+                  somfHash, somfIsEqual,
+                  somfIsSame, somfIsNotEqual,
+                  somfIsGreaterThan, somfIsLessThan,
+                  somfCompare, somfIsGreaterThanOrEqualTo,
+                  somfIsLessThanOrEqualTo;
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem     = morder;
+    dllname      = "somuc.dll";
+    classinit    = MOrderableCollectibleClassInit;
+
+
+    passthru C_xh_after =  ""
+""
+"#define SOMF_CALL_ORDERABLE_COMPARE_FN(obj,token,parameter) (((somTD_somf_MOrderableCollectible_somfIsLessThan) somResolve(obj,token))(obj, ev, parameter))"
+""
+"#define SOMF_CALL_BETTER_ORDERABLE_COMPARE_FN(obj,token,parameter) (((somTD_somf_MOrderableCollectible_somfCompare) somResolve(obj,token))(obj, ev, parameter))"
+"";
+
+    passthru C_h_after =  ""
+""
+"#define SOMF_CALL_ORDERABLE_COMPARE_FN(obj,token,parameter) (((somTD_somf_MOrderableCollectible_somfIsLessThan) somResolve(obj,token))(obj, ev, parameter))"
+""
+"#define SOMF_CALL_BETTER_ORDERABLE_COMPARE_FN(obj,token,parameter) (((somTD_somf_MOrderableCollectible_somfCompare) somResolve(obj,token))(obj, ev, parameter))"
+"";
+
+    //# Method Modifiers
+    somfIsGreaterThan: nomodify;
+    somfIsLessThan: nomodify;
+    somfCompare: nomodify;
+    somfIsGreaterThanOrEqualTo: nomodify;
+    somfIsLessThanOrEqualTo: nomodify;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+
+#endif  /* MOrder_idl */

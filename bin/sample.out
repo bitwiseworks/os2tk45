@@ -1,0 +1,564 @@
+
+
+****************Opening script file w----511.p11**************************
+@PROCESSES=2
+@EVENTS={HASCTRL1=1,HASCTRL2=0}
+Number of events [2]
+
+Process 1 executing 127 commands.
+T:1 send string #  1 masteraudio volume 10
+ no returned string for #  1.
+T:1 send string #  2 open waveaudio alias wav1 shareable notify
+EXPECTED NOTIFY FOR #2: MM_MCINOTIFY SUCCESSFUL by MCI_OPEN script param= 1
+
+Process 2 executing 127 commands.
+T:2 send string # 50 open waveaudio alias wav2 shareable notify
+EXPECTED NOTIFY FOR #50: MM_MCINOTIFY SUCCESSFUL by MCI_OPEN script param= 21
+T:1 Notify received for #  2 MM_MCINOTIFY SUCCESSFUL by command MCI_OPEN ID 1
+NOTIFY STATUS FOR #2: PASSED
+ returned string for #  2: 1
+T:1 @WAIT_NOTIFY 1 60000
+T:1 @WAIT_PASSDEVICE WAV1 60000
+T:1 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 1
+T:1 @WAIT_NOTIFY 21 60000
+T:2 Notify received for # 50 MM_MCINOTIFY SUCCESSFUL by command MCI_OPEN ID 2
+NOTIFY STATUS FOR #50: PASSED
+T:1 send string #  3 acquire wav1 wait
+ returned string for # 50: 2
+T:2 @WAIT_PASSDEVICE WAV2 60000
+T:2 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 2
+T:2 @WAIT_EVENT HASCTRL2 180000
+T:1 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 1
+T:2 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 2
+T:1 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 1
+ no returned string for #  3.
+T:1 @WAIT_PASSDEVICE WAV1 45000
+T:1 send string #  4 load wav1 D:\MMOS2\DATA\8b22k.wav wait readonly
+ no returned string for #  4.
+T:1 send string #  5 play wav1 from 10000 to 40000
+ no returned string for #  5.
+T:1 @PAUSE 10000
+T:1 resumed.
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 51 acquire wav2 wait
+T:1 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 1
+T:2 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 2
+ no returned string for # 51.
+T:2 @WAIT_PASSDEVICE WAV2 45000
+T:2 send string # 52 load wav2 D:\MMOS2\DATA\8b11ks.wav wait readonly
+ no returned string for # 52.
+T:2 send string # 53 play wav2 from 10000 to 40000
+ no returned string for # 53.
+T:2 @PAUSE 10000
+T:2 resumed.
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+T:2 @WAIT_EVENT HASCTRL2 60000
+T:1 send string #  6 acquire wav1 wait
+T:2 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 2
+ no returned string for #  6.
+T:1 @WAIT_PASSDEVICE WAV1 45000
+T:1 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 1
+T:1 send string #  7 load wav1 D:\MMOS2\DATA\8b22ks.wav wait readonly
+ no returned string for #  7.
+T:1 send string #  8 play wav1 from 10000 to 40000
+ no returned string for #  8.
+T:1 @PAUSE 10000
+T:1 resumed.
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 54 acquire wav2 wait
+T:1 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 1
+ no returned string for # 54.
+T:2 @WAIT_PASSDEVICE WAV2 45000
+T:2 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 2
+T:2 send string # 55 load wav2 D:\MMOS2\DATA\16b11k.wav wait readonly
+ no returned string for # 55.
+T:2 send string # 56 play wav2 from 10000 to 40000
+T:1 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 1
+ no returned string for # 56.
+T:2 @PAUSE 10000
+T:2 resumed.
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+T:2 @WAIT_EVENT HASCTRL2 60000
+T:1 send string #  9 acquire wav1 wait
+ no returned string for #  9.
+T:1 @WAIT_PASSDEVICE WAV1 45000
+T:1 send string # 10 connector wav1 disable type speakers notify
+EXPECTED NOTIFY FOR #10: MM_MCINOTIFY SUCCESSFUL by MCI_CONNECTOR script param= 2
+ no returned string for # 10.
+T:1 @WAIT_NOTIFY 2 60000
+T:1 Notify received for # 10 MM_MCINOTIFY SUCCESSFUL by command MCI_CONNECTOR ID 1
+NOTIFY STATUS FOR #10: PASSED
+T:1 send string # 11 seek wav1 to start wait
+ no returned string for # 11.
+T:1 send string # 12 cue wav1 output notify
+EXPECTED NOTIFY FOR #12: MM_MCINOTIFY SUCCESSFUL by MCI_CUE script param= 3
+ no returned string for # 12.
+T:1 Notify received for # 12 MM_MCINOTIFY SUCCESSFUL by command MCI_CUE ID 1
+NOTIFY STATUS FOR #12: PASSED
+T:1 @WAIT_NOTIFY 3 60000
+T:1 send string # 13 play wav1
+ no returned string for # 13.
+T:1 @PAUSE 3000
+T:1 resumed.
+T:1 send string # 14 close wav1 wait
+ no returned string for # 14.
+T:1 send string # 15 open waveaudio alias wav1_1 shareable wait
+T:2 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 2
+ returned string for # 15: 5
+T:1 send string # 16 connector wav1_1 enable type speakers wait
+T:1 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 5
+ no returned string for # 16.
+T:1 send string # 17 load wav1_1 D:\MMOS2\DATA\8b44k.wav wait readonly
+ no returned string for # 17.
+T:1 send string # 18 cue wav1_1 output wait
+T:2 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 2
+ no returned string for # 18.
+T:1 send string # 19 play wav1_1 notify
+EXPECTED NOTIFY FOR #19: MM_MCINOTIFY SUCCESSFUL by MCI_PLAY
+ no returned string for # 19.
+T:1 @PAUSE 5000
+T:1 resumed.
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 57 acquire wav2 wait
+ no returned string for # 57.
+T:2 @WAIT_PASSDEVICE WAV2 45000
+T:2 send string # 58 load wav2 D:\MMOS2\DATA\16b22ks.wav wait readonly
+T:1 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 5
+ no returned string for # 58.
+T:2 send string # 59 play wav2 from 10000 to 40000
+ no returned string for # 59.
+T:2 @PAUSE 10000
+T:2 resumed.
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+T:2 @WAIT_EVENT HASCTRL2 60000
+T:1 send string # 20 acquire wav1_1 notify
+EXPECTED NOTIFY FOR #20: MM_MCINOTIFY SUCCESSFUL by MCI_ACQUIREDEVICE script param= 4
+T:2 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 2
+ no returned string for # 20.
+T:1 @WAIT_NOTIFY 4 60000
+T:1 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 5
+T:1 Notify received for # 20 MM_MCINOTIFY SUCCESSFUL by command MCI_ACQUIREDEVICE ID 5
+NOTIFY STATUS FOR #20: PASSED
+T:1 @WAIT_PASSDEVICE WAV1_1 45000
+T:1 @PAUSE 5000
+T:1 resumed.
+T:1 send string # 21 pause wav1_1 notify
+EXPECTED NOTIFY FOR #21: MM_MCINOTIFY SUCCESSFUL by MCI_PAUSE script param= 5
+ no returned string for # 21.
+T:1 @WAIT_NOTIFY 5 60000
+T:1 Notify received for # 21 MM_MCINOTIFY SUCCESSFUL by command MCI_PAUSE ID 5
+NOTIFY STATUS FOR #21: PASSED
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 60 masteraudio query volume wait
+EXPECTED RETURN FOR #60: 10
+ returned string for # 60: 10
+STATUS FOR #60: PASSED
+T:2 send string # 61 masteraudio volume 50
+ no returned string for # 61.
+T:2 send string # 62 acquire wav2 wait
+T:1 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 5
+ no returned string for # 62.
+T:2 @WAIT_PASSDEVICE WAV2 45000
+T:2 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 2
+T:2 send string # 63 connector wav2 enable type speakers notify
+EXPECTED NOTIFY FOR #63: MM_MCINOTIFY SUCCESSFUL by MCI_CONNECTOR script param= 22
+ no returned string for # 63.
+T:2 @WAIT_NOTIFY 22 60000
+T:2 Notify received for # 63 MM_MCINOTIFY SUCCESSFUL by command MCI_CONNECTOR ID 2
+NOTIFY STATUS FOR #63: PASSED
+T:2 send string # 64 set wav2 time format milliseconds wait
+ no returned string for # 64.
+T:2 send string # 65 seek wav2 to start wait
+ no returned string for # 65.
+T:2 send string # 66 seek wav2 to 10000 notify
+EXPECTED NOTIFY FOR #66: MM_MCINOTIFY SUCCESSFUL by MCI_SEEK script param= 23
+T:2 Notify received for # 66 MM_MCINOTIFY SUCCESSFUL by command MCI_SEEK ID 2
+NOTIFY STATUS FOR #66: PASSED
+ no returned string for # 66.
+T:2 @WAIT_NOTIFY 23 60000
+T:2 send string # 67 play wav2
+ no returned string for # 67.
+T:2 @PAUSE 3000
+T:2 resumed.
+T:2 send string # 68 close wav2 wait
+ no returned string for # 68.
+T:2 send string # 69 open waveaudio alias wav2_1 shareable wait
+T:1 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 5
+T:1 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 5
+ returned string for # 69: 7
+T:2 @WAIT_PASSDEVICE WAV2_1 45000
+T:2 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 7
+T:2 send string # 70 load wav2_1 D:\MMOS2\DATA\16b44k.wav wait readonly
+ no returned string for # 70.
+T:2 send string # 71 connector wav2_1 enable type speakers wait
+ no returned string for # 71.
+T:2 send string # 72 cue wav2_1 output wait
+T:1 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 5
+ no returned string for # 72.
+T:2 send string # 73 play wav2_1 notify
+EXPECTED NOTIFY FOR #73: MM_MCINOTIFY SUCCESSFUL by MCI_PLAY
+ no returned string for # 73.
+T:2 @PAUSE 3000
+T:2 resumed.
+T:2 send string # 74 set wav2_1 time format milliseconds wait
+ no returned string for # 74.
+T:2 send string # 75 pause wav2_1 notify
+EXPECTED NOTIFY FOR #75: MM_MCINOTIFY SUCCESSFUL by MCI_PAUSE script param= 25
+ no returned string for # 75.
+T:2 @WAIT_NOTIFY 25 60000
+T:2 Notify received for # 75 MM_MCINOTIFY SUCCESSFUL by command MCI_PAUSE ID 7
+NOTIFY STATUS FOR #75: PASSED
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+T:2 @WAIT_EVENT HASCTRL2 60000
+T:1 send string # 22 acquire wav1_1 exclusive wait
+T:2 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 7
+ no returned string for # 22.
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 76 play wav2_1 notify
+EXPECTED ERROR FOR #76: INSTANCE INACTIVE.
+ERROR MESSAGE FOR #76:  Instance inactive.
+STATUS FOR #76: PASSED
+T:2 send string # 77 acquire wav2_1 wait
+EXPECTED ERROR FOR #77: DEVICE IS LOCKED.
+ERROR MESSAGE FOR #77:  Device is locked.
+STATUS FOR #77: PASSED
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+T:2 @WAIT_EVENT HASCTRL2 60000
+T:1 send string # 23 resume wav1_1 notify
+EXPECTED NOTIFY FOR #23: MM_MCINOTIFY SUCCESSFUL by MCI_RESUME
+ no returned string for # 23.
+T:1 Notify received for # 23 MM_MCINOTIFY SUCCESSFUL by command MCI_RESUME ID 5
+NOTIFY STATUS FOR #23: PASSED
+T:1 @PAUSE 5000
+T:1 Notify received for # 19 MM_MCINOTIFY SUCCESSFUL by command MCI_PLAY ID 5
+NOTIFY STATUS FOR #19: PASSED
+T:1 resumed.
+T:1 send string # 24 release wav1_1 wait
+ no returned string for # 24.
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 78 acquire wav2_1 notify
+EXPECTED NOTIFY FOR #78: MM_MCINOTIFY SUCCESSFUL by MCI_ACQUIREDEVICE script param= 26
+ no returned string for # 78.
+T:2 @WAIT_NOTIFY 26 60000
+T:2 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 7
+T:2 Notify received for # 78 MM_MCINOTIFY SUCCESSFUL by command MCI_ACQUIREDEVICE ID 7
+NOTIFY STATUS FOR #78: PASSED
+T:2 @WAIT_PASSDEVICE WAV2_1 45000
+T:2 send string # 79 resume wav2_1 notify
+EXPECTED NOTIFY FOR #79: MM_MCINOTIFY SUCCESSFUL by MCI_RESUME
+ no returned string for # 79.
+T:2 @PAUSE 3000
+T:2 Notify received for # 79 MM_MCINOTIFY SUCCESSFUL by command MCI_RESUME ID 7
+NOTIFY STATUS FOR #79: PASSED
+T:2 resumed.
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+T:2 @WAIT_EVENT HASCTRL2 60000
+T:1 send string # 25 acquire wav1_1 exclusive wait
+T:2 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 7
+ no returned string for # 25.
+T:1 @WAIT_PASSDEVICE WAV1_1 45000
+T:1 send string # 26 stop wav1_1 notify
+EXPECTED NOTIFY FOR #26: MM_MCINOTIFY SUCCESSFUL by MCI_STOP script param= 8
+ no returned string for # 26.
+T:1 @WAIT_NOTIFY 8 60000
+T:1 Notify received for # 26 MM_MCINOTIFY SUCCESSFUL by command MCI_STOP ID 5
+NOTIFY STATUS FOR #26: PASSED
+T:1 send string # 27 release wav1_1 wait
+ no returned string for # 27.
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 80 acquire wav2_1 notify
+EXPECTED NOTIFY FOR #80: MM_MCINOTIFY SUCCESSFUL by MCI_ACQUIREDEVICE script param= 27
+ no returned string for # 80.
+T:2 @WAIT_NOTIFY 27 60000
+T:2 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 7
+T:2 Notify received for # 80 MM_MCINOTIFY SUCCESSFUL by command MCI_ACQUIREDEVICE ID 7
+NOTIFY STATUS FOR #80: PASSED
+T:2 @WAIT_PASSDEVICE WAV2_1 45000
+T:2 send string # 81 stop wav2_1 notify
+EXPECTED NOTIFY FOR #81: MM_MCINOTIFY SUCCESSFUL by MCI_STOP script param= 28
+T:2 Notify received for # 73 MM_MCINOTIFY ABORTED by command MCI_PLAY ID 7
+NOTIFY STATUS FOR #73: PASSED
+ no returned string for # 81.
+T:2 @WAIT_NOTIFY 28 60000
+T:2 Notify received for # 81 MM_MCINOTIFY SUCCESSFUL by command MCI_STOP ID 7
+NOTIFY STATUS FOR #81: PASSED
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+T:2 @WAIT_EVENT HASCTRL2 60000
+T:1 send string # 28 acquire wav1_1 exclusive wait
+T:2 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 7
+ no returned string for # 28.
+T:1 @WAIT_PASSDEVICE WAV1_1 45000
+T:1 send string # 29 seek wav1_1 to start notify
+EXPECTED NOTIFY FOR #29: MM_MCINOTIFY SUCCESSFUL by MCI_SEEK script param= 10
+ no returned string for # 29.
+T:1 @WAIT_NOTIFY 10 60000
+T:1 Notify received for # 29 MM_MCINOTIFY SUCCESSFUL by command MCI_SEEK ID 5
+NOTIFY STATUS FOR #29: PASSED
+T:1 send string # 30 release wav1_1 wait
+ no returned string for # 30.
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 82 acquire wav2_1 notify
+EXPECTED NOTIFY FOR #82: MM_MCINOTIFY SUCCESSFUL by MCI_ACQUIREDEVICE script param= 29
+ no returned string for # 82.
+T:2 @WAIT_NOTIFY 29 60000
+T:2 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 7
+T:2 Notify received for # 82 MM_MCINOTIFY SUCCESSFUL by command MCI_ACQUIREDEVICE ID 7
+NOTIFY STATUS FOR #82: PASSED
+T:2 @WAIT_PASSDEVICE WAV2_1 45000
+T:2 send string # 83 seek wav2_1 to start notify
+EXPECTED NOTIFY FOR #83: MM_MCINOTIFY SUCCESSFUL by MCI_SEEK script param= 30
+ no returned string for # 83.
+T:2 @WAIT_NOTIFY 30 60000
+T:2 Notify received for # 83 MM_MCINOTIFY SUCCESSFUL by command MCI_SEEK ID 7
+NOTIFY STATUS FOR #83: PASSED
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+T:1 send string # 31 acquire wav1_1 notify
+EXPECTED NOTIFY FOR #31: MM_MCINOTIFY SUCCESSFUL by MCI_ACQUIREDEVICE script param= 11
+ no returned string for # 31.
+T:1 @WAIT_NOTIFY 11 60000
+T:2 @WAIT_EVENT HASCTRL2 60000
+T:1 Notify received for # 31 MM_MCINOTIFY SUCCESSFUL by command MCI_ACQUIREDEVICE ID 5
+NOTIFY STATUS FOR #31: PASSED
+T:1 @WAIT_PASSDEVICE WAV1_1 45000
+T:1 send string # 32 connector wav1_1 query type speakers wait
+EXPECTED RETURN FOR #32: TRUE
+ returned string for # 32: TRUE
+STATUS FOR #32: PASSED
+T:1 send string # 33 connector wav1_1 disable type speakers notify
+EXPECTED NOTIFY FOR #33: MM_MCINOTIFY SUCCESSFUL by MCI_CONNECTOR script param= 12
+ no returned string for # 33.
+T:1 @WAIT_NOTIFY 12 60000
+T:1 Notify received for # 33 MM_MCINOTIFY SUCCESSFUL by command MCI_CONNECTOR ID 5
+NOTIFY STATUS FOR #33: PASSED
+T:1 send string # 34 play wav1_1 notify
+EXPECTED NOTIFY FOR #34: MM_MCINOTIFY SUCCESSFUL by MCI_PLAY
+ no returned string for # 34.
+T:1 @PAUSE 3000
+T:1 resumed.
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 84 acquire wav2_1 notify
+EXPECTED NOTIFY FOR #84: MM_MCINOTIFY SUCCESSFUL by MCI_ACQUIREDEVICE script param= 31
+ no returned string for # 84.
+T:2 @WAIT_NOTIFY 31 60000
+T:2 Notify received for # 84 MM_MCINOTIFY SUCCESSFUL by command MCI_ACQUIREDEVICE ID 7
+NOTIFY STATUS FOR #84: PASSED
+T:2 @WAIT_PASSDEVICE WAV2_1 45000
+T:2 send string # 85 connector wav2_1 query type speakers notify
+EXPECTED NOTIFY FOR #85: MM_MCINOTIFY SUCCESSFUL by MCI_CONNECTOR script param= 32
+ no returned string for # 85.
+T:2 @WAIT_NOTIFY 32 60000
+T:2 Notify received for # 85 MM_MCINOTIFY SUCCESSFUL by command MCI_CONNECTOR ID 7
+NOTIFY STATUS FOR #85: PASSED
+T:2 send string # 86 play wav2_1 notify
+EXPECTED NOTIFY FOR #86: MM_MCINOTIFY SUCCESSFUL by MCI_PLAY
+ no returned string for # 86.
+T:2 @PAUSE 3000
+T:2 resumed.
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+T:2 @WAIT_EVENT HASCTRL2 60000
+T:1 send string # 35 acquire wav1_1 exclusive wait
+T:2 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 7
+ no returned string for # 35.
+T:1 @WAIT_PASSDEVICE WAV1_1 45000
+T:1 send string # 36 pause wav1_1 notify
+EXPECTED NOTIFY FOR #36: MM_MCINOTIFY SUCCESSFUL by MCI_PAUSE script param= 14
+ no returned string for # 36.
+T:1 @WAIT_NOTIFY 14 60000
+T:1 Notify received for # 36 MM_MCINOTIFY SUCCESSFUL by command MCI_PAUSE ID 5
+NOTIFY STATUS FOR #36: PASSED
+T:1 send string # 37 release wav1_1 wait
+ no returned string for # 37.
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 87 acquire wav2_1 notify
+EXPECTED NOTIFY FOR #87: MM_MCINOTIFY SUCCESSFUL by MCI_ACQUIREDEVICE script param= 33
+ no returned string for # 87.
+T:2 @WAIT_PASSDEVICE WAV2_1 45000
+T:2 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 7
+T:2 Notify received for # 87 MM_MCINOTIFY SUCCESSFUL by command MCI_ACQUIREDEVICE ID 7
+T:2 @WAIT_NOTIFY 33 60000
+NOTIFY STATUS FOR #87: PASSED
+T:2 send string # 88 pause wav2_1 notify
+EXPECTED NOTIFY FOR #88: MM_MCINOTIFY SUCCESSFUL by MCI_PAUSE script param= 34
+ no returned string for # 88.
+T:2 Notify received for # 88 MM_MCINOTIFY SUCCESSFUL by command MCI_PAUSE ID 7
+T:2 @WAIT_NOTIFY 34 60000
+NOTIFY STATUS FOR #88: PASSED
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+T:1 send string # 38 acquire wav1_1 exclusive wait
+T:2 @WAIT_EVENT HASCTRL2 60000
+T:2 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 7
+ no returned string for # 38.
+T:1 @WAIT_PASSDEVICE WAV1_1 45000
+T:1 send string # 39 resume wav1_1 notify
+EXPECTED NOTIFY FOR #39: MM_MCINOTIFY SUCCESSFUL by MCI_RESUME
+ no returned string for # 39.
+T:1 @PAUSE 3000
+T:1 Notify received for # 39 MM_MCINOTIFY SUCCESSFUL by command MCI_RESUME ID 5
+NOTIFY STATUS FOR #39: PASSED
+T:1 resumed.
+T:1 send string # 40 release wav1_1 wait
+ no returned string for # 40.
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 89 acquire wav2_1 notify
+EXPECTED NOTIFY FOR #89: MM_MCINOTIFY SUCCESSFUL by MCI_ACQUIREDEVICE script param= 35
+ no returned string for # 89.
+T:2 @WAIT_NOTIFY 35 60000
+T:2 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 7
+T:2 Notify received for # 89 MM_MCINOTIFY SUCCESSFUL by command MCI_ACQUIREDEVICE ID 7
+NOTIFY STATUS FOR #89: PASSED
+T:2 @WAIT_PASSDEVICE WAV2_1 45000
+T:2 send string # 90 resume wav2_1 notify
+EXPECTED NOTIFY FOR #90: MM_MCINOTIFY SUCCESSFUL by MCI_RESUME
+ no returned string for # 90.
+T:2 @PAUSE 3000
+T:2 Notify received for # 90 MM_MCINOTIFY SUCCESSFUL by command MCI_RESUME ID 7
+NOTIFY STATUS FOR #90: PASSED
+T:1 Notify received for # 34 MM_MCINOTIFY SUCCESSFUL by command MCI_PLAY ID 5
+NOTIFY STATUS FOR #34: PASSED
+T:2 resumed.
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+T:2 @WAIT_EVENT HASCTRL2 60000
+T:1 send string # 41 acquire wav1_1 exclusive wait
+T:2 Notify received MM_MCIPASSDEVICE MCI_LOSING_USE Device ID 7
+ no returned string for # 41.
+T:1 @WAIT_PASSDEVICE WAV1_1 45000
+T:1 send string # 42 stop wav1_1 notify
+EXPECTED NOTIFY FOR #42: MM_MCINOTIFY SUCCESSFUL by MCI_STOP script param= 17
+ no returned string for # 42.
+T:1 @WAIT_NOTIFY 17 60000
+T:1 Notify received for # 42 MM_MCINOTIFY SUCCESSFUL by command MCI_STOP ID 5
+NOTIFY STATUS FOR #42: PASSED
+T:1 send string # 43 release wav1_1 wait
+ no returned string for # 43.
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 91 acquire wav2_1 notify
+EXPECTED NOTIFY FOR #91: MM_MCINOTIFY SUCCESSFUL by MCI_ACQUIREDEVICE script param= 36
+ no returned string for # 91.
+T:2 @WAIT_NOTIFY 36 60000
+T:2 Notify received MM_MCIPASSDEVICE MCI_GAINING_USE Device ID 7
+T:2 Notify received for # 91 MM_MCINOTIFY SUCCESSFUL by command MCI_ACQUIREDEVICE ID 7
+NOTIFY STATUS FOR #91: PASSED
+T:2 @WAIT_PASSDEVICE WAV2_1 45000
+T:2 send string # 92 stop wav2_1 notify
+EXPECTED NOTIFY FOR #92: MM_MCINOTIFY SUCCESSFUL by MCI_STOP script param= 37
+T:2 Notify received for # 86 MM_MCINOTIFY ABORTED by command MCI_PLAY ID 7
+NOTIFY STATUS FOR #86: PASSED
+ no returned string for # 92.
+T:2 @WAIT_NOTIFY 37 60000
+T:2 Notify received for # 92 MM_MCINOTIFY SUCCESSFUL by command MCI_STOP ID 7
+NOTIFY STATUS FOR #92: PASSED
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+T:2 @WAIT_EVENT HASCTRL2 60000
+T:1 send string # 44 status wav1_1 time format wait
+EXPECTED RETURN FOR #44: MMTIME
+ returned string for # 44: mmtime
+STATUS FOR #44: PASSED
+T:1 @WAIT_PASSDEVICE WAV2 50000
+T:1 send string # 45 status wav1_1 ready wait
+EXPECTED RETURN FOR #45: TRUE
+ returned string for # 45: TRUE
+STATUS FOR #45: PASSED
+T:1 send string # 46 acquire wav1_1 notify
+EXPECTED NOTIFY FOR #46: MM_MCINOTIFY SUCCESSFUL by MCI_ACQUIREDEVICE script param= 18
+ no returned string for # 46.
+T:1 @WAIT_NOTIFY 18 60000
+T:1 Notify received for # 46 MM_MCINOTIFY SUCCESSFUL by command MCI_ACQUIREDEVICE ID 5
+NOTIFY STATUS FOR #46: PASSED
+T:1 @WAIT_PASSDEVICE WAV1_1 45000
+T:1 send string # 47 seek wav1_1 to end notify
+EXPECTED NOTIFY FOR #47: MM_MCINOTIFY SUCCESSFUL by MCI_SEEK script param= 19
+ no returned string for # 47.
+T:1 @WAIT_NOTIFY 19 60000
+T:1 Notify received for # 47 MM_MCINOTIFY SUCCESSFUL by command MCI_SEEK ID 5
+NOTIFY STATUS FOR #47: PASSED
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+T:1 @WAIT_EVENT HASCTRL1 60000
+T:2 send string # 93 status wav2_1 time format wait
+EXPECTED RETURN FOR #93: MILLISECONDS
+ returned string for # 93: milliseconds
+STATUS FOR #93: PASSED
+T:2 send string # 94 acquire wav2_1 notify
+EXPECTED NOTIFY FOR #94: MM_MCINOTIFY SUCCESSFUL by MCI_ACQUIREDEVICE script param= 38
+ no returned string for # 94.
+T:2 @WAIT_NOTIFY 38 60000
+T:2 Notify received for # 94 MM_MCINOTIFY SUCCESSFUL by command MCI_ACQUIREDEVICE ID 7
+NOTIFY STATUS FOR #94: PASSED
+T:2 @WAIT_PASSDEVICE WAV2_1 45000
+T:2 send string # 95 status wav2_1 ready wait
+EXPECTED RETURN FOR #95: TRUE
+ returned string for # 95: TRUE
+STATUS FOR #95: PASSED
+T:2 send string # 96 seek wav2_1 to end notify
+EXPECTED NOTIFY FOR #96: MM_MCINOTIFY SUCCESSFUL by MCI_SEEK script param= 39
+ no returned string for # 96.
+T:2 @WAIT_NOTIFY 39 60000
+T:2 Notify received for # 96 MM_MCINOTIFY SUCCESSFUL by command MCI_SEEK ID 7
+NOTIFY STATUS FOR #96: PASSED
+T:2 send string # 97 close wav2_1 notify
+EXPECTED NOTIFY FOR #97: MM_MCINOTIFY SUCCESSFUL by MCI_CLOSE script param= 40
+ no returned string for # 97.
+T:2 @WAIT_NOTIFY 40 60000
+T:2 Notify received for # 97 MM_MCINOTIFY SUCCESSFUL by command MCI_CLOSE ID 7
+NOTIFY STATUS FOR #97: PASSED
+T:2 @SET_EVENT HASCTRL2 0
+T:2 @SET_EVENT HASCTRL1 1
+Process 2 finished.
+
+Waiting for late notifications for 30 sec
+T:1 send string # 48 acquire wav1_1 wait
+ no returned string for # 48.
+T:1 @WAIT_PASSDEVICE WAV1_1 45000
+T:1 send string # 49 close wav1_1 notify
+EXPECTED NOTIFY FOR #49: MM_MCINOTIFY SUCCESSFUL by MCI_CLOSE script param= 20
+ no returned string for # 49.
+T:1 @WAIT_NOTIFY 20 60000
+T:1 Notify received for # 49 MM_MCINOTIFY SUCCESSFUL by command MCI_CLOSE ID 5
+NOTIFY STATUS FOR #49: PASSED
+T:1 @SET_EVENT HASCTRL1 0
+T:1 @SET_EVENT HASCTRL2 1
+Process 1 finished.
+
+Parent waiting on [1] processes.
+
+No more processes alive.
+
+END OF SCRIPT FILE REACHED. 97 COMMANDS SENT
+
+Script completed successfuly

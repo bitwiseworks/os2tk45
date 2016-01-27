@@ -1,0 +1,71 @@
+/*==============================================================*\
+ *  clnphelp.rc - Sample apps help rc file
+ *      Copyright 1990, 1991 IBM Corp., Microsoft Corp.
+ *--------------------------------------------------------------
+ *
+ *  This resource file contains the Help table and subtable
+ *  resources used by the help manager.
+ *
+ *  You should add new tables for each dialog box and new
+ *  for each menu and dialog item you add to your application.
+ *
+\*==============================================================*/
+
+#define  INCL_WINHELP
+#define  INCL_32
+#include <os2.h>
+#include "clnpmain.h"
+#include "clnphelp.h"
+
+
+/*--------------------------------------------------------------*\
+ *  Help table definition
+\*--------------------------------------------------------------*/
+HELPTABLE   CLIP_HELP_TABLE
+BEGIN
+    HELPITEM    IDR_MAIN,       SUBTABLE_MAIN,         PANEL_MAIN
+    HELPITEM    IDD_ABOUTBOX,   SUBTABLE_ABOUTBOXDLG,  PANEL_ABOUTBOXDLG
+    HELPITEM    IDD_SERVER,     SUBTABLE_SERVER,       PANEL_REMOTESERVER
+END
+
+
+/*--------------------------------------------------------------*\
+ *  Main window subtable, includes menu item help
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+BEGIN
+    HELPSUBITEM     IDM_FILE,                   PANEL_FILE
+    HELPSUBITEM     IDM_FILESTART,              PANEL_FILESTART
+    HELPSUBITEM     IDM_FILEEXIT,               PANEL_FILEEXIT
+
+    HELPSUBITEM     IDM_OPTION,                 PANEL_OPTION
+    HELPSUBITEM     IDM_OPTIONSWAPPIECES,       PANEL_OPTIONSWAPPIECES
+
+    HELPSUBITEM     IDM_HELP,                   PANEL_HELP
+    HELPSUBITEM     IDM_HELPHELPFORHELP,        PANEL_HELPHELPFORHELP
+    HELPSUBITEM     IDM_HELPEXTENDED,           PANEL_HELPEXTENDED
+    HELPSUBITEM     IDM_HELPKEYS,               PANEL_HELPKEYS
+    HELPSUBITEM     IDM_HELPINDEX,              PANEL_HELPINDEX
+    HELPSUBITEM     IDM_HELPABOUT,              PANEL_HELPABOUT
+END
+
+/*--------------------------------------------------------------*\
+ *  About... dialog help subtable
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_ABOUTBOXDLG
+SUBITEMSIZE     2
+BEGIN
+    HELPSUBITEM     IDC_OK,             PANEL_ABOUTBOX_OK
+END
+
+/*--------------------------------------------------------------*\
+ *  Remote Server name entry dialog subtable
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_SERVER
+SUBITEMSIZE     2
+BEGIN
+    HELPSUBITEM     DID_PIPE_SVR,       PANEL_REMOTESERVER_SERVERNAME
+    HELPSUBITEM     ID_OK,              PANEL_REMOTESERVER_OK
+    HELPSUBITEM     ID_CANCEL,          PANEL_REMOTESERVER_CANCEL
+END

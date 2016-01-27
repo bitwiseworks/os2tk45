@@ -1,0 +1,34 @@
+
+/*  The TLKSTRN.SCR change file for MMPM2.INI  */
+
+/*                                       FOOTNOTES                                      */
+
+/*    The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)*/
+/*    All keywords are unique.   All keywords are shown           */
+
+/*    WPTitle is the folder title to be specified under the icon. */
+/*    The (\n) paramater allows the title to wordwrap*/
+
+/*    WPSetupString OBJECTID is required to destroy the object. */
+
+/*    WPFlags can use 0, 1, 2 (L), generally for programs 1L works*/
+/*    well and for folders 2L works well*/
+
+/*    $(DEST) is replaced with the full path of the file that was*/
+/*    used to copy the file to its destination on the hard drive*/
+
+/*    $(DIR)# is a number of a destination directory as stated in*/
+/*    the file control.scr.  The macro is replaced by the default*/
+/*    drive and the path defined in the control.scr file for the*/
+/*    specified DESTINDIR definition.  */
+
+WPObject =
+    (
+    WPClassName   = "WPProgram"
+    WPTitle       = "String Test\nSample"
+    WPSetupString = "EXENAME=$(DEST)MCISTRNG.EXE;PROGTYPE=PM;STARTUPDIR=$(DIR)11;OBJECTID=<MPM2TLK_SMCISTRNG>"
+    WPLocation    = "<SAMPLE_MMPMTLK>"
+    WPFlags       = 1L
+    )
+
+/* end of TLKSTRN.SCR */

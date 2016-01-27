@@ -1,0 +1,26 @@
+/* Rexx Calculator program 2 key - square root */
+parse arg num,  right                  /* get the two operands       */
+numeric digits CalcPrecision()         /* set current precision      */
+numeric form value CalcForm()          /* set current form           */
+
+/* Function to calculate the square root of a number using           */
+/* the Newton-Raphson method                                         */
+
+if num < 0                             /* check for negative         */
+  then return 'Error'
+  else if num = 0 then return 0        /* check for 0                */
+
+xnew = num                             /* initialize answer          */
+
+                                       /* calculate maximum          */
+eps = 0.5 * 10**(1+fuzz()-digits())    /* accuracy                   */
+
+/* Loop until a sufficiently accurate answer is obtained.            */
+
+do until abs(xold-xnew) < (eps*xnew)
+  xold = xnew                          /* save the old value         */
+  xnew = 0.5 * (xold + num / xold)     /* calculate the new          */
+end
+xnew = xnew / 1                        /* make it pretty             */
+
+return xnew

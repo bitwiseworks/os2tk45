@@ -1,0 +1,33 @@
+/*CONTROL.SCR */
+/**/
+/*Refer to the Multimedia Presentation Manager/2 programming guide for documentation*/
+/**/
+package="IBM Multimedia Presentation Manager Toolkit/2"
+codepage=437
+filelist="filelist.tk2"
+groupcount=2
+munitcount=1
+medianame="IBM Multimedia Presentation Manager Toolkit/2 Installation Diskette 1"
+
+sourcedir = "\\"                               = 4
+sourcedir = "\\MCISTRNG\\"                     = 11
+
+destindir = "\\MMOS2\\"                                = 0
+destindir = "\\MMOS2\\INSTALL\\"                       = 4
+destindir = "\\MMOS2\\MMTOOLKT\\SAMPLES\\MCISTRNG\\"   = 11
+
+ssgroup=0              /*  base group */
+sssize=41
+ssname="mmbase"
+ssversion="1.0.9"
+ssinich="TLKBASE.SCR"
+
+/*           - 11 = mcistrng */
+ssgroup=11
+ssname="Media Control Interface String Test"
+ssversion="1.0.9"
+sssize=200
+ssinich="TLKSTRN.SCR"
+ssicon="mcistrng.ico"
+
+

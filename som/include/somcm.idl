@@ -1,0 +1,237 @@
+//
+//   COMPONENT_NAME: somk
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.15.3.6 src/somk/somcm.idl, somk.cm, som2.1 12/26/95 16:46:44 [7/30/96 14:46:39]
+
+
+//  SOMClassMgr: System Object Model class manager
+
+#ifndef somcm_idl
+#define somcm_idl
+
+#include <somobj.idl>
+
+interface Repository;
+
+interface SOMClassMgr : SOMObject
+{
+  // [Basic Functions Group]
+
+  typedef SOMClass *SOMClassArray;
+  // Used for SOM 1.0 binary compatibility
+
+
+  SOMClass somLoadClassFile(in somId classId,
+                            in long majorVersion,
+                            in long minorVersion,
+                            in string file);
+  // Loads the class' code and initializes the class object.
+
+  string somLocateClassFile(in somId classId,
+                            in long majorVersion,
+                            in long minorVersion);
+  // Real implementation supplied by subclasses.  Default implementation
+  // will lookup the class name in the Interface Repository (if one is
+  // available) to determine the implementation file name (ie, DLL name).
+  // If this information is not available, the class name itself is
+  // returned as the file name.   Subclasses may use version number
+  // info to assist in deriving the file name.
+
+  void somRegisterClass(in SOMClass classObj);
+  // Lets the class manager know that the specified class is installed
+  // and tells it where the class object is.
+
+  void somRegisterClassLibrary (in string libraryName,
+                                in somMethodPtr libraryInitRtn);
+  // Informs the class manager that a class library has been loaded.
+  // "libraryName" is the name associated with the file containing the
+  // implementation(s) of the class(es) in the class library.
+  // "libraryInitRtn" is the entry point of a SOMInitModule function
+  // that can be used to initialize the class library.  For platforms
+  // that have the capability to automatically invoke a library
+  // initialization function whenever a library is loaded, a call
+  // to this method should occur within the library's automatic init
+  // function.
+
+  void somUnregisterClassLibrary (in string libraryName);
+  // Informs the class manager that a class library has been unloaded.
+  // "libraryName" is the name associated with the file containing the
+  // implementation(s) of the class(es) in the class library.
+  // For platforms that have the capability to automatically invoke a
+  // library termination function whenever a library is unloaded, a call
+  // to this method should occur within the library's automatic
+  // termination function.
+
+  long somUnloadClassFile(in SOMClass classObj);
+  // Releases the class' code and unregisters all classes in the
+  // same affinity group (see somGetRelatedClasses below).
+
+  long somUnregisterClass(in SOMClass classObj);
+  // Free the class object and removes the class from the SOM registry.
+  // If the class caused dynamic loading to occur, it is also unloaded
+  // (causing its entire affinity group to be unregistered as well).
+
+  void somBeginPersistentClasses();
+  // Starts a bracket for the current thread wherein all classes
+  // that are registered are marked as permanant and cannot be
+  // unregistered or unloaded.  Persistent classes brackets may be
+  // nested.
+
+  void somEndPersistentClasses();
+  // Ends a persistent classes bracket for the current thread.
+
+  boolean somJoinAffinityGroup(in SOMClass newClass, in SOMClass affClass);
+  // If <affClass> is a member of an affinity group, and <newClass> is not a
+  // member of any affinity group, this method adds <newClass> to the
+  // same affinity group as <affClass>.  If the method succeeds it returns
+  // TRUE, otherwise it returns FALSE.  Adding a class to an affinity group
+  // effectively equates its lifetime with that of the other members of
+  // the affinity group.
+
+
+  // [Access Group]
+
+  string somGetInitFunction();
+  // The name of the initialization function in the class' code file.
+  // Default implementation returns (*SOMClassInitFuncName)().
+
+  attribute Repository somInterfaceRepository;
+  // The Repository object that provides access to the Interface Repository,
+  // If no Interface Repository has yet been assigned to this attribute,
+  // and the SOMClassMgr is unable to load and instantiate it, the attribute
+  // will have the value NULL.  When finished using the Repository object
+  // you should release your reference using the somDestruct method with
+  // a non-zero <doFree> parameter.
+
+  readonly attribute sequence<SOMClass> somRegisteredClasses;
+  // A list of all classes currently registered in this process.
+
+  SOMClassArray somGetRelatedClasses(in SOMClass classObj);
+  // Returns an array of class objects that were all registered during
+  // the dynamic loading of a class.    These classes are considered to
+  // define an affinity group.  Any class is a member of at most one
+  // affinity group.    The affinity group returned by this call is the
+  // one containing the class identified by classObj.  The first element
+  // in the array is the class that caused the group to be loaded, or the
+  // special value -1 which means that the SOMClassMgr is currently in the
+  // process of unregistering and deleting the affinity group (only
+  // SOMClassMgr subclasses would ever see this value).
+  // The remainder of the array (elements one thru n) consists of
+  // pointers to class objects ordered in reverse chronological sequence
+  // to that in which they were originally registered.  This list includes
+  // the given argument, classObj, as one of its elements, as well as the
+  // class, if any, returned as element[0] above.  The array is terminated
+  // by a NULL pointer as the last element.  Use SOMFree to release the
+  // array when it is no longer needed.  If the supplied class was not
+  // dynamically loaded, it is not a member of any affinity
+  // group and NULL is returned.
+
+  // [Dynamic Group]
+
+  SOMClass somClassFromId(in somId classId);
+  // Finds the class object, given its Id, if it already exists.
+  // Does not load the class.  Returns NULL if the class object does
+  // not yet exist.
+
+  SOMClass somFindClass(in somId classId,
+                        in long majorVersion,
+                        in long minorVersion);
+  // Returns the class object for the specified class.  This may result
+  // in dynamic loading.  Uses somLocateClassFile to obtain the name of
+  // the file where the class' code resides, then uses somFindClsInFile.
+
+  SOMClass somFindClsInFile(in somId classId,
+                            in long majorVersion,
+                            in long minorVersion,
+                            in string file);
+  // Returns the class object for the specified class.  This may result
+  // in dynamic loading.  If the class already exists <file> is ignored,
+  // otherwise it is used to locate and dynamically load the class.
+  // Values of 0 for major and minor version numbers bypass version checking.
+
+  void somMergeInto(in SOMObject targetObj);
+  // Merges the SOMClassMgr registry information from the receiver to
+  // <targetObj>.  <targetObj> is required to be an instance of SOMClassMgr
+  // or one of its subclasses.  At the completion of this operation,
+  // the <targetObj> should be able to function as a replacement for the
+  // receiver.  At the end of the operation the receiver object (which is
+  // then in a newly uninitialized state) is freed.  Subclasses that
+  // override this method should similarly transfer their sections of
+  // the object and pass this method to their parent as the final step.
+  // If the receiving object is the distinguished instance pointed to
+  // from the global variable SOMClassMgrObject, SOMCLassMgrObject is
+  // then reassigned to point to <targetObj>.
+
+  long somSubstituteClass(in string origClassName,
+                          in string newClassName);
+  // This method causes the somFindClass, somFindClsInFile, and
+  // somClassFromId methods to return the class named newClassName
+  // whenever they would have normally returned the class named
+  // origClassName.  This effectively results in class <newClassName>
+  // replacing or substituting itself for class <origClassName>.
+  // Some restrictions are enforced to insure that this works well.
+  // Both class <origClassName> and class <newClassName> must
+  // have been already registered before issuing this method, and newClass
+  // must be an immediate child of origClass.  In addition (although not
+  // enforceable), no instances should exist of either class at the time
+  // this method is invoked.    A return value of zero indicates success;
+  // a non-zero value indicates an error was detected.
+
+#ifdef __SOMIDL__
+  implementation {
+    releaseorder: somFindClsInFile,somFindClass,
+                  somClassFromId,somRegisterClass,
+                  somUnregisterClass,somLocateClassFile,somLoadClassFile,
+                  somUnloadClassFile,somGetInitFunction,somMergeInto,
+                  somGetRelatedClasses,somSubstituteClass,
+                  _get_somInterfaceRepository, _set_somInterfaceRepository,
+                  _get_somRegisteredClasses,
+                  somBeginPersistentClasses, somEndPersistentClasses,
+                  somcmPrivate1,
+                  somcmPrivate2,
+                  somRegisterClassLibrary,
+                  somJoinAffinityGroup,
+                  somUnregisterClassLibrary
+                  ;
+
+    // Class Modifiers
+    callstyle = oidl;
+    externalstem = somcm;
+    majorversion = 1;
+    minorversion = 5; // for som2.5 kernel
+    filestem = somcm;
+    dllname = "som.dll";
+
+    // Attribute Modifiers
+    somInterfaceRepository: nodata;
+    somRegisteredClasses: nodata;
+
+    // Method Modifiers
+    somInit: override;
+    somUninit: override;
+    somDumpSelfInt: override;
+
+    somLoadClassFile: caller_owns_parameters = "classId, file";
+    somLocateClassFile: caller_owns_parameters = "classId";
+    somRegisterClassLibrary: caller_owns_parameters = "libraryName";
+    somUnregisterClassLibrary: caller_owns_parameters = "libraryName";
+    _get_somRegisteredClasses: caller_owns_result;
+    somGetRelatedClasses: caller_owns_result;
+    somClassFromId: caller_owns_parameters = "classId";
+    somFindClass: caller_owns_parameters = "classId";
+    somFindClsInFile: caller_owns_parameters = "classId, file";
+    somSubstituteClass: caller_owns_parameters = "origClassName, newClassName";
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* somcm_idl */

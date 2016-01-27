@@ -1,0 +1,16 @@
+
+/*  The tlkp2str.SCR change file  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPShadow"
+    WPTitle       = "P2STRING README"
+    WPSetupString = "SHADOWID=$(DIR)33\\README;OBJECTID=<P2STRING_README> "
+    WPLocation    = "<NEATSTUFF>"
+    WPFlags       = 2L
+    )
+
+/* end of tlkp2str.SCR */

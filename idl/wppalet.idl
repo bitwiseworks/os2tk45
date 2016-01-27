@@ -1,0 +1,242 @@
+
+//  Module Header
+//
+//  Module Name: WPPALET
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wppalet_idl
+#define wppalet_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface M_WPPalette;
+
+interface WPPalette : WPAbstract
+
+{
+  void wpPaintCell(in PCELL pCell,
+                   in HPS hps,
+                   in PRECTL prcl,
+                   in BOOL fHilite);
+
+  BOOL wpSetupCell(in PVOID pCellData,
+                   in ULONG cb,
+                   in ULONG x,
+                   in ULONG y);
+
+  BOOL wpRedrawCell(in PCELL pCell);
+
+  BOOL wpQueryPaletteInfo(in PPALINFO pPalInfo);
+
+  BOOL wpSetPaletteInfo(in PPALINFO pPalInfo);
+
+  BOOL wpEditCell(in PCELL pCell,
+                  in HWND hwndPal);
+
+  BOOL wpDragCell(in PCELL pCell,
+                  in HWND hwndPal,
+                  in PPOINTL ptlDrag);
+
+  ULONG wpQueryPaletteHelp();
+
+  void wpSelectCell(in HWND hwndPal,
+                    in PCELL pCell);
+
+  void wpPaintPalette(in HPS hps,
+                      in PRECTL prcl);
+
+  BOOL wpInitCellStructs();
+
+  BOOL wpSaveCellData(in PCELL pCell,                           
+                      in ULONG ulIndex);
+
+  BOOL wpRestoreCellData(inout PCELL pCell,                    
+                         in ULONG ulIndex,
+                         in ULONG ulCellSize);
+
+  BOOL wpFreeCellData(in PCELL pCell,                           
+                      in ULONG ulIndex);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpPaintCell,wpSelectCell,wpSetupCell,wpQueryPaletteInfo,
+                  wpSetPaletteInfo,wpEditCell,wpDragCell,withdrawn,
+                  wpInitCellStructs,wpRedrawCell,wpPaintPalette,
+                  wpPalettePrivate1,
+                  wpQueryPaletteHelp,
+                  wpPalettePrivate2,
+                  wpSaveCellData,wpRestoreCellData,             
+                  wpFreeCellData;                               
+
+    externalstem = wppal;
+    local;
+    externalprefix = pal_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wppalet;
+    metaclass = M_WPPalette;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    passthru C_h_after =  ""
+"      /*"
+"       *  Open view for the wpOpen() method"
+"       */"
+""
+"      #define OPEN_PALETTE       121"
+""
+"      /*"
+"       *  Palette save-restore keys"
+"       */"
+""
+"      #define IDKEY_PALXCELLCOUNT      1000"
+"      #define IDKEY_PALYCELLCOUNT      1001"
+"      #define IDKEY_PALXCELLWIDTH      1002"
+"      #define IDKEY_PALYCELLHEIGHT     1003"
+"      #define IDKEY_PALXGAP            1004"
+"      #define IDKEY_PALYGAP            1005"
+"      #define IDKEY_PALSCREENSIZEX     1006"
+"      #define IDKEY_PALSCREENSIZEY     1007"
+"      #define IDKEY_PALCELLDATA_FIRST  1050"
+""
+"      /*"
+"       *  Default palette information"
+"       */"
+""
+"      #define DEF_XCELLCOUNT      13" 
+"      #define DEF_YCELLCOUNT      9"  
+""
+"      /*"
+"       *  Variables kept for each open palette window as"
+"       *  a structure pointed to by the QWL_USER window"
+"       *  word ..."
+"       */"
+""
+"      typedef struct _CELL"
+"      {"
+"         ULONG       cbData;           /* Size of the data that follows */"
+""
+"         /* Class specific cell data follows immediately afterwards -"
+"          * for example the font palette would store the ASCII name of"
+"          * the font, and the color palette would store the RGB color"
+"          * of the cell."
+"          */"
+"      } CELL;"
+"      typedef CELL *PCELL;"
+""
+"      typedef struct _PALINFO"
+"      {"
+"         ULONG       xCellCount;       /* Number of columns of cells */"
+"         ULONG       yCellCount;       /* Number of rows of cells */"
+"         ULONG       xCursor;          /* Cursor location (readonly) */"
+"         ULONG       yCursor;          /* Cursor location (readonly) */"
+"         ULONG       xCellWidth;       /* Width of each cell */"
+"         ULONG       yCellHeight;      /* Height of each cell */"
+"         ULONG       xGap;             /* X separation of cells */"
+"         ULONG       yGap;             /* Y separation of cells */"
+"      } PALINFO;"
+"      typedef PALINFO *PPALINFO;"
+""
+"      #define SetPaletteDataPtr( hwnd, pPaletteData ) \"
+"           WinSetWindowULong( hwnd, QWL_USER, (ULONG)pPaletteData )"
+""
+"      #define QueryPaletteDataPtr( hwnd ) \"
+"           (PPALETTEDATA)WinQueryWindowULong( hwnd, QWL_USER )"
+""
+"      typedef struct _PALETTEDATA"
+"      {"
+"         WPFolder   *Palette;          /* Folder object for this window */"
+"         USEITEM     UseItem;          /* Folder object's INUSE list item */"
+"         VIEWITEM    ViewItem;"
+"         ULONG       xCursor;"
+"         ULONG       yCursor;"
+"      } PALETTEDATA;"
+"      typedef PALETTEDATA *PPALETTEDATA;"
+""
+"      typedef struct _CELLSTRUCT"
+"      {"
+"         RECTL       rclCell;          /* Cell coordinates */"
+"         PCELL       pCell;            /* Cell data pointer */"
+"      } CELLSTRUCT;"
+"      typedef CELLSTRUCT *PCELLSTRUCT;"
+"      /*"
+"       *  Miscellaneous"
+"       */"
+""
+"      #define PM_INVALIDATECELL WM_USER+1000"
+""
+"      /* Macros that act on a PALINFO..."
+"       */"
+"      #define PALETTE_WIDTH(p)  ( p.xCellCount*(p.xCellWidth+p.xGap) )"
+"      #define PALETTE_HEIGHT(p) ( p.yCellCount*(p.yCellHeight+p.yGap) )"
+"      #define ID_PALSCROLLHORZ     8091"
+"      #define ID_PALSCROLLVERT     8092"
+""
+"      /* Coordinates (these are in DIALOG UNITS)"
+"       */"
+"      #define CXBUTTON          12       /* Width of a button (with no text) */"
+"      #define CYBUTTON          12       /* Height of a button */"
+"      #define XBUTTONGAP        6"
+"      #define YBUTTONGAP        4"
+"      #define CYBUTTONAREA      (CYBUTTON + 2*YBUTTONGAP)"
+"      #define DEF_XCELLWIDTH    10" 
+"      #define DEF_YCELLHEIGHT   6"  
+"      #define DEF_XCELLGAP      4"  
+"      #define DEF_YCELLGAP      4"  
+""
+"";
+
+
+    wpInitData: override;
+    wpUnInitData: override;
+    wpSetup: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpMenuItemSelected: override;
+    wpOpen: override;
+    wpMenuItemHelpSelected: override;
+    wpFilterMenu: override;                                                     
+    wpModifyMenu: override;                                                     
+    somDefaultInit: override;             
+    somDestruct:    override;             
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPPalette : M_WPAbstract
+{
+  PSZ wpclsQueryEditString();
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpclsQueryEditString;
+
+    externalstem = wppal;
+    local;
+    externalprefix = palM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wppalet;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpclsQueryTitle: override;
+    wpclsQueryStyle: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryDefaultHelp: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wppalet_idl */

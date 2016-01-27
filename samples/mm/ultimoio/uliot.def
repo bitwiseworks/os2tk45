@@ -1,0 +1,24 @@
+LIBRARY ULIOT INITINSTANCE TERMINSTANCE
+DESCRIPTION 'Toolkit IO Proc Sample'
+SEGMENTS
+   SHR_SEG   CLASS 'DATA' SHARED
+DATA MULTIPLE NONSHARED
+HEAPSIZE 0
+IMPORTS
+  mmio.mmioRead
+  mmio.mmioSeek
+  mmio.mmioOpen
+  mmio.mmioClose
+  mmio.mmioGetFormats
+  mmio.mmioGetFormatName
+  mmio.mmioIdentifyFile
+  mmio.mmioIdentifyStorageSystem
+  mmio.mmioQueryIOProcModuleHandle
+  mmio.mmioInstallIOProc
+  mmio.mmioQueryHeaderLength
+  mmio.mmioStringToFOURCC
+  mmio.mmioSendMessage
+  mmio.mmioGetLastError
+EXPORTS
+        IOProc_Entry    @1
+

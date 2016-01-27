@@ -1,0 +1,26 @@
+ /**********************************************************/
+ /*   Copyright (c) IBM Corporation  1992, 1993            */
+ /**********************************************************/
+
+ MCD Command Table Sample
+ ------------------------
+
+ The following files are the command tables shipped with the MMPM/2 product.
+
+ mdmcmd.rc - Base commands command table
+
+ ampcmd.rc - Ampmix command table
+
+ lvdcmd.rc - Laserdisc command table
+
+ seqcmd.rc - Sequencer command table
+
+ xacmd.rc  - CD/XA command table
+
+ wavcmd.rc - Waveform Audio command table
+
+ cdcmd.rc  - CD command table
+
+ smvcmd.rc - Software Motion Video command table
+
+ For more information on the table layout and fields see the MMPM/2 documentation.

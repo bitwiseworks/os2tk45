@@ -1,0 +1,11 @@
+;+------------------------------------------------------------------------
+;| DUET1.DEF FILE
+;+------------------------------------------------------------------------
+
+NAME            DUET1                 WINDOWAPI
+
+DESCRIPTION     'Duet Player 1 MMPM/2 Sample Program'
+HEAPSIZE        20000
+STACKSIZE       20000
+EXPORTS         MainDialogProc
+

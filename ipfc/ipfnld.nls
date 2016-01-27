@@ -1,0 +1,26 @@
+REM="Dutch"
+REM="(C) Copyright IBM Corporation 1989, 1991"
+
+NOTE="Opmerking:  "
+CAUTION=WAARSCHUWING:
+WARNING="Attentie:  "
+OLCHARS=abcdefghijklmnopqrstuvwxyz
+OLCLOSE1=.
+OLCLOSE2=)
+ULITEMID1=
+ULITEMID2=-
+ULITEMID3=--
+CGRAPHICFONTFACENAME="Courier"
+CGRAPHICFONTWIDTH=11
+CGRAPHICFONTHEIGHT=18
+
+REM=" WORDS defines the characters that make words.  This is used for"
+REM=" searching and data compression.  The following is for Code page 850."
+
+GRAMMAR
+WORDS=0 - 9 + A - Z + a - z +
+Ä + Å + Ç + É + Ñ + Ö + á + à + â + ä + ã + å + ç + é + ê + ì + î + ï + ñ + ó +
+ò + ô + ö + † + ° + ¢ + £ + µ + ∂ + ∑ + “ + ” + ‘ + ÷ + ◊ + ÿ + ﬁ + ‡ + ‚ + „ +
+È + Í + Î
+EGRAMMAR
+

@@ -1,0 +1,25 @@
+;*******************************************************************************  
+;*                                                                             *  
+;* names.def                                                                   *
+;*                                                                             *  
+;* COPYRIGHT:                                                                  *  
+;* ----------                                                                  *  
+;* Copyright (c) 1993-1994, International Business Machines, Corporation       *
+;*               All rights reserved.
+;*                                                                             *  
+;*******************************************************************************  
+                                                                                  
+LIBRARY names   INITINSTANCE TERMINSTANCE
+                                                                                  
+DESCRIPTION 'DMI TEST DLL'
+                                                                                  
+DATA NONSHARED                                                                    
+                                                                                  
+HEAPSIZE 1024                                                                     
+                                                                                  
+PROTMODE                                                                          
+                                                                                  
+EXPORTS                                                                           
+    DmiCiInvoke
+    DmiCiCancel
+

@@ -1,0 +1,106 @@
+/**************************************************************************\
+*                                                                          *
+*       MODULE:     clock.rc                                               *
+*       COMMENT:    Clock Program Resource File                            *
+*                   Copyright IBM Corporation, 1992                        *
+*                                                                          *
+\**************************************************************************/
+
+#include <os2.h>
+#include "clock.h"
+#include "dialogs.h"
+#include "res.h"
+
+ICON   IDR_MAIN  "clock.ico"
+BITMAP IDR_MAIN  "prodinfo.bmp"
+
+
+MENU IDR_MAIN
+{
+    SUBMENU "~Settings", IDM_SETTINGS,  MIS_TEXT
+    {
+        MENUITEM "~Colors..." ,         IDM_COLORS,     MIS_TEXT
+        MENUITEM "~Tick Marks...",      IDM_TICKS,      MIS_TEXT
+        MENUITEM "~Date/Time...",       IDM_DATETIME,   MIS_TEXT
+        MENUITEM "~Alarm...",           IDM_ALARM,      MIS_TEXT
+        MENUITEM SEPARATOR
+        MENUITEM "~Second Hand",        IDM_SECONDHAND, MIS_TEXT
+        MENUITEM "T~oggle Frame Controls\tAlt+F",IDM_TOGGLECONTROLS,MIS_TEXT
+    }
+    SUBMENU "~View" , IDM_VIEW,   MIS_TEXT
+    {
+        MENUITEM "~Time",               IDM_TIME,       MIS_TEXT
+        MENUITEM "~Date",               IDM_DATE,       MIS_TEXT
+        MENUITEM SEPARATOR
+        MENUITEM "~Analog",             IDM_ANALOG,     MIS_TEXT
+        MENUITEM "D~igital",            IDM_DIGITAL,    MIS_TEXT
+    }
+
+
+    SUBMENU     "~Help",    IDM_HELP,   MIS_TEXT
+    {
+        MENUITEM    "~Help for help...",    IDM_HELPHELPFORHELP, MIS_TEXT
+        MENUITEM    "~Keys help...",        IDM_HELPKEYS,       MIS_TEXT
+        MENUITEM    "Help ~index...",       IDM_HELPINDEX,      MIS_TEXT
+        MENUITEM SEPARATOR
+        MENUITEM    "~Product Information..",IDM_HELPABOUT,      MIS_TEXT
+    }
+}
+
+
+ACCELTABLE  IDR_MAIN
+{
+    "f",    IDM_TOGGLECONTROLS, CHAR, ALT
+    "F",    IDM_TOGGLECONTROLS, CHAR, ALT
+}
+
+
+STRINGTABLE     PRELOAD
+BEGIN
+    IDS_TITLE                   "Date & Time"
+    IDS_APPNAME                 "Clock"
+    IDS_FILEOPENEXT             "*.TXT"
+    IDS_HELPLIBRARYNAME         "CLOCK.HLP"
+    IDS_OPENDLGTITLE            "Open..."
+    IDS_OPENDLGBUTTON           "Open"
+    IDS_HELPWINDOWTITLE         "Clock Help"
+    IDS_SAVEDLGTITLE            "Save..."
+    IDS_SAVEDLGBUTTON           "Save"
+    IDS_UNTITLED                "Untitled"
+    IDS_TITLEBARSEPARATOR       " - "
+    IDS_OBJECTCLASS             "Object Class"
+END
+
+
+MESSAGETABLE
+{
+    IDMSG_INITFAILED            "Initialization failed."
+    IDMSG_MAINWINCREATEFAILED   "Failed to create main window."
+    IDMSG_CANNOTOPENINPUTFILE   "Cannot open input file."
+    IDMSG_CANNOTOPENOUTPUTFILE  "Cannot open output file."
+    IDMSG_CANNOTRUNCOLOR        "Cannot run Color dialog."
+    IDMSG_CANNOTGETHPS          "Cannot get HPS for window."
+    IDMSG_HELPLOADERROR         "Failed to load help manager."
+    IDMSG_CANNOTLOADSTRING      "Failed to load string."
+    IDMSG_CANNOTOPENPRINTER     "Failed to open printer."
+    IDMSG_HELPDISPLAYERROR      "Failed to display help panel."
+    IDMSG_CANNOTLOADEXITLIST    "Cannot load Exit List processor."
+    IDMSG_PRINTINITFAILED       "Printer initialization failed."
+    IDMSG_OVERWRITEFILE         "The file exists.  Do you want to overwrite it?"
+    IDMSG_PRINTERROR            "Error while printing.  Printing aborted."
+    IDMSG_UNDOFAILED            "Failed to Undo."
+    IDMSG_CANNOTGETFILEINFO     "Error getting file information."
+    IDMSG_CANNOTALLOCATEMEMORY  "Not enough memory."
+    IDMSG_CANNOTREADFILE        "Error reading file."
+    IDMSG_CANNOTWRITETOFILE     "Error writing file."
+    IDMSG_CANNOTLOADFONTS       "Cannot load fonts."
+    IDMSG_CANNOTGETPAGEINFO     "Error obtaining printer page information."
+
+}
+
+
+rcinclude clock.dlg
+rcinclude product.dlg
+rcinclude help.rc
+
+

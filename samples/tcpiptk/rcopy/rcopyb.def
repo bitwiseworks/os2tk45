@@ -1,0 +1,14 @@
+NAME WINDOWCOMPAT
+
+IMPORTS
+	_ftperrno = FTPAPI.FTPERRNO
+	ftpget = FTPAPI.FTPGET
+	ftpput = FTPAPI.FTPPUT
+	ftpsys = FTPAPI.FTPSYS
+	ftpls = FTPAPI.FTPLS
+	ftplogoff = FTPAPI.FTPLOGOFF
+	ftptrcon = FTPAPI.FTPTRCON
+	ftpcd = FTPAPI.FTPCD
+	ftpmkd = FTPAPI.FTPMKD
+
+

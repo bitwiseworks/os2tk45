@@ -1,0 +1,2540 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<HTML><HEAD>
+<TITLE>API Reference</TITLE>
+<!-- Begin Header Records  ========================================== -->
+</HEAD><BODY>
+<!-- End Header Records  ============================================ -->
+<A NAME=Top_Of_Page>&nbsp;</A>
+<H1>Application Programming Interface (API) Reference</H1>
+<HR>
+<H1><A NAME="HDRGETS" HREF="tkasrun.htm#ToC_218">Data Access Functions</A></H1>
+<A NAME=IDX355>&nbsp;</A>
+<A NAME=IDX356>&nbsp;</A>
+<P>
+This chapter lists and describes the function calls that
+retrieve data from reply messages.
+These function calls do not interact with the engine; they
+provide local access to the logical contents of a message
+that has already been received.
+<A NAME=IDX357>&nbsp;</A>
+<A NAME=IDX360>&nbsp;</A>
+<A NAME=IDX361>&nbsp;</A>
+<A NAME=IDX362>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETALP" HREF="tkasrun.htm#ToC_60">SmGetAlphabets</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetAlphabets retrieves a list of alphabets related to specific
+enroll IDs or tasks.
+<P>
+SmGetAlphabets retrieves a list of alphabet strings.
+This function can extract data from the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_QUERY_ENROLLIDS_REPLY
+<LI>SM_QUERY_TASKS_REPLY
+</UL>
+<P>The alphabet identifies the base technology used in the
+engine.
+Enrollment data must match engine technology.
+The current engine is using a ranks based technology
+&#40;alphabet="R".&#41;.
+The previous engine used a Z-label based
+technology
+&#40;alphabet="Z".&#41;.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetAlphabets  (SM_MSG           <VAR>reply</VAR>,
+                     unsigned long   *<VAR>nalphabets</VAR>,
+                     char          ***<VAR>alphabets</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nalphabets</VAR>
+<P><DD>output -  The pointer to the number of alphabets.
+<P><DT><VAR>alphabets</VAR>
+<P><DD>output -  The pointer to a list of alphabets.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryEnrollIds
+SmQueryTasks
+</PRE>
+<A NAME=IDX363>&nbsp;</A>
+<A NAME=IDX365>&nbsp;</A>
+<A NAME=IDX367>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETALT" HREF="tkasrun.htm#ToC_61">SmGetAlternates</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetAlternates retrieves alternative words.
+<P>
+SmGetAlternates retrieves the list of alternative
+words from the reply message.
+This function can extract data from the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_QUERY_ALTERNATES_REPLY
+<LI>SM_RECOGNIZED_WORD
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetAlternates (SM_MSG          <VAR>reply</VAR>,
+                     unsigned long  *<VAR>nwords</VAR>,
+                     SM_WORD       **<VAR>words</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nwords</VAR>
+<P><DD>output -  The pointer to the number of alternative words.
+<P><DT><VAR>words</VAR>
+<P><DD>output -  The pointer to a list of alternative words.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryAlternates
+</PRE>
+<A NAME=IDX368>&nbsp;</A>
+<A NAME=IDX370>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETANN" HREF="tkasrun.htm#ToC_62">SmGetAnnotations</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetAnnotations retrieves annotations.
+<P>
+SmGetAnnotations extracts the base vocabulary name from the
+reply message, uses this name to access the image of the
+private area of the FSG file, and uses the offsets stored in SM_WORD to
+access the annotation data.
+This function can extract data from the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_RECOGNIZED_PHRASE
+</UL>
+<P>Annotations are stored in an SM_ANNOTATION structure.  SmGetAnnotations
+returns a pointer to this structure.  SM_ANNOTATION is defined as &#58;
+<PRE>
+struct _SM_ANNOTATION (
+  long      type;            // Type of annotation
+  union
+  &#123;
+      long  numeric;         // Return numeric annotations
+      char  *string;         // Return string annotations
+      void  *other;          // Reserved
+  &#125;  annodata;
+);
+</PRE>
+<P>Types of annotations are defined as &#58;
+<UL>
+<P><LI>SM_ANNOTATION_NONE
+<P><LI>SM_ANNOTATION_NUMERIC
+<P><LI>SM_ANNOTATION_STRING
+<P><LI>SM_ANNOTATION_OTHER (Reserved)
+</UL>
+<P>The SM_ANNOTATION structure has a one-to-one correspondence with the
+corresponding SM_WORD structure.  Lack of an annotation on a particular word is
+indicated by an annotation of type SM_ANNOTATION_NONE.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetAnnotations (SM_MSG         <VAR>reply</VAR>,
+                     unsigned long  *<VAR>nwords</VAR>,
+                     SM_ANNOTATION **<VAR>annotations</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nwords</VAR>
+<P><DD>output -  The pointer to the number of annotations.
+<P><DT><VAR>annotations</VAR>
+<P><DD>output -  The pointer to an annotation structure.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_SERVER_FILE_READ_ERROR
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmDefineGrammar
+SmUndefineVocab
+</PRE>
+<A NAME=IDX372>&nbsp;</A>
+<A NAME=IDX373>&nbsp;</A>
+<A NAME=IDX375>&nbsp;</A>
+<A NAME=IDX376>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETAPP" HREF="tkasrun.htm#ToC_63">SmGetApplication</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetApplication retrieves the name of the application.
+<P>
+SmGetApplication extracts the application name from
+the following reply messages&#58;
+<UL COMPACT>
+<LI>SM_COMMAND_WORD
+<LI>SM_FOCUS_STATE
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetApplication (SM_MSG   <VAR>reply</VAR>,
+                      char   **<VAR>application</VAR>); </PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>application</VAR>
+<P><DD>output -  The pointer to the name of the application.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmNcommandWordCallback
+SmNfocusStateCallback
+</PRE>
+<A NAME=IDX377>&nbsp;</A>
+<A NAME=IDX379>&nbsp;</A>
+<A NAME=IDX380>&nbsp;</A>
+<A NAME=IDX381>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETAPPS" HREF="tkasrun.htm#ToC_64">SmGetApplications</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetApplications retrieves the names of the applications
+that have established a session.
+<P>
+SmGetApplications extracts the application names from
+the SM_QUERY_SESSIONS_REPLY reply message sent by the speech
+engine to the application.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetApplications (SM_MSG         <VAR>reply</VAR>,
+                       unsigned long  <VAR>*nsessions</VAR>
+                       char           <VAR>***reco_sessions);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nsessions</VAR>
+<P><DD>output - A pointer to the number of sessions that have been established with
+the speech engine.
+<P><DT><VAR>reco_sessions</VAR>
+<P><DD>output - A pointer to a list of applications that have established sessions
+with the speech engine.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmNquerySessionsCallback
+</PRE>
+<A NAME=IDX382>&nbsp;</A>
+<A NAME=IDX384>&nbsp;</A>
+<A NAME=IDX385>&nbsp;</A>
+<A NAME=IDX386>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTAUDLV" HREF="tkasrun.htm#ToC_65">SmGetAudioLevel</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetAudioLevel retrieves the level of the audio signal during
+recognition.
+<P>
+SmGetAudioLevel provides information about the level
+of audio received by the speech engine when
+the microphone is on.
+If previously requested by the SM_AUDIO_INPUT_LEVEL parameter
+supplied to the SmSet function, packets of audio
+level values are periodically sent to the speech engine,
+which in turn calls SmNaudioLevelCallback
+and/or sends a message to your window procedure.
+Audio-level information can then be obtained
+using this function.  Audio-level values range from
+0(SM_MIN_AUDIO_LEVEL) to 10(SM_MAX_AUDIO_LEVEL)
+with acceptable volume ranges from 2 to 7.
+The average rate sent by the engine is 5
+audio-level values per second.
+This function can extract data from the following
+reply message structures&#58;
+<UL COMPACT>
+<LI>SM_AUDIO_LEVEL
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetAudioLevel (SM_MSG       <VAR>reply</VAR>,
+                     short       *<VAR>volume</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>volume</VAR>
+<P><DD>output -  The pointer to a short.
+Volume can range from SM_MIN_AUDIO_LEVEL to
+SM_MAX_AUDIO_LEVEL inclusive.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmNaudioLevelCallback
+</PRE>
+<A NAME=IDX387>&nbsp;</A>
+<A NAME=IDX389>&nbsp;</A>
+<A NAME=IDX390>&nbsp;</A>
+<A NAME=IDX391>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETDES" HREF="tkasrun.htm#ToC_66">SmGetDescriptions</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetDescriptions retrieves a list of enrollment enroll IDs,
+scripts, tasks, or users.
+<P>
+SmGetDescriptions can extract data
+from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_QUERY_ENROLLIDS_REPLY
+<LI>SM_QUERY_SCRIPTS_REPLY
+<LI>SM_QUERY_TASKS_REPLY
+<LI>SM_QUERY_USERS_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetDescriptions (SM_MSG           <VAR>reply</VAR>,
+                       unsigned long   *<VAR>ndescriptions</VAR>,
+                       char          ***<VAR>descriptions</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>ndescriptions</VAR>
+<P><DD>output -  The pointer to the number of descriptions.
+<P><DT><VAR>descriptions</VAR>
+<P><DD>output -  The pointer to a list of descriptions.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryEnrollIds
+SmQueryLanguages
+SmQueryTasks
+SmQueryUsers
+</PRE>
+<A NAME=IDX392>&nbsp;</A>
+<A NAME=IDX393>&nbsp;</A>
+<A NAME=IDX395>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTENST" HREF="tkasrun.htm#ToC_67">SmGetEngineState</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetEngineState retrieves the engine state.
+<P>
+SmGetEngineState extracts the engine state from an
+SM_GET_ENGINE_STATE reply message sent by the speech engine to
+an application.
+SM_GET_ENGINE_STATE reply messages are controlled by
+the SM_NOTIFY_ENGINE_STATE parameter of the SmSet function.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetEngineState (SM_MSG           <VAR>reply</VAR>,
+                      unsigned long   *<VAR>engine_state</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>engine_state</VAR>
+<P><DD>output -  The pointer to an unsigned long.
+Values include the following:
+<UL COMPACT>
+<LI>SM_NOTIFY_NORMAL_CPU
+<LI>SM_NOTIFY_REDUCED_CPU
+<LI>SM_NOTIFY_ENGINE_BUSY
+<LI>SM_NOTIFY_ENGINE_IDLE
+<LI>SM_NOTIFY_NAVIGATOR_EXCLUSIVE
+<LI>SM_NOTIFY_FOCUS_APP_EXCLUSIVE
+<LI>SM_NOTIFY_NONE_EXCLUSIVE
+<LI>SM_NOTIFY_RECOGNIZED_SPEECH
+<LI>SM_NOTIFY_SPEECH_START
+<LI>SM_NOTIFY_SPEECH_STOP
+<LI>SM_NOTIFY_PRONUNCIATIONS_ADDED
+<LI>SM_NOTIFY_PRONUNCIATIONS_DELETED
+<LI>SM_NOTIFY_ENGINE_SETTINGS_CHANGED
+<BR>
+for the following parameters&#58;
+<UL COMPACT>
+<LI>SM_REJECTION_THRESHOLD
+<LI>SM_AUDIO_CONFIGURATION
+<LI>SM_AUDIO_DEVICE
+<LI>SM_AUDIO_INPUT_GAIN
+<LI>SM_AUDIO_INPUT_MODE
+<LI>SM_AUDIO_OUTPUT_GAIN
+<LI>SM_AUDIO_OUTPUT_MODE
+</UL>
+<LI>SM_NOTIFY_APPLICATION_CONNECTED
+<LI>SM_NOTIFY_APPLICATION_DISCONNECTED
+</UL>
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmNengineStateCallback
+</PRE>
+<A NAME=IDX396>&nbsp;</A>
+<A NAME=IDX397>&nbsp;</A>
+<A NAME=IDX399>&nbsp;</A>
+<A NAME=IDX400>&nbsp;</A>
+<A NAME=IDX401>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTENID" HREF="tkasrun.htm#ToC_68">SmGetEnrollId</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetEnrollId retrieves an enrollment ID.
+<P>
+SmGetEnrollId is valid only for reply message structures
+that contain one enrollment ID.
+Use SmGetEnrollIds for reply message structures
+with multiple enrollment IDs.
+SmGetEnrollId can extract data
+from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_CONNECT_REPLY
+<LI>SM_QUERY_DEFAULT_REPLY
+<LI>SM_QUERY_USER_INFO_REPLY
+<LI>SM_SET_USER_INFO_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetEnrollId (SM_MSG           <VAR>reply</VAR>,
+                   char           **<VAR>enroll_id</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>enroll_id</VAR>
+<P><DD>output -  The pointer to an enrollment ID.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryDefault
+SmQueryEnrollIds
+SmQueryUserInfo
+SmSetUserInfo
+</PRE>
+<A NAME=IDX402>&nbsp;</A>
+<A NAME=IDX403>&nbsp;</A>
+<A NAME=IDX405>&nbsp;</A>
+<A NAME=IDX406>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTENRID" HREF="tkasrun.htm#ToC_69">SmGetEnrollIds</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetEnrollIds retrieves a list of enrollment IDs.
+<P>
+This function can extract data from the following
+reply message structures&#58;
+<UL COMPACT>
+<LI>SM_QUERY_DEFAULT_REPLY
+<LI>SM_QUERY_SESSIONS_REPLY
+<LI>SM_CONNECT_REPLY
+<LI>SM_QUERY_ENROLLIDS_REPLY
+<LI>SM_QUERY_USER_INFO_REPLY
+<LI>SM_SET_USER_INFO_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetEnrollIds (SM_MSG           <VAR>reply</VAR>,
+                    unsigned long   *<VAR>nenroll_ids</VAR>,
+                    char          ***<VAR>enroll_ids</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nenroll_ids</VAR>
+<P><DD>output -  The pointer to the number of enrollment IDs.
+<P><DT><VAR>enroll_ids</VAR>
+<P><DD>output -  The pointer to a list of enrollment IDs.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryEnrollIds
+SmQueryUserInfo
+SmSetUserInfo
+</PRE>
+<A NAME=IDX407>&nbsp;</A>
+<A NAME=IDX409>&nbsp;</A>
+<A NAME=IDX411>&nbsp;</A>
+<A NAME=IDX412>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETEVID" HREF="tkasrun.htm#ToC_70">SmGetEventId</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetEventId retrieves the event ID.
+<P>
+SmGetEventId can extract data from the following
+reply message structures&#58;
+<UL COMPACT>
+<LI>SM_EVENT_NOTIFY_REPLY
+<LI>SM_EVENT_SYNCH
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetEventId (SM_MSG         <VAR>reply</VAR>,
+                  unsigned long *<VAR>event_id</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>event_id</VAR>
+<P><DD>output -  The pointer to the event ID.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmEventNotify
+SmNeventSynchCallback
+</PRE>
+<A NAME=IDX413>&nbsp;</A>
+<A NAME=IDX415>&nbsp;</A>
+<A NAME=IDX417>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETEVOP" HREF="tkasrun.htm#ToC_71">SmGetEventOptions</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetEventOptions retrieves options for an event.
+<P>
+SmGetEventOptions can extract data from the following reply
+message structure&#58;
+<UL COMPACT>
+<LI>SM_EVENT_SYNCH
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetEventOptions (SM_MSG         <VAR>reply</VAR>,
+                       unsigned long *<VAR>options</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>options</VAR>
+<P><DD>output -  The pointer to options.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmNeventSynchCallback
+</PRE>
+<A NAME=IDX418>&nbsp;</A>
+<A NAME=IDX419>&nbsp;</A>
+<A NAME=IDX421>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETFMWD" HREF="tkasrun.htm#ToC_72">SmGetFirmWords</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetFirmWords retrieves firm words.
+<P>
+SmGetFirmWords extracts the SM_WORD from the
+following reply message structures&#58;
+<UL COMPACT>
+<LI>SM_RECOGNIZED_PHRASE
+<LI>SM_RECOGNIZED_TEXT
+<LI>SM_RECOGNIZED_WORD
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetFirmWords (SM_MSG          <VAR>reply</VAR>,
+                    unsigned long  *<VAR>nwords</VAR>,
+                    SM_WORD       **<VAR>words</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nwords</VAR>
+<P><DD>output -  The pointer to the number of firm words.
+<P><DT><VAR>words</VAR>
+<P><DD>output -  The pointer to a list of firm words.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmNrecognizedTextCallback
+SmNrecognizedWordCallback
+SmNcommandWordCallback
+</PRE>
+<P>
+<H2><A NAME="LENGETFOST" HREF="tkasrun.htm#ToC_73">SmGetFocusState</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetFocusState retrieves the focus state.
+<P>
+SmGetFocusState extracts the focus state from the
+SM_FOCUS_STATE reply message sent by the speech engine to an
+application.
+SM_FOCUS_STATE reply messages are controlled by the
+SmSet SM_NOTIFY_FOCUS_STATE parameter.
+The name of the application causing the focus change
+can be extracted from SM_FOCUS_STATE with SmGetApplication.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetFocusState (SM_MSG          <VAR>reply</VAR>,
+                    unsigned long  *<VAR>focus_state</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from an API function.
+<P><DT><VAR>focus_state</VAR>
+<P><DD>output -  The pointer to an unsigned long.
+Values include the following:
+<UL COMPACT>
+<LI>SM_NOTIFY_FOCUS_REQUESTED
+<LI>SM_NOTIFY_FOCUS_GRANTED
+<LI>SM_NOTIFY_FOCUS_DENIED
+<LI>SM_NOTIFY_FOCUS_RELEASED
+</UL>
+</DL>
+<P><STRONG>Return Values</STRONG>
+None.
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmNfocusStateCallback
+</PRE>
+<A NAME=IDX427>&nbsp;</A>
+<A NAME=IDX429>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETGRAM" HREF="tkasrun.htm#ToC_74">SmGetGrammarPath</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetGrammarPath retrieves the full path name of an FSG file.
+<P>
+SmGetGrammarPath extracts data from the following reply message
+structure&#58;
+<UL COMPACT>
+<LI>SM_DEFINE_GRAMMAR_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetGrammarPath (SM_MSG          <VAR>reply</VAR>,
+                      char          **<VAR>grammar_path</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>grammar_path</VAR>
+<P><DD>output -  The pointer to the full path name.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_REPLY_NULL
+SM_RC_EINVAL_MSG_TYPE
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmDefineGrammar
+</PRE>
+<A NAME=IDX430>&nbsp;</A>
+<A NAME=IDX431>&nbsp;</A>
+<A NAME=IDX433>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETINWD" HREF="tkasrun.htm#ToC_75">SmGetInfirmWords</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetInfirmWords retrieves infirm words.
+<P>
+SmGetInfirmWords
+can extract data from the following reply
+message structure&#58;
+<UL COMPACT>
+<LI>SM_RECOGNIZED_TEXT
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetInfirmWords (SM_MSG          <VAR>reply</VAR>,
+                      unsigned long  *<VAR>nwords</VAR>,
+                      SM_WORD       **<VAR>words</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nwords</VAR>
+<P><DD>output -  The pointer to the number of infirm words.
+<P><DT><VAR>words</VAR>
+<P><DD>output -  The pointer to a list of infirm words.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_REPLY_NULL
+SM_RC_EINVAL_MSG_TYPE
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmNrecognizedTextCallback
+</PRE>
+<A NAME=IDX434>&nbsp;</A>
+<A NAME=IDX435>&nbsp;</A>
+<A NAME=IDX437>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTITVAL" HREF="tkasrun.htm#ToC_76">SmGetItemValue</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetItemValue retrieves the value for an item.
+<P>
+SmGetItemValue can extract data from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_QUERY_REPLY
+<LI>SM_SET_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetItemValue (SM_MSG         <VAR>reply</VAR>,
+                    unsigned long *<VAR>item</VAR>,
+                    unsigned long *<VAR>value</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>item</VAR>
+<P><DD>output -  The pointer to the name of the item.
+<P><DT><VAR>value</VAR>
+<P><DD>output -
+The pointer to the value of the item.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQuery
+SmSet
+</PRE>
+<A NAME=IDX438>&nbsp;</A>
+<A NAME=IDX440>&nbsp;</A>
+<A NAME=IDX443>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETLAN" HREF="tkasrun.htm#ToC_77">SmGetLanguages</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetLanguages retrieves a list of languages.
+<P>
+SmGetLanguages can extract data from the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_CONNECT_REPLY
+<LI>SM_QUERY_ENROLLIDS_REPLY
+<LI>SM_QUERY_LANGUAGES_REPLY
+<LI>SM_QUERY_TASKS_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetLanguages (SM_MSG           <VAR>reply</VAR>,
+                    unsigned long   *<VAR>nlanguages</VAR>,
+                    char          ***<VAR>languages</VAR>);
+</PRE>
+<P>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nlanguages</VAR>
+<P><DD>output -  The pointer to the number of languages.
+<P><DT><VAR>languages</VAR>
+<P><DD>output -  The pointer to a list of languages.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryEnrollIds
+SmQueryLanguages
+SmQueryTasks
+SmConnect
+</PRE>
+<A NAME=IDX444>&nbsp;</A>
+<A NAME=IDX446>&nbsp;</A>
+<A NAME=IDX448>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETMIC" HREF="tkasrun.htm#ToC_78">SmGetMicState</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetMicState gets the microphone state.
+<P>
+SmGetMicState extracts the microphone state from one of the
+following messages sent by the speech engine to the
+application:
+<UL COMPACT>
+<LI>SM_REPORT_ENGINE_ERROR
+<LI>SM_FOCUS_GRANTED
+<LI>SM_MIC_STATE
+</UL>
+SM_REPORT_ENGINE_ERROR is unsolicited, and SM_FOCUS_GRANTED
+and SM_MIC_STATE are sent if the application issues
+SmSet
+for SM_NOTIFY_FOCUS_STATE and SM_NOTIFY_MIC_STATE, respectively.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetMicState (SM_MSG         <VAR>reply</VAR>,
+                   unsigned long *<VAR>mic_state</VAR>)
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>mic_state</VAR>
+<P><DD>output -  Pointer to an unsigned long,
+which can be any of the following:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P>SM_REPORT_ENGINE_ERROR
+</TD><TD><P>SM_ENGINE_MIC_ON
+<BR>
+SM_ENGINE_MIC_OFF
+</TD></TR><TR VALIGN=TOP><TD><P>SM_FOCUS_GRANTED
+</TD><TD><P>SM_NOTIFY_MIC_ON
+<BR>
+SM_ENGINE_MIC_OFF
+<BR>
+SM_NOTIFY_MIC_PAUSED
+</TD></TR><TR VALIGN=TOP><TD><P>SM_MIC_STATE
+</TD><TD><P>SM_NOTIFY_MIC_ON
+<BR>
+SM_ENGINE_MIC_OFF
+<BR>
+SM_NOTIFY_MIC_PAUSED
+</TD></TR></TABLE>
+</DL>
+<P><STRONG>Return Values</STRONG>
+None.
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmNmicStateCallback
+</PRE>
+<A NAME=IDX449>&nbsp;</A>
+<A NAME=IDX451>&nbsp;</A>
+<A NAME=IDX453>&nbsp;</A>
+<A NAME=IDX454>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETMSNM" HREF="tkasrun.htm#ToC_79">SmGetMsgName</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetMsgName retrieves the name of the audio message.
+<P>
+SmGetMsgName can extract data from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_PLAY_MESSAGE_STATUS
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetMsgName (SM_MSG   <VAR>reply</VAR>,
+                  char   **<VAR>message_name</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>message_name</VAR>
+<P><DD>output -  The pointer to the name of the audio message.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmNplayMessageStatusCallback
+</PRE>
+<A NAME=IDX455>&nbsp;</A>
+<A NAME=IDX457>&nbsp;</A>
+<A NAME=IDX459>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETMST" HREF="tkasrun.htm#ToC_80">SmGetMsgType</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetMsgType retrieves the
+type of message from the reply structure
+associated with the input.
+<P>
+SmGetMsgType can extract data from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_CONNECT_REPLY
+<LI>SM_DISCONNECT_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetMsgType (SM_MSG   <VAR>reply</VAR>,
+                  int     *<VAR>message_type</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>message_type</VAR>
+<P><DD>output -  The message type.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<A NAME=IDX460>&nbsp;</A>
+<A NAME=IDX461>&nbsp;</A>
+<A NAME=IDX463>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETNMVL" HREF="tkasrun.htm#ToC_81">SmGetNameValue</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetNameValue retrieves a name and its value.
+<P>
+SmGetNameValue retrieves a name (tag) of user information
+and its corresponding value.
+This function can extract data
+from the following reply message structures&#58;
+<UL COMPACT>
+<LI>SM_QUERY_USER_INFO_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetNameValue (SM_MSG   <VAR>reply</VAR>,
+                    char   **<VAR>name</VAR>,
+                    char   **<VAR>value</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>name</VAR>
+<P><DD>output -  The pointer to the name.
+<P><DT><VAR>value</VAR>
+<P><DD>output -  The pointer to the value of the name.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryUserInfo
+</PRE>
+<A NAME=IDX464>&nbsp;</A>
+<A NAME=IDX466>&nbsp;</A>
+<A NAME=IDX468>&nbsp;</A>
+<P>
+<H2><A NAME="LENGNWRDM" HREF="tkasrun.htm#ToC_82">SmGetNumberWordMsgs</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetNumberWordMsgs gets the number of words from a message.
+<P>
+SmGetNumberWordMsgs retrieves the number of
+SM_RECOGNIZED_WORD messages
+that have been sent since the last SM_RECOGNIZE_NEXT_WORD
+function call request.
+The value returned is 0 or 1.
+This is used with a synchronous
+SM_HALT_RECOGNIZER_REPLY message to tell if
+any unprocessed command words are still queued.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetNumberWordMsgs (SM_MSG        *<VAR>reply</VAR>,
+                         unsigned long *<VAR>nwords</VAR> )
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nwords</VAR>
+<P><DD>output -  Pointer to an unsigned long that will be filled
+in with the number of words.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_SM_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<A NAME=IDX469>&nbsp;</A>
+<A NAME=IDX471>&nbsp;</A>
+<A NAME=IDX472>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTPRCNT" HREF="tkasrun.htm#ToC_83">SmGetPercentages</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetPercentages retrieves percentages of the completeness of
+processing for specified enrollments.
+<P>
+SmGetPercentages can extract data from the following reply
+message structure&#58;
+<UL COMPACT>
+<LI>SM_QUERY_ENROLLIDS_REPLY
+</UL>
+<P>A query of enrollids for a given user returns an array
+of enrollids, with related fields, such as language or percent
+complete.
+This procedure provides an array of the percent-complete values.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetPercentages (SM_MSG          <VAR>reply</VAR>,
+                      unsigned long  *<VAR>npercentages</VAR>,
+                      short         **<VAR>percentages</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input - The reply structure from a SMAPI function.
+<P><DT><VAR>npercentages</VAR>
+<P><DD>output - The pointer to the number of percentages.
+<P><DT><VAR>percentages</VAR>
+<P><DD>output -  The pointer to a list of percentages.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryEnrollIds
+</PRE>
+<A NAME=IDX473>&nbsp;</A>
+<A NAME=IDX475>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETPHRS" HREF="tkasrun.htm#ToC_84">SmGetPhraseState</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetPhraseState retrieves phrase state flags.
+<P>
+SmGetPhraseState can extract data from the following reply
+message structure&#58;
+<UL COMPACT>
+<LI>SM_RECOGNIZED_PHRASE
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetPhraseState (SM_MSG              <VAR>reply</VAR>,
+                      unsigned long      *<VAR>phrase_state</VAR>,
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>phrase_state</VAR>
+<P><DD>output -  The pointer to an usnigned long which can be any of the
+following&#58;
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P>SM_PHRASE_ACCEPTED
+</TD><TD><P>The engine has accepted the phrase.
+<BR>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_PHRASE_HALTED
+</TD><TD><P>The engine is in a halted state and is waiting for the application to tell
+it what to do next.
+<BR>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_PHRASE_REJECTED
+</TD><TD><P>The engine has rejected the phrase, with the best guess phrase returned in
+the SM_WORD array.
+<BR>
+</TD></TR></TABLE>
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_REPLY_NULL
+SM_RC_EINVAL_MSG_TYPE
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmNRecognizedPhraseCallback
+</PRE>
+<A NAME=IDX476>&nbsp;</A>
+<A NAME=IDX478>&nbsp;</A>
+<A NAME=IDX480>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETPRON" HREF="tkasrun.htm#ToC_85">SmGetPronunciations</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetPronunciations retrieves pronunciations.
+<P>
+SmGetPronunciations can extract data from the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_QUERY_PRONUNCIATIONS_REPLY
+<LI>SM_WORD_CORRECTION_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetPronunciations (SM_MSG           <VAR>reply</VAR>,
+                         unsigned long   *<VAR>npronun</VAR>,
+                         char          ***<VAR>pronuns</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>npronun</VAR>
+<P><DD>output -  The pointer to the number of pronunciations.
+<P><DT><VAR>pronuns</VAR>
+<P><DD>output -  The pointer to a list of pronunciations.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryPronunciations
+SmWordCorrection
+</PRE>
+<A NAME=IDX481>&nbsp;</A>
+<A NAME=IDX483>&nbsp;</A>
+<A NAME=IDX485>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETRC" HREF="tkasrun.htm#ToC_86">SmGetRc</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetRc retrieves the return code for the SMAPI functions.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetRc (SM_MSG  <VAR>reply</VAR>,
+             int    *<VAR>rc</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>rc</VAR>
+<P><DD>output -  The pointer to the return code.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+All functions.
+</PRE>
+<A NAME=IDX486>&nbsp;</A>
+<A NAME=IDX489>&nbsp;</A>
+<A NAME=IDX490>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETRCD" HREF="tkasrun.htm#ToC_87">SmGetRcDescription</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetRcDescription retrieves the ASCII string describing the
+return code.
+<P>
+SmGetRcDescription remaps return codes to ASCII
+strings that describe
+the return code and, potentially, the associated failure.
+Messages are
+in US English only for diagnostic purposes.  This
+function returns a pointer to an ASCII character string that
+describes
+the return code in the parameter rc_description.
+For example, for the symbolic return code
+"SM_RC_ACOUSTICS_TOO_LONG", the associated return code
+description
+character string would be "The acoustics specified are too
+long."
+For a list of all return code character strings, see
+<A HREF="tkasru09.htm#HDRAPIRC">"SMAPI Message Explanations"</A>.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetRcDescription (SM_MSG     <VAR>reply</VAR>,
+                        char     **<VAR>rc_description</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>rc_description</VAR>
+<P><DD>output -  Pointer to a character string.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<A NAME=IDX491>&nbsp;</A>
+<A NAME=IDX494>&nbsp;</A>
+<A NAME=IDX495>&nbsp;</A>
+<A NAME=IDX496>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETRCN" HREF="tkasrun.htm#ToC_88">SmGetRcName</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetRcName returns the symbolic name of the return code as a
+string.
+<P>
+SmGetRcName retrieves the ASCII strings containing
+the symbol associated with the return code as a string.
+For example, for a return code value of 49,
+the associated symbolic return code name character string would
+be SM_RC_ACOUSTICS_TOO_LONG.
+For a list of all return code values, see
+<A HREF="tkasru09.htm#HDRRTCODE">"SMAPI Return Codes and Messages"</A>.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetRcName (SM_MSG      <VAR>reply,
+                 char      **<VAR>rc_name</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  Any return code associated with any Sm call.
+<P><DT><VAR>rc_name</VAR>
+<P><DD>output -  Pointer to a character string.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<A NAME=IDX497>&nbsp;</A>
+<A NAME=IDX500>&nbsp;</A>
+<A NAME=IDX501>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETSCR" HREF="tkasrun.htm#ToC_89">SmGetScripts</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetScripts retrieves a list of enrollment scripts.
+<P>
+SmGetScripts can extract data from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_QUERY_DEFAULT_REPLY
+<LI>SM_QUERY_ENROLLIDS_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetScripts (SM_MSG             <VAR>reply</VAR>,
+                  unsigned long     *<VAR>nscripts</VAR>,
+                  char            ***<VAR>scripts</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nscripts</VAR>
+<P><DD>output -  The pointer to the number of scripts.
+<P><DT><VAR>scripts</VAR>
+<P><DD>output -  The pointer to a list of scripts.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryEnrollIds
+</PRE>
+<A NAME=IDX502>&nbsp;</A>
+<A NAME=IDX504>&nbsp;</A>
+<A NAME=IDX505>&nbsp;</A>
+<A NAME=IDX506>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETSERV" HREF="tkasrun.htm#ToC_90">SmGetService</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetService retrieves a pointer to the argument name describing
+the service requested from the speech engine.
+<P>
+SmGetService can extract data
+from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_CONNECT_REPLY
+<LI>SM_DISCONNECT_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetService (SM_MSG     <VAR>reply</VAR>,
+                  char     **<VAR>service</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>service</VAR>
+<P><DD>output -  The pointer to the service name.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<TABLE CELLPADDING=3>
+</TABLE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmConnect
+SmDisconnect
+</PRE>
+<A NAME=IDX507>&nbsp;</A>
+<A NAME=IDX509>&nbsp;</A>
+<A NAME=IDX511>&nbsp;</A>
+<A NAME=IDX512>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTSESID" HREF="tkasrun.htm#ToC_91">SmGetSessionId</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetSessionId retrieves the session ID from the reply structure.
+<P>
+SmGetSessionId can extract data from the
+following reply message structure&#58;
+<UL COMPACT>
+<LI>SM_CONNECT_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetSessionId (SM_MSG     <VAR>reply</VAR>,
+                    char     **<VAR>session_id</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>session_id</VAR>
+<P><DD>output -  The pointer to the ID of the session.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmConnect
+</PRE>
+<A NAME=IDX513>&nbsp;</A>
+<A NAME=IDX515>&nbsp;</A>
+<A NAME=IDX516>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETSEV" HREF="tkasrun.htm#ToC_92">SmGetSeverity</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetSeverity retrieves the severity associated with an
+unsolicited SM_REPORT_ENGINE_ERROR message.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetSeverity (SM_MSG           <VAR>reply</VAR>,
+                   unsigned long   *<VAR>severity</VAR>)
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>severity</VAR>
+<P><DD>output -  Pointer to an unsigned long that will be filled in
+with the severity.
+Values include the following:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P>SM_ENGINE_INFO
+</TD><TD><P>Informational message/can be ignored.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENGINE_WARNING
+</TD><TD><P>Non-terminal error detected by engine.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENGINE_ERROR
+</TD><TD><P>Currently unused, but can be used in the future.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENGINE_TERMINAL_ERROR
+</TD><TD><P>Engine terminated due to unrecoverable error.
+</TD></TR></TABLE>
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_SM_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<A NAME=IDX517>&nbsp;</A>
+<A NAME=IDX519>&nbsp;</A>
+<A NAME=IDX521>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETARCH" HREF="tkasrun.htm#ToC_93">SmGetSpeechDataArchive</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetSpeechDataArchive retrieves the name of the archive file.
+<P>
+SmGetSpeechDataArchive extracts data
+associated with the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_SAVE_SPEECH_DATA_REPLY
+<LI>SM_RESTORE_SPEECH_DATA_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetSpeechDataArchive (SM_MSG     <VAR>reply</VAR>,
+                            char     **<VAR>archive</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>archive</VAR>
+<P><DD>output -  The pointer to the archive name.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_REPLY_NULL
+SM_RC_SM_EINVAL_MSG_TYPE
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmSaveSpeechData
+SmRestoreSpeechData
+</PRE>
+<A NAME=IDX522>&nbsp;</A>
+<A NAME=IDX524>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETOPT" HREF="tkasrun.htm#ToC_94">SmGetSpeechDataOptions</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetSpeechDataOptions retrieves the options flags.
+<P>
+SmGetSpeechDataOptions extracts data associated with the following reply
+message structure&#58;
+<UL COMPACT>
+<LI>SM_SAVE_SPEECH_DATA_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetSpeechDataOptions (SM_MSG     <VAR>reply</VAR>,
+                            long      *<VAR>options</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>options</VAR>
+<P><DD>output -  The pointer to the options flags, which can be one of the
+following&#58;
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P>SM_NORMAL_FILE
+</TD><TD><P>This indicates that the speech data was written to a flat file.  It will
+contain only engine data.
+<BR>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_COMPOUND_FILE
+</TD><TD><P>This indicates that the speech data is written to a
+file, and the data is saved in a section
+named "VTDSessionArchive."  The file can contain both
+engine state and application state data.
+<BR>
+</TD></TR></TABLE>
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_REPLY_NULL
+SM_RC_SM_EINVAL_MSG_TYPE
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmSaveSpeechData
+</PRE>
+<A NAME=IDX525>&nbsp;</A>
+<A NAME=IDX527>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETSIZ" HREF="tkasrun.htm#ToC_95">SmGetSpeechDataSize</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetSpeechDataSize retrieves the size of the speech data archive.
+<P>
+SmGetSpeechDataSize extracts data associated with the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_SAVE_SPEECH_DATA_REPLY
+<LI>SM_QUERY_SPEECH_DATA_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetSpeechDataSize (SM_MSG          <VAR>reply</VAR>,
+                         unsigned long  *<VAR>size</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>size</VAR>
+<P><DD>output -  The pointer to the size of the speech data archive.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_REPLY_NULL
+SM_RC_SM_EINVAL_MSG_TYPE
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQuerySpeechData
+SmSaveSpeechData
+</PRE>
+<A NAME=IDX528>&nbsp;</A>
+<A NAME=IDX530>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETVER" HREF="tkasrun.htm#ToC_96">SmGetSpeechDataVersion</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetSpeechDataVersion retrieves the version identifier.
+<P>
+SmGetSpeechDataVersion extracts data associated with the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_SAVE_SPEECH_DATA_REPLY
+<LI>SM_RESTORE_SPEECH_DATA_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetSpeechDataVersion (SM_MSG          <VAR>reply</VAR>,
+                            long           *<VAR>version</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>version</VAR>
+<P><DD>output -  The pointer to the version identifier.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_REPLY_NULL
+SM_RC_SM_EINVAL_MSG_TYPE
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmRestoreSpeechData
+SmSaveSpeechData
+</PRE>
+<A NAME=IDX531>&nbsp;</A>
+<A NAME=IDX533>&nbsp;</A>
+<A NAME=IDX535>&nbsp;</A>
+<A NAME=IDX536>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETSPEL" HREF="tkasrun.htm#ToC_97">SmGetSpelling</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetSpelling gets the spelling from a message.
+<P>
+SmGetSpelling
+extracts
+data and retrieves the spelling
+associated with the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_ADD_PRONUNCIATION_REPLY
+<LI>SM_QUERY_PRONUNCIATION_REPLY
+<LI>SM_REMOVE_PRONUNCIATION_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetSpelling (SM_MSG     <VAR>reply</VAR>,
+                   char     **<VAR>spelling</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>spelling</VAR>
+<P><DD>output -  Pointer to a character string.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_SM_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddPronunciation
+SmQueryPronunciation
+SmRemovePronunciation
+SmWordCorrection
+</PRE>
+<A NAME=IDX537>&nbsp;</A>
+<A NAME=IDX539>&nbsp;</A>
+<A NAME=IDX540>&nbsp;</A>
+<A NAME=IDX541>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTSPL" HREF="tkasrun.htm#ToC_98">SmGetSpellings</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetSpellings retrieves spellings.
+<P>
+SmGetSpellings
+extracts
+data and retrieves the spelling
+associated with the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_ADD_PRONUNCIATION_REPLY
+<LI>SM_QUERY_PRONUNCIATIONS_REPLY
+<LI>SM_REMOVE_PRONUNCIATION_REPLY
+<LI>SM_WORD_CORRECTION_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetSpellings (SM_MSG             <VAR>reply</VAR>,
+                    unsigned long     *<VAR>nspellings</VAR>,
+                    char            ***<VAR>spellings</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nspellings</VAR>
+<P><DD>output -  The pointer to the number of spellings.
+<P><DT><VAR>spellings</VAR>
+<P><DD>output -  The pointer to a list of spellings.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddPronunciation
+SmQueryPronunciations
+SmRemovePronunciation
+SmWordCorrection
+</PRE>
+<A NAME=IDX542>&nbsp;</A>
+<A NAME=IDX544>&nbsp;</A>
+<A NAME=IDX545>&nbsp;</A>
+<A NAME=IDX546>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETSTAT" HREF="tkasrun.htm#ToC_99">SmGetStates</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetStates retrieves enrollment statuses.
+<P>
+SmGetStates can extract data
+from the following reply message
+structure&#58;
+<UL COMPACT>
+<LI>SM_QUERY_ENROLLIDS_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetStates (SM_MSG            <VAR>reply</VAR>,
+                unsigned long     *<VAR>nstati</VAR>,
+                short            **<VAR>stati</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nstati</VAR>
+<P><DD>output -  The pointer to the number of statuses.
+<P><DT><VAR>stati</VAR>
+<P><DD>output -  The pointer to a list of statuses.
+Values include the following:
+<UL COMPACT>
+<LI>SM_STAT_ENROLLMENT_RECORDING
+<LI>SM_STAT_ENROLLMENT_RUNNING
+<LI>SM_STAT_ENROLLMENT_COMPLETE
+<LI>SM_STAT_ENROLLMENT_FAILED
+<LI>SM_STAT_ENROLLMENT_BUSY
+</UL>
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryEnrollIds
+</PRE>
+<A NAME=IDX547>&nbsp;</A>
+<A NAME=IDX549>&nbsp;</A>
+<A NAME=IDX550>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTSTATU" HREF="tkasrun.htm#ToC_100">SmGetStatus</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetStatus retrieves the status.
+<P>
+SmGetStatus can extract data
+from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_PLAY_MESSAGE_STATUS
+<LI>SM_PLAY_UTTERANCE_STATUS
+<LI>SM_PLAY_WORDS_STATUS
+<LI>SM_WORD_CORRECTION_REPLY
+</UL>
+The SmGetStatus function retrieves the status from the reply
+structure.
+This status and its meaning depend on the related function that
+was
+called just before the SmGetStatus call.
+The following statuses are possible:
+<UL>
+<P><LI>For SmNplayMessageCallback,
+SmNplayUtteranceCallback,
+and SmNplayWordCallback&#58;
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD>SM_STAT_PLAY_START
+</TD><TD>The message, utterance, or word playback started.
+</TD></TR><TR VALIGN=TOP><TD>SM_STAT_PLAY_STOP
+</TD><TD>The message, utterance, or word playback stopped.
+</TD></TR></TABLE>
+<P><LI>For SmNplayWordsStatusCallback&#58;
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD>SM_STAT_BAD_AUDIO
+</TD><TD>The connection to the audio source was lost during playback.
+</TD></TR><TR VALIGN=TOP><TD>SM_STAT_BAD_TAG
+</TD><TD>An invalid tag value was specified for the word.
+</TD></TR></TABLE>
+<P><LI>For an SmWordCorrection call:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD>SM_RC_ADDED
+</TD><TD>The word was added to the vocabulary.
+</TD></TR><TR VALIGN=TOP><TD>SM_RC_INVOCAB
+</TD><TD>The word is already in the vocabulary.
+</TD></TR><TR VALIGN=TOP><TD>SM_RC_NOT_INVOCAB
+</TD><TD>The word is not in the IBM VoiceType Dictation spelling dictionary.
+</TD></TR><TR VALIGN=TOP><TD>SM_RC_NOT_ADDED
+</TD><TD>The word has not been added to the vocabulary.
+</TD></TR></TABLE>
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetStatus (SM_MSG  <VAR>reply</VAR>,
+                 int    *<VAR>status</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>status</VAR>
+<P><DD>output -  The pointer to the status.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmWordCorrection
+SmNplayMessageStatusCallback
+SmNplayUtteranceStatusCallback
+SmNplayWordsStatusCallback
+</PRE>
+<A NAME=IDX551>&nbsp;</A>
+<A NAME=IDX553>&nbsp;</A>
+<A NAME=IDX554>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETTAG" HREF="tkasrun.htm#ToC_101">SmGetTags</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetTags retrieves tags from the reply structure.
+<P>
+SmGetTags can extract data from the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_PLAY_WORDS_STATUS
+<LI>SM_QUERY_ALTERNATES_REPLY
+<LI>SM_WORD_CORRECTION_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetTags (SM_MSG          <VAR>reply</VAR>,
+               unsigned long  *<VAR>ntags</VAR>,
+               long          **<VAR>tags</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>ntags</VAR>
+<P><DD>output -  The pointer to the number of tags.
+<P><DT><VAR>tags</VAR>
+<P><DD>output -  The pointer to a list of tags.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryAlternates
+SmWordCorrection
+SmNplayWordsStatusCallback
+</PRE>
+<A NAME=IDX555>&nbsp;</A>
+<A NAME=IDX557>&nbsp;</A>
+<A NAME=IDX559>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETTSK" HREF="tkasrun.htm#ToC_102">SmGetTask</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetTask retrieves a domain from the reply
+structure.
+<P>
+SmGetTask is valid only for reply message structures
+that contain one domain.
+Use SmGetTasks for reply message structures
+with multiple domains.
+SmGetTask can extract data
+from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_CONNECT_REPLY
+<LI>SM_QUERY_DEFAULT_REPLY
+<LI>SM_QUERY_TASKS_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetTask (SM_MSG           <VAR>reply</VAR>,
+               char           **<VAR>domain</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>domain</VAR>
+<P><DD>output -  The pointer to a domain.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryDefault
+SmQueryTasks
+</PRE>
+<A NAME=IDX560>&nbsp;</A>
+<A NAME=IDX562>&nbsp;</A>
+<A NAME=IDX564>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETTASK" HREF="tkasrun.htm#ToC_103">SmGetTasks</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetTasks retrieves domains from the reply
+structure.
+<P>
+This function can extract data
+from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_CONNECT_REPLY
+<LI>SM_QUERY_DEFAULT_REPLY
+<LI>SM_QUERY_TASKS_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetTasks (SM_MSG           <VAR>reply</VAR>,
+                unsigned long   *<VAR>ndomains</VAR>,
+                char          ***<VAR>domains</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>ndomains</VAR>
+<P><DD>output -  The pointer to the number of domains.
+<P><DT><VAR>domains</VAR>
+<P><DD>output -  The pointer to a list of domains.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryTasks
+</PRE>
+<A NAME=IDX565>&nbsp;</A>
+<A NAME=IDX567>&nbsp;</A>
+<A NAME=IDX568>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETTIM" HREF="tkasrun.htm#ToC_104">SmGetTimes</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetTimes retrieves time values of spoken words.
+<P>
+SmGetTimes retrieves an array of time values sent with
+words received in the last
+SM_RECOGNIZED_TEXT or SM_RECOGNIZED_WORD
+message from the speech engine.
+Each time, expressed in milliseconds, specifies the time elapsed
+from
+the beginning of the utterance to the beginning of the spoken
+word.
+This function can extract data
+from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_RECOGNIZED_TEXT
+<LI>SM_RECOGNIZED_WORD
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetTimes (SM_MSG          <VAR>reply</VAR>,
+                unsigned long  *<VAR>ntimes</VAR>,
+                unsigned long **<VAR>times</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>ntimes</VAR>
+<P><DD>output -  The pointer to the number of times in the list.
+<P><DT><VAR>times</VAR>
+<P><DD>output -  The pointer to a list of times.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmNrecognizedTextCallback
+SmNrecognizedWordCallback
+SmNaudioEventCallback
+</PRE>
+<A NAME=IDX569>&nbsp;</A>
+<A NAME=IDX571>&nbsp;</A>
+<A NAME=IDX573>&nbsp;</A>
+<A NAME=IDX574>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTUSRID" HREF="tkasrun.htm#ToC_105">SmGetUserId</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetUserId retrieves a user ID from the reply structure.
+<P>
+SmGetUserId is valid only for reply message structures
+that contain one user ID.
+Use SmGetUserIds for reply message structures
+with multiple user IDs.
+SmGetUserId can extract data
+from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_CONNECT_REPLY
+<LI>SM_QUERY_DEFAULT_REPLY
+<LI>SM_QUERY_USER_INFO_REPLY
+<LI>SM_SET_USER_INFO_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetUserId (SM_MSG           <VAR>reply</VAR>,
+                 char           **<VAR>user_id</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>user_id</VAR>
+<P><DD>output -  The pointer to a user ID.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryDefault
+SmQueryUserInfo
+SmQueryUsers
+SmSetUserInfo
+</PRE>
+<A NAME=IDX575>&nbsp;</A>
+<A NAME=IDX577>&nbsp;</A>
+<A NAME=IDX578>&nbsp;</A>
+<P>
+<H2><A NAME="LENGETUSID" HREF="tkasrun.htm#ToC_106">SmGetUserIds</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetUserIds retrieves user IDs from the reply
+structure.
+<P>
+SmGetUserIds can extract data from the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_QUERY_DEFAULT_REPLY
+<LI>SM_QUERY_SESSIONS_REPLY
+<LI>SM_QUERY_USER_INFO_REPLY
+<LI>SM_QUERY_USERS_INFO_REPLY
+<LI>SM_QUERY_USERS_REPLY
+<LI>SM_SET_USER_INFO_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetUserIds (SM_MSG           <VAR>reply</VAR>,
+                  unsigned long   *<VAR>nuser_ids</VAR>,
+                  char          ***<VAR>user_ids</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nuser_ids</VAR>
+<P><DD>output -  The pointer to the number of user IDs.
+<P><DT><VAR>user_ids</VAR>
+<P><DD>output -  The pointer to a list of user IDs.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryUserInfo
+SmQueryUsers
+SmSetUserInfo
+</PRE>
+<A NAME=IDX579>&nbsp;</A>
+<A NAME=IDX581>&nbsp;</A>
+<A NAME=IDX583>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTUSER" HREF="tkasrun.htm#ToC_107">SmGetUsers</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetUsers retrieves users from the reply structure.
+<P>
+SmGetUsers can extract data
+from the following reply message
+structure&#58;
+<UL COMPACT>
+<LI>SM_QUERY_USERS_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetUsers (SM_MSG             <VAR>reply</VAR>,
+                unsigned long     *<VAR>nusers</VAR>,
+                char            ***<VAR>users</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nusers</VAR>
+<P><DD>output -  The pointer to the number of users.
+<P><DT><VAR>users</VAR>
+<P><DD>output -  The pointer to a list of users.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryUsers
+</PRE>
+<A NAME=IDX584>&nbsp;</A>
+<A NAME=IDX586>&nbsp;</A>
+<A NAME=IDX588>&nbsp;</A>
+<A NAME=IDX589>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTUTNUM" HREF="tkasrun.htm#ToC_108">SmGetUtteranceNumber</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetUtteranceNumber retrieves the utterance number
+from the reply structure.
+<P>
+SmGetUtteranceNumber can extract data from the following reply
+message structures&#58;
+<UL COMPACT>
+<LI>SM_MIC_ON_REPLY
+<LI>SM_PLAY_UTTERANCE_STATUS
+<LI>SM_UTTERANCE_COMPLETED
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetUtteranceNumber (SM_MSG           <VAR>reply</VAR>,
+                          unsigned long   *<VAR>nutterance</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nutterance</VAR>
+<P><DD>output -  The pointer to the utterance number.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmMicOn
+SmNplayUtteranceStatusCallback
+SmNutteranceCompletedCallback
+</PRE>
+<A NAME=IDX590>&nbsp;</A>
+<A NAME=IDX593>&nbsp;</A>
+<A NAME=IDX595>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTVCLST" HREF="tkasrun.htm#ToC_109">SmGetVocabList</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+The SmGetVocabList function retrieves a vocabulary list
+from the reply structure.
+<P>
+SmGetVocabList can extract data
+from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_QUERY_ENABLED_VOCABS_REPLY
+<LI>SM_QUERY_VOCABS_REPLY
+<LI>SM_QUERY_WORD_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetVocabList (SM_MSG             <VAR>reply</VAR>,
+                    unsigned long     *<VAR>nvocabs</VAR>,
+                    char            ***<VAR>vocabs</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nvocabs</VAR>
+<P><DD>output -  The pointer to the number of vocabularies in the
+vocabulary list.
+<P><DT><VAR>vocabs</VAR>
+<P><DD>output -  The pointer to a list of vocabularies.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryEnabledVocabs
+SmQueryVocabs
+SmQueryWord
+</PRE>
+<A NAME=IDX596>&nbsp;</A>
+<A NAME=IDX599>&nbsp;</A>
+<A NAME=IDX601>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTVOCNM" HREF="tkasrun.htm#ToC_110">SmGetVocabName</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetVocabName retrieves the vocabulary name
+from the reply structure.
+<P>
+This function can extract data
+from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_ADD_TO_VOCAB_REPLY
+<LI>SM_DEFINE_VOCAB_REPLY
+<LI>SM_DISABLE_VOCAB_REPLY
+<LI>SM_ENABLE_VOCAB_REPLY
+<LI>SM_REMOVE_FROM_VOCAB_REPLY
+<LI>SM_UNDEFINE_VOCAB_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetVocabName (SM_MSG      <VAR>reply</VAR>,
+                    char      **<VAR>vocabname</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>vocabname</VAR>
+<P><DD>output -  The pointer to the name of the vocabulary.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddToVocab
+SmDefineVocab
+SmDisableVocab
+SmEnableVocab
+SmRemoveFromVocab
+SmUndefineVocab
+</PRE>
+<A NAME=IDX602>&nbsp;</A>
+<A NAME=IDX605>&nbsp;</A>
+<A NAME=IDX607>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTVCWD" HREF="tkasrun.htm#ToC_111">SmGetVocWords</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetVocWords retrieves vocabulary words
+from the reply structure.
+<P>
+This function can extract data from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_ADD_TO_VOCAB_REPLY
+<LI>SM_DEFINE_VOCAB_REPLY
+</UL>
+<P>Following an SmAddToVocab call, SmGetVocWords extracts
+the vocabulary words that failed to be added.
+<P>Following an SmDefineVocab call, SmGetVocWords extracts
+the vocabulary words that failed to be defined.
+<P>For a description of the SM_VOCWORD data type,
+see
+<A HREF="tkasru07.htm#HDRDATYP">"Data Types"</A>.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetVocWords (SM_MSG            <VAR>reply</VAR>,
+                   unsigned long    *<VAR>nwords</VAR>,
+                   SM_VOCWORD      **<VAR>words</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nwords</VAR>
+<P><DD>output -  The pointer to the number of vocabulary words.
+<P><DT><VAR>words</VAR>
+<P><DD>output -  The pointer to a list of vocabulary words.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddToVocab
+SmDefineVocab
+</PRE>
+<A NAME=IDX608>&nbsp;</A>
+<A NAME=IDX610>&nbsp;</A>
+<A NAME=IDX612>&nbsp;</A>
+<P>
+<H2><A NAME="LENGTWDS" HREF="tkasrun.htm#ToC_112">SmGetWords</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmGetWords retrieves words from the reply structure.
+SmGetWords can extract data
+from the following reply message
+structures&#58;
+<UL COMPACT>
+<LI>SM_QUERY_ADDED_WORDS_REPLY
+<LI>SM_QUERY_WORD_REPLY
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmGetWords (SM_MSG            <VAR>reply</VAR>,
+                unsigned long    *<VAR>nwords</VAR>,
+                SM_WORD         **<VAR>words</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+<P><DT><VAR>nwords</VAR>
+<P><DD>output -  The pointer to the number of words.
+<P><DT><VAR>words</VAR>
+<P><DD>output -  The pointer to a list of words.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EINVAL_MSG_TYPE
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Reply Structure - Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryAddedWords
+SmQueryWord
+</PRE>
+<A NAME=IDX613>&nbsp;</A>
+<A NAME=IDX616>&nbsp;</A>
+<A NAME=IDX618>&nbsp;</A>
+<P>
+<H2><A NAME="LENRETRC" HREF="tkasrun.htm#ToC_113">SmReturnRc</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmReturnRc returns the return code from SM_MSG.
+<P>
+SmReturnRc provides an alternative to SmGetRc for
+accessing return codes from messages received from the
+speech engine.  The return value of the function
+is the return code value in the given SM_MSG.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmReturnRc (SM_MSG   <VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The reply structure from a SMAPI function.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_REPLY_NULL
+</PRE>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmReturnRcDescription
+SmReturnRcName
+</PRE>
+<A NAME=IDX619>&nbsp;</A>
+<A NAME=IDX622>&nbsp;</A>
+<A NAME=IDX624>&nbsp;</A>
+<P>
+<H2><A NAME="LENRETRCD" HREF="tkasrun.htm#ToC_114">SmReturnRcDescription</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmReturnRcDescription retrieves the ASCII string describing the
+return code.
+<P>
+SmReturnRcDescription remaps return codes to
+ASCII strings that describe
+the return code and, potentially, the associated failure.
+Messages are in US English only for diagnostic purposes.
+For example, if this function were passed the return code,
+SM_RC_ACOUSTICS_TOO_LONG, a pointer to
+the associated return code description
+character string "The acoustics specified are too long." would
+be returned.
+For a list of all return code character strings, see
+<A HREF="tkasru09.htm#HDRAPIRC">"SMAPI Message Explanations"</A>.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+char *SmReturnRcDescription (int  rc)
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>rc</VAR>
+<P><DD>input -  Any return code associated with any Sm call.
+</DL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmReturnRc
+SmReturnRcName
+</PRE>
+<A NAME=IDX625>&nbsp;</A>
+<A NAME=IDX628>&nbsp;</A>
+<A NAME=IDX630>&nbsp;</A>
+<P>
+<H2><A NAME="LENRETRCN" HREF="tkasrun.htm#ToC_115">SmReturnRcName</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmReturnRcName returns the symbolic name of a return code as
+a string.
+<P>
+SmReturnRcName provides an alternative to
+SmGetRcName for retrieving an ASCII string
+containing the symbol associated with
+a return code.
+For example, if this function was passed
+the return code, SM_RC_ACOUSTICS_TOO_LONG, a pointer
+to the associated symbolic return code name character string
+"SM_RC_ACOUSTICS_TOO_LONG" would be returned.
+For a list of all return code values, see
+<A HREF="tkasru09.htm#HDRRTCODE">"SMAPI Return Codes and Messages"</A>.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+char *SmReturnRcName (int  rc);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>rc</VAR>
+<P><DD>input -  Any return code associated with any Sm call.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<P>Function directly returns a pointer to a statically defined
+character string containing a description associated with the
+return code.
+<P>Refer to
+<A HREF="tkasru09.htm#HDRSMEM">Appendix A. "SMAPI Return Codes and Messages"</A> for a complete list of the
+character strings, their associated return values, and their
+symbolic return code names.
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmReturnRc
+SmReturnRcDescription
+</PRE>
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="tkasru04.htm">Previous Page</A> &#124; <A HREF="tkasru06.htm">Next Page</A> &#124; <A HREF="tkasrun.htm#ToC">Table of Contents</A> &#124; <A HREF="tkasru11.htm#HDRINDEX_START">Index</A
+> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+</BODY></HTML>
+

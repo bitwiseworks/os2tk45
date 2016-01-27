@@ -1,0 +1,74 @@
+
+//  Module Header
+//
+//  Module Name: WPTAPE
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wptape_idl
+#define wptape_idl
+
+#include "wpdevice.idl"
+
+interface M_WPDevTape;
+
+interface WPDevTape : WPDevice
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wptape;
+    functionprefix = tape_;
+    local;
+//    externalprefix = tape_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wptape;
+    metaclass = M_WPDevTape;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+    passthru C_h =  ""
+"";
+
+/* Private instance data area */
+
+     /* Overridden instance methods area */
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDevTape : M_WPDevice
+{
+  /* New class methods section */
+
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wptape;
+    functionprefix = tapeM_;
+    local;
+//    externalprefix = tapeM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wptape;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+
+    /* Overridden class methods section */
+    wpclsInitData:      override;
+    wpclsQueryIconData: override;                                              //bjf152374
+    wpclsQueryTitle:    override;
+    wpclsUnInitData:    override;
+  };
+
+};
+#endif  /* wptape_idl */

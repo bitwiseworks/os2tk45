@@ -1,0 +1,590 @@
+#
+# DESCRIPTION:
+# --------------------------------------------------------------
+#
+#
+# open and switch through all valid states for waveaudio in three
+# different processes, only one acpa will involve
+# resource contention for acpa. To include masteraudio query/sets
+# in each process.
+# [switch mode each device[switch state each device]].
+#
+#
+@PROCESSES=2
+@EVENTS={HASCTRL1=1,HASCTRL2=0}
+#
+#
+#
+@PROCESS 1
+;
+; set masteraudio level for session to 10% - will affect all
+; 3 processes
+;
+masteraudio volume 10
+;
+; open waveaudio device non-exclusively
+;
+open waveaudio alias wav1 shareable notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_OPEN #1
+@WAIT_NOTIFY 1 60000
+@WAIT_PASSDEVICE wav1 60000
+@WAIT_NOTIFY 21 60000
+;
+; no way of knowing which open (in which process) was the last
+; to complete. All opens were non-exclusive. Need to do an
+; acquire to make sure process 1 has the active instance
+;
+acquire wav1 wait
+@WAIT_PASSDEVICE wav1 45000
+;
+;
+load wav1 ?MMDATA-AUD?\8b22k.wav wait readonly
+play wav1 from 10000 to 40000
+@PAUSE 10000
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+;
+acquire wav1 wait
+@WAIT_PASSDEVICE wav1 45000
+#
+load wav1 ?MMDATA-AUD?\8b22ks.wav wait readonly
+play wav1 from 10000 to 40000
+@PAUSE 10000
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+; disable internal speaker by setting connector for associated
+; ampmixer instance
+;
+acquire wav1 wait
+@WAIT_PASSDEVICE wav1 45000
+#
+connector wav1 disable type speakers notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_CONNECTOR #2
+@WAIT_NOTIFY 2 60000
+;
+seek wav1 to start wait
+;
+; cue waveaudio for play
+;
+cue wav1 output notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_CUE #3
+@WAIT_NOTIFY 3 60000
+;
+; play waveaudio asynchronously for 3 seconds
+;
+play wav1
+@PAUSE 3000
+;
+; close waveaudio device instance
+;
+close wav1 wait
+;
+; open another waveaudio device instance non-exclusively
+;
+open waveaudio alias wav1_1 shareable wait
+;
+; set speakers connector for associated ampmixer
+;
+connector wav1_1 enable type speakers wait
+;
+;
+load wav1_1 ?MMDATA-AUD?\8b44k.wav wait readonly
+;
+; cue waveaudio for play
+;
+cue wav1_1 output wait
+;
+; play waveaudio for 5 seconds
+;
+play wav1_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_PLAY
+@PAUSE 5000
+;
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+; recover control of resource (cd device/acpa) from PROCESS 2.
+; play of waveaudio will resume. allow play to continue for
+; 5 seconds
+;
+acquire wav1_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_ACQUIREDEVICE #4
+@WAIT_NOTIFY 4 60000
+@WAIT_PASSDEVICE wav1_1 45000
+@PAUSE 5000
+;
+; pause play of waveaudio
+;
+pause wav1_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_PAUSE #5
+@WAIT_NOTIFY 5 60000
+;
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+; recover exclusive control of resource (cd device/acpa) from
+; PROCESS 2
+;
+; wav1_1 & wav2 are both mono and at this point in the script
+; both are active - hence wav1_1 will not receive gaining-use
+;
+acquire wav1_1 exclusive wait
+; @WAIT_PASSDEVICE wav1_1 45000
+;
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+; allow play to resume for 5 seconds
+;
+resume wav1_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_RESUME
+@PAUSE 5000
+;
+; release exclusive control of resource
+;
+release wav1_1 wait
+;
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+; recover exclusive control of resource from PROCESS 2
+;
+acquire wav1_1 exclusive wait
+@WAIT_PASSDEVICE wav1_1 45000
+;
+; immediately stop play of waveaudio
+;
+stop wav1_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_STOP #8
+@WAIT_NOTIFY 8 60000
+;
+; release exclusive control of resource
+;
+release wav1_1 wait
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+; recover exclusive control of resource (cd device/acpa) from
+; PROCESS 2
+;
+acquire wav1_1 exclusive wait
+@WAIT_PASSDEVICE wav1_1 45000
+;
+; seek to start of media (currently loaded file)
+;
+seek wav1_1 to start notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_SEEK #10
+@WAIT_NOTIFY 10 60000
+;
+; release exclusive control of resource
+;
+release wav1_1 wait
+;
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+; recover control of resource (cd device/acpa) from PROCESS 2
+;
+acquire wav1_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_ACQUIREDEVICE #11
+@WAIT_NOTIFY 11 60000
+@WAIT_PASSDEVICE wav1_1 45000
+;
+; query status then disable speakers connector (disables internal
+; speaker)
+;
+connector wav1_1 query type speakers wait
+=TRUE
+connector wav1_1 disable type speakers notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_CONNECTOR #12
+@WAIT_NOTIFY 12 60000
+;
+; play for 3 seconds
+;
+play wav1_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_PLAY
+@PAUSE 3000
+;
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+; recover exclusive control of resource (cd device/acpa) from PROCESS 2
+;
+acquire wav1_1 exclusive wait
+@WAIT_PASSDEVICE wav1_1 45000
+;
+; pause the play
+;
+pause wav1_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_PAUSE #14
+@WAIT_NOTIFY 14 60000
+;
+; release exclusive control of resource
+;
+release wav1_1 wait
+;
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+; recover exclusive control of resource (cd device/acpa) from PROCESS 2
+;
+acquire wav1_1 exclusive wait
+@WAIT_PASSDEVICE wav1_1 45000
+;
+; resume play for 3 seconds
+;
+resume wav1_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_RESUME
+@PAUSE 3000
+;
+; release exclusive control of resource
+;
+release wav1_1 wait
+;
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+; recover exclusive control of resource (cd device/acpa) from PROCESS 2
+;
+acquire wav1_1 exclusive wait
+@WAIT_PASSDEVICE wav1_1 45000
+;
+; stop play
+;
+stop wav1_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_STOP #17
+@WAIT_NOTIFY 17 60000
+;
+; release exclusive control of resource (cd device/acpa) from PROCESS 2
+;
+release wav1_1 wait
+;
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+; instance is inactive. Do some statuses
+;
+status wav1_1 time format wait
+=mmtime
+;
+@WAIT_PASSDEVICE wav2 50000
+#
+;
+status wav1_1 ready wait
+=TRUE
+;
+; recover control of resource (cd device/acpa) from PROCESS 2
+;
+acquire wav1_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_ACQUIREDEVICE #18
+@WAIT_NOTIFY 18 60000
+@WAIT_PASSDEVICE wav1_1 45000
+;
+; seek to end of media (currently loaded element)
+;
+seek wav1_1 to end notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_SEEK #19
+@WAIT_NOTIFY 19 60000
+;
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+@WAIT_EVENT HASCTRL1 60000
+;
+; close waveaudio instance for process 1 (wav1_1)
+;
+acquire wav1_1 wait
+@WAIT_PASSDEVICE wav1_1 45000
+#
+close wav1_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_CLOSE #20
+@WAIT_NOTIFY 20 60000
+;
+@SET_EVENT HASCTRL1 0
+@SET_EVENT HASCTRL2 1
+;
+;
+;
+@PROCESS 2
+;
+; open a non-exclusive waveaudio instance for process 2
+;
+open waveaudio alias wav2 shareable notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_OPEN #21
+@WAIT_PASSDEVICE wav2 60000
+;
+@WAIT_EVENT HASCTRL2 180000
+;
+;
+acquire wav2 wait
+@WAIT_PASSDEVICE wav2 45000
+#
+load wav2 ?MMDATA-AUD?\8b11ks.wav wait readonly
+play wav2 from 10000 to 40000
+@PAUSE 10000
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+@WAIT_EVENT HASCTRL2 60000
+;
+;
+acquire wav2 wait
+@WAIT_PASSDEVICE wav2 45000
+#
+load wav2 ?MMDATA-AUD?\16b11k.wav wait readonly
+play wav2 from 10000 to 40000
+@PAUSE 10000
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+@WAIT_EVENT HASCTRL2 60000
+;
+;
+acquire wav2 wait
+@WAIT_PASSDEVICE wav2 45000
+#
+load wav2 ?MMDATA-AUD?\16b22ks.wav wait readonly
+play wav2 from 10000 to 40000
+@PAUSE 10000
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+@WAIT_EVENT HASCTRL2 60000
+;
+; query the session masteraudio setting. Remember process 1
+; changed it to 10%. Now change it to 50%
+;
+masteraudio query volume wait
+=10
+masteraudio volume 50
+;
+acquire wav2 wait
+@WAIT_PASSDEVICE wav2 45000
+#
+connector wav2 enable type speakers notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_CONNECTOR #22
+@WAIT_NOTIFY 22 60000
+;
+; change time format to milliseconds format
+;
+set wav2 time format milliseconds wait
+;
+seek wav2 to start wait
+;
+; seek to 10 seconds into currently loaded element
+;
+seek wav2 to 10000 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_SEEK #23
+@WAIT_NOTIFY 23 60000
+;
+; play asynchronously for 3 seconds
+;
+play wav2
+@PAUSE 3000
+;
+; close device instance
+;
+close wav2 wait
+;
+; open waveaudio device instance non-exclusively
+;
+open waveaudio alias wav2_1 shareable wait
+@WAIT_PASSDEVICE wav2_1 45000
+;
+; enable speakers connector
+;
+load wav2_1 ?MMDATA-AUD?\16b44k.wav wait readonly
+;
+connector wav2_1 enable type speakers wait
+;
+; cue for play
+;
+cue wav2_1 output wait
+;
+; play for 3 seconds
+;
+play wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_PLAY
+@PAUSE 3000
+;
+; change time format to milliseconds format
+;
+set wav2_1 time format milliseconds wait
+#
+pause wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_PAUSE #25
+@WAIT_NOTIFY 25 60000
+;
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+@WAIT_EVENT HASCTRL2 60000
+;
+; try to play waveaudio device instance (expect error as process 1 has
+; control)
+;
+; wav1_1 & wav2_1 are both mono and at this point in the script
+; both are active - hence wav1_1 will not receive gaining-use
+;
+; @WAIT_PASSDEVICE wav1_1 60000
+#
+play wav2_1 notify
+=!Instance inactive.
+;
+; try to gain control of resource (cd device/acpa) held exclusively
+; by process 1 (expect error)
+;
+acquire wav2_1 wait
+=!Device is locked.
+;
+;
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+@WAIT_EVENT HASCTRL2 60000
+;
+; recover control from process 1
+;
+acquire wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_ACQUIREDEVICE #26
+@WAIT_NOTIFY 26 60000
+@WAIT_PASSDEVICE wav2_1 45000
+;
+; resume play for 3 seconds
+;
+resume wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_RESUME
+@PAUSE 3000
+;
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+@WAIT_EVENT HASCTRL2 60000
+;
+; recover control from process 1
+;
+acquire wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_ACQUIREDEVICE #27
+@WAIT_NOTIFY 27 60000
+@WAIT_PASSDEVICE wav2_1 45000
+stop wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_STOP #28
+@WAIT_NOTIFY 28 60000
+;
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+@WAIT_EVENT HASCTRL2 60000
+;
+; recover control from process 1
+;
+acquire wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_ACQUIREDEVICE #29
+@WAIT_NOTIFY 29 60000
+@WAIT_PASSDEVICE wav2_1 45000
+seek wav2_1 to start notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_SEEK #30
+@WAIT_NOTIFY 30 60000
+;
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+@WAIT_EVENT HASCTRL2 60000
+;
+; recover control from process 1
+;
+acquire wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_ACQUIREDEVICE #31
+@WAIT_NOTIFY 31 60000
+@WAIT_PASSDEVICE wav2_1 45000
+connector wav2_1 query type speakers notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_CONNECTOR #32
+@WAIT_NOTIFY 32 60000
+;
+; play for 3 seconds
+;
+play wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_PLAY
+@PAUSE 3000
+;
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+@WAIT_EVENT HASCTRL2 60000
+;
+; recover control from process 1
+;
+acquire wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_ACQUIREDEVICE #33
+@WAIT_PASSDEVICE wav2_1 45000
+@WAIT_NOTIFY 33 60000
+pause wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_PAUSE #34
+@WAIT_NOTIFY 34 60000
+;
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+@WAIT_EVENT HASCTRL2 60000
+;
+; recover control from process 1
+;
+acquire wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_ACQUIREDEVICE #35
+@WAIT_NOTIFY 35 60000
+@WAIT_PASSDEVICE wav2_1 45000
+;
+; resume play for 3 seconds
+;
+resume wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_RESUME
+@PAUSE 3000
+;
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+@WAIT_EVENT HASCTRL2 60000
+;
+; recover control from process 1
+;
+acquire wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_ACQUIREDEVICE #36
+@WAIT_NOTIFY 36 60000
+@WAIT_PASSDEVICE wav2_1 45000
+stop wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_STOP #37
+@WAIT_NOTIFY 37 60000
+;
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+@WAIT_EVENT HASCTRL2 60000
+;
+; Do some statuses on the inactive instance
+;
+status wav2_1 time format wait
+=milliseconds
+;
+; recover control from process 1
+;
+acquire wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_ACQUIREDEVICE #38
+@WAIT_NOTIFY 38 60000
+@WAIT_PASSDEVICE wav2_1 45000
+status wav2_1 ready wait
+=TRUE
+;
+seek wav2_1 to end notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_SEEK #39
+@WAIT_NOTIFY 39 60000
+;
+; close waveaudio device instance for this process
+;
+close wav2_1 notify
++MM_MCINOTIFY MCI_NOTIFY_SUCCESSFUL MCI_CLOSE #40
+@WAIT_NOTIFY 40 60000
+;
+@SET_EVENT HASCTRL2 0
+@SET_EVENT HASCTRL1 1
+;

@@ -1,0 +1,608 @@
+
+
+                       P2STRING USER'S GUIDE AND REFERENCE
+
+
+
+  SECTION 1.  INTRODUCTION
+  ________________________
+
+
+  P2STRING  is  a  test tool that exercises MMPM/2 via MCISENDSTRING  and other
+  APIs.  It accepts scripts of string commands and tool directives  to  control
+  the  tests.   Screen and file output of results are produced and overall test
+  termination status is logged.
+
+
+
+  SECTION 2.  RUNNING P2STRING
+  ____________________________
+
+
+  2.1  INVOKING THE TOOL
+  ______________________
+
+  P2STRING is invoked using the syntax shown below:
+
+  p2string Script-file [-a]Output-file [-eError-file] [-d|D] [-E]
+           ______________________________________________________
+
+  SCRIPT-FILE         The  name  of the file containing the MMPM/2 commands and
+                      P2STRING directives to be executed.  The format  for  the
+                      script  file  is described along with the script language
+                      syntax in the next section.
+
+  [-a]OUTPUT-FILE     The name of the file to hold  the  dialog  of  the  test.
+                      This includes sent strings, logged strings, results, etc.
+                      By  default,  the  output-file  will contain only results
+                      from this test (eg.  existing output will be lost).
+
+                      If the -a  command switch is used,  the  output  of  this
+                             __
+                      test will be appended to existing output.  Thus, a number
+                      of tests can be logged to the same output file.
+
+  -EERROR-FILE        The  name of the file to receive messages of strings that
+                      failed.
+
+  -d                  Instructs the tool to automatically terminate at the con-
+                      clusion of the scripts.  This switch should be used  when
+                      test  cases are run automatically.  There is no change in
+                      the output.  By default, the tool will display a  message
+                      indicating  the  script has finished and require the user
+                      to terminate the test.
+
+  -D                  Behaves the same as the -d option except that the  script
+                                              __
+                      directives requiring user input are ignored.
+
+  -E                  This  switch  causes  the  script to exit after the first
+                      error.   By  default,  scripts  will  run  to  conclusion
+                      regardless of errors.
+
+  -s                  The P2STRING session will stop after the first error, if
+                      there is one, and the dialog will remain on the screen.
+                      If there are no errors, the tool will automatically
+                      terminate at the conclusion of the script.
+
+  NOTE:  The command-line switches are case-sensitive.
+
+  Sample command invocation lines:
+
+       p2string cap_cdmc.001 cap_cdmc.l01
+       p2string cap_cdmc.001 -ap2string.OUT
+       p2string cap_cdmc.001 cap_cdmc.l01 -d
+       p2string cap_cdmc.001 -ap2string.OUT -d
+       p2string cap_cdmc.001 cap_cdmc.l01 -d -eMDM.ERR
+       p2string cap_cdmc.001 -aMDM.OUT -d -eMDM.ERR -E
+
+
+  2.2  OUTPUTS FROM THE TOOL
+  __________________________
+
+  1.  Messages  are  displayed in the P2STRING window and logged to the output-
+      file specified on the command line.
+
+      Messages include all non-comment lines read from the script, eg.   script
+      directives,   command  strings,  expected  return  values,  expected  and
+      received notify messages, and status lines.
+
+  2.  The test termination status is logged.
+
+  3.  Errors  and  debugging  statements  are  logged to the PMSTRING.LOG file,
+      opened in the current execution directory.  The amount of information  is
+      controled  by  debugging  switches  in the source files.   Critical error
+      statements are logged to this file unconditionally.
+
+      There is no error logging to the STDERR  and  if  errors  are  suspected,
+      piping  handle 2 into a file will not have any effect.  PMSTRING.LOG file
+      serves as STDERR.
+
+
+  2.3  DISPLAY OPTIONS
+  ____________________
+
+  The tool recognizes two environment variables which allow the user to manipu-
+  late  the  size  and  type  of  the  fonts.    To  specify  the   font,   use
+  P2STRING_FONTFACE  with  a  value  of:   SYSTEM, COURIER, TIMES, or HELVETICA
+  (default).  For example:   To specify the font  size,  use  P2STRING_FONTSIZE
+  with  possible values of:  8 (default), 10, 12, 14, or 18.  For example, type
+  the following from the command line before executing P2STRING:
+
+       set P2STRING_FONTFACE=SYSTEM
+       set P2STRING_FONTSIZE=10
+
+  NOTE:  Either or both may be specified.
+
+
+
+  SECTION 3.  P2STRING SCRIPT SYNTAX
+  __________________________________
+
+
+  Script files may contain several types of lines:
+
+  o   Comments
+  o   Tool Directives
+  o   MMPM/2 String Commands
+  o   Expected Return Strings
+  o   Expected Errors
+  o   Expected Notifies
+
+
+  3.1   COMMENTS
+  ______________
+
+  Script  comment  lines must start with either ";" or "#" in the first column.
+  These comment lines will not be displayed nor echoed  into  the  output-file.
+  If you wish a remark to appear in the output, use the @REM directive.
+
+
+  3.2   TOOL DIRECTIVES
+  _____________________
+
+  Tool  directives  start  with @ in the first column.  These directives effect
+  the execution and appearance of the output.  The following classes of  direc-
+  tives are recognized:  initialization and execution.
+
+
+  3.2.1  INITIALIZATION DIRECTIVES
+
+  These  are  used  to setup the script.   As such, they must appear before any
+  execution commands.
+
+  o   @PROCESSES="processes"
+
+      "processes" = the number of processes the script will be dealing with.
+
+  o   @THREADS="threads"
+
+      "threads"= the number of threads script will be dealing with.
+
+      NOTE:  @PROCESSES and @THREADS are mutually exclusive!
+
+      NOTE:  There is a limitation of 10 processes or threads per script!
+
+  o   @EVENTS={name[=0|1][,name[=0|1]]}
+
+      Names of events are user defined with a maximum of 15 characters.  Events
+      may be set to 1 (for SET), or 0 (for CLEAR).  If no initialization values
+      is specified, the event is initialized to 0.
+
+      For example:
+           @EVENTS={trey=1,jennifer=1,test=0}
+
+
+  3.2.2  EXECUTION DIRECTIVES
+
+  o   @THREAD "number"
+
+      Denotes  that  until the next @THREAD directive is encountered all of the
+      script lines belong to thread "number".
+
+  o   @PROCESS "number"
+
+      Denotes that until the next @PROCESS directive is encountered all of  the
+      script lines belong to process "number".
+
+      NOTE:   @THREAD  and  @PROCESS are mutually exclusive.  P2STRING supports
+      either multi-threaded or multi-process execution, but not both.
+
+  o   @SET_EVENT "name" 0|1
+
+      Used to set event "name" to either 1 (for SET), or  0  (for  CLEAR).
+      The event must have been declared via the @EVENTS directive.
+
+  o   @WAIT_EVENT "name" "[time-out]"
+
+      Wait  until  event "name" is set to 1.  The "time-out" is specified in
+      milliseconds.  If omitted, it defaults to 3 minutes.
+
+      NOTE:  Timing out on a @WAIT_EVENT is NOT considered a failure.
+
+  o   @WAIT_NOTIFY "number" "[time-out]"
+
+      Wait for a specific expected MM_MCINOTIFY  labled  "number".  Please  see
+      Section 4,  "Multi-Thread  Multi-Process  Testing."  on  page 11 for more
+      information.
+
+      The "time-out" is specified in milliseconds.  If omitted, it defaults to  3
+      minutes.
+
+      If  the  associated  mciSendString  fails, the event is posted to prevent
+      delays for notifications that are never going to be sent.
+
+      NOTE:  Timing out on a @WAIT_NOTIFY is NOT considered a failure.
+
+  o   @WAIT_PASSDEVICE "alias" "[time-out]"
+
+      Wait until the device instance with an alias of "alias" gains  use.  This
+      assumes  that  the  alias  names  used  within a script are unique.  The
+      maximum alias name length is 20 characters.
+
+      The "time-out" is specified in milliseconds.  If omitted, it defaults to  3
+      minutes.
+
+      The tool assumes that a unique alias is specified on each open...  string
+      command.    If  unique  aliases are not used, errors conditions of "Event
+      already posted" may occur.
+
+  o   @REM "comment"
+
+      Echos  "comment" to  the screen and the output log file.  All other script
+      comment lines (those starting with ";" or "#") are  not  transferred  nor
+      displayed.
+
+  o   @PAUSE "time-out"
+
+      Pauses  processing  of  the current thread or process in the input script
+      file for the specified time.   It does not stop  the  processing  of  the
+      notifications  or  window functions.   Other threads or processes are not
+      effected by this directive.
+
+  o   @BREAK "[message]"
+
+      Causes a message box to pop-up and  stops  the  input  script  processing
+      until  user  reponds.    The optional message is displayed in the box and
+      can be used as a prompt to the operator, eg. "replace the CD".
+
+  o   @CHECK "[message]"
+
+      This directive will grade the success of the previous  command  based  on
+      the  user's response.  A pop-up will display the "message" and offer
+      Yes and No button.  The status is passed if user selects Yes,  or  failed
+      if No is selected.  For example:
+
+           @BREAK The music will play for 5 secs. Get ready to time it.
+           play cdaudio notify
+           @PAUSE 5000
+           @CHECK Did it play?
+
+
+  3.3  MMPM/2 STRING COMMANDS
+  ___________________________
+
+  All lines that don't fall into any of the other categories are interpreted as
+  MMPM/2  string  commands.    These  lines are passed to MDM via MCISENDSTRING
+  after environment variable substitution.
+
+  Any tokens in the string command line bracketed by question marks (eg. ?FOO?)
+  is interpreted as an environment variable.  The actual value of the  environ-
+  ment  variable  will  be  substituted  into the string before it is passed to
+  mciSendString.  If the variable is not found, a warning  is  issued  and  the
+  token  is replaced with a null string.  For example, assuming the environment
+  string MMDATA is set to D:\DATA, then  the  command  "open  ?mmdata?\temp.wav
+  alias a" is equivalent to "open d:\data\temp.wav alias a".
+
+
+  3.4  EXPECTED RETURN STRINGS
+  ____________________________
+
+  Many  MMPM/2  commands return strings.  It is possible to check these strings
+  against an expected value with an expected return string line.
+
+  An expected return string line has the format: "=result".  The "=" must be in
+  column 1 and should have no trailing spaces.  If an empty string is expected,
+  nothing should follow the "=" (not even spaces).  For example:
+
+       status cdaudio ready wait
+       =TRUE
+       status cdaudio mode wait
+       =stopped
+
+  The  expected  result  is  always  always interpreted as a string.   This may
+  produce some strange outputs for any commands that returns binary data.
+
+  Where the return is a textual numerical value, it may be matched to a  toler-
+  ance  range  of +/- 10% using a tilde ("&tilde.") before the number.  This is
+  typically used when the exact value cannot be known.  For example:
+
+       set foo time format milliseconds wait
+       play foo notify
+       @PAUSE 1000
+       stop foo wait
+       status foo position wait
+       =&tilde.1000
+
+  Thus, the status command will be considered successful if the returned string
+  is in the range 900-1100.
+
+
+  3.5  EXPECTED ERRORS
+  ____________________
+
+  When an MMPM/2 string command is expected to fail with an error, use the  the
+  expected  error  line to specify the error expected.  The expected error line
+  has the format:  "=!error".  The "=!'  must start in column 1. If  any  error
+  is  acceptable,  then  use  the  keyword  "ERROR".    If  a specific error is
+  expected, enter the exact error message after the "=!".  For example:
+
+       open sequencer alias mymidi wait
+       load mymidi nofile.foo
+       =!File not found.
+
+  Be careful about extra blanks in  the  expected  error  and  expected  result
+  lines.    The case of the strings is unimportant, however the comparison will
+  fail if the spacing or punctuation does not match exactly.
+
+
+  3.6  EXPECTED NOTIFIES
+  ______________________
+
+  Many MMPM/2 string commands will cause notification messages to  be  sent  to
+  the  tool.    It  is  possible  to  verify  that the proper notifications are
+  received via an expected notify line.  Each expected notification  line  will
+  begin  with  a  "+" in column 1.   Three types of notification lines are pos-
+  sible: command completion/error notifications, event notifications, and posi-
+  tion change notifications.  Any or all may be expected for  a  single  MMPM/2
+  string command.  These are detailed below:
+
+  o   +MM_MCINOTIFY  notify-code message [#number]
+
+      notify-code    This    is    the    notification    message   code,   eg.
+                     MCI_NOTIFY_SUCCESSFUL.  The spelling should be the same as
+                     the #defines in the os2me.h for the notify codes.
+
+      message        The  MCI  message  that  caused  the   notification,   eg.
+                     MCI_PLAY.  The spelling should be the same as the #defines
+                     in the os2me.h for the MCI messages.
+
+      number         The   number   is   a   unique  lable  used  to  associate
+                     @WAIT_NOTIFY  directives  with  particular  notifications.
+                     This  number  has  nothing  to  do with the order in which
+                     strings are sent.  The number must be unique  and  in  the
+                     range  1-99.    Please see Section 4, "Multi-Thread Multi-
+                     Process Testing." on page 11 for more information.
+
+  o   +MM_MCIPOSITIONCHANGE position %user-parameter #number
+
+      position       The expected MMTIME position of the first position  change
+                     message.
+
+      user-parameter The  user  parameter  to  be returned - this should be the
+                     same as specified as the RETURN value in SETPOSITIONADVICE
+                     send string.  Note that return value should be  an  unique
+                     integer in the range of 1 - 99.
+
+      number         The number of position change messages expected.
+
+      For   more   information,   please   see   Section 6,   "Limitations   of
+      MM_MCIPOSITIONCHANGE Verification" on page 15.
+
+  o   +MM_MCICUEPOINT position %user-parameter
+
+      The parameters position and user-parameter are the same as above.
+
+  NOTE:  Other notification messages can not be compared because  they  do  not
+  allow  for  a UserParameter as part of the message which is essential for the
+  tracking of related notifications.
+
+
+
+  SECTION 4.  MULTI-THREAD MULTI-PROCESS TESTING.
+  _______________________________________________
+
+
+  Thread/Process  testing  is mutually exclusive.  Thread/Process blocks can be
+  layed out in any order within the script.  The tool preprocesses  the  script
+  and  builds  process command buffers.   Each command is uniquely marked by an
+  index which represents the command order in the entire script, not within its
+  thread block.   This key is used as  the  user  parameter  with  notification
+  callback  handle.    Use this key to track the return codes and notifications
+  for a string command.  Tool output represents the chronological order of exe-
+  cution of the commands from all the threads and processes.  There is a  small
+  chance  of  that order being disturbed by i/o scheduling of the threads, when
+  they request the file logging at the same time.   In case  of  multiprocessed
+  testing,  parent  process  performs all the preprocessing, initialization and
+  status report.  Children processes are spawned during the initialization  but
+  released  (via  a semaphore) only when everything is ready for the execution.
+  Concurrent execution of the processes is not enforced by  the  tool,  and  if
+  needed  can  be  specified  by the script writer.  The parent is always ready
+  before all the children are and therefore, it can  post  a  script  event  on
+  which  all  the  children processes are waiting.  The processes are closed at
+  ExitListProcedure time.
+
+  In case of threads, all the threads are concurrently executed.
+
+  EVENTS have two states (1,0).  1 is used to mark that event has happened.   0
+  is  used  to reset the event.  Waiting on the event means wait until somebody
+  marks the event as happened (1).  If the event is in state 1, setting  it  to
+  state  0  is  the only meaningful operation.   WAIT would in this case return
+  immediately.  If event is in state 0, SET to 0 would also make no difference,
+  but WAIT would wait until someone sets the event to 1. WAIT doesn't  cause  a
+  change  of the event state.  @WAIT_NOTIFY number must match the index used in
+  the MM_MCINOTIFY reference line.   The WAIT_NOTIFY events  are  not  reusable
+  because  there is no events that logically resets it.  If you need a reusable
+  event, opt for WAIT_EVENT.  @WAIT_PASSDEVICE events are keyed  by  the  alias
+  names and these should be unique across the script.
+
+  Remark:    The  assumed thread number from the start of the script body is 1.
+  Maximum size of the display buffer is 500 lines per process.  If the  display
+  requires  more  than  this,  the  window will wrap-up and the first 500 lines
+  can't be scrolled thru, once passed.  Maximum number of wait events 100, pass
+  device 10, notify events 100.  The tool has a low-tolerance parsing.  All  of
+  the string comparisons will fail if entire strings are not equal.  It doesn't
+  tolerate  multiple  blanks or tabs.   Aliases used in @WAIT_PASSDEVICE direc-
+  tives should match cases with real instance aliases.    Maximum  string  line
+  should  not  exceed  170  characters.    The tool will exit if this condition
+  fails.  The tool doesn't allow multiple copies being  executed  at  the  same
+  time.  The size of the stack for each thread is 64K.  The size of the message
+  queues for all window threads is 100.
+
+  P2STRING   tool   consists   of   an  executable  (P2STRING.EXE)  and  a  DLL
+  (P2S_DLL.DLL).
+
+
+
+  SECTION 5.   PROCESSING LOGIC
+  _____________________________
+
+
+  A  string  command line can be followed by zero to one return value lines, or
+  zero to three notification lines.  Note that this is an exclusive OR, meaning
+  that specifying both expected return value and expected notification  is  not
+  going  to  give reliable results due to the fact that returned buffer doesn't
+  become valid prior to the end of the notify message.  Also in case of  notify
+  flags,  return  values  are in the PROCEDURAL INTERFACE format rather than in
+  the STRING INTERFACE format.
+
+  The MDM will not be able to convert return values  to  strings  for  commands
+  executed  with  the  notify  flag  because  MCI drivers will be sending their
+  notify messages directly to the application.
+
+  Status of each command is determined in two stages. First stage is at  string
+  execution.  If mciSendString returns an error and there was no =!ERROR refer-
+  ence line in the script following the command string line, command is consid-
+  ered as failed. If a return value was found after mciSendString is  executed,
+  the tool will check for expected return and perform comparison of the two. It
+  they  do  not match, the command is considered as failed. In case of an error
+  that is not in the range understood by the mciGetErrorString API, the command
+  is considered failed even if the !ERROR was encountered.
+
+  Second stage of the comparison is after a notification is received and  after
+  all  the commands were issued. If a notification was received and it success-
+  fully compared to the expected notification line, the command  is  considered
+  successful.  If  there  was  no  reference  notification  line, status of the
+  command will not be assigned, unless notify-error was returned.    After  all
+  the  scripts  are processed, expected reference notifications will be used to
+  determine if all the notifications were received. The commands that  did  not
+  receive  a  notify  and had an expected notification line of the type will be
+  marked as failed. Note that command strings are not examined for presence  of
+  "notify"  flag  and  it  is the writer's responsibility to create an expected
+  notify line if it is of importance. In  case  of  expected  notify_successful
+  messages,  all  codes  other  than  notify_error  are  considered valid. This
+  includes notify_successful,  notify_aborted  and  notify_superceded.  If  any
+  other  notify code was specified as expected, and exact match will be checked
+  for. If NOTIFY_ERROR is expected, all errors in the  range  are  verified  as
+  passed. There is no facility for verification of an exact error code returned
+  in the notification.
+
+
+
+  SECTION 6.  LIMITATIONS OF MM_MCIPOSITIONCHANGE VERIFICATION
+  ____________________________________________________________
+
+
+  Verification  of  MM_MCIPOSITIONCHANGE  messages  is  limited in the P2STRING
+  tool.  It requires usage of the "RETURN UserParameter" options in the respec-
+  tive strings.  It also doesn't provide for timing start point (eg.    playing
+  has  started  or  similar).    The tool can only count the number of messages
+  received for a specific UserParameter (used as a key) and check if subsequent
+  messages have positions approximate the  given  expected  position  interval.
+  The   script   writer   has   the  responsibility  to  premeditate  how  many
+  positionadvice messages are expected, taken  into  account  the  duration  of
+  playing,  time  format  and start position of the play/record.  The reference
+  POSITION given in the expected notification line must be in MMTIME (since the
+  MM_MCI..  message returns the same format).  If expected number  of  messages
+  parameter  is omitted, the tool will not verify the number, just the position
+  interval.  In case of scripts where play/seek/record are used to  cover  non-
+  monotonic ranges, the tool may report failures on position-advises because it
+  expects each positionadvise to be in the next position interval from the pre-
+  vious message.  If the script makes a jump to a position that doesn't conform
+  to this, the status will be logged as failed.
+
+  For example:
+
+       setpositionadvise SomeDevice every 10000 on return 5
+       +MM_MCIPOSITIONCHANGE 10000 %5
+       play SomeDevice from 35000 to 55000 notify (will produce 3 positionchange messages)
+       seek SomeDevice to 30000 wait
+       play SomeDevice notify ( will produce a number of messages starting at 30000)
+
+  PositionChange  messages  are logged as failed, because of the lapse in posi-
+  tion interval.
+
+  A way to handle this situation is to disable  the  positionchange  before  an
+  explicit position jump is made and enable the same positionadvise with a dif-
+  ferent user parameter.
+
+  For Example:
+
+       setpositionadvise SomeDevice every 10000 on return 5
+       +MM_MCIPOSITIONCHANGE 10000 %5
+       play SomeDevice from 35000 to 55000 notify (will produce 3 positionchange messages)
+       setpositionadvise SomeDevice every 10000 off
+       seek SomeDevice to 30000 wait
+       setpositionadvise SomeDevice every 10000 on return 6
+       +MM_MCIPOSITIONCHANGE 10000 %6
+       play SomeDevice notify ( will produce a number of messages starting at 30000)
+
+
+
+  SECTION 7.  ADDITIONAL CONSIDERATIONS
+  _____________________________________
+
+
+  P2STRING  allows  for  variable  number  of  lines for display in its window.
+  Regular comment lines (header lines) are not displayed  nor  written  to  the
+  output file.
+
+  If input file can't be opened, the execution is terminated.
+
+  The tool will attempt to allocate memory for its display and internal buffers
+  and  will  not  proceed  if  it fails to obtain all of its memory at the very
+  beginning of its execution.  It allocates 3 notification  buffers,  2  status
+  buffers,  1 return value buffer, n command buffers (threads/processes), and a
+  display buffer whose size is estimated based on the number of  lines  in  the
+  first  input file.  In case of a script with bigger display requirements than
+  what was estimated and allocated, the display screen may wrap up and lose the
+  first half of the screen (scrolling back will stop at the line which  had  to
+  wrap  up).  However, this does not disrupt the logging to the output file and
+  should not be a major inconvenience.  In cases where this is unacceptable,  a
+  work-around  is to add more comment lines to the main script.  The tool esti-
+  mates that each line of input takes 5 lines of output.
+
+  The tool is a multithreaded program and its window can be manipulated even if
+  a "wait" string command is in progress.  If the window is closed, the  string
+  execution  thread  is  immediately killed and entire process terminated.  The
+  termination closes all of the open files and destroys both message queues and
+  performs WinTerminate before it issues DosExit.   In case  of  multi-threaded
+  execution, the main script processing thread spawns n (@THREADS=n) threads in
+  suspended mode during the initialization and resumes them at the time of exe-
+  cution.  That means that during the execution there are n+2 P2STRING threads.
+  In  case  of  multi-process  execution, the tool prepares all the buffers and
+  spawns (n-1) processes (@PROCESSES=n).  The processes are signaled to execute
+  at the end of pre-processing.   The parent process executes  its  buffer  and
+  then  waits  for  all of the children.  At the time of execution, there are n
+  processes with 2 threads each.  Each process logs to its own display  window,
+  but all processes log to the same output and debug files.
+
+
+
+  APPENDIX A.  SAMPLE SCRIPT
+  __________________________
+
+
+  A  sample  script  file, called sample.scr, has been placed in this directory
+  for your use.  Please refer to that file for examples on the use of  P2STRING
+  syntax and directives, etc.
+
+
+
+  APPENDIX B.   SAMPLE OUTPUT
+  ___________________________
+
+
+  The sample script file, sample.scr, creates an output file called sample.out.
+  This  file has also been placed in this directory for your use.  Please refer
+  to sample.out for an example of the type of output created by P2STRING.
+
+
+
+  APPENDIX C.  A NOTE ABOUT ALIASES
+  _________________________________
+
+
+  The tool preprocess the script and creates list of aliases that are tracked.
+
+  For  every received gaining or losing use message, the tool determines if the
+  Device ID corresponds to one of  the  tracked  aliases  and  posts/reset  the
+  appropriate  event.   If an alias is re-used, the tool will handle the change
+  in the Device ID's.  However, in case where the same alias is used twice  and
+  happened to be given the same Device ID by the MDM, the losing use message is
+  the  only  way  to clear the event.  So if no losing use message was received
+  for the alias, the tool  can't  detect  that  alias  now  addresses  a  fresh
+  instance and may return "Event already posted".  The recommendation is to use
+  unique aliases for the scripts that are taking advantage of this directive.
+
+  NOTE:  use a unique alias for every OPEN command.!!!!

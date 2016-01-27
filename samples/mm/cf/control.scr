@@ -1,0 +1,302 @@
+         /* driver 1.0.070 - Rel 1   CD */
+
+package="IBM Multimedia Presentation Manager Toolkit/2"
+codepage=437
+filelist="MASTER3.CD"
+groupcount=34
+munitcount=1
+
+medianame="IBM Multimedia Presentation Manager/2"
+
+sourcedir="\\MMPM2\\"= 0
+sourcedir="\\TK\\LIB\\"= 1
+sourcedir="\\TK\\H\\"= 2
+sourcedir="\\"= 4
+sourcedir="\\TK\\FSSHT\\"= 5
+sourcedir="\\TK\\CLOCK\\"= 7
+sourcedir="\\TK\\DUET2\\"= 10
+sourcedir="\\TK\\MCISTRNG\\"= 11
+sourcedir="\\TK\\INC\\"= 13
+sourcedir="\\TK\\BOOK\\"= 16
+sourcedir="\\TK\\CDMCT\\"= 17
+sourcedir="\\TK\\AVCINST\\"= 18
+sourcedir="\\TK\\CASECONV\\"= 19
+sourcedir="\\TK\\ADMCT\\"= 20
+sourcedir="\\TK\\MOVIES\\"= 22
+sourcedir="\\TK\\RECORDER\\"= 23
+sourcedir="\\TK\\CAPSAMP\\"= 24
+sourcedir="\\TK\\CAPTION\\"= 25
+sourcedir="\\TK\\HEADER\\"= 26
+sourcedir="\\TK\\CAPDLL\\"= 27
+sourcedir="\\TK\\SHRC\\"= 29
+sourcedir="\\TK\\P2STRING\\"= 30
+
+sourcedir="\\TK\\DUET1\\"= 31
+sourcedir="\\TK\\DUET1\\"= 32
+sourcedir="\\TK\\DUET1\\"= 33
+sourcedir="\\TK\\DUET1\\"= 34
+
+sourcedir="\\TK\\MCDTBL\\"= 35
+sourcedir="\\TK\\MMOTTK\\"= 38
+sourcedir="\\TK\\BITMAPS\\"= 39
+sourcedir="\\TK\\SHORTCF\\"= 40
+sourcedir="\\TK\\SMVSAMP\\"= 42
+sourcedir="\\TK\\MCDTEMP\\"= 43
+sourcedir="\\TK\\WVDOC\\"= 45
+sourcedir="\\TK\\ULIOT\\"=46
+
+destindir="\\MMOS2\\DLL\\"= 2
+destindir="\\MMOS2\\HELP\\"= 7
+destindir="\\MMOS2\\"= 0
+destindir="\\MMOS2\\INSTALL\\"= 4
+destindir="\\MMOS2\\MOVIES\\"= 3
+destindir="\\MMOS2\\MACROS\\"= 6
+destindir="\\MMOS2\\DSP\\"= 5
+destindir="\\MMOS2\\SOUNDS\\"= 9
+
+destindir="\\MMOS2\\MMTOOLKT\\LIB\\"= 1
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\DUET2\\"= 10
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\MCISTRNG\\"= 11
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\CF\\"= 12
+destindir="\\MMOS2\\MMTOOLKT\\INC\\"= 13
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\BOOK\\"= 16
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\CDMCT\\"= 17
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\AVCINST\\"= 18
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\CASECONV\\"= 19
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\ADMCT\\"= 20
+destindir="\\MMOS2\\MMTOOLKT\\H\\"= 22
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\RECORDER\\"= 23
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\CAPSAMP\\"= 24
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\FSSHT\\"= 25
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\CAPTION\\"= 26
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\CLOCK\\"= 27
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\DUET1\\"= 28
+/*destindir = "\\MMOS2\\MMTOOLKT\\NEATSTUF\\HEADER\\"    = 29*/
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\CAPDLL\\"= 30
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\SHRC\\"= 32
+destindir="\\MMOS2\\MMTOOLKT\\NEATSTUF\\P2STRING\\"= 33
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\MCDTBL\\"= 35
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\MMOTTK\\"= 38
+destindir="\\MMOS2\\MMTOOLKT\\BITMAPS\\"= 39
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\SHORTCF\\"= 40
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\SHORTCF\\MCISTRNG\\"= 41
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\MOVIE\\"= 42
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\MCDTEMP\\"= 43
+destindir="\\MMOS2\\MMTOOLKT\\NEATSTUF\\WVDOC\\"= 45
+destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\ULIOT\\"=46
+
+ssgroup=0               /*  base group */
+sssize=2077
+ssname="mmbase"
+ssversion="1.1"
+ssinich="TLKBASE.SCR"
+
+/*           - 24 = avcinst   */
+ssgroup=24
+ssname="AVC I/O Procedure Installation Utility"
+ssversion="1.1"
+sssize=88
+ssinich="TLKIOPU.SCR"
+ssicon="avcinst.ico"
+ssselect="NO"
+
+/*           - 7  = clock    */
+ssgroup=7
+ssname="Clock Utility"
+ssversion="1.1"
+sssize=374
+ssinich="TLKCLOCK.SCR"
+ssicon="clock.ico"
+ssselect="NO"
+
+/*           - 8  = midiconv  */
+ssgroup=8
+ssname="MIDI File Format Converter"
+ssversion="1.1"
+sssize=38
+ssinich="TLKCONV.SCR"
+ssicon="midiconv.ico"
+ssselect="NO"
+
+/*           - 9  = duet1   */
+ssgroup=9
+ssname="Duet Player I"
+ssversion="1.1"
+sssize=2036
+ssinich="TLKDUT1.SCR"
+ssicon="duet1.ico"
+ssselect="NO"
+
+/*           - 10 = duet2     */
+ssgroup=10
+ssname="Duet Player II"
+ssversion="1.1"
+sssize=910
+ssinich="TLKDUT2.SCR"
+ssicon="duet2.ico"
+ssselect="NO"
+
+/*           - 11 = mcistrng */
+ssgroup=11
+ssname="Media Control Interface String Test"
+ssversion="1.1"
+sssize=152
+ssinich="TLKSTRN.SCR"
+ssicon="mcistrng.ico"
+ssselect="NO"
+
+/*           - 12 = inc, lib, and h   */
+ssgroup=12
+ssname="Header Files, Include Files and Libraries"
+ssversion="1.1"
+sssize=758
+ssconfigch="TOOLKIT.CH"
+ssicon="mmpmdata.ico"
+ssselect="NO"
+
+/*           - 13 = prog ref   */
+ssgroup=13
+ssname="Program Reference"
+ssversion="1.1"
+sssize=1352
+ssinich="TLKBOOKR.SCR"
+ssicon="mmpmref.ico"
+ssconfigch="TLKBOOKR.CH"
+ssselect="NO"
+
+
+/*           - 18 = audio recorder sample */
+ssgroup=18
+ssname="Audio Recorder Sample"
+ssversion="1.1"
+sssize=248
+ssinich="TLKRECDR.SCR"
+ssicon="recorder.ico"
+ssselect="NO"
+
+/*           - 19 = Caption Sample Application */
+ssgroup=19
+ssname="Caption Sample Application"
+ssversion="1.1"
+sssize=1304
+ssinich="TLKCAPT.SCR"
+ssicon="capsamp.ico"
+ssselect="NO"
+
+
+/*           - 27 = Caption DLL */
+ssgroup=27
+ssname="Caption DLL"
+ssversion="1.1"
+sssize=94
+ssselect="NO"
+
+/*           - 28 = Caption */
+ssgroup=28
+ssname="Caption Creation Utility"
+ssversion="1.1"
+sssize=286
+ssinich="TLKCAPCU.SCR"
+ssicon="caption.ico"
+ssselect="NO"
+
+/*           - 30 = SHXMP    */
+ssgroup=30
+ssname="Stream Handler Resource File Example"
+ssversion="1.1"
+sssize=142
+ssselect="NO"
+
+/*           - 31 = P2STRING */
+ssgroup=31
+ssname="P2STRING"
+ssversion="1.1"
+sssize=366
+ssinich="TLKP2STR.SCR"
+ssselect="NO"
+
+/*           - 32 = MCD Command Table Sample */
+ssgroup=32
+ssname="MCD Command Table Sample"
+ssversion="1.1"
+sssize=172
+ssselect="NO"
+
+/*           - 34 = Real World IO Proc */
+ssgroup=34
+ssname="M-Motion IO Proc Sample"
+ssversion="1.1"
+sssize=160
+ssselect="NO"
+
+/*           - 35 = Bitmaps */
+ssgroup=35
+ssname="Bitmaps"
+ssversion="1.1"
+sssize=78
+ssinich="TLKBITMP.SCR"
+ssicon="wpfolder.ico"
+ssselect="NO"
+
+/*           - 36 = Short Control File Sample */
+ssgroup=36
+ssname="Short Control File Sample"
+ssversion="1.1"
+sssize=228
+ssselect="NO"
+
+/*           - 37 = Movie Sample Program  */
+ssgroup=37
+ssname="Movie Sample Application"
+ssversion="1.1"
+sssize=126
+ssicon="movie.ico"
+ssselect="NO"
+ssinich="TLKMVSPL.SCR"
+
+/*           - 38 = MCD Template */
+ssgroup=38
+ssname="MCD Template"
+ssversion="1.1"
+sssize=114
+ssicon="mmpmdata.ico"
+ssselect="NO"
+
+
+/*          - 40 = caseconv   */
+ssgroup=40
+ssname="Case Converter I/O Procedure"
+ssversion="1.1"
+sssize=116
+ssicon="mmpmdata.ico"
+ssselect="NO"
+
+/*           - 41 = fssht and admct     */
+ssgroup=41
+ssname="Media Driver and Stream Handler Examples"
+ssversion="1.1"
+sssize=1002
+ssicon="mmpmdata.ico"
+ssselect="NO"
+
+/*           - 42 = wave doctor*/
+
+ssgroup=42
+ssname="Wave Doctor"
+ssversion="1.1"
+sssize=74
+ssinich="TLKwvdoc.SCR"
+ssicon="wvdoc.ico"
+ssselect="NO"
+
+
+/*           - 43 = */
+
+ssgroup=43
+ssname="Ultimotion IO Proc Sample"
+ssversion="1.1"
+sssize=436
+ssicon="mmpmdata.ico"
+ssselect="NO"
+
+

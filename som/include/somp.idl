@@ -1,0 +1,99 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1996,1996  
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//# @(#) 2.14 src/somp/somp.idl, somp, som2.1 2/19/96 17:30:58 [7/30/96 14:47:03]
+
+
+#ifndef somp_idl
+#define somp_idl
+
+
+#include <somobj.idl>
+
+typedef unsigned short SOMPTError;
+#pragma somemittypes on
+
+const unsigned short MAXTHREADS = 256;
+const unsigned short SOMPMAXIDNUMSIZE = 12; /* ID number can be up to 12 digits */
+const unsigned short SOMPMAXIDSIZE = 255;
+#pragma somemittypes off
+
+#ifdef __SOMIDL__
+interface SOMP_Include_Headers : SOMObject {
+//-----------------------------------------------------------------------------
+// InterfaceName: SOMP_Include_Headers
+//
+// Description:	The interface is simply a dummy interface that will insert the
+//              #include lines that are necessary for a successful SOM compile.
+//-----------------------------------------------------------------------------
+
+  implementation 
+  {
+    passthru C_h =
+      ""
+      "#ifndef _ALL_SOURCE"
+      "#define _ALL_SOURCE"
+      "#endif"
+      "#ifndef PERSISTENT_STG_MGR_CLASS"
+      "#define PERSISTENT_STG_MGR_CLASS \"SOMPPersistentStorageMgr\""
+      "#endif"
+      ""
+      "typedef unsigned short SOMPTError;"
+      "#include <stdio.h>"
+      "#include <sys/types.h>"
+      "#include <somperrd.h>"
+      "#include <sompstad.h>"
+      "#include <po.h>"
+      "#include <poid.h>"
+      "#include <pid.h>"
+      "#include <defedidl.h>"
+      "#include <fsagm.h>"
+      "#include <fsgm.h>"
+      "#include <fmi.h>"
+      "#include <fmib.h>"
+      "#include <nsma.h>"
+      "#include <psma.h>"
+      "#include <time.h>"
+      "SOMEXTERN void SOMInitsomp();"
+      "";
+    passthru C_xh = 
+      ""
+      "#ifndef _ALL_SOURCE"
+      "#define _ALL_SOURCE"
+      "#endif"
+      "#ifndef PERSISTENT_STG_MGR_CLASS"
+      "#define PERSISTENT_STG_MGR_CLASS \"SOMPPersistentStorageMgr\""
+      "#endif"
+      ""
+      "typedef unsigned short SOMPTError;"
+      "#include <stdio.h>"
+      "#include <sys/types.h>"
+      "#include <somperrd.xh>"
+      "#include <sompstad.xh>"
+      "#include <po.xh>"
+      "#include <poid.xh>"
+      "#include <pid.xh>"
+      "#include <defedidl.xh>"
+      "#include <fsagm.xh>"
+      "#include <fmi.xh>"
+      "#include <nsma.xh>"
+      "#include <psma.xh>"
+      "#include <time.h>"
+      "SOMEXTERN void SOMInitsomp();"
+      "";
+  };
+
+}; // End of SOMP_Include_Headers
+
+#endif /* __SOMIDL__ */
+
+#endif    /* somp_idl */

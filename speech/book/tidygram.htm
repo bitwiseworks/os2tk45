@@ -1,0 +1,42 @@
+<HTML><HEAD>
+<TITLE>Grammar Guide</TITLE><HEAD>
+</HEAD><BODY>
+<IMG SRC="bannerx.gif" ALT=""><BR>
+<H1>Grammar Guide</H1>
+<HR>
+<H1>A guide to attaching What Can I Say description files</H1>
+<p>
+After writing a What Can I Say description file it must be attached
+to its associated compiled grammar. This is done with the TIDYGRAM.EXE
+program. The syntax for this command is:
+<PRE>
+
+tidygram -o<I>grammarname</I> -w<I>description-file-name</I> -d<I>label-file-name</I>
+
+</PRE>
+
+The <TT><i>label-file-name</i></TT> is the name of a text file containing a short
+description of the grammar. For example, the contents of the label file associated
+with a grammar for IBM Works might be:
+<PRE>
+
+IBM Works Grammar
+
+</PRE>   <p>
+If you have a compiled grammar file named
+<TT>works.fsg</TT>, a What Can I Say description file
+named <TT>works.wcs</TT>, and a label file named <TT>works.txt</TT>
+then the tidygram command is:
+<PRE>
+
+tidygram -oworks.fsg -wworks.wcs -dworks.txt
+
+</PRE>
+<p><p>
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="wcs.htm">Previous Page</A> &#124; <A HREF="sgl.htm">Next Page</A> &#124; <A HREF="grammar.htm">Back to Grammar Guide</A> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+</BODY>
+</HTML>
+
+
+

@@ -1,0 +1,31 @@
+SYSCTL
+------
+The sysctl() call performs special operations on the TCP/IP stack.  Unlike
+getsockopt() or setsockopt(), sysctl() accesses and modifies systemwide
+parameter values for the entire TCP/IP stack
+
+SAMPLES FOR SYSCTL
+------------------
+
+There is one file  named:
+
+Sysctl.c
+
+for explainig sysctl calls. This sample program sets the ipgate 1 and then back
+to 0 This can be verified using
+
+inetcfg -g ipforward
+
+which shows the status of ipgate flag being reset back to 0.
+
+COMPILATION
+------------
+The source code for the sysctl sample can be compiled using the
+given makefile
+
+nmake /a
+
+EXECUTION
+---------
+Execution of sysctl.exe shows the initial value of ipgate and then sets it to
+1 and then it resets back to the original value.

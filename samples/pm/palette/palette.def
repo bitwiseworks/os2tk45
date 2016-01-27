@@ -1,0 +1,14 @@
+; PALETTE definition file
+; Created by IBM Corporation 1992
+;
+NAME    PALETTE   WINDOWAPI
+
+DESCRIPTION 'OS/2 PM Sample Application'
+
+STUB    'OS2STUB.EXE'
+
+CODE    MOVEABLE
+DATA    MOVEABLE MULTIPLE
+
+HEAPSIZE  1024
+STACKSIZE 8192

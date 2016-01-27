@@ -1,0 +1,10 @@
+NAME        SHOW        WINDOWAPI
+
+DESCRIPTION 'DIVE Sample Program'
+
+HEAPSIZE    8192         ; Must be non-zero to use Local memory manager
+STACKSIZE   8192         ; Must be non-zero for SS == DS (suggest 4k min)
+
+PROTMODE
+
+EXPORTS     MyWindowProc

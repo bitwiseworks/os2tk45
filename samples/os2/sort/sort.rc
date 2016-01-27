@@ -1,0 +1,97 @@
+/*==============================================================*\
+ *                                                              *
+ * SORT.RC - Sample PM application resource file                *
+ *                                                              *
+\*==============================================================*/
+#include <os2.h>
+#include "sort.h"
+
+POINTER ID_RESOURCE  sort.ico
+BITMAP  IDC_BITMAP   "prodinfo.bmp"
+
+MENU ID_RESOURCE
+BEGIN
+   SUBMENU  "~Options", -1
+      BEGIN
+         MENUITEM "~Randomize data",           IDM_RANDOM
+         MENUITEM "~Set...  Alt+S",            IDM_SET
+         MENUITEM "S~tart",                    IDM_START
+         MENUITEM "Sto~p",                     IDM_STOP,, MIA_DISABLED
+      END
+   SUBMENU  "~Help", -2
+      BEGIN
+         MENUITEM "~Help index",               IDM_HELPINDEX
+         MENUITEM "~General help",             IDM_GENERALHELP
+         MENUITEM "~Keys Help",                IDM_TUTORIAL
+         MENUITEM "~Using help",               IDM_USINGHELP
+         MENUITEM SEPARATOR
+         MENUITEM "~Product information...",   IDM_HELPPRODUCTINFO
+      END
+END
+
+/*--------------------------------------------------------------*\
+ *  Help table definition                                       *
+\*--------------------------------------------------------------*/
+HELPTABLE   SORT_HELP_TABLE
+{
+    HELPITEM   ID_RESOURCE,     SUBTABLE_MAIN,            PANEL_MAIN
+    HELPITEM   IDD_PRODUCTINFO, SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+    HELPITEM   IDD_SETCOUNT,    SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+}
+
+/*--------------------------------------------------------------*\
+ *  Main window subtable, includes menu item help               *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDM_GENERALHELP,         PANEL_GENERALHELP
+    HELPSUBITEM     IDM_USINGHELP,           PANEL_USINGHELP
+    HELPSUBITEM     IDM_TUTORIAL,            PANEL_TUTORIAL
+    HELPSUBITEM     IDM_HELPINDEX,           PANEL_HELPINDEX
+    HELPSUBITEM     IDM_HELPPRODUCTINFO,     PANEL_HELPPRODUCTINFO
+
+    HELPSUBITEM     IDM_START,               PANEL_HELPSTART
+    HELPSUBITEM     IDM_STOP,                PANEL_HELPSTOP
+    HELPSUBITEM     IDM_SET,                 PANEL_HELPSET
+    HELPSUBITEM     IDM_RANDOM,              PANEL_HELPRANDOM
+}
+
+/*--------------------------------------------------------------*\
+ *  Enter text dialog help subtable                             *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_PRODUCTINFODLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     DID_OK,                  PANEL_PRODUCTINFO_OK
+    HELPSUBITEM     IDD_ENTRYFLD,            PANEL_PRODUCTINFO_OK
+}
+
+ACCELTABLE ID_RESOURCE
+{
+    "S",     IDM_SET,          ALT
+    "s",     IDM_SET,          ALT
+}
+
+
+STRINGTABLE
+{
+    IDS_TITLE,                  "Sort Demonstration"
+    IDS_UNTITLED                "Untitled"
+    IDS_APPNAME                 "Sort"
+    IDS_HELPLIBRARYNAME         "SORT.HLP"
+    IDS_HELPWINDOWTITLE         "Sort Help"
+}
+
+MESSAGETABLE
+{
+    IDMSG_INITFAILED            "Initialization failed."
+    IDMSG_MAINWINCREATEFAILED   "Failed to create main window."
+    IDMSG_CANNOTLOADEXITLIST    "Cannot load Exit List processor."
+    IDMSG_CANNOTLOADSTRING      "Failed to load string."
+    IDMSG_HELPLOADERROR         "Failed to load help manager."
+    IDMSG_HELPDISPLAYERROR      "Failed to display help panel."
+    IDMSG_ERRORSIZE             "The setting size must be less than 1024."
+}
+
+rcinclude sort.dlg

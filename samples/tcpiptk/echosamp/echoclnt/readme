@@ -1,0 +1,72 @@
+Echosamp consists of two subdirectories, an echo client (echoclnt)
+and an echo server (echosrv), located in \TOOLKIT\SAMPLES\TCPIPTK\ECHOSAMP.
+
+The echoclnt directory contains two samples of echo clients:
+
+ECHOCLNT.C - is an echo client that uses one subroutine to handle
+             both UDP requests and TCP requests.
+
+ECHOCLST.C - is an echo client that uses separate subroutines to handle
+             UDP requests and TCP requests.
+
+
+This program implements the client side of the Echo protocol (RFC 862).  The
+Echo protocol is very simple: whatever the client sends to the server, the
+server will send right back to the client.  The complete RFC is reproduced
+below:
+
+
+Network Working Group                                          J. Postel
+Request for Comments: 862                                            ISI
+                                                                May 1983
+
+                             Echo Protocol
+
+This RFC specifies a standard for the ARPA Internet community.  Hosts on
+the ARPA Internet that choose to implement an Echo Protocol are expected
+to adopt and implement this standard.
+
+A very useful debugging and measurement tool is an echo service.  An
+echo service simply sends back to the originating source any data it
+receives.
+
+TCP Based Echo Service
+
+   One echo service is defined as a connection based application on TCP.
+   A server listens for TCP connections on TCP port 7.  Once a
+   connection is established any data received is sent back.  This
+   continues until the calling user terminates the connection.
+
+UDP Based Echo Service
+
+   Another echo service is defined as a datagram based application on
+   UDP.  A server listens for UDP datagrams on UDP port 7.  When a
+   datagram is received, the data from it is sent back in an answering
+   datagram.
+
+
+Following are details on building and executing the echo server samples.
+
+   1. To compile and link the sample programs, type:
+
+        nmake -f vacpp.mak         (to build using the VisualAge C/C++ compiler)
+
+    2. Executing echoclnt.exe and echoc1st.exe:
+
+       ***note before executing the an echo client, the server must be active
+       on the destination host.
+
+       a. To execute the echoclnt.exe client, type:
+
+          echoclnt TCP hostname   (using the TCP protocol)
+          echoclnt UDP hostname   (using the UDP protocol)
+
+          Then any data typed in the client OS/2 session will be echoed from the server.
+
+       b. To execute the echoc1st.exe client, type:
+
+          echoc1st TCP hostname   (using the TCP protocol)
+          echoc1st UDP hostname   (using the UDP protocol)
+
+          Then, any data typed in the client OS/2 session will be echoed from the server.
+

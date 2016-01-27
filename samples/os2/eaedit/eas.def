@@ -1,0 +1,16 @@
+;-------------------------------------
+; EAS.DEF module definition file
+;-------------------------------------
+
+NAME           EAS  WINDOWAPI
+
+DESCRIPTION    'Extended Attributes Sample Program'
+PROTMODE
+HEAPSIZE       28000
+STACKSIZE      25600
+EXPORTS        MainWndProc
+               IconDlgProc
+               OpenFileProc
+               AddEAProc
+               AsciiEditProc
+               MultiTypeProc

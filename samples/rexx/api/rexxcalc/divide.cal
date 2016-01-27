@@ -1,0 +1,9 @@
+/* Rexx Calculator division processor */
+parse arg left, right                  /* get the two operands       */
+numeric digits CalcPrecision()         /* set current precision      */
+numeric form value CalcForm()          /* set current form           */
+
+if (right = 0)                         /* bad division?              */
+  then return 'Error'                  /* return error indicator     */
+
+return left / right                    /* return result              */

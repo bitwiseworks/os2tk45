@@ -1,0 +1,91 @@
+
+//  Module Header
+//
+//  Module Name: WPROOTF
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wprootf_idl
+#define wprootf_idl
+
+#include "wpfolder.idl"
+#include <somcls.idl>
+
+interface M_WPRootFolder;
+
+interface WPRootFolder : WPFolder
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder:
+   wpRootFolderPrivate1,
+    wpRefresh;
+
+    externalstem = wprf;
+    local;
+    externalprefix = rf_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wprootf;
+    metaclass = M_WPRootFolder;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+
+
+    wpSetTitle: override;
+    wpOpen: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpAddFile1Page: override;
+    wpAddFile2Page: override;
+    wpAddFile3Page: override;
+    wpSetDefaultView: override;
+    wpRefresh: override;           
+    wpFilterMenu: override;                                                     
+    somDefaultInit: override;          
+    somDestruct: override;             
+    wpViewObject: override;            
+
+    wpFindViewItem: override;
+
+    wpSetFldrSort: override;
+    wpQueryDisk: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPRootFolder : M_WPFolder
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wprf;
+    local;
+    externalprefix = rfM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wprootf;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+    wpclsQueryStyle: override;
+    wpclsInitData: override;
+    wpclsUnInitData: override;
+    wpclsQueryDefaultView: override;      
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wprootf_idl */

@@ -1,0 +1,72 @@
+
+//  Module Header
+//
+//  Module Name: WPAUDIO
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpaudio_idl
+#define wpaudio_idl
+
+#include "wpdevice.idl"
+
+interface M_WPDevAudio;
+
+interface WPDevAudio : WPDevice
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpaudio;
+    functionprefix = audio_;
+    local;
+//    externalprefix = audio_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpaudio;
+    metaclass = M_WPDevAudio;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+    passthru C_h =  ""
+"";
+
+/* Private instance data area */
+
+     /* Overridden instance methods area */
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDevAudio : M_WPDevice
+{
+  /* New class methods section */
+
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpaudio;
+    functionprefix = audioM_;
+    local;
+//    externalprefix = audioM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpaudio;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+
+    /* Overridden class methods section */
+    wpclsQueryIconData: override;                                              //bjf152374
+    wpclsQueryTitle:    override;
+  };
+
+};
+#endif  /* wpaudio_idl */

@@ -1,0 +1,65 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//# @(#) 2.7 src/somu/somida.idl, somu, som2.1 9/1/94 17:47:00 [7/30/96 14:49:56]
+
+
+#ifndef somida_idl
+#define somida_idl
+
+#include <somobj.idl>
+
+interface SOMUTId : SOMObject
+
+// This is the abstract base class for an ID. Only the interface is
+// defined. Refer to derived classes for details.
+//
+// Instances of classes derived from this one should represent a
+// value which can be used to identify something... such as an object,
+// a file, a network node, etc, etc...
+//
+
+{
+  void somutSetIdId(in SOMUTId otherId);
+  // Sets the ID equal to ID of the given ID.
+
+  boolean somutEqualsId(in SOMUTId otherId);
+  // Checks to see if this object's ID is equivalent to the given ID.
+  // Returns TRUE if the ID's are equivalent, FALSE otherwise.
+
+  short somutCompareId(in SOMUTId otherId);
+  // Performs an ordered comparison with another Id.
+  // If this ID < otherId  -1 is returned.
+  // If this ID = otherId   0 is returned.
+  // If this ID > otherId   1 is returned.
+
+  unsigned long somutHashId();
+  // Returns an unsigned integer hash value based on the ID.
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+    callstyle = idl;
+
+    releaseorder: somutSetIdId, somutEqualsId, somutCompareId, somutHashId;
+
+    filestem = somida;
+    majorversion = 2;
+    minorversion = 1;
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* somida_idl */

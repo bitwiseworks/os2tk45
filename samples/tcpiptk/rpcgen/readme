@@ -1,0 +1,33 @@
+     RPCGEN consists of three user written files, RG.X, RGUS.C
+     and RGUC.C (located in \TOOLKIT\SAMPLES\TCPIPTK\RPCGEN).
+
+     RG.X defines the remote procedure characteristics.
+     RGUS.C demonstrates an RPC Server program.
+     RGUC.C demonstrates an RPC Client program.
+
+     Following are details on building and executing the
+     RPCGEN Samples:
+
+     1)  Perform the following:
+
+           rpcgen rg.x
+
+         This generates rg.h, rg.i, rgs.c, rgc.c, and rgx.c.
+
+     2)  From rgx.c, add the include headers to rgus.c, and rguc.c
+         (if they don't already exists).
+
+     3)  Run rpcgsamp.cmd to compile rgus.c, rguc.c, rgs.c, and rgc.c.
+         Link rgs.obj, and rgus.obj to generate rgs.exe.
+         Link rgc.obj, and rguc.obj to generate rgc.exe.
+
+     4)  Start portmap.exe, and rgs.exe on the same machine:
+
+           start portmap
+           start rgs
+
+     5)  Start rgc.exe by typing:
+
+           rgc hostname "user_input string"
+
+

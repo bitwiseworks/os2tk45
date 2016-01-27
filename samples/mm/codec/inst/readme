@@ -1,0 +1,54 @@
+/****************************************************************************/
+/*									    */
+/* SOURCE FILE NAME:  README						    */
+/*									    */
+/* DESCRIPTIVE NAME:  Data file that describes each file in the 	    */
+/*		      Codec Install sample.				    */
+/*									    */
+/* COPYRIGHT:	   Copyright (c) IBM Corporation  1993			    */
+/*			  All Rights Reserved				    */
+/*									    */
+/* STATUS:  Workshop toolkit 1.0					    */
+/*									    */
+/****************************************************************************/
+
+    This subdirectory contains the Codec Installation Sample.  This sample
+    shows the developer of a video compression/decompresion algorithm how to
+    have the algorithm installed into the MMPM/2 system so that it can then
+    be used by the Digital Video Recorder to record software motion video.
+
+    This sample should be used in conjunction with the sampcodc.dll file
+    that is available in the \mmos2\mmtoolkt\samples\codec subdirectory.
+
+    The files included with this sample are the following:
+
+    vidrec.ico	 - The icon that shows up in the MINSTALL window next to
+		   the text title of the codec.
+
+    control.scr  - The first file read in by MINSTALL, which points to the
+		   master file list (master.dsk), defines the source and
+		   destination directory numbers, and all the file groups.
+		   In the example, there is only one file (hence only one
+		   group).  The group definition defines the group number
+		   (to be used with the group number associated with the
+		   files in the master.dsk), the size of the group in KBytes,
+		   the name of the codec that appears on the MINSTALL line,
+		   the version of the codec, a pointer to .INI file update
+                   information, and default selection status.
+
+    master.dsk	 - The main file describing the contents of the disk(s) that
+		   need to be installed.  Each file to be installed has
+		   an entry defining the disk number that the file resides on,
+		   the group that the file is in, the number of the
+		   destination directory, the number of the source directory,
+		   and the filename itself.
+
+    sampcodc.scr - Filelist control file containing the list of items to
+		   be added to the MMPMMMIO.INI file by MINSTALL.  Some items
+		   of interest are the FourCC of the file format, the .DLL
+		   name, the .DLL entry point, the FourCC of the codec
+		   algorithm, the capabilities of the codec (shouldn't need
+		   updating), and the X and Y alignment definitions (which
+                   describes how the codec encodes data if it does so in
+                   blocks... this is important for decompression and window
+                   placement).

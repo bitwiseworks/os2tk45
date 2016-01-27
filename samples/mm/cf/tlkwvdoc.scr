@@ -1,0 +1,16 @@
+
+/*  The tlkwvdoc.SCR change file  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPProgram"
+    WPTitle       = "WaveDoctor"
+    WPSetupString = "EXENAME=$(DEST)wvdoc.EXE;PROGTYPE=PM;STARTUPDIR=$(DIR)45;OBJECTID=<NEATSTUFF_wvdoc> "
+    WPLocation    = "<NEATSTUFF>"
+    WPFlags       = 1L
+    )
+
+/* end of tlkwvdoc.SCR */

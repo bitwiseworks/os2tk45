@@ -1,0 +1,52 @@
+// resource file for hiworld sample
+
+#include "hiworld.h"
+#include <windows.h>
+
+// menu for main program
+HIWORLDMENU MENU DISCARDABLE 
+BEGIN
+    POPUP "&Information"
+    BEGIN
+        MENUITEM "&ScreenDimensions",      IDM_SCRDIM
+        POPUP "&Time"
+        BEGIN
+            MENUITEM "&Up time\tF2",       IDM_UPTIME
+            MENUITEM "&Local time\tALT+L", IDM_LOCALTIME
+        END
+        POPUP "&Colors"
+        BEGIN
+            MENUITEM "&Show colors",       IDM_SHOWCOLORS
+            MENUITEM "&Change colors",     IDM_CHANGECOLORS
+            MENUITEM "&Restore colors",    IDM_RESTORECOLORS
+            , GRAYED
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                  IDM_EXIT
+    END
+    POPUP "&Beep"
+    BEGIN
+        MENUITEM "Beep...",                IDM_BEEP
+    END
+END
+
+// dialog for beep
+BEEPDIALOG DIALOG DISCARDABLE  100, 100, 150, 150
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Beep settings"
+BEGIN
+    GROUPBOX        "Frequency",-1,10,10,130,50
+    GROUPBOX        "Duration",-1,10,70,130,50
+    SCROLLBAR       ID_FREQBAR,20,30,110,10
+    SCROLLBAR       ID_DURBAR,20,90,110,10
+    PUSHBUTTON      "Beep",ID_BEEPNOW,30,130,30,15
+    PUSHBUTTON      "Done",ID_DONE,90,130,30,15
+END
+
+
+// icon for hiworld
+IDI_ICON2       ICON    DISCARDABLE   "icon2.ico"
+
+// cursor for hiworld
+IDC_CURSOR1     CURSOR  DISCARDABLE   "cursor1.cur"
+

@@ -1,0 +1,176 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.9.2.2 src/somd/somoa.idl, somd, som2.1 4/1/95 14:52:45 [7/30/96 14:45:49]
+
+
+//   IDL interface spec for SOM Object Adapter (derived from BOA)
+//
+//   This is DSOM's primary Object Adapter.  It implements the BOA interface.
+
+
+#ifndef somoa_idl
+#define somoa_idl
+
+#include <somdtype.idl>
+#include <boa.idl>
+
+
+
+interface SOMOA : BOA
+{
+
+  ORBStatus execute_next_request(in Flags waitFlag);
+
+  // This method receives a single request message, executes it, and
+  // sends the result to the calling client.  If waitFlag is SOMD_WAIT,
+  // the call will block if there is no message pending.  If waitFlag
+  // is SOMD_NO_WAIT, the call will immediately return "SOMDERROR_NoMessages"
+  // if there is no message pending.
+  //
+  // ("SOMDERROR_NoMessage" is only returned as a status code, not as an
+  // exception structure.)
+
+  ORBStatus execute_request_loop(in Flags waitFlag);
+
+  // Repeatedly calls execute_next_request.  If waitFlag is SOMD_WAIT,
+  // the call will continue to wait for messages when there is no message
+  // pending.  If waitFlag is SOMD_NO_WAIT, the call will process any
+  // messages that are present, and return "SOMD_NoMessages" as soon as there 
+  // are no more messages pending.
+  //
+  // ("SOMDERROR_NoMessage" is only returned as a status code, not as an
+  // exception structure.)
+
+  void change_id(in SOMDObject objref, in ReferenceData id);
+
+  // This method changes the ReferenceData associated with the object
+  // identified by "objref".  The ReferenceData previously stored in the
+  // SOMOA's reference data table is replaced with the value of "id".
+  // The new id value cannot be larger than the maximum size of the
+  // original ReferenceData (usually specified as 1024 bytes).
+  
+  SOMDObject create_constant(in ReferenceData id, in InterfaceDef intf,
+                             in ImplementationDef impl);
+
+  // This method is a variant of the "create" method.  Like "create", it
+  // creates an object reference for an object (with the specified interface)
+  // and associates the supplied ReferenceData with the object reference.
+  // The ReferenceData can later be retrieved using the "get_id" method.
+  // Unlike "create", this method creates a "contant" reference whose id 
+  // value cannot be changed.  (See "change_id" below.)  This is because
+  // the id is part of the object reference state, versus stored in the 
+  // SOMOA reference data table.
+  //
+  // This method would be used whenever the application prefers not to
+  // maintain an object's ReferenceData in the SOMOA reference data table. 
+  
+  SOMDObject create_SOM_ref(in SOMObject somobj, in ImplementationDef impl);
+
+  // This methods creates a simple DSOM reference (SOMDObject) for a local 
+  // SOM object.  The reference is "special" in that there is no explicit
+  // ReferenceData associated with the object.  Also, the reference is
+  // only valid while the SOM object exists.
+  //
+  // The SOMObject can be retrieved via the get_SOM_object method.
+  // The SOMDObject::is_SOM_ref method can be used to tell if the
+  // reference was created using create_SOM_ref or not.
+  
+  SOMObject get_SOM_object(in SOMDObject somref);
+
+  // This method returns the SOM object associated with a SOMDObject
+  // reference created by the create_SOM_ref method.
+
+  void activate_impl_failed(in ImplementationDef impl, in ORBStatus rc);
+
+  // Indicates there was an error when activating this implementation.
+  // Called by a server program.  ORBStatus code is returned to the client
+  // in an exception.
+
+  void interrupt_server();
+
+  // Wakes up a server waiting for a request message.
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+    releaseorder: execute_next_request, execute_request_loop,
+		  create_constant, change_id,
+                  create_SOM_ref, get_SOM_object,
+		  activate_impl_failed, interrupt_server;
+
+    //# Class Modifiers
+    callstyle = idl;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+
+    //# Method Modifiers
+    somInit: override;
+    somUninit: override;
+    create: override;
+    dispose: override;
+    change_implementation: override;
+    get_id: override;
+    get_principal: override;
+    set_exception: override;
+    impl_is_ready: override;
+    deactivate_impl: override;
+    obj_is_ready: override;
+    deactivate_obj: override;
+
+    //# Passthrus
+    #define COMMON_H_PASSTHRU \
+      "" \
+      "#define SOMD_WAIT     1" \
+      "#define SOMD_NO_WAIT  0" \
+      "#define SOMD_IMPL_NOT_INITIALIZED          0" \
+      "#define SOMD_IMPL_NOT_ACTIVE               1" \
+      "#define SOMD_IMPL_ACTIVE                   2" \
+      ""
+
+    passthru C_h_after  = COMMON_H_PASSTHRU
+      "#ifdef SOM_STRICT_IDL"
+#ifdef _WIN16
+      "#define SOMD_SOMOAObject (*SOMD_SOMOAObjectResolve())"
+      "SOMEXTERN SOMOA * SOMLINK SOMD_SOMOAObjectResolve(void);"
+#else
+      "SOMEXTERN SOMOA   SOMDLINK SOMD_SOMOAObject;"
+#endif
+      "#else"
+#ifdef _WIN16
+      "#define SOMD_SOMOAObject (*SOMD_SOMOAObjectResolve())"
+      "SOMEXTERN SOMOA ** SOMLINK SOMD_SOMOAObjectResolve(void);"
+#else
+      "SOMEXTERN SOMOA *  SOMDLINK SOMD_SOMOAObject;" 
+#endif
+      "#endif"
+      "";
+
+    passthru C_xh_after = COMMON_H_PASSTHRU
+      "class SOMOA;"
+#ifdef _WIN16
+      "#define SOMD_SOMOAObject (*SOMD_SOMOAObjectResolve())"
+      "SOMEXTERN SOMOA ** SOMLINK SOMD_SOMOAObjectResolve(void);"
+#else
+      "SOMEXTERN SOMOA * SOMDLINK SOMD_SOMOAObject;"
+#endif
+      "";
+
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* somoa_idl */

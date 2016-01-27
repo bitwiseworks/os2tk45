@@ -1,0 +1,237 @@
+
+//  Module Header
+//
+//  Module Name: WPLNCHPD
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992, 1994
+//
+
+//
+
+#ifndef wplnchpd_idl
+#define wplnchpd_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+struct tag_Actions
+{
+    PSZ pszTitle;
+    ULONG ulMenuId;
+    HPOINTER hIcon;
+};
+
+typedef tag_Actions ACTIONS;
+typedef tag_Actions * PACTIONS;
+
+struct tag_FPINFO
+{
+     ULONG       ulNumObjects;
+     HOBJECT    *phobjects;
+     tag_FPINFO *slideups;
+     HWND        hwndSlideup;
+};
+typedef tag_FPINFO  FPINFO;
+typedef tag_FPINFO *PFPINFO;
+
+interface M_WPLaunchPad;
+
+interface WPLaunchPad : WPAbstract
+
+{
+  ULONG wpAddLaunchPadPage1(in HWND hwndNotebook);
+
+  ULONG wpAddLaunchPadPage2(in HWND hwndNotebook);
+
+  BOOL wpQueryCloseDrawer();
+
+  BOOL wpQueryDisplayVertical();
+
+  BOOL wpQueryDisplayText();
+
+  BOOL wpQueryDisplayTextInDrawers();
+
+  BOOL wpQueryDisplaySmallIcons();
+
+  BOOL wpQueryHideLaunchPadFrameCtls();
+
+  BOOL wpQueryFloatOnTop();
+
+  VOID wpSetCloseDrawer(in BOOL fState);
+
+  VOID wpSetDisplayVertical(in BOOL fState);
+
+  VOID wpSetDisplayText(in BOOL fState);
+
+  VOID wpSetDisplayTextInDrawers(in BOOL fState);
+
+  VOID wpSetDisplaySmallIcons(in BOOL fState);
+
+  VOID wpSetHideLaunchPadFrameCtls(in BOOL fState);
+
+  VOID wpSetFloatOnTop(in BOOL fState);
+
+  PACTIONS wpQueryActionButtons(in PULONG pulNumActions);
+
+  HOBJECT* wpQueryObjectList(in ULONG ulDrawer,
+                             in PULONG pulNumObjects);
+
+  BOOL wpSetObjectListFromStrings(in ULONG ulDrawer,
+                                  in PSZ pszSetup,
+                                  in ULONG ulAfter);
+
+  BOOL wpSetObjectListFromHObjects(in ULONG ulDrawer,
+                                   in ULONG ulNumObjects,
+                                   inout HOBJECT phobjects,
+                                   in ULONG ulAfter);
+
+  BOOL wpSetObjectListFromObjects(in ULONG ulDrawer,
+                                  in ULONG ulNumObjects,
+                                  inout WPObject objects,
+                                  in ULONG ulAfter);
+
+  VOID wpSetDrawerHWND(in ULONG ulDrawer,
+                        in HWND hwnd);
+
+  HWND wpQueryDrawerHWND(in ULONG ulDrawer);
+
+  ULONG wpQueryActionButtonStyle( );
+
+  BOOL wpSetActionButtonStyle( in ULONG ulStyle );
+
+  VOID wpRefreshDrawer(in ULONG ulDrawer);
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddLaunchPadPage1,wpQueryCloseDrawer,wpQueryDisplayVertical,
+                  wpQueryDisplayText,wpQueryDisplaySmallIcons,wpQueryHideLaunchPadFrameCtls,
+                  wpQueryFloatOnTop,wpSetCloseDrawer,wpSetDisplayVertical,
+                  wpSetDisplayText,wpSetDisplaySmallIcons,wpSetHideLaunchPadFrameCtls,
+                  wpSetFloatOnTop,wpQueryActionButtons,wpQueryObjectList,
+                  wpSetObjectListFromStrings,wpSetObjectListFromObjects,
+                  wpSetObjectListFromHObjects,wpSetDrawerHWND,wpQueryDrawerHWND,
+                  wpRefreshDrawer, wpSetDisplayTextInDrawers,
+                  wpQueryDisplayTextInDrawers, wpQueryActionButtonStyle,
+                  wpSetActionButtonStyle,wpAddLaunchPadPage2;
+
+    externalstem = WPlnchpd;
+    externalprefix = lnchpd_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wplnchpd;
+    metaclass = M_WPLaunchPad;
+    dllname = "pmwp.dll";
+    callstyle = oidl;
+
+    passthru C_h_before =  ""
+"        typedef struct tag_Actions {"
+"                PSZ pszTitle;"
+"                ULONG ulMenuId;"
+"                HPOINTER hIcon;"
+"        } ACTIONS, *PACTIONS;"
+""
+"        #define ADD_OBJECT_FIRST ((ULONG)(-1))"
+"        #define ADD_OBJECT_LAST  ((ULONG)(-2))"
+""
+"        #define ACTION_BUTTONS_TEXT   ((ULONG)0)"
+"        #define ACTION_BUTTONS_OFF    ((ULONG)1)"
+"        #define ACTION_BUTTONS_MINI   ((ULONG)2)"
+"        #define ACTION_BUTTONS_NORMAL ((ULONG)3)"
+"";
+    passthru C_ih_before =  ""
+"        typedef struct tag_FPINFO {"
+"                ULONG ulNumObjects;"
+"                HOBJECT *phobjects;"
+"                struct tag_FPINFO *slideups;"
+"                HWND hwndSlideup;"
+"        } FPINFO, *PFPINFO;"
+"";
+
+    BOOL fCloseDrawer;
+    BOOL fDisplayVertical;
+    BOOL fDisplaytext;
+    BOOL fDisplaytextInDrawers;
+    BOOL fSmallIcons;
+    BOOL fHideCtls;
+    BOOL fFloatOnTop;
+    ULONG ulActionButtonStyle;
+    ULONG ulNumActions;
+    PACTIONS pActions;
+    FPINFO fpInfo;
+    BOOL fInRestoreState;
+    BOOL fDestroyLaunchPad;             
+
+    wpFree: override;
+
+    wpObjectReady: override;
+
+    wpOpen: override;
+
+    wpMenuItemHelpSelected: override;
+
+    wpInitData: override;
+
+    wpUnInitData: override;
+
+    wpSetup: override;
+
+    wpSaveState: override;
+
+    wpRestoreState: override;
+
+    wpMenuItemSelected: override;
+
+    wpAddSettingsPages: override;
+
+    wpAddObjectWindowPage: override;
+
+    wpQueryConcurrentView: override;
+
+    wpDragOver: override;
+
+    wpDrop: override;
+
+    wpFilterMenu: override;
+
+    somDefaultInit: override;          
+    somDestruct:    override;          
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPLaunchPad : M_WPAbstract
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPlnchpd;
+    externalprefix = lnchpdM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wplnchpd;
+    dllname = "pmwp.dll";
+    callstyle = oidl;
+
+    wpclsQueryTitle: override;
+
+    wpclsQueryDefaultHelp: override;
+
+    wpclsQueryDefaultView: override;
+
+    wpclsQueryStyle: override;
+
+    wpclsQueryIconData: override;
+
+    wpclsQuerySettingsPageSize: override; 
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wplnchpd_idl */

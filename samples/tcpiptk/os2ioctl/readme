@@ -1,0 +1,39 @@
+OS2IOCTL
+--------
+   The new ioctls take only three args, except for the 6 ioctls STATRT,
+STATARP, STATAT, STATIF, STATIF42, STATSO. For these ioctls you must link
+with tcpip32.dll then you must use os2_ioctl.
+
+   The os2_ioctl() socket call performs special operations on sockets; in
+particular, operations related to returning status from kernel.
+
+SAMPLES FOR OS2IOCTL
+--------------------
+
+There is one file  named :
+
+os2ioctl.c
+
+for explainig ioctl calls. This sample program issues SIOSTATRT for getting
+the routing entries from the routing table and SIOCSSYN to set the SYN attack
+prevention function flag ON.  This can be verified using
+
+netstat -r
+inetcfg -g syn
+
+which shows the routing table information and  status of SYN flag being set
+
+COMPILATION
+------------
+The source code for the os2ioctl sample can be compiled using the
+given makefile
+
+nmake /a
+
+EXECUTION
+---------
+Before execution of os2ioctl.exe the SYN flag information should be saved.
+After execution of this sample program;
+
+* the SYN flag is set to 1
+* the routing table information is displayed

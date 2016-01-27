@@ -1,0 +1,21 @@
+REM="Hebrew text"
+REM="(C) Copyright IBM Corporation 1989, 1995"
+
+NOTE="„’˜„:  "
+CAUTION=€†„˜„:
+WARNING="™‰ Œ:  "
+OLCHARS=€‚ƒ„…†‡ˆ‰‹ŒŽ‘’”–—˜™š
+OLCLOSE1=.
+OLCLOSE2=)
+ULITEMID1=o
+ULITEMID2=-
+ULITEMID3=--
+CGRAPHICFONTFACENAME="Courier"
+CGRAPHICFONTWIDTH=11
+CGRAPHICFONTHEIGHT=18
+GRAMMAR
+REM="NOTE! The last character in GRAPHICS= is ASCII 255 (Required Space)
+REM=       Which is invisible when viewing this file in a normal text editor!
+GRAPHICS= - $ + › - ÿ
+WORDS=0 - 9 + A - Z + a - z + € - š
+EGRAMMAR

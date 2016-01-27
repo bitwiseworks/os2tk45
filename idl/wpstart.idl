@@ -1,0 +1,73 @@
+
+//  Module Header
+//
+//  Module Name: WPSTART
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpstart_idl
+#define wpstart_idl
+
+#include "wpfolder.idl"
+#include <somcls.idl>
+
+interface M_WPStartup;
+
+interface WPStartup : WPFolder
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPStart;
+    local;
+    externalprefix = stp_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpstart;
+    metaclass = M_WPStartup;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpSetupOnce: override;
+    wpRestoreState: override;
+    wpFree: override;
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+    wpInitData: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPStartup : M_WPFolder
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPStart;
+    local;
+    externalprefix = stpM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpstart;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryTitle: override;
+    wpclsQueryIconData: override;
+    wpclsQueryIconDataN: override;
+    wpclsQueryStyle: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpstart_idl */

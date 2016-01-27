@@ -1,0 +1,160 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.9 src/somd/cntxt.idl, somd, som2.1 11/2/94 13:59:57 [7/30/96 14:45:23]
+
+
+
+//  IDL specification for CORBA Context Object.
+
+
+
+#ifndef context_idl
+#define context_idl
+
+#include <somobj.idl>
+#include <somdtype.idl>
+
+interface NVList;
+
+
+interface Context : SOMObject
+{
+  ORBStatus set_one_value(in Identifier prop_name, in string value);
+
+  //  This method sets or adds a single context object property. If prop_name
+  //  does not exist in the property list, it is added. If prop_name
+  //  does exist, its value is changed. 
+  //
+
+  ORBStatus set_values(in NVList values);
+
+  //  This method sets or changes one or more property values in the context
+  //  object. If a prop_name specified in the NVList does not exist in the
+  //  Context object property list, it is added. If a prop_name specified in
+  //  the NVList does exist in the Context object property list, its value
+  //  is changed.
+  //
+
+  ORBStatus get_values(in  Identifier start_scope, 
+		       in  Flags op_flags, 
+                       in  Identifier prop_name, 
+                       out NVList values);
+
+  //  This method retrieves the specified context property value(s) If
+  //  prop_name has a trailing wildcard ("*"), then all matching properties
+  //  and their values are returned. The returned NVList is the responsibility
+  //  of the caller,
+  //
+  //  If no matching properties are found, and error is returned the property
+  //  list contains no values.
+  // 
+  //  Scope indicates the context object level at which to initiate the search
+  //  for the specified properties (e.g. "_USER", "_SYSTEM"). If the property
+  //  is not found at the indicated level, the search continues up the context
+  //  object tree until a match is found or all context objects in the chain
+  //  have been searched.
+  //
+  //  If scope name is ommitted, the search begins with the specified context
+  //  object. If the specified scope name is not found, an exception is 
+  //  returned.
+  //
+  //  The following operation flags may be specified:
+  // 
+  //  CTX_RESTRICT_SCOPE  Searching is limited to the specified search scope or
+  //                      context object.
+  //
+
+  ORBStatus delete_values(in Identifier prop_name);
+
+  //  This method deletes the specified property value(s) from the context
+  //  object.  If prop_name has a trailing wildcard character ("*"), then 
+  //  all property names which match will be deleted.
+  //
+  //  Search scope is always limited to the specified context object.
+  //
+  //  If no matching property is found, an exception is returned.
+  //
+
+  ORBStatus create_child(in  Identifier ctx_name, 
+                         out Context child_ctx);
+
+  // 
+  //  This method creates a child context object.
+  //  
+  //  The returned context object is chained to its parent context. That is,
+  //  searches on the child context object will look in the parent context
+  //  (and so on, up the context tree), if necessary, for matching property 
+  //  names.
+  //
+
+  ORBStatus destroy(in Flags flags);
+
+  //  This operation deletes the indicated context object.
+  //  The following flags may be specified:
+  //  
+  //  CTX_DELETE_DESCENDENTS    Deletes the indicated context object and all
+  //                            of its descendent context objects as well.
+  //
+  //  An exception is returned if there are one or more child context objects
+  //  and the CTX_DELETE_DESCENDENTS flag was not set.
+  //
+
+
+#ifdef __SOMIDL__
+
+  implementation 
+  {
+    releaseorder: set_one_value, set_values, get_values, 
+		  delete_values, create_child, destroy,
+		  _get_context_name, _set_context_name,
+		  _get_context_parent, _set_context_parent,
+		  _get_properties, _set_properties;
+
+    //# Class Modifiers
+    callstyle=idl;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+  
+    //# Method Modifiers
+    somDefaultInit: override;
+    somDestruct: override;
+  
+    //# Passthrus
+    #define COMMON_H_PASSTHRU \
+      "" \
+      "/*" \
+      " * Context flags" \
+      " */" \
+      "#define CTX_DELETE_DESCENDENTS      0x00000200" \
+      "#define CTX_RESTRICT_SCOPE          0x00000400" \
+      ""
+    passthru C_xh_after = COMMON_H_PASSTHRU;
+    passthru C_h_after  = COMMON_H_PASSTHRU
+      ""
+      "/* alias for CORBA compatibility */"
+      "#ifndef Context_delete"
+      "#define Context_delete Context_destroy"
+      "#endif"
+      ""
+      ; /* end C_h_passthru */
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* context_idl */
+
+
+

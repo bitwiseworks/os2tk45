@@ -1,0 +1,29 @@
+LIBRARY REXXUTIL INITINSTANCE 
+PROTMODE
+DESCRIPTION 'REXXUTIL Utilities - (c) Copyright IBM Corporation 1991'
+DATA MULTIPLE NONSHARED
+STACKSIZE 32768
+EXPORTS
+     SYSCLS            = SysCls            @1
+     SYSCURPOS         = SysCurPos         @2
+     SYSCURSTATE       = SysCurState       @3
+     SYSDRIVEINFO      = SysDriveInfo      @4
+     SYSDRIVEMAP       = SysDriveMap       @5
+     SYSDROPFUNCS      = SysDropFuncs      @6
+     SYSFILEDELETE     = SysFileDelete     @7
+     SYSFILESEARCH     = SysFileSearch     @8
+     SYSFILETREE       = SysFileTree       @9
+     SYSGETMESSAGE     = SysGetMessage     @10
+     SYSINI            = SysIni            @11
+     SYSLOADFUNCS      = SysLoadFuncs      @12
+     SYSMKDIR          = SysMkDir          @13
+     SYSOS2VER         = SysOS2Ver         @14
+     SYSRMDIR          = SysRmDir          @15
+     SYSSEARCHPATH     = SysSearchPath     @16
+     SYSSLEEP          = SysSleep          @17
+     SYSTEMPFILENAME   = SysTempFileName   @18
+     SYSTEXTSCREENREAD = SysTextScreenRead @19
+     SYSTEXTSCREENSIZE = SysTextScreenSize @20
+     SYSGETEA          = SysGetEA          @21
+     SYSPUTEA          = SysPutEA          @22
+     SYSWAITNAMEDPIPE  = SysWaitNamedPipe  @23

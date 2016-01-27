@@ -1,0 +1,11 @@
+;
+;  The module definition file supplies extra information about the program
+;  module to the LINKER.
+;
+
+
+NAME TOYBOX WINDOWAPI
+
+DESCRIPTION 'Toy Box Bit Blit Demo'
+
+STACKSIZE   65536

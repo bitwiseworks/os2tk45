@@ -1,0 +1,53 @@
+//
+//   COMPONENT_NAME: somr
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//# @(#) 1.7 src/somr/somrmcls.idl, somr, som2.1 9/1/94 15:55:55 [7/30/96 15:24:45]
+
+
+#ifndef somrmcls_idl
+#define somrmcls_idl
+
+#include "sombacls.idl"
+interface SOMRReplicable : SOMMBeforeAfter
+
+//
+//
+
+{
+
+
+#ifdef __SOMIDL__
+
+implementation {
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = somrmcls;
+
+
+
+    //# Method Modifiers
+    sommBeforeMethod: override;
+    sommAfterMethod: override;
+
+    //# Behavioral Expression
+
+    //# Instance Data
+
+
+    //# Invariant
+
+    };
+#endif /* __SOMIDL__ */
+};
+#endif  /* somrmcls_idl */

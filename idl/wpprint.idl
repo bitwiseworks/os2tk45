@@ -1,0 +1,210 @@
+
+//  Module Header
+//
+//  Module Name: WPPRINT
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpprint_idl
+#define wpprint_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+#include <wprttype.idl>
+
+
+interface M_WPPrinter;
+
+interface WPPrinter : WPAbstract
+
+//
+// CLASS: WPPrinter
+//
+// CLASS HIERARCHY:
+//    SOMObject
+//      ÀÄÄ WPObject
+//            ÀÄÄ WPAbstract
+//                  ÀÄÄ WPPrinter
+//
+// DESCRIPTION:
+//    This is the print destination object class.
+//    An instance of this class can be created as a Workplace object.
+//    An instance of this class is created initially by the system in
+//    its template form.  It has the title "Create print destination"
+//    and resides in the "Templates" folder.  Instances of this class
+//    are also created initially by the system for each print destination
+//    configured.  Each instance will have a title corresponding to the
+//    description of the configured queue and printer and will reside on
+//    the desktop.
+//
+
+{
+  BOOL wpDeleteAllJobs();
+  BOOL wpHoldPrinter();
+  BOOL wpReleasePrinter();
+  ULONG wpQueryComputerName(in PSZ pszComputerName);
+  BOOL wpQueryPrinterName(in PSZ pszPrinterName);
+  BOOL wpSetComputerName(in PSZ pszComputerName);
+  BOOL wpSetPrinterName(in PSZ pszPrinterName);
+  BOOL wpSetDefaultPrinter();
+
+  BOOL  wpSetQueueOptions(in ULONG ulOptions);
+  ULONG wpQueryQueueOptions();
+  BOOL  wpSetRemoteOptions(in ULONG ulRefreshInterval, in ULONG flAllJobs);
+  BOOL  wpQueryRemoteOptions(in PULONG pulRefreshInterval,in PULONG pflAllJobs);
+  BOOL  wpJobAdded(in ULONG ulJobId);
+  BOOL  wpJobChanged(in ULONG ulJobId, in ULONG ulField);
+  BOOL  wpJobDeleted(in ULONG ulJobId);
+  BOOL  wpSetJobProperties(in PDRIVDATA pDrivData);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: pdvNew,pdvOpen,pdvPrintDestType,pdvQueueName,pdvComputerName,
+                  pdvSetViewStatus,pdvSetDialogPrintFlag,pdvIsDialogPrintOn,
+                  pdvGetJobFolderhWnd,pdvSetPrintDestType,pdvSetQueueName,
+                  pdvSetComputerName,pdvSetTitle,pdvHoldQueue,pdvReleaseQueue,
+                  pdvChangeQueue,pdvAddJob,pdvDeleteJob,pdvDeleteAllJob,
+                  pdvHoldJob,pdvReleaseJob,pdvChangeJob,pdvHasThisPort,
+                  pdvHasThisPDriver,pdvHasThisQDriver,pdvGetQueueObject,
+                  pdvGetCountryData,pdvSetCountryData,pdvGetJobDetailTable,
+                  pdvGetJobFieldInfo,pdvPrintPD,pdvFreePrintDest,pdvNewRemote,
+                  pdvCopyRemote,pdvCapabilities,pdvSetCapabilities,
+                  pdvLogonName,pdvSetLogonName,pdvLocalPrintDriverOnly,
+                  pdvSetLocalPrintDriverOnly,pdvRemotePDriverList,
+                  pdvSetRemotePDriverList,pdvPrintSpecificFormat,pdvSetPrintSpecificFormat,
+                  pdvRemoteAdminCopy,pdvRemoteAdminCreate,pdvRemoteAdminDelete,
+                  pdvAddJobViewer,pdvDelJobViewer,pdvTimerTicks,pdvSetTimerTicks,
+                  wpDeleteAllJobs,wpHoldPrinter,wpReleasePrinter,wpQueryComputerName,
+                  wpQueryPrinterName,wpSetComputerName,wpSetPrinterName,
+                  wpSetDefaultPrinter,pdvSetLSAlias,pdvLSAlias,pdvLocalAlias,
+                  pdvSetLocalAlias,pdvRemoteJobView,pdvSetRemoteData,
+                  pdvCopy,pdvSetJobDetailTable,pdvGetQueueStatusLine,
+                  pdvSetQueueStatusLine,pdvGetNewDlg,pdvSetNewDlg,
+                  pdvGetLastRefreshTime,pdvSetLastRefreshTime,
+                  wpSetQueueOptions, wpQueryQueueOptions,
+                  wpSetRemoteOptions, wpQueryRemoteOptions,
+                  wpJobAdded, wpJobChanged, wpJobDeleted,
+                  pdvSetPrinterStatusLine, pdvGetPrinterStatusLine,
+                  pdvQueryXSplitBarDetail, pdvSetXSplitBarDetail,
+                  wpSetJobProperties,pdvSetDetailsColumnVisibility,
+                  pdvIsDetailsColumnVisible,
+                  pdvResetTimer,
+                  pdvSetErrorIcon;
+
+    externalstem = WPprint;
+    local;
+    externalprefix = pdv_;
+    majorversion = 1;
+    minorversion = 1;
+    filestem = wpprint;
+    metaclass = M_WPPrinter;
+    callstyle = oidl;
+
+
+passthru  C_h =
+""
+"/*"
+" * Passthru flags for QueueOptions methods"
+" */"
+""
+"#define PO_PRINTERSPECIFICFORMAT     0x00000001"
+"#define PO_PRINTWHILESPOOLING        0x00000002"
+"#define PO_APPDEFAULT                0x00000004"
+"#define PO_JOBDIALOGBEFOREPRINT      0x00010000"
+""
+"/*"
+" * _wpJobChanged ulField values for when job is held or released"
+" */"
+"#define PO_JOB_HELD                  0x00000080"
+"#define PO_JOB_RELEASE               0x00000081"
+""
+"/* common context menu ids */"
+""
+"#define WPPOICM_PD_OPENMENU         6000"
+"#define WPPOIDM_PD_ICON             9010"
+"#define WPPOIDM_PD_DETAIL           9009"
+"#define WPPOICM_PD_MENU             9000"
+"#define WPPOIDM_PD_STATUS           9003"
+"#define WPPOIDM_PD_HOLD             9004"
+"#define WPPOIDM_PD_RELEASE          9005"
+"#define WPPOIDM_PD_DELETE_JOBS      9016"
+"#define WPPOIDM_PD_REFRESH          9013"
+"#define WPPOIDM_PD_DEFAULT          9100"
+"#define WPPOIDM_PD_INSTALL          8001"
+"";
+
+
+    wpInitData: override;
+    wpUnInitData: override;
+    somDumpSelfInt: override;
+    wpSetTitle: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpAddSettingsPages: override;
+    wpQueryTitle: override;
+    wpQueryIcon: override;
+    wpSetIcon: override;
+    wpFilterPopupMenu: override;
+    wpFree: override;
+    wpConfirmDelete: override;
+    wpModifyPopupMenu: override;
+    wpMenuItemSelected: override;
+    wpMenuItemHelpSelected: override;
+    wpQueryDefaultHelp: override;
+    wpOpen: override;
+    wpDrop: override;
+    wpDragOver: override;
+    wpCreateAnother: override;
+    wpCopyObject: override;
+    wpCopiedFromTemplate: override;
+    wpCreateFromTemplate: override;
+    wpQueryStyle: override;
+    wpMoveObject: override;
+    wpCreateShadowObject: override;
+    wpQueryIconData: override;
+    wpSetIconData: override;
+
+    wpSetup: override;
+    wpSetDefaultView:override;
+    wpQueryDetailsData: override;
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPPrinter
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPprint;
+    local;
+    externalprefix = pdvM_;
+    functionprefix = pdvM_;
+    majorversion = 1;
+    minorversion = 1;
+    filestem = wpprint;
+    callstyle = oidl;
+
+    wpclsQueryTitle: override;
+    wpclsQueryIcon: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryStyle: override;
+    wpclsQueryIconData: override;
+    wpclsInitData: override;
+    wpclsQueryDetailsInfo: override;
+    wpclsQuerySettingsPageSize: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpprint_idl */

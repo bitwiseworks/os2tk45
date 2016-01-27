@@ -1,0 +1,72 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.13 src/somd/somdtype.idl, somd, som2.1 2/15/95 13:27:30 [7/30/96 14:45:50]
+
+
+
+
+//
+//  somdtype.idl - global DSOM type definitions
+// 
+
+
+#ifndef somdtype_idl
+#define somdtype_idl
+#include <containd.idl>                                    //d5959
+
+//# Global IDL typedefs used by DSOM (defined in other .h files)
+
+// typedef string RepositoryId;                              d5959
+
+//typedef string Identifier;                                 d5959
+
+// exception definitions				// in somcorba.h
+enum completion_status { YES, NO, MAYBE };
+
+
+//# Global IDL types defined by DSOM
+//#
+//# (When EMIT_SOMDTYPES is defined, the following types will be emitted in
+//# language-specific include files, e.g., "somdtype.h", "somdtype.xh")
+
+#ifdef EMIT_SOMDTYPES
+#pragma somemittypes on
+#endif
+
+ typedef unsigned long ORBStatus;
+
+ typedef sequence <octet,1024> ReferenceData;
+
+ typedef unsigned long Flags;
+
+ struct NamedValue {	
+    Identifier name;
+    any        argument;
+    long       len;
+    Flags      arg_modes;
+ };
+
+ typedef string ImplId;
+
+#ifdef EMIT_SOMDTYPES
+#pragma somemittypes off
+#endif
+
+
+
+
+module SOMD { 
+  const string SOMDVersion = "2.1";
+};
+
+#endif /* somdtype_idl */

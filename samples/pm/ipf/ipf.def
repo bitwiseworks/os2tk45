@@ -1,0 +1,22 @@
+;*********** IPF C Sample Program Module Definition File (.DEF) **********
+;
+;  The module definition file supplies extra information about the program
+;  module to the LINKER.
+;
+
+
+LIBRARY IPF
+DESCRIPTION 'IPF animation'
+
+PROTMODE
+DATA    MULTIPLE READWRITE LOADONCALL
+CODE    LOADONCALL
+
+STACKSIZE   8192
+HEAPSIZE    4024
+
+
+EXPORTS
+   IPFMain           ;Entry point procedure
+   IPFWinProc        ;Window procedure
+

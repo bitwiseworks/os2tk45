@@ -1,0 +1,56 @@
+/**************************************************************************
+ *  File name  :  dragdrop.dlg
+ *
+ *  Description:  The DRAGDROP dialog file defines templates
+ *                used by the resource compiler in dialogs
+ *
+ *  Concepts   :  RC
+ *
+ *  API's      :  [none]
+ *
+ *  Copyright (C) 1991 IBM Corporation
+ *
+ *      DISCLAIMER OF WARRANTIES.  The following [enclosed] code is
+ *      sample code created by IBM Corporation. This sample code is not
+ *      part of any standard or IBM product and is provided to you solely
+ *      for  the purpose of assisting you in the development of your
+ *      applications.  The code is provided "AS IS", without
+ *      warranty of any kind.  IBM shall not be liable for any damages
+ *      arising out of your use of the sample code, even if they have been
+ *      advised of the possibility of such damages.                                                    *
+ *************************************************************************/
+
+DLGTEMPLATE IDD_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Product information", IDD_PRODUCTINFO, 8, -43, 276, 137,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CONTROL         IDR_BITMAP, IDC_BITMAP, 111, 76, 21, 21, WC_STATIC,
+                        SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT           "(C) Copyright IBM Corporation 1991. All Rights rese"
+                        "rved.", 256, 7, 54, 255, 8
+        CTEXT           "International Business Machines Corp.", 257, 7, 34,
+                        255, 8
+        CTEXT           "OS/2 is a registered trademark of", 258, 7, 44, 255,
+                        8
+        DEFPUSHBUTTON   "OK", IDC_OK, 111, 8, 45, 15
+    END
+END
+
+DLGTEMPLATE IDD_OPEN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Select subdirectory", IDD_OPEN, 53, 60, 222, 55,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR | FCF_SYSMENU
+    BEGIN
+        CONTROL "Enter subdirectory name:", IDD_STATICTEXT, 5, 36, 200, 8,
+                WC_STATIC, SS_TEXT | DT_LEFT | DT_TOP | WS_GROUP | WS_VISIBLE
+        CONTROL "", IDD_EDIT, 9, 22, 200, 8, WC_ENTRYFIELD, ES_LEFT |
+                ES_AUTOSCROLL | ES_MARGIN | WS_TABSTOP | WS_VISIBLE
+        CONTROL "~OK", 1, 9, 3, 38, 13, WC_BUTTON, BS_PUSHBUTTON | BS_DEFAULT |
+                WS_TABSTOP | WS_VISIBLE
+        CONTROL "Cancel", 2, 59, 3, 38, 13, WC_BUTTON, BS_PUSHBUTTON |
+                WS_VISIBLE | NOT WS_TABSTOP
+        PUSHBUTTON "Help", 3, 109, 3, 38, 13, BS_HELP | NOT WS_TABSTOP
+    END
+END
+/***************************  End of dragdrop.dlg  ***********************/

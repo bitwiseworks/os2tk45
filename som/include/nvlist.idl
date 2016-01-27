@@ -1,0 +1,79 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.8 src/somd/nvlist.idl, somd, som2.1 9/1/94 16:53:39 [7/30/96 14:45:31]
+
+
+//  This class implements the NVList object.
+
+
+
+
+#ifndef nvlist_idl
+#define nvlist_idl
+
+#include <somobj.idl>
+#include <somdtype.idl>
+
+interface NVList : SOMObject
+{
+
+  ORBStatus add_item(in Identifier item_name, in TypeCode item_type, 
+		     in void *value, in long value_len, in Flags item_flags);
+
+
+  ORBStatus free();
+
+  ORBStatus free_memory();
+
+  ORBStatus get_count(out long count);
+  
+  //
+  // These are the accessor functions which allow indexing
+  // into the NVList
+  //
+
+  ORBStatus set_item(in long item_number, 
+	       in Identifier item_name, in TypeCode item_type, 
+               in void *value, in long value_len, in Flags item_flags);
+  
+  // Items are numbered 0 ... N
+
+  ORBStatus get_item(in long item_number, 
+	       out Identifier item_name, out TypeCode item_type, 
+               out void *value, out long value_len, out Flags item_flags);
+  
+  // Items are numbered 0 ... N
+
+#ifdef __SOMIDL__
+
+  implementation 
+  {
+    releaseorder: add_item, remove_item, free, free_memory, get_count, 
+		  set_item, get_item, get_item_by_name;
+
+    //# Class Modifiers
+    callstyle = idl;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+  
+    //# Method Modifiers
+    somInit: override;
+
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* nvlist_idl */

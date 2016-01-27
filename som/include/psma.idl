@@ -1,0 +1,147 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.9 src/somp/psma.idl, somp, som2.1 12/26/95 17:00:09 [7/30/96 14:47:03]
+
+
+
+#ifndef psma_idl
+#define psma_idl
+
+#include <somp.idl>
+#include <somobj.idl>
+#include <somperrd.idl>
+#include <snglicls.idl>
+
+interface SOMPIOGroupMgrAbstract;
+interface SOMPIOGroup;
+interface SOMPNameSpaceMgr;
+interface SOMPAscii;
+interface SOMPKeyedSet;
+interface SOMPPersistentId;
+interface SOMPPersistentObject;
+
+interface SOMPPersistentStorageMgr : SOMObject
+
+// The Persistent Storage Manager is the primary interface for clients
+// of the Persistence Framework to read and write persistent objects
+// to/from storage.
+//
+// Only a single instance of this class exists in the Persistence Framework
+// by virtue of the metaclass SOMMSingleInstance.
+
+{
+   const unsigned short SOMP_STORING_ON    = 3;
+   const unsigned short SOMP_STORING_OFF   = 4;
+   const unsigned short SOMP_RESTORING_ON  = 5;
+   const unsigned short SOMP_RESTORING_OFF = 6;
+
+
+   void sompStoreObject(in SOMPPersistentObject thisObject) raises(SOMPError::sompException);
+// Stores a persistent object and all its persistent children.
+
+   SOMObject sompRestoreObject(in SOMPPersistentId objectID) raises(SOMPError::sompException);
+// Restores an object and its children.
+// If error, returns NULL.
+
+   void  sompStoreObjectWithoutChildren(in SOMPPersistentObject thisObject)
+					   raises(SOMPError::sompException);
+// Stores a persistent object.
+
+   SOMObject sompRestoreObjectWithoutChildren(in SOMPPersistentId objectID)
+					      raises(SOMPError::sompException);
+// Restores an object to a stable state.
+// If error, returns NULL.
+
+   void sompDeleteObject(in SOMPPersistentId objectID) raises(SOMPError::sompException);
+// Delete the given persistent object.
+//
+// If the object is an in-memory object only, it is removed from the Name
+// Space Mgr and its in-memory IO Group object and then freed.  If the
+// object also previously existed in a stored IO Group, then the stored
+// IO Group is modified to indicate that the object has been removed.
+
+   boolean sompObjectExists(in SOMPPersistentId objectID) raises(SOMPError::sompException);
+// Checks to see if object exists.  If so, returns TRUE otherwise
+// returns FALSE.
+
+   void sompAddObjectToWriteSet(in SOMPPersistentObject thisObject) raises(SOMPError::sompException);
+// Adds the given object to the set of objects being written by
+// sompStoreObject. An error occurs if this method is called
+// before sompStoreObject is called.
+//
+// This method provides a way for an object's encoder/decoder to add
+// a persistent object to the set to be written. This is useful for saving
+// persistent child objects which were not "registered" with their
+// parent object.
+
+   void sompAddIdToReadSet(in SOMPPersistentId objectID) raises(SOMPError::sompException);
+// This method adds the given persistent ID to the set of ID's which
+// represent the persistent object's to be restored by
+// sompRestoreObject.  If an error occurs the ID is not added to the read set.
+//
+// ID's can only be added to the read set following a call to
+// sompRestoreObject. It is expected that encoder/decoder
+// writers will make use of this method when restoring child objects.
+// For example:
+//    1) decoder reads object ID in string form
+//    2) decoder creates persistent ID object based on string
+//    3) decoder calls sompAddIdToReadSet with the persistent ID.
+
+
+
+   SOMObject sompRestoreObjectFromIdString(in string idString) raises(SOMPError::sompException);
+// Instantiate a persistent ID from the given string and then restore
+// the object and its children.
+// If error, returns NULL.
+
+
+#ifdef __SOMIDL__
+
+implementation
+{
+  callstyle=idl;
+  dllname="somp.dll";
+
+  releaseorder: sompStoreObject, sompRestoreObject,
+		sompStoreObjectWithoutChildren, sompRestoreObjectWithoutChildren,
+		sompDeleteObject, sompObjectExists,
+		sompAddObjectToWriteSet, sompRestoreObjectToNameSpace,
+		sompAddIdToReadSet, sompRestoreStableObject,
+		sompAddRegisteredChildrenToReadSet,
+		sompPrepareWriteSet, sompStoreWriteSet,
+		sompAddChildIfNecessary, sompRemoveIOGroupFromSet,
+		sompRestoreObjectFromIdString, sompSetPSMFlags,
+		sompRemoveObjectFromSet,
+		sompNewGroupMgr,
+		sompPSMInitThreadData,
+		sompPSMUninitThreadData,
+		sompPSMGetThreadData ;
+
+// Class Modifiers
+   majorversion = 2;
+   minorversion = 1;
+   filestem = psma;
+   metaclass = SOMMSingleInstance;
+
+
+// Method Modifiers
+   somInit: override;
+   somUninit: override;
+
+};
+#endif /* __SOMIDL__ */
+
+};
+
+
+#endif  /* psma_idl */

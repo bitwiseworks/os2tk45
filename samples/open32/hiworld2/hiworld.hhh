@@ -1,0 +1,4 @@
+#define IDI_ICON2                       102
+#define HIWORLDMENU                     103
+#define BEEPDIALOG                      104
+#define IDC_CURSOR1                     105

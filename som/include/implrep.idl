@@ -1,0 +1,155 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.14.1.1 src/somd/implrep.idl, somd, som2.1 4/1/95 14:52:36 [7/30/96 14:45:27]
+
+
+//  CLASS SPECIFICATION FOR IMPLEMENTATION REPOSITORY
+
+
+#ifndef implrep_idl
+#define implrep_idl
+
+#include <somobj.idl>
+#include <somdtype.idl>
+#include <snglicls.idl>
+
+
+
+interface ImplementationDef;
+
+
+interface ImplRepository : SOMObject
+{
+  ImplementationDef find_impldef(in ImplId implid);
+
+  // This method searches the Implementation Repository and returns
+  // an ImplementationDef object with the specified implid.
+
+  ImplementationDef find_impldef_by_alias(in string alias_name);
+
+  // This method searches the Implementation Repository and returns
+  // an ImplementationDef object with the specified name (alias).
+
+  ORBStatus find_all_impldefs(out sequence<ImplementationDef> outimpldefs);
+
+   // This method searches the Implementation Repository and returns
+   // all the ImplementationDef objects in it.
+
+  sequence<ImplementationDef> find_impldef_by_class(in string classname);
+
+  // This method searches the class index and returns the sequence of
+  // ImplementationDef objects for servers which implement that class.
+
+  void add_impldef(in ImplementationDef impldef);
+
+  // This method inserts an ImplementationDef object into the Implementation
+  // Repository.
+
+  void update_impldef(in ImplementationDef impldef);
+
+  // This method replaces an ImplementationDef object in the Implementation
+  // Repository with the supplied object.  The "impl_id" attribute of the
+  // supplied object is used to find the object to replace in the Impl.
+  // Repository.
+
+  void delete_impldef(in ImplId implid);
+
+  // This method deletes the ImplementationDef object with the specified
+  // implid from the Implementation Repository.
+
+  void add_class_to_impldef(in ImplId implid, in string classname);
+
+  // This method associates the classname with the ImplementationDef
+  // whose id is "implid".  This is meant to indicate that the server
+  // (specified by the ImplementationDef) implements the named class.
+
+  void remove_class_from_impldef(in ImplId implid, in string classname);
+
+  // This method removes the classname from the list of classnames
+  // associated with the ImplementationDef whose id is "implid".
+
+  void remove_class_from_all(in string classname);
+
+  // This method removes the classname from all the ImplementationDefs.
+
+  sequence<string> find_classes_by_impldef(in ImplId implid);
+
+  // This method searches the class index and returns the sequence of
+  // class names supported by a server with specified "implid".
+
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+    releaseorder: find_impldef, find_impldef_by_alias,
+                  find_impldef2, find_impldef_by_alias2,
+                  find_impldef_by_class, add_impldef,
+                  update_impldef, delete_impldef,
+                  add_class_to_impldef,
+                  remove_class_from_impldef, remove_class_from_all,
+                  find_classes_by_impldef,
+                  implr_get_impl, implr_search_impl,
+                  implr_search_class, implr_update_impl,
+                  find_all_impldefs;
+
+    //# Class Modifiers
+    callstyle = idl;
+    metaclass = SOMMSingleInstance;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+
+    //# Method Modifiers
+    somInit: override;
+    somUninit: override;
+
+    //# Passthrus
+    passthru C_h_after = ""
+      "#include <impldef.h>"
+      ""
+      "#ifdef SOM_STRICT_IDL"
+#ifdef _WIN16
+      "#define SOMD_ImplRepObject (*SOMD_ImplRepObjectResolve())"
+      "SOMEXTERN ImplRepository * SOMLINK SOMD_ImplRepObjectResolve(void);"
+#else
+      "SOMEXTERN ImplRepository   SOMDLINK SOMD_ImplRepObject;"
+#endif
+      "#else"
+#ifdef _WIN16
+      "#define SOMD_ImplRepObject (*SOMD_ImplRepObjectResolve())"
+      "SOMEXTERN ImplRepository ** SOMLINK SOMD_ImplRepObjectResolve(void);"
+#else
+      "SOMEXTERN ImplRepository * SOMDLINK SOMD_ImplRepObject;"
+#endif
+      "#endif /* SOM_STRICT_IDL */"
+      "";
+
+    passthru C_xh_after = ""
+      "class ImplRepository;"
+      "#include <impldef.xh>"
+      ""
+#ifdef _WIN16
+      "#define SOMD_ImplRepObject (*SOMD_ImplRepObjectResolve())"
+      "SOMEXTERN ImplRepository ** SOMLINK SOMD_ImplRepObjectResolve(void);"
+#else
+      "SOMEXTERN ImplRepository * SOMDLINK SOMD_ImplRepObject;"
+#endif
+      "";
+
+  };
+
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* implrep_idl */

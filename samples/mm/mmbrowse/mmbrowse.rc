@@ -1,0 +1,188 @@
+#include <os2.h>
+#include "mmbrowse.h"
+
+ICON    ID_WINDOW mmbrowse.ico
+BITMAP  IDR_BITMAP "mmbrowse.bmp"
+
+MENU    ID_WINDOW PRELOAD
+BEGIN
+  SUBMENU "~File",                   ID_FILE
+  BEGIN
+    MENUITEM "~Open an image file",  ID_FILE_OPEN,      MIS_TEXT
+    MENUITEM SEPARATOR
+    MENUITEM "~SaveAs...",           ID_FILE_SAVEAS,    MIS_TEXT
+    MENUITEM SEPARATOR
+    MENUITEM "E~xit",                ID_EXITPROG,       MIS_TEXT
+  END
+
+  SUBMENU "~IOProc",                    ID_CONFIG
+  BEGIN
+    MENUITEM "~Install Temporary IO Proc", ID_CONFIG_INST_TEMP,  MIS_TEXT
+    MENUITEM "~Install Permanent IO Proc", ID_CONFIG_INST_PERM,  MIS_TEXT
+    MENUITEM SEPARATOR
+    MENUITEM "~Remove Permanent IO Proc",  ID_CONFIG_REM_PERM,   MIS_TEXT
+    MENUITEM SEPARATOR
+    MENUITEM "~Query Installed IO Procs",  ID_CONFIG_QUERY_ALL,  MIS_TEXT
+  END
+
+  SUBMENU "~Help",                   ID_HELP
+  BEGIN
+    MENUITEM "~Help index",            IDM_HELPINDEX
+    MENUITEM "~General help",          IDM_HELPGENERAL
+    MENUITEM "~Using help",            IDM_HELPUSINGHELP
+    MENUITEM SEPARATOR
+    MENUITEM "~Product information...",IDM_HELPPRODUCTINFO
+  END
+END
+
+ACCELTABLE ID_WINDOW PRELOAD
+BEGIN
+  VK_F3,   ID_EXITPROG,    VIRTUALKEY
+END
+
+STRINGTABLE PRELOAD
+BEGIN
+
+ IDS_OPEN_DIALOG_TITLE,              "Open Image File"
+ IDS_OPEN_DIALOG_FILE_EXT,           "*.*"
+ IDS_OPEN_OK_BUTTON,                 "Open"
+
+ IDS_INSTALL_TITLE,                  "Install New IO Procedure"
+ IDS_INSTALL_FILE_EXT,               "*.DLL"
+ IDS_INSTALL_OK_BUTTON,              "Install"
+ IDS_INSTALL_EXIT_BUTTON,            "Exit"
+
+ IDS_IOPROC_NAME,                    "IOProc_Entry"
+ IDS_INSTALL_EXIT,                   "IO Procedure successfully installed."
+ IDS_INSTALL_NOTE,                   "To have permanent installation take effect, please Reboot."
+
+ IDS_INSTALL_IOPROC_FAILED,          "Installation of IO Proc Failed. mmioIniFileHandler Return Code:"
+
+END
+
+DLGTEMPLATE GET_FOURCC LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Get FourCC", GET_FOURCC,
+               35, 40, 196, 77,
+               FS_NOBYTEALIGN | FS_SYSMODAL | FS_DLGBORDER | WS_VISIBLE |
+               WS_SAVEBITS | WS_SYNCPAINT | WS_CLIPSIBLINGS,
+               FCF_TITLEBAR | FCF_NOBYTEALIGN
+    BEGIN
+
+        CONTROL "", GET_FOURCC_TEXT,
+                78, 42, 38, 8,
+                WC_ENTRYFIELD, ES_LEFT | ES_MARGIN | WS_TABSTOP | WS_VISIBLE
+
+        CONTROL "Enter the Four Character Code (FOURCC)", GET_FOURCC_INSTRUCTIONS,
+                7, 61, 180, 8,
+                WC_STATIC, SS_TEXT | DT_LEFT | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CONTROL "OK", GET_FOURCC_OK_BUTTON,
+                28, 12, 38, 13,
+                WC_BUTTON, BS_PUSHBUTTON | BS_DEFAULT | WS_TABSTOP | WS_VISIBLE
+
+        CONTROL "Cancel", GET_FOURCC_CANCEL_BUTTON,
+                77, 12, 38, 13,
+                WC_BUTTON, BS_PUSHBUTTON | WS_TABSTOP | WS_VISIBLE
+
+        CONTROL "Help", GET_FOURCC_HELP_BUTTON,
+                129, 12, 38, 13,
+                WC_BUTTON, BS_PUSHBUTTON | WS_TABSTOP | WS_VISIBLE
+    END
+END
+
+
+DLGTEMPLATE QUERY_ALL_LIST_BOX LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Query Installed IO Procs",  QUERY_ALL_LIST_BOX, 10, 49, 273, 76,
+               FS_NOBYTEALIGN | FS_SYSMODAL | FS_DLGBORDER | WS_VISIBLE |
+               WS_SAVEBITS | WS_SYNCPAINT | WS_CLIPSIBLINGS,
+               FCF_TITLEBAR | FCF_NOBYTEALIGN
+
+    BEGIN
+        CONTROL "", QUERY_ALL_LIST_BOX_ENTRIES, 17, 31, 241, 37, WC_LISTBOX,
+                WS_TABSTOP | WS_VISIBLE
+
+        CONTROL "OK", QUERY_ALL_LIST_BOX_OK, 27, 9, 38, 13, WC_BUTTON,
+                BS_PUSHBUTTON | WS_TABSTOP | WS_VISIBLE
+
+        CONTROL "Cancel", QUERY_ALL_LIST_BOX_CANCEL, 115, 9, 38, 13, WC_BUTTON,
+                BS_PUSHBUTTON | WS_TABSTOP | WS_VISIBLE
+
+    END
+END
+
+DLGTEMPLATE REMOVE_PERM_LIST_BOX LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Remove Permanently Installed IO Procs",  REMOVE_PERM_LIST_BOX, 10, 49, 273, 76,
+               FS_NOBYTEALIGN | FS_SYSMODAL | FS_DLGBORDER | WS_VISIBLE |
+               WS_SAVEBITS | WS_SYNCPAINT | WS_CLIPSIBLINGS,
+               FCF_TITLEBAR | FCF_NOBYTEALIGN
+
+    BEGIN
+        CONTROL "", REMOVE_PERM_LIST_BOX_ENTRIES, 17, 31, 241, 37, WC_LISTBOX,
+                LS_MULTIPLESEL | WS_TABSTOP | WS_VISIBLE
+
+        CONTROL "Remove", REMOVE_PERM_LIST_BOX_OK, 27, 9, 38, 13, WC_BUTTON,
+                BS_PUSHBUTTON | WS_TABSTOP | WS_VISIBLE
+
+        CONTROL "Cancel", REMOVE_PERM_LIST_BOX_CANCEL, 115, 9, 38, 13, WC_BUTTON,
+                BS_PUSHBUTTON | WS_TABSTOP | WS_VISIBLE
+
+        CONTROL "Help", REMOVE_PERM_LIST_BOX_HELP, 197, 9, 38, 13, WC_BUTTON,
+                BS_PUSHBUTTON | WS_TABSTOP | WS_VISIBLE
+    END
+END
+
+
+
+
+HELPTABLE   MMBROWSER_HELP_TABLE
+{
+    HELPITEM   ID_RESOURCE,     SUBTABLE_MAIN,            PANEL_MAIN
+    HELPITEM   IDD_PRODUCTINFO, SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+    HELPITEM   IDD_SETCOUNT,    SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+}
+
+/*--------------------------------------------------------------*\
+ *  Main window subtable, includes menu item help               *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDM_HELP,                PANEL_HELP
+    HELPSUBITEM     IDM_HELPINDEX,           PANEL_HELPINDEX
+    HELPSUBITEM     IDM_HELPGENERAL,         PANEL_HELPGENERAL
+    HELPSUBITEM     IDM_HELPUSINGHELP,       PANEL_HELPUSINGHELP
+    HELPSUBITEM     IDM_HELPPRODUCTINFO,     PANEL_HELPPRODUCTINFO
+
+}
+/*--------------------------------------------------------------*\
+ *  Enter text dialog help subtable                             *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_PRODUCTINFODLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDD_ENTRYFLD,            PANEL_PRODUCTINFO_OK
+    HELPSUBITEM     DID_OK,                  PANEL_PRODUCTINFO_OK
+}
+
+
+DLGTEMPLATE IDD_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Product information", IDD_PRODUCTINFO, 57, 3, 262, 137,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CONTROL         IDR_BITMAP, IDC_BITMAP, 117, 75, 21, 21, WC_STATIC,
+                        SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT           "MMBROWSE", 230, 7, 64, 255, 8
+        CTEXT           "(C) Copyright IBM Corporation 1993. All Rights rese"
+                        "rved.", 230, 7, 54, 255, 8
+        CTEXT           "IBM is a registered trademark of", 230, 7, 44, 255,
+                        8
+        CTEXT           "International Business Machines Corp.", 230, 7, 34,
+                        255, 8
+        PUSHBUTTON      "OK", -1, 111, 8, 45, 15
+    END
+END
+

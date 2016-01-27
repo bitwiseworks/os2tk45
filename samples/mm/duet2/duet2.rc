@@ -1,0 +1,122 @@
+/*************************************************************************
+ * File Name    : DUET2.RC
+ *
+ * Description  : This is the resource file for the Duet Player 2 program.
+ *
+ * Concepts     : See the C source file for this program.
+ *
+ * MMPM/2 API's : See the C source file for this program.
+ *
+ * Required
+ *    Files     : See the C source file for this program.
+ *
+ * Copyright (C) IBM 1991, 1992, 1993
+ *************************************************************************/
+
+#define  INCL_WIN
+#define  INCL_PM
+#define  INCL_DOS
+
+#include <os2.h>
+
+#include "duet2.h"
+
+RCINCLUDE duet2.dlg
+
+ICON ID_ICON duet2.ico
+
+/*
+ * Bitmap's
+ */
+
+BITMAP ID_BMP_PLAY0 LOADONCALL MOVEABLE DISCARDABLE PLAY0.BMP
+BITMAP ID_BMP_PLAY1 LOADONCALL MOVEABLE DISCARDABLE PLAY1.BMP
+BITMAP ID_BMP_PLAY2 LOADONCALL MOVEABLE DISCARDABLE PLAY2.BMP
+BITMAP ID_BMP_PLAY3 LOADONCALL MOVEABLE DISCARDABLE PLAY3.BMP
+BITMAP ID_BMP_PLAY4 LOADONCALL MOVEABLE DISCARDABLE PLAY4.BMP
+
+BITMAP ID_BMP_PAUSE LOADONCALL MOVEABLE DISCARDABLE PAUSE.BMP
+
+BITMAP ID_BMP_STOP LOADONCALL MOVEABLE DISCARDABLE STOP.BMP
+
+/*
+ * Help Table Definition.
+ *
+ * The help table definition for the dialog window.
+ */
+
+HELPTABLE ID_DUET_HELPTABLE
+{
+   HELPITEM ID_DLG_MAIN,   0,                      0
+   HELPITEM ID_MESSAGEBOX, ID_SUBTABLE_MESSAGEBOX, ID_MESSAGEBOX
+}
+
+HELPSUBTABLE ID_SUBTABLE_MESSAGEBOX
+{
+}
+
+
+/*
+ * String Table Definition.
+ */
+STRINGTABLE
+{
+  IDS_PROGRAM_TITLE,
+  "Duet Player II"
+
+  IDS_HELP_CREATION_FAILED,
+   "Help could not be initialized for Duet Player II.  Help will not be "
+   "available."
+
+  IDS_CANT_PROCESS_MESSAGE,
+  "The selected action could not be processed at the time it was requested."
+  "  Please retry the action."
+
+  IDS_UNKNOWN,
+  "An error occurred while processing the duet."
+
+  IDS_DUET_PLAYER_ERROR,
+  "Duet Player Error"
+
+  IDS_CANNOT_FIND_AUDIO_FILE,
+  "The audio file cannot be found."
+
+  IDS_NO_DUET_SELECTED,
+  "No duet is selected"
+
+  IDS_CANNOT_MAKE_GROUP,
+  "An error occurred while processing the duet."
+
+  IDS_NO_CD_PLAYER,
+  "The duet cannot be played.  Make sure that there is a CD player attached "
+  "to the system and configured properly, then retry."
+
+  IDS_NO_DISC_IN_CD,
+  "The duet cannot be played.  Make sure that there is a CD in the device, "
+  "then retry."
+
+  IDS_DISC_IS_NOT_READABLE,
+  "The duet cannot be played.  The CD in the device is not readable."
+
+  IDS_HELP_WINDOW_TITLE,
+  "Duet Player Help"
+
+  IDS_HELP_LIBRARY_NAME,
+  "duet2.hlp"
+
+  IDS_HELP_WAVEFILE,
+  "duethelp.wav"
+
+
+  /* Following are the strings for the duet titles and filenames */
+
+  IDS_DUET_1_TITLE,
+  "Sample Duet"
+
+  IDS_DUET_1_PART2_FILE,
+  "duet2.wav"
+
+  IDS_DEFAULTSIZE
+  "~Default Size"
+}
+

@@ -1,0 +1,108 @@
+/*************************************************************************
+ * File Name   : CLOCK.RC
+ *
+ * Description : This file contains the resource definitions used by the clock
+ *               sample program.
+ *
+ * Concepts    : See this sample program's C source file.
+ *
+ * MMPM/2 API's: None.
+ *
+ * Required
+ *    Files    : See this sample program's C source file.
+ *
+ *
+ * Copyright (C) IBM 1991, 1992, 1993
+ *************************************************************************/
+
+
+#define  INCL_WIN
+#define  INCL_PM
+#define  INCL_DOS
+#include <os2.h>
+
+#include "clock.h"
+
+RCINCLUDE clock.dlg
+
+ICON ID_ICON clock.ico
+
+BITMAP ID_CENTER_BELL LOADONCALL FIXED BELLC.BMP
+BITMAP ID_LEFT_BELL LOADONCALL FIXED BELLLT.BMP
+BITMAP ID_RIGHT_BELL LOADONCALL FIXED BELLRT.BMP
+BITMAP ID_FAR_RIGHT_BELL LOADONCALL FIXED BELLFRRT.BMP
+BITMAP ID_FAR_LEFT_BELL LOADONCALL FIXED BELLFRLT.BMP
+
+/*
+ * Help Table Definition.
+ *
+ * The help table definition for the dialog window.
+ */
+
+HELPTABLE ID_CLOCK_HELPTABLE
+{
+    HELPITEM ID_CLOCK_DIALOG_BOX,   0,                   0
+    HELPITEM ID_MESSAGE_BOX,        SUBTABLE_MESSAGEBOX, ID_MESSAGE_BOX
+}
+
+HELPSUBTABLE SUBTABLE_MESSAGEBOX
+{
+}
+
+/*
+ * String Table Definition.
+ */
+STRINGTABLE
+{
+   IDS_MAIN_WINDOW_TITLE,
+   "Clock Utility"
+
+   IDS_HELP_CREATION_ERROR,
+   " Help Initialization failed.  Help will not be available."
+
+   IDS_HELP_LIBRARY_FILE
+   "CLOCK.HLP"
+
+   IDS_HELP_WINDOW_TITLE
+   "Clock Help Window"
+
+   IDS_SWING_THREAD_NOT_STARTED,
+   "There are not enough system resources available for the Clock Utility"
+   "to display captioning information.  If you wish to have closed "
+   "captioning information displayed then end one or more of your running "
+   "programs, and restart the Clock Utility."
+
+   IDS_NORMAL_ERROR_MESSAGE_BOX_TEXT
+   "Clock Utility Error"
+
+   IDS_CHIME_FILE_A
+   "CLOCK1.WAV"
+
+   IDS_CHIME_FILE_B
+   "CLOCK2.WAV"
+
+   IDS_CHIME_FILE_C
+   "CLOCK3.WAV"
+
+   IDS_CANNOT_GET_MEMORY,
+   "The Clock Utility cannot play chimes because there are not enough system "
+   "resources available.  End one or more of your running programs and try "
+   "again."
+
+   IDS_CANNOT_PLAY_CHIME,
+   "The Clock Utility cannot play the chimes.  Please ensure that another "
+   "program does not have exclusive use of the audio device, and try again."
+
+
+   IDS_CHIME_FILE_ERROR,
+   "An error occurred while processing the audio files required for chiming. "
+   "Please put CLOCK1.WAV, CLOCK2.WAV, and CLOCK3.WAV in the same directory "
+   "that the Clock Utility's executable file resides in, and restart the "
+   "Clock Utility."
+
+   IDS_FAILED_MMIO_CLOSE,
+   "Closing a playlist audio waveform file failed."
+
+
+}
+

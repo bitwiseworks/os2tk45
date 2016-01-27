@@ -1,0 +1,107 @@
+/************ GRAPHIC C Sample Program Resource File (.RC) ******************
+ *  Copyright (C) 1991, 1993 IBM Corporation
+ *
+ *      DISCLAIMER OF WARRANTIES.  The following [enclosed] code is
+ *      sample code created by IBM Corporation. This sample code is not
+ *      part of any standard or IBM product and is provided to you solely
+ *      for  the purpose of assisting you in the development of your
+ *      applications.  The code is provided "AS IS", without
+ *      warranty of any kind.  IBM shall not be liable for any damages
+ *      arising out of your use of the sample code, even if they have been
+ *      advised of the possibility of such damages.                                                    *
+ ******************************************************************************/
+#include "os2.h"
+#include "graphic.h"
+
+/* application menu bar */
+
+MENU ID_GRAPHIC
+BEGIN
+    SUBMENU     "~File",   IDM_FILE, MIS_TEXT
+    BEGIN
+        MENUITEM   "~Open MetaFile",       IDM_F_METAFILE_LOAD, MIS_TEXT
+        MENUITEM SEPARATOR
+        MENUITEM   "~Print",               IDM_F_PRINT, MIS_TEXT
+    END
+
+    SUBMENU     "~Help",                   IDM_H_HELP
+    BEGIN
+        MENUITEM   "Help ~index",       IDM_H_HELPINDEX, MIS_TEXT
+        MENUITEM   "~General help",     IDM_H_HELPGEN,   MIS_TEXT
+        MENUITEM   "~Using help",       IDM_H_HELPUSING, MIS_TEXT
+        MENUITEM   "~Keys help",        IDM_H_HELPKEYS,  MIS_TEXT
+        MENUITEM   "",                  -1,              MIS_SEPARATOR
+        MENUITEM   "~Product information",IDM_H_ABOUT,   MIS_TEXT
+    END
+END
+
+
+ICON ID_GRAPHIC graphic.ico
+BITMAP PINFO_ICON "prodinfo.bmp"
+
+ /*  Help table definition                                       */
+HELPTABLE   ID_GRAPHIC
+{
+    HELPITEM    ID_GRAPHIC,         SUBTABLE_MAIN,         PANEL_MAIN
+    HELPITEM    ID_ABOUT,           SUBTABLE_INFO,         PANEL_INFO
+}
+
+ /*  Main window subtable, includes menu item help               */
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDM_FILE,                   PANEL_FILE
+    HELPSUBITEM     IDM_F_METAFILE_LOAD,        PANEL_FILELOAD
+    HELPSUBITEM     IDM_F_PRINT,                PANEL_PRINT
+
+    HELPSUBITEM     IDM_H_HELP,                 PANEL_HELP
+    HELPSUBITEM     IDM_H_HELPINDEX,            PANEL_HELPINDEX
+    HELPSUBITEM     IDM_H_HELPGEN,              PANEL_HELPGENERAL
+    HELPSUBITEM     IDM_H_HELPUSING,            PANEL_HELPUSING
+    HELPSUBITEM     IDM_H_ABOUT,                PANEL_HELPABOUT
+}
+
+ /*  Message box help subtable                                   */
+HELPSUBTABLE SUBTABLE_INFO
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     DLG_OK,                     PANEL_INFO_OK
+}
+
+ACCELTABLE ID_GRAPHIC
+  BEGIN
+    "G", IDM_F_GPI, CONTROL
+    "g", IDM_F_GPI, CONTROL
+    "M", IDM_F_METAFILE, CONTROL
+    "m", IDM_F_METAFILE, CONTROL
+    "P", IDM_F_PRINT, CONTROL
+    "p", IDM_F_PRINT, CONTROL
+    "O", IDM_O_PRINTPROPERTIES, CONTROL
+    "o", IDM_O_PRINTPROPERTIES, CONTROL
+  END
+
+STRINGTABLE
+  BEGIN
+        ERRMSG_REGISTER_FAILED, "Cannot register class for Information window."
+        ERRMSG_PRINT_THREAD,    "Cannot create Print-Thread."
+        ERRMSG_CREATE_WINDOW,   "Window creation failed!"
+        ERRMSG_INFO_WINDOW,     "Cannot create Information window."
+        ERRMSG_DRAW_THREAD,     "Cannot create Draw-Thread."
+        ERRMSG_NO_HELP,         "No help is available."
+        ERRMSG_METAFILE_FAILED, "Cannot load metafile \x22<t>\x22;"
+        ERRMSG_HELP_TERMINATED, "Help Terminated Due to Error"
+        ERRMSG_HELP_ERROR,      "Help Error Occurred, RC = "
+        ERRMSG_DRAWTHR_MSG2,    "Error while drawing metafile "
+        ERRMSG_HELPDISPLAYERROR,"Failed to display help panel."
+        IDS_ERRORMSG             "%s encountered in file %s line %ld"
+        IDS_UNKNOWNMSG           "Unknown Error encountered in file %s line %ld"
+
+        APPLICATION_NAME,       "Graphic Sample"
+        FILEDLG_META_HEADER,    "Open Metafile"
+        TEXT_SPOOLING_MESSAGE,  "Spooling..."
+        TEXT_DRAWTHR_SIZEGPI,   "Sizing GPI, one moment please..."
+        TEXT_DRAWTHR_SIZEMETA,  "Sizing Metafile, one moment please..."
+  END
+
+rcinclude graphic.dlg
+/************************** End of GRAPHIC.RC ******************************/

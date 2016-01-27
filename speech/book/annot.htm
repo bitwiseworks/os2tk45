@@ -1,0 +1,143 @@
+<HTML><HEAD>
+<TITLE>Grammar Guide</TITLE><HEAD>
+</HEAD><BODY>
+<IMG SRC="bannerx.gif" ALT=""><BR>
+<A NAME=Top_Of_Page>&nbsp;</A>
+<H1>Grammar Guide</H1>
+<HR>
+<H1>A guide to Voice Type grammar annotations</H1>
+
+<H3>Sending keystrokes to an application</H3>
+The annotation prefix
+ <TT>&amp;keys:</TT> instructs Voice Manager to interpret the
+ characters  following the prefix as a sequence of keystrokes
+ to be sent to the application.
+For example:<p>
+<PRE>
+        &lt;start&gt; = &lt;select&gt; &lt;all&gt; .
+        &lt;select&gt; = select .
+        &lt;all&gt; = all:"&amp;keys:[alt e]a" .
+</PRE><p>
+With this grammar enabled,  Voice Manager will send the
+keystrokes <TT>[alt e]a</TT> upon recognizing <I>select all</I>.
+
+<H3>Variables</H3>
+The assignment of variables is done with the <TT>&amp;X:</TT> annotation.
+This annotation has the following form: <p>
+
+         <TT> &amp;X:i:s </TT>
+<p>
+where <TT>i</TT> is an integer greater than zero and <TT>s</TT> is a string. This
+has the effect of assigning the value <TT>s</TT> to variable <TT>i</TT>. For example,
+<p><PRE>
+   &lt;blue&gt; = blue:"&amp;X:1:[down]" .
+
+</PRE>
+
+assigns <TT>down</TT> to be the value of <TT>X1</TT>.
+
+Referencing variables is done with the <TT>@X(i)</TT> operator (where <TT>i</TT>
+is a positive integer). For example:
+<PRE>
+
+   &lt;change-color&gt; = &lt;set&gt; &lt;color&gt; &lt;to&gt; &lt;colors&gt; .
+   &lt;set&gt;  = set .
+   &lt;color&gt; = color:"&amp;keys:[alt o]c[home]@X(1)[enter]" .
+   &lt;colors&gt; = &lt;blue&gt;  .
+   &lt;blue&gt; = blue .
+
+</PRE>
+When Voice Manager recognizes the phrase  <I>set color to blue</I>
+the annotation on <TT>blue</TT> sets the value of <TT>X(1)</TT> to <TT>[down]</TT>.
+The annotation on <TT>color</TT> is
+<TT>&amp;keys:[alt o]c[home]@X(1)[enter]</TT>. The variable <TT>@X(1)</TT> is replaced
+by its value <TT>[down]</TT> and voice manager sends the following keystrokes:
+<PRE>
+
+    [alt o]c[home][down][enter]
+
+</PRE><p>
+<A NAME="counts-annotation"><H3>The @count() variable</H3></A>
+
+
+In order to use the <TT>@count</TT> annotation you need to put the following line at the
+end of you grammar file:  <p><PRE>
+
+ EXTERN &lt;Extern_counts&gt; .
+
+</PRE><p>This enables you to use the <TT>&lt;Extern_counts&gt;</TT> nonterminal and the <TT>@count(i)</TT> annotation.
+The nonterminal <TT>&lt;Extern_counts&gt;</TT> has the following rewrite rule:<p><PRE>
+
+    &lt;Extern_counts&gt; = one       | two       | three     |
+                      four      | five      | six       |
+                      seven     | eight     | nine      |
+                      ten       | eleven    | twelve    |
+                      thirteen  | fourteen  | fifteen   |
+                      sixteen   | seventeen | eighteen  |
+                      nineteen  | twenty    | thirty    |
+                      forty     | fifty     .
+
+</PRE><p>
+The annotation <TT>@count(i)</TT> specifies the value of the i-th count nonterminal.
+For example, if you have the grammar rule:<p><PRE>
+
+ &lt;sample&gt; = &lt;print&gt; &lt;Extern_counts&gt; &lt;copies&gt; &lt;of&gt; &lt;pages&gt; &lt;Extern_counts&gt; &lt;through&gt; &lt;Extern_counts&gt; .
+
+ </PRE><p>and the user utters: <I>print five copies of pages one through three</I>. Then:<p>
+<MENU>
+<LI> <TT>@count(1)</TT> has the value of the first <TT>&lt;count&gt;</TT> encountered (in this case "5")
+<LI> <TT>@count(2)</TT> has the value of the second <TT>&lt;count&gt;</TT> encountered (in this case "1")
+<LI> <TT>@count(3)</TT> has the value of the third (in this case "3").
+</MENU><p>
+Here's an example that will work with IBM Works:
+<PRE>
+
+      &lt;font-size&gt; = &lt;change&gt; &lt;font&gt; &lt;size&gt; &lt;to&gt; &lt;Extern_counts&gt;  .
+      &lt;change&gt; = change .
+      &lt;font&gt; = font .
+      &lt;size&gt; = size:"&amp;keys:[ctrl f][alt s]@count(1)[enter]" .
+      &lt;to&gt; = to .
+
+      EXTERN &lt;Extern_counts&gt; .
+
+</PRE>
+Consider the case where the user says <I>Change the font size to twelve</I>.
+The annotation for <TT>twelve</TT> sets the <TT>count(1)</TT> variable to <TT>12</TT>.
+The annotation on <TT>size</TT> is  <TT>&amp;keys:[ctrl f][alt s]@count(1)[enter]</TT>.
+The <TT>@count(1)</TT> variable is replaced with <TT>12</TT> yielding:
+<PRE>
+
+&amp;keys:[ctrl f][alt s]12[enter]
+
+</PRE>
+<H3>The @repeat(i, s) annotation</H3>
+The <TT>@repeat(i, s)</TT> function constructs a string of <TT>i</TT> instances of the string <TT>s</TT>.
+For example, the annotation <TT>@repeat(4, [down])</TT> will be replaced by
+<TT>[down][down][down][down]</TT>. A typical use of this annotation is as follows:
+<PRE>
+
+&lt;move-command&gt; = move right &lt;count&gt; words:"&amp;keys:@repeat(@count(1),[shift[right]])" .
+
+
+EXTERN &lt;Extern_counts&gt; .
+
+
+</PRE>
+
+Consider the case where this grammar is active and Voice Manager recognzies <I>move right
+three words</I>. The <TT>count(1)</TT> variable has the value <TT>3</TT>. The annotation
+on <TT>words</TT> is <TT>&amp;keys:@repeat(@count(1),[shift[right]])</TT>. Replacing <TT>@count(1)</TT>
+by its value yields <TT>&amp;keys:@repeat(3,[shift[right]])</TT>. The <TT>@repeat</TT> sequence
+
+is performed yielding <TT>&amp;keys:[shift[right]][shift[right]][shift[right]]</TT>.
+
+
+
+
+<p><p>
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="bnf.htm">Previous Page</A> &#124; <A HREF="grammar.htm">Back to Grammar Guide</A> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+ </BODY>
+ </HTML>
+
+

@@ -1,0 +1,24 @@
+/* Rexx Calculator program 1 key - factorial */
+parse arg left, right                  /* get the two operands       */
+numeric digits CalcPrecision()         /* set current precision      */
+numeric form value CalcForm()          /* set current form           */
+
+if left < 0                            /* valid for factorial ?      */
+  then return 'Error'                  /* return error indicator     */
+
+if \datatype(left, 'Whole')            /* must be whole number too   */
+  then return 'Error'                  /* return error indicator     */
+
+if left > 100 then do                  /* this might take a while    */
+  ans = rxmessagebox(left 'Factorial may take a long time.  Continue?',,
+      'Factorial', 'YesNo', 'Query')
+  if ans <> 6 then return left         /* just quit if no            */
+end 
+
+accumulator = 1                        /* set start value            */
+
+do i = 2 to left                       /* loop through factorial     */
+  accumulator = accumulator * i        /* multiply next factor       */
+end
+
+return accumulator                     /* finished                   */

@@ -1,0 +1,2544 @@
+<HTML>
+<HEAD>
+<TITLE>IBM OS/2 16/32-bit Object Module Format (OMF) Specification</TITLE>
+</HEAD>
+<BODY CLASS=WM-BODY>
+
+<DIV CLASS=WM-DIV-BODY>
+<A NAME=HEADING1></A>
+<A NAME=LINK-FM-firstpage></A><H1 CLASS=Title></H1>
+<HR CLASS=Title>
+<H1 CLASS=Title>IBM OS/2 16/32-bit Object Module Format (OMF) Specification</H1>
+<HR CLASS=Title>
+<P CLASS=Body> </P>
+<P CLASS=Body> </P>
+<P CLASS=Body> </P>
+<P CLASS=Body> Revision 11</P>
+<P CLASS=Body> June 14, 2001 11:00 am</P>
+<P CLASS=Body>
+<TT CLASS="Uppercase Body">
+The information furnished herein is on an "as-is" basis, and IBM makes no
+warranties, either express or implied, including, but not limited to, the
+implied warranties of merchantability and fitness for a particular purpose.
+In no event will IBM be liable for any damages arising from the use of the
+information contained herein, including infringement of any proprietary rights,
+or for any lost profits or other incidental and/or consequential damages, even
+if IBM has been advised of the possibility of such damages.
+</TT>
+</P>
+<P CLASS=Body>
+FURTHERMORE, THIS DOCUMENTATION IS IN A PRELIMINARY FORM; IS NOT COMPLETE; HAS
+NOT YET BEEN TESTED, VALIDATED OR REVIEWED; MAY CONTAIN ERRORS, OMISSIONS,
+INACCURACIES OR THE LIKE; AND IS SUBJECT TO BEING CHANGED, REVISED OR
+SUPERSEDED IN WHOLE OR IN PART BY IBM. IBM DOES NOT ASSUME ANY RESPONSIBILITY
+TO NOTIFY ANY PARTIES, COMPANIES, USERS, AND OR OTHERS OF DEFECTS,
+DEFICIENCIES, CHANGES, ERRORS OR OTHER FAILINGS OR SHORTCOMING OF THE
+DOCUMENTATION.
+</P>
+<P CLASS=Body>
+This document is being furnished by IBM for evaluation/development feedback
+purposes only and IBM does not guarantee that IBM will make this document
+generally available. RECIPIENT'S USE OF THIS DOCUMENT IS LIMITED TO RECIPIENT'S
+PERSONAL USE FOR THE SOLE PURPOSE OF CREATING TOOLS FOR THE OS/2 OPERATING
+SYSTEM.
+</P>
+<P CLASS=Body>
+IBM may have patents or pending patent applications covering subject matter
+in this document. The furnishing of this document does not give you any
+license to these patents. You can send license inquiries, in writing, to
+the IBM Director of Commercial Relations, IBM Corporation, Purchase, NY, 10577.
+</P>
+<P CLASS=Body>
+The following copyright notice protects this document under the Copyright
+laws of the United States and other countries which prohibits such actions
+as, but not limited to, copying, distributing, modifying, and making
+derivative works.
+</P>
+<P CLASS=Copyright>
+&copy; Copyright International Business Machines Corporation, 1991-2001.
+All Rights Reserved.
+</P>
+<P CLASS=Body>
+Notice to US Government Users - Documentation related to restricted
+rights - Use, duplication or disclosure is subject to restrictions set
+forth in GSA ADP Schedule Contract with IBM Corp.
+</P>
+<P CLASS=Body>
+The following terms are trademarks of International Business Machines
+Corporation in the United States and/or other countries:
+</P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>IBM<BR>Operating System/2<BR>OS/2
+</DL>
+<P CLASS=Body> </P>
+<A NAME=LINK-FM-lastpage></A>
+
+<HR CLASS=Contents>
+<A NAME=LINK-TOC-firstpage></A>
+<H1 CLASS=Contents>Contents</H1>
+<A NAME=LINK-TOC-lastpage></A>
+
+<DIV CLASS=WM-DIV-TOC>
+<!-- TOC -->
+<DL>
+<DT><A NAME="TOC-1-0" HREF="#HEADING-1-0"><B>1   </B> - Introduction</A>
+<DD>
+<DT><A NAME="TOC-2-0" HREF="#HEADING-2-0"><B>2  </B> - Record Format</A>
+<DD>
+<DT><A NAME="TOC-3-0" HREF="#HEADING-3-0"><B>3  </B> - Frequent Object Record Subfields</A>
+<DD>
+<DT><A NAME="TOC-3-1" HREF="#HEADING-3-1"><B>3.1  </B> - Names</A>
+<DD>
+<DT><A NAME="TOC-3-2" HREF="#HEADING-3-2"><B>3.2  </B> - Indexed References</A>
+<DD>
+<DT><A NAME="TOC-3-3" HREF="#HEADING-3-3"><B>3.3  </B> - Numeric 2 and 4 byte fields</A>
+<DD>
+<DT><A NAME="TOC-4-0" HREF="#HEADING-4-0"><B>4  </B> - Order of records</A>
+<DD>
+<DT><A NAME="TOC-5-0" HREF="#HEADING-5-0"><B>5  </B> - Object Record Types</A>
+<DD>
+<DT><A NAME="TOC-5-1" HREF="#HEADING-5-1"><B>5.1  </B> - 80H THEADR Translator Header Record</A>
+<DD>
+<DT><A NAME="TOC-5-2" HREF="#HEADING-5-2"><B>5.2  </B> - 82H LHEADR Library Header Record</A>
+<DD>
+<DT><A NAME="TOC-5-3" HREF="#HEADING-5-3"><B>5.3  </B> - 88H COMENT Comment Record</A>
+<DD>
+<DT><A NAME="TOC-5-4" HREF="#HEADING-5-4"><B>5.4  </B> - 88H IMPDEF Import Definition Record (comment class A0, subtype 01)</A>
+<DD>
+<DT><A NAME="TOC-5-5" HREF="#HEADING-5-5"><B>5.5  </B> - 88H EXPDEF Export Definition Record (comment class A0, subtype 02)</A>
+<DD>
+<DT><A NAME="TOC-5-6" HREF="#HEADING-5-6"><B>5.6  </B> - 88H INCDEF Incremental Compilation Record (comment class A0, subtype 03)</A>
+<DD>
+<DT><A NAME="TOC-5-7" HREF="#HEADING-5-7"><B>5.7  </B> - 88H LNKDIR C++ Directives Record (comment class A0, subtype 05)</A>
+<DD>
+<DT><A NAME="TOC-5-8" HREF="#HEADING-5-8"><B>5.8  </B> - 88H LIBMOD Library Module Name Record (comment class A3)</A>
+<DD>
+<DT><A NAME="TOC-5-9" HREF="#HEADING-5-9"><B>5.9  </B> - 88H EXESTR Executable String Record (comment class A4)</A>
+<DD>
+<DT><A NAME="TOC-5-10" HREF="#HEADING-5-10"><B>5.10  </B> - 88H INCERR Incremental Compilation Error Record(comment class A6)</A>
+<DD>
+<DT><A NAME="TOC-5-11" HREF="#HEADING-5-11"><B>5.11  </B> - 88H NOPAD No Segment Padding Record (comment class A7)</A>
+<DD>
+<DT><A NAME="TOC-5-12" HREF="#HEADING-5-12"><B>5.12  </B> - 88H WKEXT Weak Extern Record (comment class A8)</A>
+<DD>
+<DT><A NAME="TOC-5-13" HREF="#HEADING-5-13"><B>5.13  </B> - 88H LZEXT Lazy Extern Record (comment class A9)</A>
+<DD>
+<DT><A NAME="TOC-5-14" HREF="#HEADING-5-14"><B>5.14  </B> - 88H IDMDLL Identifier Manipulator DLL Record (comment class AF)</A>
+<DD>
+<DT><A NAME="TOC-5-15" HREF="#HEADING-5-15"><B>5.15  </B> - 88H PharLap Format Record (comment class AA)</A>
+<DD>
+<DT><A NAME="TOC-5-16" HREF="#HEADING-5-16"><B>5.16  </B> - 8AH or 8BH MODEND Module End Record</A>
+<DD>
+<DT><A NAME="TOC-5-17" HREF="#HEADING-5-17"><B>5.17  </B> - 8CH EXTDEF External Names Definition Record</A>
+<DD>
+<DT><A NAME="TOC-5-18" HREF="#HEADING-5-18"><B>5.18  </B> - 90H or 91H PUBDEF Public Names Definition Record</A>
+<DD>
+<DT><A NAME="TOC-5-19" HREF="#HEADING-5-19"><B>5.19  </B> - 94H or 95H LINNUM Line Number Record</A>
+<DD>
+<DT><A NAME="TOC-5-20" HREF="#HEADING-5-20"><B>5.20  </B> - 96H LNAMES List of Names Record</A>
+<DD>
+<DT><A NAME="TOC-5-21" HREF="#HEADING-5-21"><B>5.21  </B> - 98H or 99H SEGDEF Segment Definition Record</A>
+<DD>
+<DT><A NAME="TOC-5-22" HREF="#HEADING-5-22"><B>5.22  </B> - 9AH GRPDEF Group Definition Record</A>
+<DD>
+<DT><A NAME="TOC-5-23" HREF="#HEADING-5-23"><B>5.23  </B> - 9CH or 9DH FIXUPP Fixup Record</A>
+<DD>
+<DT><A NAME="TOC-5-24" HREF="#HEADING-5-24"><B>5.24  </B> - A0H or A1H LEDATA Logical Enumerated Data Record</A>
+<DD>
+<DT><A NAME="TOC-5-25" HREF="#HEADING-5-25"><B>5.25  </B> - A2H or A3H LIDATA Logical Iterated Data Record</A>
+<DD>
+<DT><A NAME="TOC-5-26" HREF="#HEADING-5-26"><B>5.26  </B> - B0H COMDEF Communal Names Definition Record</A>
+<DD>
+<DT><A NAME="TOC-5-27" HREF="#HEADING-5-27"><B>5.27  </B> - B2H or B3H BAKPAT Backpatch Record</A>
+<DD>
+<DT><A NAME="TOC-5-28" HREF="#HEADING-5-28"><B>5.28  </B> - B4H or B5H LEXTDEF Local External Names Definition Record</A>
+<DD>
+<DT><A NAME="TOC-5-29" HREF="#HEADING-5-29"><B>5.29  </B> - B6H or B7H LPUBDEF Local Public Names Definition Record</A>
+<DD>
+<DT><A NAME="TOC-5-30" HREF="#HEADING-5-30"><B>5.30  </B> - B8H LCOMDEF Local Communal Names Definition Record</A>
+<DD>
+<DT><A NAME="TOC-5-31" HREF="#HEADING-5-31"><B>5.31  </B> - C2H or C3H COMDAT Initialized Communal Data Record</A>
+<DD>
+<DT><A NAME="TOC-5-32" HREF="#HEADING-5-32"><B>5.32  </B> - C4H or C5H LINSYM Symbol Line Numbers Record</A>
+<DD>
+<DT><A NAME="TOC-5-33" HREF="#HEADING-5-33"><B>5.33  </B> - C6H ALIAS Alias Definition Record</A>
+<DD>
+<DT><A NAME="TOC-5-34" HREF="#HEADING-5-34"><B>5.34  </B> - C8H or C9H NBKPAT Named Backpatch Record</A>
+<DD>
+</DL>
+</DIV>
+
+<HR CLASS=Heading1>
+<A NAME=LINK-01-firstpage></A>
+<A NAME=HEADING-1-0></A>
+<H1 CLASS=Heading1><A HREF="#TOC-1-0">1   Introduction</A></H1>
+<P CLASS=BodyFirst> This document describes the IBM 16/32-bit Object Module Format, also known as the IBM-OMF format. Also see <EM CLASS="Emphasis BodyFirst">Tool Interface Standards Portable Formats Specification</EM>, Tool Interface Standards Committee (Version 1.0), Section III for detail of the TIS-OMF format. Both OMF specifications are virtually identical but the TIS specification is the most current and is the specification used by most modern compilers for OS/2 such as IBM VisualAge C++ for OS/2.</P>
+
+<HR CLASS=Heading1>
+<A NAME=HEADING-2-0></A>
+<H1 CLASS=Heading1><A HREF="#TOC-2-0">2   Record Format</A></H1>
+<P CLASS=BodyFirst> All object records confirm to the following format:</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-1:  <B CLASS=FigureTitle>Standard object module record format</B></P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable length&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> Record Type</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Record Contents</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=2><P CLASS=FigureBody> &lt; record length in bytes &gt;</P>
+</TD></TR></TABLE><P CLASS=Body> The <STRONG CLASS="Bold Body">Record Type</STRONG> field is a 1-byte field containing the hexadecimal number that identifies the type of object record. The format is determined by the least significant bit of the Record Type field. Note that this does not govern Use32/Use16 segment attributes; it simply specifies the size of certain numeric fields within the record. An odd Record Type indicates that 32-bit values are present. An even Record Type indicates that those fields contain16-bit values. The fields affected are described with each record.</P>
+<P CLASS=Body> An entire record occupies <STRONG CLASS="Bold Body">Record Length</STRONG> + 3 bytes. The record length does not include the count for the record type and record length fields. Unless otherwise noted within the record definition, the record length should not exceed 1024 bytes.</P>
+<P CLASS=Body> The <STRONG CLASS="Bold Body">Record Contents</STRONG> are determined by the record type.</P>
+<P CLASS=Body> The <STRONG CLASS="Bold Body">Chk Sum</STRONG> field is a 1-byte field that contains the negative sum (modulo 256) of all other bytes in the record. The byte sum over the entire record, ignoring overflow, is zero.</P>
+<P CLASS=Note>Note:  LINK386 ignores the value of the Chk Sum byte.</P>
+
+<HR CLASS=Heading1>
+<A NAME=HEADING-3-0></A>
+<H1 CLASS=Heading1><A HREF="#TOC-3-0">3   Frequent Object Record Subfields</A></H1>
+<P CLASS=BodyFirst> The contents of each record are determined by the record type, but certain subfields appear frequently; the format of such fields is described next.</P>
+<A NAME=HEADING-3-1></A>
+<H2 CLASS=Heading2><A HREF="#TOC-3-1">3.1   Names</A></H1>
+<P CLASS=BodyFirst> Name strings are encoded as an 8-bit unsigned count followed by a string of "count" characters. The character set is usually some ASCII subset. A null name is specified by a single byte of 0 (indicating a string of length zero).</P>
+<A NAME=HEADING-3-2></A>
+<H2 CLASS=Heading2><A HREF="#TOC-3-2">3.2   Indexed References</A></H1>
+<P CLASS=BodyFirst> Certain items are ordered by occurrence, and referenced by index (starting index is 1). Index fields can contain 0, indicating not-present, or values from 1 through 7FFF. The index is encoded as 1 or 2 bytes.</P>
+<P CLASS=Body> If the index number is in the range 0-7H, the high-order bit (bit 7) is 0 and the low-order bits contain the index number, so the field is only 1 byte long. If the index number is in the range 80-7FFFH, the field is 2 bytes long. The high-order bit of the first byte in the field is set to 1, and the high-order byte of the index number which must be in the range (0-7FH) fits in the remaining 7 bits. The low-order byte of the index number is specified in the second byte of the field. A 16-bit value is obtained as follows:</P>
+<PRE CLASS=Code>
+if (first_byte &amp; 0x80)
+    index_word = (first_byte &amp; 7F) * 0x100 + second_byte;
+else
+    index_word = first_byte
+</PRE>
+<A NAME=HEADING-3-2-1></A>
+<H3 CLASS=Heading3>3.2.1   Type indices</H1>
+<P CLASS=BodyFirst> The type index is treated as an index field when a record is parsed (occupies one or two bytes, occurs in PUBDEF, COMDEF, EXTDEF records). They are encoded as described under indexed references.</P>
+<P CLASS=Note>Note:  At present, no type checking is done by the linker. If any link-time semantics are defined, that information will be recorded somewhere within this document.</P>
+<A NAME=HEADING-3-2-2></A>
+<H3 CLASS=Heading3>3.2.2   Ordered Collections</H1>
+<P CLASS=BodyFirst> Certain records and record groups are ordered; the ordering is obtained from the order of the record types within the file together with the ordering of repeated fields within these records. Such ordered collections are referenced by index, counting from 1 (index 0 indicates unknown or decline-to-state).</P>
+<P CLASS=Body> For example, there may be many LNAMES records within a module and each of those records may contain many names. The names are indexed starting at 1 for the first name in the first LNAMES record encountered while reading the file, 2 for the second name in the first record, etc., and the highest index for the last name in the last LNAMES record encountered.</P>
+<P CLASS=Body> The ordered collections are:</P>
+<UL CLASS=UList1>
+<LI CLASS=UList1>NAMES: ordered by LNAMES record and names within each. Referenced as a Name Index.
+<LI CLASS=UList1>LOGICAL SEGMENTS: ordered by SEGDEF records in file. Referenced as a Segment Index.
+<LI CLASS=UList1>GROUPS: ordered by GRPDEF of records in file. Referenced as a Group Index.
+<LI CLASS=UList1>EXTERNAL SYMBOLS: ordered by EXTDEF and COMDEF records and symbols within each. Referenced as an External Index (in FIXUPPs).
+</UL>
+<A NAME=HEADING-3-3></A>
+<H2 CLASS=Heading2><A HREF="#TOC-3-3">3.3   Numeric 2 and 4 byte fields</A></H1>
+<P CLASS=BodyFirst> Words and double words (16 and 32 bit quantities) are stored in Intel byte order (lowest address is least significant).</P>
+<P CLASS=BodyFirst> Certain records, notably SEGDEF, PUBDEF, LINNUM, LEDATA, LIDATA, FIXUPP and MODEND, contain size, offset, and displacement values which may be 32 bit quantities for Use32 segments. The encoding is as follows.</P>
+<UL CLASS=UList1>
+<LI CLASS=UList1>When the least significant bit of the record type byte is set (i.e. record type is an odd number), the numeric fields are 4 bytes.
+<LI CLASS=UList1>When the least significant bit of the record type byte is clear, the fields occupy 2 bytes (16 bit Object Module Format). The values are zero-extended when applied to Use32 segments.
+</UL>
+<P CLASS=Body> See <A HREF="#HEADING-5-21">&sect;&nbsp;5.21, "98H or 99H SEGDEF Segment Definition Record"</A> for an explanation of Use16/Use32 segments.</P>
+
+<HR CLASS=Heading1>
+<A NAME=HEADING-4-0></A>
+<H1 CLASS=Heading1><A HREF="#TOC-4-0">4   Order of records</A></H1>
+<P CLASS=BodyFirst> The record order is chosen so that bind/link passes through an object module are minimized. This differs from the previous less specific ordering in that all symbolic information (in particular, all export and public symbols) must occur at the start of the object module. This order is recommended but not mandatory.</P>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">Identifier record(s):</STRONG></B></P>
+<P CLASS=Body> Must be the first record.</P>
+<UL CLASS=UList1>
+<LI CLASS=UList1>THEADR or LHEADR
+</UL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">Records processed by Link Pass one:</STRONG></B></P>
+<P CLASS=Body> May occur in any order but must precede the Link pass separator if it is present.</P>
+<UL CLASS=UList1>
+<LI CLASS=UList1>COMENT class AF providing name of Identifier Manipulator Dynamic Link Library (should be near the beginning of the file)
+<LI CLASS=UList1>COMENT identifying object format and extensions
+<LI CLASS=UList1>COMENT any, other than link pass separator comment
+<LI CLASS=UList1>LNAMES providing ordered name list
+<LI CLASS=UList1>SEGDEF providing ordered list of program segments
+<LI CLASS=UList1>GRPDEF providing ordered list of logical segments
+<LI CLASS=UList1>TYPDEF (no longer used)
+<LI CLASS=UList1>ALIAS records
+<LI CLASS=UList1>PUBDEF locating and naming public symbols
+<LI CLASS=UList1>LPUBDEF locating and naming private symbols.
+<LI CLASS=UList1>COMDEF, EXTDEF, LCOMDEF, LEXTDEF records
+</UL>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>This group of records is indexed together, so External Index fields in FIXUPP records may refer to any of the record types listed.
+</DL>
+<UL CLASS=UList1>
+<LI CLASS=UList1>COMDAT records
+</UL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">Link pass separator (optional):</STRONG></B></P>
+<DL CLASS=Body1>
+<DT CLASS=Body1>
+<DD CLASS=Body1>
+COMENT class A2 indicating that pass 1 of the linker is complete.
+</DL>
+<DL CLASS=Body1>
+<DT CLASS=Body1>
+<DD CLASS=Body1>
+When this record is encountered, LINK immediately starts Pass 2; no records after this comment are read in Pass 1. All the above listed records must come before this comment record. For greater linking speed, all LIDATA, LEDATA, FIXUPP and LINNUM records should come after the A2 comment record, but this is not required.
+</DL>
+<DL CLASS=Body1>
+<DT CLASS=Body1>
+<DD CLASS=Body1>
+In LINK, Pass 2 begins again at the start of the object module, so LIDATA records, etc., are processed in Pass 2 no matter where they are placed in the object module.
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">Records ignored by link pass one and processed by link pass two:</STRONG></B></P>
+<P CLASS=Body> May come before or after link pass two:</P>
+<UL CLASS=UList1>
+<LI CLASS=UList1>LIDATA or LEDATA records followed by applicable FIXUPP records.
+<LI CLASS=UList1>FIXUPPs containing THREADs only.
+<LI CLASS=UList1>BAKPAT and NBAKPAT records.
+<LI CLASS=UList1>LINNUM and LINSYM providing line number to program code or data association.
+</UL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">Terminator record:</STRONG></B></P>
+<UL CLASS=UList1>
+<LI CLASS=UList1>MODEND indicating end of module with optional start address.
+</UL>
+
+<HR CLASS=Heading1>
+<A NAME=HEADING-5-0></A>
+<H1 CLASS=Heading1><A HREF="#TOC-5-0">5   Object Record Types</A></H1>
+<A NAME=HEADING-5-1></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-1">5.1   80H THEADR Translator Header Record</A></H1>
+<A NAME=HEADING-5-1-1></A>
+<H3 CLASS=Heading3>5.1.1   Description:</H1>
+<P CLASS=BodyFirst> The THEADR record contains the name of the object module. This name identifies an object module within an object library or in messages produced by the linker.</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-2:  THEADR Translator Header Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable length&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 80</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> String Length</P>
+</TD><TD><P CLASS=FigureBody> Name String</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR></TABLE>
+<P CLASS=Body>
+The <STRONG CLASS="Bold Body">String Length</STRONG> byte gives the number of
+characters in the name string; the name string itself is ASCII. This name is
+usually that of the source program (if supplied by the language translator),
+or may be specified directly by the programmer (e.g. TITLE pseudo-op).
+</P>
+<P CLASS=Body>
+This record must occur as the first object record. More than one header record
+is allowed (as a result of an object bind, or if source arose from multiple
+files as a result of include processing).
+</P>
+<P CLASS=Note>
+Note:  The name string is always present; a null name is allowed but not
+recommended (not much information for a debugger that way).
+</P>
+<UL CLASS=Body2>
+<LI>It is recommended that the module be generated
+with the full path and filename containing the source code.
+<LI>The THEADR record must be the first record of
+the object module.
+<LI>More than one header record is allowed (as a
+result of source from multiple files during the include process).
+</UL>
+<A NAME=HEADING-5-2></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-2">5.2   82H LHEADR Library Header Record</A></H1>
+<A NAME=HEADING-5-2-1></A>
+<H3 CLASS=Heading3>5.2.1   Description:</H1>
+<P CLASS=BodyFirst> This record is very similar to the THEADR record. It is used to indicate the name of a module within a library file (which has a different organization internally than an object module).</P>
+<A NAME=HEADING-5-2-2></A>
+<H3 CLASS=Heading3>5.2.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-3:  LHEADR Library Header Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable length&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 82</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> String Length</P>
+</TD><TD><P CLASS=FigureBody> Name String</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR></TABLE><P CLASS=Note>Note:  In LINK, THEADR and LHEADR records are handled identically.</P>
+<A NAME=HEADING-5-3></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-3">5.3   88H COMENT Comment Record</A></H1>
+<A NAME=HEADING-5-3-1></A>
+<H3 CLASS=Heading3>5.3.1   Description:</H1>
+<P CLASS=BodyFirst> The COMENT record contains a character string that may represent a plain text comment, a symbol meaningful to a program such as LINK or LIB, or some binary coded information that alters the linking process. The comment records are actually a group of items, classified by "comment class".</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-4:  COMENT Comment Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> &lt;Record length - 3&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 88</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Comment Type</P>
+</TD><TD><P CLASS=FigureBody> Comment Class</P>
+</TD><TD><P CLASS=FigureBody> Commentary byte string (optional)</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR></TABLE><A NAME=HEADING-5-3-2></A>
+<H3 CLASS=Heading3>5.3.2   Comment Type</H1>
+<P CLASS=Body> The comment type byte is bit-significant; layout is:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD COLSPAN=8><P CLASS=FigureBody> &lt; 1 byte &gt;</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> NP</P>
+</TD><TD><P CLASS=FigureBody> NL</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD></TR></TABLE><P CLASS=Body> where</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">NP</STRONG></P>
+</TD><TD><P CLASS=CellBody> is set if the comment is to be preserved by object bind utilities</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">NL</STRONG></P>
+</TD><TD><P CLASS=CellBody> is set if the comment is not for display by object bind utilities</P>
+</TD></TR></TABLE><A NAME=HEADING-5-3-3></A>
+<H3 CLASS=Heading3>5.3.3   Comment class and commentary byte string</H1>
+<P CLASS=Body> The comment class is an 8-bit numeric which conveys information by its value (accompanied by a null byte string), or indicates the information to be found in the accompanying byte string. The byte string's length is determined from the record length, not by an initial count byte.</P>
+<P CLASS=Body> The values in use currently are the following:</P>
+<P CLASS=Body> <STRONG CLASS="Bold Body">0</STRONG> Translator</P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>For translator; may name the source language or translator. Recommended: translator name and version plus optimization level used for compilation be recorded here. Other compiler or assembler options can be included, although current practice seems to be to place these under comment class 9D.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">01</STRONG> Intel copyright</P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>Ignored by the linker.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">02 through 9B</STRONG> Intel reserved</P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>The values from 9C through FF are ignored by Intel products.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">9C</STRONG> MS-DOS version -- obsolete</P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>Ignored by linker
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">9D</STRONG> Memory Model -- ignored</P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>Ignored by linker
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">9E</STRONG> DOSSEG</P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>Sets the linkers DOSSEG switch. The byte string is null. This record is included in the startup module in each language library. It directs the linker to use the standardized segment ordering, according to the naming conventions documented with DOS, OS/2 and accompanying language products.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">9F</STRONG> Library indicator</P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>The byte string contains a library file name (without a lead count byte and without an extension). Can be over-ridden via NOD link switch.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">A0</STRONG> OMF extensions</P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>This class consists of a set of records, identified by subtype (first byte of commentary string). Values supported by the OS/2 2.0 linker are
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">01</STRONG> <STRONG CLASS="Bold CellBody">IMPDEF</STRONG></P>
+</TD><TD><P CLASS=CellBody> Import definition record. See <A HREF="#HEADING-5-4" CLASS=CellBody>&sect;&nbsp;5.4, "88H IMPDEF Import Definition Record (comment class A0, subtype 01)"</A> for a complete description.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">02</STRONG> <STRONG CLASS="Bold CellBody">EXPDEF</STRONG></P>
+</TD><TD><P CLASS=CellBody> Export definition record. See <A HREF="#HEADING-5-5" CLASS=CellBody>&sect;&nbsp;5.5, "88H EXPDEF Export Definition Record (comment class A0, subtype 02)"</A> for a complete description.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">03</STRONG> <STRONG CLASS="Bold CellBody">INCDEF</STRONG></P>
+</TD><TD><P CLASS=CellBody> Incremental compilation record. See <A HREF="#HEADING-5-6" CLASS=CellBody>&sect;&nbsp;5.6, "88H INCDEF Incremental Compilation Record (comment class A0, subtype 03)"</A> for a complete description.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">04</STRONG> <STRONG CLASS="Bold CellBody">Protected Memory Library</STRONG></P>
+</TD><TD><P CLASS=CellBody> Relevant to 32 bit DLL's.This comment record is inserted in the object module by the compiler when it encounters a compiler option or pragma indicating a protected DLL. The linker then sets a flag in the header of the executable file (DLL) to indicate that the DLL should be loaded in such a way that its shared code and data is protected from corruption.</P>
+<P CLASS=CellBody> When the flag is set in the EXE header, the loader loads the selector of the protected memory area into the DS while performing run-time fixups (relocations). All other DLL's and applications get the regular DGROUP selector, which doesn't allow access to the protected memory area set up by the operating system.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">05</STRONG> <STRONG CLASS="Bold CellBody">LNKDIR</STRONG></P>
+</TD><TD><P CLASS=CellBody> C++ linker directives record. See <A HREF="#HEADING-5-7" CLASS=CellBody>&sect;&nbsp;5.7, "88H LNKDIR C++ Directives Record (comment class A0, subtype 05)"</A> for a complete description.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">06-FF</STRONG> Reserved for Microsoft.</P>
+</TD><TD><P CLASS=CellBody> presence of any unrecognized subtype causes LINKER to generate a fatal error.</P>
+</TD></TR></TABLE>
+<P CLASS=Body> <STRONG CLASS="Bold Body">A1</STRONG> Symbolic debug information</P>
+<DL CLASS=Body1>
+<DT CLASS=Body1>
+<DD CLASS=Body1>
+This comment class is now used solely to indicate the version of the symbolic
+debug information.
+</DL>
+<DL CLASS=Body1>
+<DT CLASS=Body1>
+<DD CLASS=Body1>
+The byte string will be a version number (8-bit numeric) followed by an ASCII
+character string indicating the style of symbol and line number (LINNUM)
+information. Current values are
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">n,'C','V'</STRONG> </P>
+</TD><TD><P CLASS=CellBody> CodeView style</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">n,'D','X'</STRONG> </P>
+</TD><TD><P CLASS=CellBody> AIX style</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">n,'H','L'</STRONG> </P>
+</TD><TD><P CLASS=CellBody> IBM PM Debugger</P>
+</TD></TR></TABLE><P CLASS=Body> <STRONG CLASS="Bold Body">A2</STRONG> Link Pass</P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>This record conveys information to the linker about the organization of the file. At present, a single sub-extension is defined. The commentary string is
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> 01</P>
+</TD><TD><P CLASS=CellBody> Optional</P>
+</TD></TR></TABLE><DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>Subclass 01 indicates the start of link pass 2 records; this may be followed by anything at all, which will be ignored by the linker (determined from the RecLength). When this comment appears, the linker can rest assured that only LEDATA, LIDATA, FIXUPP, LINNUM and the terminal MODEND records will occur after this. All other record types, plus THREAD fixups, occur before.
+<DT CLASS=Body1><DD CLASS=Body1><STRONG CLASS="Bold Body1">WARNING:</STRONG> It is assumed that this comment will not be present in a module whose MODEND record contains a program starting address.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">A3</STRONG> LIBMOD indicator</P>
+<DL><DT><DD>
+Library module comment record. Ignored by LINK386.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">A4</STRONG> EXESTR indicator</P>
+<DL><DT><DD>
+Executable Module Identification String.
+</DL>
+<DL><DT><DD>
+A commentary string specifying a string to be placed in the executable module,
+but which is not loaded with the load module.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">A6</STRONG> INCERR</P>
+<DL><DT><DD>
+Incremental compilation error.
+See <A HREF="#HEADING-5-10" CLASS=Body1>&sect;&nbsp;5.10,
+"88H INCERR Incremental Compilation Error Record(comment class A6)"</A>
+for a complete description.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">A7</STRONG> NOPAD</P>
+<DL><DT><DD>
+No segment padding. Ignored by LINK386.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">A8</STRONG> WKEXT</P>
+<DL><DT><DD>
+Weak Extern record. See <A HREF="#HEADING-5-12" CLASS=Body1>&sect;&nbsp;5.12,
+"88H WKEXT Weak Extern Record (comment class A8)"</A> for a complete
+description.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">A9</STRONG> LZEXT</P>
+<DL><DT><DD>
+Lazy Extern record. Ignored by LINK386.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">AA</STRONG> PHARLAP</P>
+<DL><DT><DD>
+PharLap Format record. Ignored by LINK386.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">AE</STRONG> IPADATA</P>
+<DL><DT><DD>
+Interprocedural Analysis Data Record.
+</DL>
+<DL><DT><DD>
+This comment record is used by IBM interprocedural analysis and optimization
+tools to store and retrieve binary data during the compilation and linking
+processes. Records of this type are to be ignored by the linker.
+</DL>
+<P CLASS=Body> <STRONG CLASS="Bold Body">AF</STRONG> IDMDLL indicator</P>
+<DL><DT><DD>
+Identifier Manipulator Dynamic Link Library.
+See <A HREF="#HEADING-5-14" CLASS=Body1>&sect;&nbsp;5.14,
+"88H IDMDLL Identifier Manipulator DLL Record (comment class AF)"</A>
+for a complete description.
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">B2H-BFH</STRONG></B></P>
+<DL><DT><DD>
+Unused
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">C0H-FFH</STRONG></B></P>
+<DL><DT><DD>
+Reserved for user-defined comment classes.
+</DL>
+<DL><DT><DD>
+<P CLASS=Note>Note:  A COMENT record can appear almost anywhere in an object
+module. Only two restrictions apply:</P>
+</DL>
+<UL CLASS=UList2>
+<UL CLASS=UList2>
+<LI CLASS=UList2>A COMENT record cannot be placed between a FIXUPP record and the LEDATA or LIDATA record to which it refers.
+<LI CLASS=UList2>A COMENT record can not be the first or last record in an object module. (The first record must always be a THEADR record and the last must always be a MODEND).
+</UL>
+</UL>
+<A NAME=HEADING-5-4></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-4">5.4   88H IMPDEF Import Definition Record (comment class A0, subtype 01)</A></H1>
+<A NAME=HEADING-5-4-1></A>
+<H3 CLASS=Heading3>5.4.1   Description:</H1>
+<P CLASS=Body> This record describes the imported names for a module.</P>
+<A NAME=HEADING-5-4-2></A>
+<H3 CLASS=Heading3>5.4.2   Record format:</H1>
+<P CLASS=Body> One import symbol is described; the subrecord format is</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-5:  IMPDEF Import Definition Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable&gt;</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable&gt;</P>
+</TD><TD><P CLASS=FigureBody>  2 or &lt;variable&gt;  (bytes)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 01</P>
+</TD><TD><P CLASS=FigureBody> Ord Flag</P>
+</TD><TD><P CLASS=FigureBody> InternalName</P>
+</TD><TD><P CLASS=FigureBody> ModuleName</P>
+</TD><TD><P CLASS=FigureBody> EntryIdent</P>
+</TD></TR></TABLE><P CLASS=Body> where:</P>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">01</STRONG></B></P>
+<DL><DT><DD>
+identifies the subtype as an IMPDEF
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">OrdFlag</STRONG></B></P>
+<DL><DT><DD>
+is a byte; if zero the import is identified by name. If nonzero, it is
+identified by ordinal. Determines the form of the EntryIdent field.
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">InternalName</STRONG></B></P>
+<DL><DT><DD>
+in &lt;count, char&gt; string format and is the name used within this module
+for the import symbol. This name will occur again in an EXTDEF record.
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">ModuleName</STRONG></B></P>
+<DL><DT><DD>
+in &lt;count, char&gt; string format and is the name of the module which
+supplies an export symbol matching this import.
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">EntryIdent</STRONG></B></P>
+<DL><DT><DD>
+is an ordinal or the name used by the exporting module for the symbol, depending upon the OrdFlag.
+</DL>
+<DL><DT><DD>
+If this field is an ordinal (OrdFlag nonzero), it is a 16-bit word. If this
+is a name, and the first byte of the name is zero, then the exported name is
+the same as the import name (in the InternalName field). Otherwise, it is the
+imported name in &lt;count, char&gt; string format (as exported by ModuleName).
+</DL>
+<P CLASS=Note>
+Note:  IMPDEF records are created by the utility IMPLIB, which builds an
+"import library" from a module definition file or dynamic-link library.
+</P>
+
+<A NAME=HEADING-5-5></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-5">5.5   88H EXPDEF Export Definition Record (comment class A0, subtype 02)</A></H1>
+<A NAME=HEADING-5-5-1></A>
+<H3 CLASS=Heading3>5.5.1   Description:</H1>
+<P CLASS=Body> This record describes the exported names for a module.</P>
+<A NAME=HEADING-5-5-2></A>
+<H3 CLASS=Heading3>5.5.2   Record format:</H1>
+<P CLASS=Body> One exported entry point is described; the subrecord format is</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-6:  EXPDEF Export Definition Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable&gt;</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable&gt;</P>
+</TD><TD><P CLASS=FigureBody>  2  (bytes)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 02</P>
+</TD><TD><P CLASS=FigureBody> ExpFlag</P>
+</TD><TD><P CLASS=FigureBody> ExportedName</P>
+</TD><TD><P CLASS=FigureBody> InternalName</P>
+</TD><TD><P CLASS=FigureBody> ExportOrdinal</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> &lt;conditional&gt;</P>
+</TD></TR></TABLE><P CLASS=Body> where:</P>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">02</STRONG></B></P>
+<DL><DT><DD>
+identifies the subtype as an EXPDEF
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">ExpFlag</STRONG></B></P>
+<DL><DT><DD>
+is a bit-significant 8-bit field.
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD COLSPAN=8><P CLASS=FigureBody> &lt; 1 byte &gt;</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> OrdBit</P>
+</TD><TD><P CLASS=FigureBody> ResidentName</P>
+</TD><TD><P CLASS=FigureBody> NoData</P>
+</TD><TD COLSPAN=5><P CLASS=FigureBody> ParmCount</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD COLSPAN=5><P CLASS=FigureBody> &lt; 5 bits &gt;</P>
+</TD></TR></TABLE>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1><B CLASS=Body1><STRONG CLASS="Bold Body1">OrdBit</STRONG></B>
+<DL CLASS=Body2>
+<DT CLASS=Body2><DD CLASS=Body2>Set if the item is exported by ordinal; in this case the ExportOrdinal field is present.
+</DL>
+<DT CLASS=Body1><DD CLASS=Body1><B CLASS=Body1><STRONG CLASS="Bold Body1">ResidentName</STRONG></B>
+<DL CLASS=Body2>
+<DT CLASS=Body2><DD CLASS=Body2>Set if the exported name is to be kept resident by the system loader; this is an optimization for frequently used items imported by name.
+</DL>
+<DT CLASS=Body1><DD CLASS=Body1><B CLASS=Body1><STRONG CLASS="Bold Body1">NoData</STRONG></B>
+<DL CLASS=Body2>
+<DT CLASS=Body2><DD CLASS=Body2>Set if the entry point does not use initialized data (either instanced or global).
+</DL>
+<DT CLASS=Body1><DD CLASS=Body1><B CLASS=Body1><STRONG CLASS="Bold Body1">ParmCount</STRONG></B>
+<DL CLASS=Body2>
+<DT CLASS=Body2><DD CLASS=Body2>Number of parameter words. The ParmCount field is set to zero for all but callgates to 16-bit segments.
+</DL>
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">Exported Name</STRONG></B></P>
+<DL><DT><DD>
+in &lt;count, char&gt; string format. Name to be used when the entry point is
+imported by name.
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">Internal Name</STRONG></B></P>
+<DL><DT><DD>
+in &lt;count, char&gt; string format. If the name length is zero, the internal
+name is the same as the Exported Name. Otherwise, it is the name by which the
+entry point known within this module. This name will appear as a PUBDEF or
+LPUBDEF name.
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">ExportOrdinal</STRONG></B></P>
+<DL><DT><DD>
+present if the OrdBit is set; it is a 16-bit numeric whose value is the
+ordinal used (must be non-zero).
+</DL>
+<P CLASS=Note>
+Note:  EXPDEFs are produced by the compiler when the keyword
+<STRONG CLASS="Bold Note">_export</STRONG> is used in a source file.
+</P>
+
+<A NAME=HEADING-5-6></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-6">5.6   88H INCDEF Incremental Compilation Record (comment class A0, subtype 03)</A></H1>
+<A NAME=HEADING-5-6-1></A>
+<H3 CLASS=Heading3>5.6.1   Description:</H1>
+<P CLASS=Body> This record is used for incremental compilation. Every FIXUPP and LINNUM record following an INCDEF record will adjust all external index values and line number values by the appropriate delta. The deltas are cumulative if there is more than one INCDEF per module.</P>
+<A NAME=HEADING-5-6-2></A>
+<H3 CLASS=Heading3>5.6.2   Record format:</H1>
+<P CLASS=Body> The subrecord format is</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-7:  INCDEF Incremental Compilation Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 2</P>
+</TD><TD><P CLASS=FigureBody> 2</P>
+</TD><TD><P CLASS=FigureBody>  &lt;variable&gt; (bytes)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 03</P>
+</TD><TD><P CLASS=FigureBody> EXTDEF delta</P>
+</TD><TD><P CLASS=FigureBody> LINNUM delta</P>
+</TD><TD><P CLASS=FigureBody> padding</P>
+</TD></TR></TABLE><P CLASS=Body> The EXTDEF delta and LINNUM delta fields are signed.</P>
+<P CLASS=Body> Padding (zeros) is added by Quick C to allow for expansion of the object module during incremental compilation and linking.</P>
+<P CLASS=Note>Note:  Negative deltas are allowed.</P>
+<A NAME=HEADING-5-7></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-7">5.7   88H LNKDIR C++ Directives Record (comment class A0, subtype 05)</A></H1>
+<A NAME=HEADING-5-7-1></A>
+<H3 CLASS=Heading3>5.7.1   Description:</H1>
+<P CLASS=Body> This record is used by the compiler to pass directives and flags to the linker.</P>
+<A NAME=HEADING-5-7-2></A>
+<H3 CLASS=Heading3>5.7.2   Record format:</H1>
+<P CLASS=Body> The subrecord format is</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-8:  LNKDIR C++ Directives Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody>  1 (bytes)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 05</P>
+</TD><TD><P CLASS=FigureBody> Bit Flags</P>
+</TD><TD><P CLASS=FigureBody> Pseudocode Vers</P>
+</TD><TD><P CLASS=FigureBody> CV Vers</P>
+</TD></TR></TABLE><P CLASS=Body> The format of the <STRONG CLASS="Bold Body">Bit Flags</STRONG> byte is:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD COLSPAN=8><P CLASS=FigureBody> &lt; 1 byte &gt;</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> Run MPC</P>
+</TD><TD><P CLASS=FigureBody> Omit CV Publics</P>
+</TD><TD><P CLASS=FigureBody> New EXE</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD></TR></TABLE>
+<P CLASS=Body>
+The low-order bit, if set, indicates that LINK386 should output the new EXE
+format; this flag is ignored for all but linking of Pseudocode applications.
+(Pseudocode requires a segmented executable).
+</P>
+<P CLASS=Body>
+The second low-order bit indicates that LINK386 should not output the
+$PUBLICS subsection of the CodeView info.
+</P>
+<P CLASS=Body>
+The third low-order bit indicates that MPC (Microsoft Make Pseudocode Utility)
+should be run.
+</P>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">Pseudocode Version</STRONG></B>
+</P>
+<DL><DT><DD>
+One byte indicating the Pseudocode interpreter version number.
+</DL>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">CodeView Version</STRONG></B>
+</P>
+<DL><DT><DD>
+One byte indicating the CodeView version number.
+</DL>
+<P CLASS=Note>
+Note:  The presence of this record in an object module will indicate the
+presence of global symbols records. The linker will not emit a Publics
+section for those modules with this comment record and a $SYMBOLS section.
+</P>
+
+<A NAME=HEADING-5-8></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-8">5.8   88H LIBMOD Library Module Name Record (comment class A3)</A></H1>
+<A NAME=HEADING-5-8-1></A>
+<H3 CLASS=Heading3>5.8.1   Description:</H1>
+<P CLASS=Body>
+The LIBMOD comment record is used only by the LIB utility, not by LINK. It
+gives the name of an object module within a library, allowing LIB to preserve
+the library file name in the THEADR record and still identify the module names
+that make up the library. Since the module names is the basename of the .OBJ
+file that was built into the library, it may be completely different from the
+final library name.
+</P>
+<A NAME=HEADING-5-8-2></A>
+<H3 CLASS=Heading3>5.8.2   Record format:</H1>
+<P CLASS=Body> The subrecord format is</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-9:  LNKDIR Library Module Name Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody>  &lt;variable&gt; (bytes)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> A3</P>
+</TD><TD><P CLASS=FigureBody> Module Name</P>
+</TD></TR></TABLE>
+<P CLASS=Body>
+The record contains only the ASCII string of the module name, in &lt;count,
+char&gt; format. The module name has no path and no extension, just the base
+of the module name.
+</P>
+<P CLASS=Note>
+Note:  LIB adds a LIBMOD record when a .OBJ file is added to a library and
+strips the LIBMOD record when a .OBJ file is removed from a library, so
+typically this record only exists in .LIB files.
+</P>
+<UL>
+<LI>
+There will be one LIBMOD record in the library file for each object module
+that was combined to build the library.
+<LI>
+LINK386 ignores LIBMOD coment records.
+</UL>
+<A NAME=HEADING-5-9></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-9">5.9   88H EXESTR Executable String Record (comment class A4)</A></H1>
+<A NAME=HEADING-5-9-1></A>
+<H3 CLASS=Heading3>5.9.1   Description:</H1>
+<P CLASS=Body> The EXESTR comment record implements the ANSI and XENIX/UNIX features in C:</P>
+<UL CLASS=UList1>
+<LI CLASS=UList1>#pragma comment(exestr, &lt;char-sequence&gt;)
+<LI CLASS=UList1>#ident string
+</UL>
+<A NAME=HEADING-5-9-2></A>
+<H3 CLASS=Heading3>5.9.2   Record format:</H1>
+<P CLASS=Body> The subrecord format is</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-10:  EXESTR Executable String Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody>  &lt;variable&gt; (bytes)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> A4</P>
+</TD><TD><P CLASS=FigureBody> arbitrary text</P>
+</TD></TR></TABLE>
+<P CLASS=Body>
+The linker will copy the text in the "arbitrary text" field byte for byte to
+the end of the executable file. The text will not be included in the program
+load image.
+</P>
+<P CLASS=Note>
+Note:  If CodeView information is present, the text will not be at the end of
+the file, but somewhere before so as not to interfere with the Code View
+signature.
+</P>
+<DL CLASS=Body2>
+<DL CLASS=Body2>
+<DT CLASS=Body2><DD CLASS=Body2>There is no limit to the number of EXESTR comment records.
+</DL>
+</DL>
+<A NAME=HEADING-5-10></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-10">5.10   88H INCERR Incremental Compilation Error Record(comment class A6)</A></H1>
+<A NAME=HEADING-5-10-1></A>
+<H3 CLASS=Heading3>5.10.1   Description:</H1>
+<P CLASS=Body>
+This comment record will cause the linker to terminate with the fatal error
+saying something to the effect of "invalid object -- error encountered during
+incremental compilation".
+</P>
+<P CLASS=Body>
+The purpose of this is for the case when an incremental compilation fails and
+the user tries to manually link. The object module cannot be deleted, in order
+to preserve the base for the next incremental compilation.
+</P>
+<A NAME=HEADING-5-10-2></A>
+<H3 CLASS=Heading3>5.10.2   Record format:</H1>
+<P CLASS=Body> The subrecord format is</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-11:  INCERR Incremental Compilation Error Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody>   (bytes)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> A6</P>
+</TD><TD><P CLASS=FigureBody> No fields</P>
+</TD></TR></TABLE>
+
+<A NAME=HEADING-5-11></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-11">5.11   88H NOPAD No Segment Padding Record (comment class A7)</A></H1>
+<A NAME=HEADING-5-11-1></A>
+<H3 CLASS=Heading3>5.11.1   Description:</H1>
+<P CLASS=Body> This comment record identifies a set of segments which are to be excluded from the padding imposed with the /PADDATA or /PADCODE options.</P>
+<A NAME=HEADING-5-11-2></A>
+<H3 CLASS=Heading3>5.11.2   Record format:</H1>
+<P CLASS=Body> The subrecord format is</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-12:  NOPAD No Segment Padding Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody>  1 or 2 (bytes)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> A7</P>
+</TD><TD><P CLASS=FigureBody> SEGDEF Index</P>
+</TD></TR></TABLE><P CLASS=Body> The SEGDEF Index is the standard OMF index type of 1 or 2 bytes. It may be repeated.</P>
+<P CLASS=Note>Note:  LINK386 ignores NOPAD coment records.</P>
+
+<A NAME=HEADING-5-12></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-12">5.12   88H WKEXT Weak Extern Record (comment class A8)</A></H1>
+<A NAME=HEADING-5-12-1></A>
+<H3 CLASS=Heading3>5.12.1   Description:</H1>
+<P CLASS=Body> This record marks a set of external names as "weak", and for every weak extern associates another external name to use as the default resolution.</P>
+<A NAME=HEADING-5-12-2></A>
+<H3 CLASS=Heading3>5.12.2   Record format:</H1>
+<P CLASS=Body> The subrecord format is</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-13:  WKEXT Weak Extern Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody>  1 or 2 (bytes)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> A8</P>
+</TD><TD><P CLASS=FigureBody> Weak EXTDEF Index</P>
+</TD><TD><P CLASS=FigureBody> Default resolution EXTDEF Index</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=2><P CLASS=FigureBody> &lt; Repeated &gt;</P>
+</TD></TR></TABLE><P CLASS=Body> The Weak EXTDEF Index field is the 1 or 2 byte index to the EXTDEF of the extern which is weak.</P>
+<P CLASS=Body> The Default Resolution EXTDEF Index is the 1 or 2 byte index to the EXTDEF of the extern that will be used to resolve the extern if no "stronger" link is found to resolve it.</P>
+<P CLASS=Note>Note:  There are two ways to cancel the "weakness" of a weak extern; both result in the extern becoming a "strong" extern (the same as an EXTDEF). They are:</P>
+<OL CLASS=OList3>
+<LI CLASS=OList3>if a PUBDEF for the weak extern is linked in,
+<LI CLASS=OList3>if an EXTDEF for the weak extern is found in another module (including libraries).
+</OL>
+<UL CLASS=UList3>
+<LI CLASS=UList3>If the weak extern becomes strong, then it must be resolved with a matching PUBDEF, just like a regular EXTDEF. If a weak extern has not become strong by the end of the linking process, then the default resolution is used.
+<LI CLASS=UList3>If two weak externs for the same symbol in different modules have differing default resolutions, LINK386 will emit a warning.
+<LI CLASS=UList3>Weak externs do not query libraries for resolution; if an extern is still weak when libraries are searched, it stays weak and gets the default resolution. However, if a library module is linked in for other reasons (say, to resolve strong externs) and there are EXTDEFs for symbols that were weak, the symbols become strong.
+<LI CLASS=UList3>For example, suppose there is a weak extern for "foo" with a default resolution name of "bar". If there is a PUBDEF for "foo" in some library module which would not otherwise be linked in, then the library module is not linked in, and any references to "foo" are resolved to "bar". However, if the library module is linked in for other reasons, for example to resolve references to a strong extern named "bletch", then "foo" will be resolved by the PUBDEF from the library, not to the default resolution "bar".
+<LI CLASS=UList3>WKEXTs are best understood by explaining why they were added in the first place. The minimum BASIC runtime library in the past consisted of a large amount of code which was always linked in, even for the smallest program. Most of this code was never called directly by the user, but it was called indirectly from other routines in other libraries, so it had to be linked in to resolve the external references.
+<LI CLASS=UList3>For instance, the floating point library was linked in even if the user's program did not use floating point, because the PRINT library routine contained calls to the floating point library for support to print floating point numbers.
+<LI CLASS=UList3>The solution was to make the function calls between the libraries into weak externals, with the default resolution set to a small stub routine. If the user never used a language construct or feature that needed the additional library support, then no strong extern would be generated by the compiler and the default resolution (to the stub routine) would be used. However, if the user accessed the library's routines or used constructs that required the library's support, a strong extern would be generated by the compiler to cancel the effect of the weak extern, and the library module would be linked in. This required that the compiler know a lot about which libraries are needed for which constructs, but the resulting executable was much smaller.
+</UL>
+<A NAME=HEADING-5-13></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-13">5.13   88H LZEXT Lazy Extern Record (comment class A9)</A></H1>
+<A NAME=HEADING-5-13-1></A>
+<H3 CLASS=Heading3>5.13.1   Description:</H1>
+<P CLASS=Body> This record marks a set of external names as "lazy", and for every lazy extern associates another external name to use as the default resolution.</P>
+<A NAME=HEADING-5-13-2></A>
+<H3 CLASS=Heading3>5.13.2   Record format:</H1>
+<P CLASS=Body> The subrecord format is</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-14:  LZEXT Lazy Extern Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody>  1 or 2 (bytes)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> A9</P>
+</TD><TD><P CLASS=FigureBody> Lazy EXTDEF Index</P>
+</TD><TD><P CLASS=FigureBody> Default resolution EXTDEF Index</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=2><P CLASS=FigureBody> &lt; Repeated &gt;</P>
+</TD></TR></TABLE><P CLASS=Body> The Lazy EXTDEF Index field is the 1 or 2 byte index to the EXTDEF of the extern which is weak.</P>
+<P CLASS=Body> The Default Resolution EXTDEF Index is the 1 or 2 byte index to the EXTDEF of the extern that will be used to resolve the extern if no "stronger" link is found to resolve it.</P>
+<P CLASS=Note>Note:  There are two ways to cancel the "laziness" of a lazy extern; both result in the extern becoming a "strong" extern (the same as an EXTDEF). They are:</P>
+<OL CLASS=OList3>
+<LI CLASS=OList3>if a PUBDEF for the weak extern is linked in,
+<LI CLASS=OList3>if an EXTDEF for the weak extern is found in another module (including libraries).
+</OL>
+<UL CLASS=UList3>
+<LI CLASS=UList3>If a lazy extern becomes strong, then it must be resolved with a matching PUBDEF, just like a regular EXTDEF. If a lazy extern has not become strong by the end of the linking process, then the default resolution is used.
+<LI CLASS=UList3>If two weak externs for the same symbol in different modules have differing default resolutions, LINK will emit a warning.
+<LI CLASS=UList3>Unlike weak externs, lazy externs do not query libraries for resolution; if an extern is still lazy when libraries are searched, it stays lazy and gets the default resolution.
+<LI CLASS=UList3>LINK386 ignores LZEXT coment records.
+</UL>
+<A NAME=HEADING-5-14></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-14">5.14   88H IDMDLL Identifier Manipulator DLL Record (comment class AF)</A></H1>
+<A NAME=HEADING-5-14-1></A>
+<H3 CLASS=Heading3>5.14.1   Description:</H1>
+<P CLASS=BodyFirst> This record provides the name and initialization parameters of a DLL that will demangle the compiler generated mangled names. The linker will use this DLL when displaying error messages.</P>
+<A NAME=HEADING-5-14-2></A>
+<H3 CLASS=Heading3>5.14.2   Record format:</H1>
+<P CLASS=BodyFirst> The Subrecord Format is:</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-15:  IDMDLL Identifier Manipulator DLL Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> &lt;Name Length&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody>  &lt;Parms Length&gt; (bytes)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> AF</P>
+</TD><TD><P CLASS=FigureBody> Name Length</P>
+</TD><TD><P CLASS=FigureBody> DLL Name</P>
+</TD><TD><P CLASS=FigureBody> Parms Length</P>
+</TD><TD><P CLASS=FigureBody> Demangle Init Parameters</P>
+</TD></TR></TABLE><P CLASS=Body> The Name Length byte gives the number of characters in the DLL Name; the DLL Name itself is ASCII.</P>
+<P CLASS=Body> The DLL Name is the name of the Identifier Manipulator Dynamic Link Library provided by the language. This DLL is used to demangle an internal identifier when that identifier will be displayed in an error message.</P>
+<P CLASS=Body> The Parms Length byte gives the number of characters in the Demangle Init Parameters; the Demangle Init Parameters itself is ASCII.</P>
+<P CLASS=Body> The Demangle Init Parameters provides information (to the DLL) on how internal identifiers are mangled.</P>
+<P CLASS=Body> The linker will not scan forward for an IDMDLL record when an identifier will be displayed. This record should occur near the beginning of the file.</P>
+<P CLASS=Body> IDMDLL class COMENT records are processed during pass 1 of the linker.</P>
+<P CLASS=Note>Note:  Because object oriented compilers allow for two functions to have the same name but different parameters, the compiler uniquely identifies each function by changing the name of the function. This is known as mangling. An example of this would be:</P>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> User Prototype</P>
+</TD><TD><P CLASS=CellBody> Compiler Generated Mangled Name</P>
+</TD></TR><TR VALIGN=TOP><TD><PRE CLASS=CellCode>
+void doit( int, float )
+void doit( const char * )
+</TD><TD>_doit__Fif
+_doit__FCPc
+</TD></TR></TABLE></PRE>
+<DL CLASS=Body2>
+<UL CLASS=Body2>
+<LI CLASS=UList3>The user will usually not be aware that the compiler changed the name, so it is necessary for the linker to demangle the compiler generated name when printing out linker error messages.
+<LI CLASS=UList3>The dynamic link library (DLL) provided by an object oriented language compiler must contain two 16-bit functions which employ the pascal calling convention:
+</UL>
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">INITDEMANGLEID</STRONG></P>
+</TD><TD><P CLASS=CellBody> Receive initialization parameters specified in the IDMDLL COMENT record.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">DEMANGLEID</STRONG></P>
+</TD><TD><P CLASS=CellBody> Demangles first parameter (identifier, "_add__i_ii") to appropriate prototype (i.e. "int add(int, int)") and returns result in second parameter.</P>
+</TD></TR></TABLE>
+<DL CLASS=Body2>
+<UL CLASS=Body2>
+<LI CLASS=UList3>The INITDEMANGLEID and DEMANGLEID entry points may be called more than once.
+<LI CLASS=UList3>All functions must return true (non-zero) if the call is successful and false (zero) if the call fails. In this manner the linker can ignore whatever is returned in the second parameter of the DEMANGLEID function if the function returns false. When calling DEMANGLEID, the linker will pass in the address of a buffer for the second parameter, and the size of the buffer for the third parameter.
+<LI CLASS=UList3>All string parameters must be length-prefixed ASCII strings except for pszPrototype, parameter 2 for DEMANGLEID (because the length might not fit in a byte). Function prototypes for these routines look like:
+</UL>
+</DL>
+<PRE CLASS=Code2>
+unsigned short pascal far INITDEMANGLEID(char far * psInitParms);
+unsigned short pascal far DEMANGLEID(char far * psMangledName, char far * pszPrototype, unsigned long BufferLen);
+</PRE>
+<P CLASS=Note>Note:  Languages may also wish to provide 32-bit functions for use by 32-bit linkers, when they become available. Function prototypes look like:</P>
+<PRE CLASS=Code2>
+unsigned long _System InitDemangleID32(char * psInitParms);
+unsigned long _System DemangleID32(char * psMangledName, char * pszPrototype, unsigned long BufferLen);
+</PRE>
+<A NAME=HEADING-5-15></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-15">5.15   88H PharLap Format Record (comment class AA)</A></H1>
+<A NAME=HEADING-5-15-1></A>
+<H3 CLASS=Heading3>5.15.1   Description:</H1>
+<P CLASS=Body> The OMF extension designed by PharLap is called "Easy OMF-386" and changes to the affected record types are described in this section.</P>
+<P CLASS=Body> Most modifications involve only a substitution of 32-bit (4-byte) fields for what were formerly 16-bit (2-byte) fields. In the two cases where the changes involve more than just a field size (in the SEGDEF and FIXUPP records), the information is mentioned in this section but complete details are given in the sections describing the specific records.</P>
+<A NAME=HEADING-5-15-2></A>
+<H3 CLASS=Heading3>5.15.2   Record format:</H1>
+<P CLASS=Body> The subrecord format is</P>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-16:  PharLap Format Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody>  5 (bytes)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> AA</P>
+</TD><TD><P CLASS=FigureBody> "80386"</P>
+</TD></TR></TABLE><P CLASS=Note>Note:  The AA comment record should come immediately after the sole THEADR record. Presence of the comment record indicates that the following other record types have fields that are expanded from 16-bit to 32-bit values:</P>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">SEGDEF</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> offset field and offset field length</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">PUBDEF</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> offset field</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">LEDATA</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> offset field</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">LIDATA</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> offset field (note that repeat count field is still 16 bits)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody>FIXUPP</B></P>
+</TD><TD><P CLASS=CellBody> target displacement in explicit FIXUP subrecord</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody>BLKDEF</B></P>
+</TD><TD><P CLASS=CellBody> return address offset field</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody>LINNUM</B></P>
+</TD><TD><P CLASS=CellBody> offset field</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody>MODEND</B></P>
+</TD><TD><P CLASS=CellBody> target displacement field</P>
+</TD></TR></TABLE>
+<DL><DT><DD>
+<STRONG CLASS="Bold Body2">FIXUPP records</STRONG> have the added Loc values
+of 5 and 6. See
+<A HREF="#HEADING-5-23" CLASS=Body2>&sect;&nbsp;5.23, "9CH or 9DH FIXUPP Fixup Record"</A>
+for details.
+</DL>
+<DL><DT><DD>
+<STRONG CLASS="Bold Body2">SEGDEF records</STRONG> have added alignment
+values (for 4-byte alignment and 4K byte alignment) and an added optional
+byte at the end which contains the Use16/Use32 bit flag and access attributes
+(read/write/execute) for the segment.
+See <A HREF="#HEADING-5-21">&sect;&nbsp;5.21, "98H or 99H SEGDEF Segment Definition Record"</A>
+for details.
+</DL>
+<DL><DT><DD>
+LINK386 ignores PHARLAP coment records.
+</DL>
+
+<A NAME=HEADING-5-16></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-16">5.16   8AH or 8BH MODEND Module End Record</A></H1>
+<A NAME=HEADING-5-16-1></A>
+<H3 CLASS=Heading3>5.16.1   Description:</H1>
+<P CLASS=Body>
+The MODEND record denotes the end of the object module. It also indicates
+whether the object module contains a main routine in a program, and it can,
+optionally, contain a reference to a programs entry point.
+</P>
+<A NAME=HEADING-5-16-2></A>
+<H3 CLASS=Heading3>5.16.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-17:  MODEND Module End Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> 2 or 4 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 8A or 8B</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Module Type</P>
+</TD><TD><P CLASS=FigureBody> End Data</P>
+</TD><TD><P CLASS=FigureBody> Frame Datum Index</P>
+</TD><TD><P CLASS=FigureBody> Target Datum Index</P>
+</TD><TD><P CLASS=FigureBody> Target Displacement</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=4><P CLASS=FigureBody> &lt; Start Address (conditional) &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE><A NAME=HEADING-5-16-3></A>
+<H3 CLASS=Heading3>5.16.3   Module Type</H1>
+<P CLASS=BodyFirst> The module type byte is bit-significant; layout is:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD COLSPAN=7><P CLASS=FigureBody> &lt; 1 byte &gt;</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> MATTR </P>
+<P CLASS=FigureBody> Main Strt</P>
+</TD><TD><P CLASS=FigureBody> Seg Bit</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 2 bits</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD></TR></TABLE><P CLASS=Body> where:</P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1><B CLASS=Body1><STRONG CLASS="Bold Body1">MATTR</STRONG></B>
+<DL CLASS=Body2>
+<DT CLASS=Body2><DD CLASS=Body2>is a 2-bit field
+</DL>
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">Main</STRONG> </P>
+</TD><TD><P CLASS=CellBody> is set if the module is a main module</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">Strt</STRONG> </P>
+</TD><TD><P CLASS=CellBody> is set if the module contains a start address; if this bit is set, the field starting with the EndDat byte is present and specifies the start address.</P>
+</TD></TR></TABLE><DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1><B CLASS=Body1><STRONG CLASS="Bold Body1">SegBit</STRONG></B>
+<DL CLASS=Body2>
+<DT CLASS=Body2><DD CLASS=Body2>Reserved. Only 0 is supported by OS/2.
+</DL>
+<DT CLASS=Body1><DD CLASS=Body1><B CLASS=Body1><STRONG CLASS="Bold Body1">X</STRONG></B>
+<DL CLASS=Body2>
+<DT CLASS=Body2><DD CLASS=Body2>This bit should be set (as described for OMF86). However, as is the case for the OMF86 linkers, the value will be ignored.
+</DL>
+</DL>
+<A NAME=HEADING-5-16-4></A>
+<H3 CLASS=Heading3>5.16.4   Start Address</H1>
+<P CLASS=BodyFirst> The Start Address subfield is present only if the Strt bit in the Module Type byte is set. Its format is identical to the FixDat, Frame Datum, Target Datum, and Target displacement in a FIXUP subrecord of a FIXUPP record. The displacement (if present) is a 4 byte field if the record type is 8BH and is a 2-byte field if the record type is 8AH. This value provides the initial contents of CS:(E)IP.</P>
+<P CLASS=Body> The start address must be given in the MODEND record of the root module if overlays are used.</P>
+<P CLASS=Note>Note:  A MODEND record can appear only as the last record in an object module.</P>
+<DL CLASS=Body2>
+<DL CLASS=Body2>
+<DT CLASS=Body2><DD CLASS=Body2>It is assumed that the link pass separator comment record (COMENT A2, subtype 01) will not be present in a module whose MODEND record contains a program starting address.
+</DL>
+</DL>
+<A NAME=HEADING-5-17></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-17">5.17   8CH EXTDEF External Names Definition Record</A></H1>
+<A NAME=HEADING-5-17-1></A>
+<H3 CLASS=Heading3>5.17.1   Description:</H1>
+<P CLASS=BodyFirst> The EXTDEF record contains a list of symbolic external references -- that is, references to symbols defined in other object modules. The linker resolves external references by matching the symbols declared in EXTDEF records with symbols declared in PUBDEF records.</P>
+<A NAME=HEADING-5-17-2></A>
+<H3 CLASS=Heading3>5.17.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-18:  EXTDEF External Names Definition Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> &lt;string length&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 8C</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> String Length</P>
+</TD><TD><P CLASS=FigureBody> External Name String</P>
+</TD><TD><P CLASS=FigureBody> Type Index</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=3><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE>
+<P CLASS=Body>
+This record provides a list of unresolved references, identified by name and
+with optional associated type information. The external names are ordered by
+occurrence jointly with the COMDEF and LEXTDEF records and referenced by an
+index in other records (FIXUPPs); the name may not be null. Indices start
+from one.</P>
+<P CLASS=Body>
+String Length is a 1-byte field containing the length of the name field that
+follows it. The length of the name is restricted to 255 bytes.</P>
+<P CLASS=Body>
+The Type Index is encoded as an index field and contains debug information.
+No type checking is performed by the linker.</P>
+<P CLASS=Note>
+Note:  The linker imposes a limit of 1023 external names.</P>
+<DL CLASS=Body2>
+<UL CLASS=Body2>
+<LI>Any EXTDEF records in an object module must appear before the FIXUPP
+records that reference them.
+<LI>Resolution of an external reference is by name match (case sensitive) and
+symbol type match. The search first looks for a matching name, in the sequence:
+<DL CLASS=OList3Begin>
+<DT CLASS=OList3Begin>
+<DD CLASS=OList3Begin>1.  Searches PUBDEF and COMDEF for resolution. 
+<DT CLASS=OList3>
+<DD CLASS=OList3>2.  If linking a segmented executable, searches imported
+names (IMPDEF). 
+<DT CLASS=OList3>
+<DD CLASS=OList3>3.  If this is not a DLL, then searches for an export
+(EXPDEF) with the same name -- a self-imported alias. 
+<DT CLASS=OList3>
+<DD CLASS=OList3>4.  Searches for the symbol name among undefined symbols.
+If the reference is to a weak extern, then the default resolution is used.
+If the reference is to a strong extern, then it's an undefined external
+and a link error is generated.
+</DL>
+<LI>All external references must be resolved at link time (using the above
+search order). Even though the linker produces an executable file for and
+unsuccessful link session, an error bit is set in the header which prevents
+the loader from running the executable.
+</UL>
+</DL>
+<A NAME=HEADING-5-18></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-18">5.18   90H or 91H PUBDEF Public Names Definition Record</A></H1>
+<A NAME=HEADING-5-18-1></A>
+<H3 CLASS=Heading3>5.18.1   Description:</H1>
+<P CLASS=BodyFirst> The PUBDEF record contains a list of public names. It makes items defined in this object module available to satisfy external references in other modules with which it is bound or linked.</P>
+<P CLASS=Body> The symbols are also available for export if so indicated in an EXPDEF comment record.</P>
+<A NAME=HEADING-5-18-2></A>
+<H3 CLASS=Heading3>5.18.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-19:  PUBDEF Public Names Definition Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 </P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> &lt;string length&gt;</P>
+</TD><TD><P CLASS=FigureBody> 2 or 4</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 90 or 91</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Base Group Index</P>
+</TD><TD><P CLASS=FigureBody> Base Segment Index</P>
+</TD><TD><P CLASS=FigureBody> Base Frame</P>
+</TD><TD><P CLASS=FigureBody> String Length</P>
+</TD><TD><P CLASS=FigureBody> Public Name string</P>
+</TD><TD><P CLASS=FigureBody> Public Offset</P>
+</TD><TD><P CLASS=FigureBody> Type Index</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> &lt;cond&gt;</P>
+</TD><TD COLSPAN=4><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE><A NAME=HEADING-5-18-3></A>
+<H3 CLASS=Heading3>5.18.3   Base Group, Base Segment and Base Frame</H1>
+<P CLASS=BodyFirst> The base group and segment are indices specifying
+previously defined  SEGDEF and GRPDEF records. The group index may be zero,
+meaning that no group is associated with this PUBDEF record.</P>
+<P CLASS=Body> The Base Frame field is present only if the Base Segment is zero, but the content of the Base Frame is always ignored by the linker.</P>
+<P CLASS=Body> The Segment Index is normally nonzero and no Base Frame is present.</P>
+<P CLASS=Body> The Base Frame is normally used for absolute addressing when the Group and Segment Index are both zero. Absolute addressing is not fully supported in the linker.</P>
+<A NAME=HEADING-5-18-4></A>
+<H3 CLASS=Heading3>5.18.4   Public name, Public Offset and Type Index</H1>
+<P CLASS=BodyFirst> The public name string is in &lt;count, char&gt; form and cannot be null. The maximum length of a public name is 255 bytes.</P>
+<P CLASS=Body> The public offset is a 2 or 4 byte numeric field containing the offset of the location referred to by the public name.</P>
+<P CLASS=Body> This offset is assumed to lie within the segment, group or frame specified in the public base field.</P>
+<P CLASS=Body> The Type Index field is encoded in index format; it contains either debug type information or zero. This field is ignored by the OS/2 2.0 linker.</P>
+<P CLASS=Note>Note:  All defined functions and initialized global variables generate PUBDEF records.</P>
+<DL CLASS=Body2>
+<UL CLASS=Body2>
+<LI>Any PUBDEF records in an object module must appear after the GRPDEF and SEGDEF records to which they refer.
+<LI>The IBM C Compiler will generate PUBDEF records for all defined functions and initialized global variables. Globals for scalars that are initialized to zero produce COMDEF records.
+<LI>Record type 90H uses 16-bit encoding of the Public Offset, but it is zero-extended to 32 bits if applied to Use32 segments.
+</UL>
+</DL>
+<A NAME=HEADING-5-19></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-19">5.19   94H or 95H LINNUM Line Number Record</A></H1>
+<A NAME=HEADING-5-19-1></A>
+<H3 CLASS=Heading3>5.19.1   Description:</H1>
+<P CLASS=Body> The LINNUM record relates line number within language source statements to addresses in the object code.</P>
+<A NAME=HEADING-5-19-1></A>
+<H3 CLASS=Heading3>5.19.1   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-20:  LINNUM Line Number Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 94 or 95</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Base Group Index</P>
+</TD><TD><P CLASS=FigureBody> Base Segment Index</P>
+</TD><TD><P CLASS=FigureBody> Debugger Style Specific Information</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE><P CLASS=Body> Associates a source line number with translated code or data. The LINNUM record is only generated when the debug option is selected and is therefore specific to the debug information. Refer to the specific debug documentation for more information.</P>
+
+<A NAME=HEADING-5-19-3></A>
+<H3 CLASS=Heading3>5.19.3   Base Group and Base Segment</H1>
+<P CLASS=BodyFirst>
+The Base group and Base segment are indices specifying previously defined
+GRPDEF and SEGDEF records. The group index is ignored. The segment index
+must be nonzero unless the debugger style is version 3 or greater of the
+IBM PM debugger format.
+</P>
+<A NAME=HEADING-5-20></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-20">5.20   96H LNAMES List of Names Record</A></H1>
+
+<A NAME=HEADING-5-20-1></A>
+<H3 CLASS=Heading3>5.20.1   Description:</H1>
+<P CLASS=BodyFirst>
+The LNAMES record is a list of names that can be referenced by subsequent
+SEGDEF and GRPDEF records in the object module.
+</P>
+<P CLASS=Body>
+The names are ordered by occurrence and referenced by index from subsequent
+records. More than one LNAMES record may appear.
+</P>
+<P CLASS=Body>
+The names themselves are used as segment, class and group names.
+</P>
+
+<A NAME=HEADING-5-20-2></A>
+<H3 CLASS=Heading3>5.20.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-21:  LNAMES List of Names Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD COLSPAN=2><P CLASS=FigureBody> &lt; string length &gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 96</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> String Length</P>
+</TD><TD><P CLASS=FigureBody> Name String</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=2><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE>
+<P CLASS=Body>
+Each name appears in count/char format, and a null name is valid. The
+character set is ASCII.
+</P>
+<P CLASS=Note>
+Note:  The linker imposes a limit of 255 logical names per object module.
+</P>
+<P CLASS=Body>
+Any LNAMES records in an object module must appear before the records that
+refer to them. Because it does not refer to any other type of object record,
+an LNAMES record usually appears near the start of an object module.
+</P>
+
+<A NAME=HEADING-5-21></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-21">5.21   98H or 99H SEGDEF Segment Definition Record</A></H1>
+<A NAME=HEADING-5-21-1></A>
+<H3 CLASS=Heading3>5.21.1   Description:</H1>
+<P CLASS=Body>
+The SEGDEF record describes a logical segment in an object module. It defines
+the segment's name, length and alignment, as well as the way the segment can
+be combined with other logical segments at bind, link and load time.
+</P>
+<P CLASS=Body>
+Object records that follow the SEGDEF record can refer to it to identify a
+particular segment. The SEGDEF records are ordered by occurrence and are
+referenced by segment indexes (origin 1) in subsequent records.
+</P>
+
+<A NAME=HEADING-5-21-2></A>
+<H3 CLASS=Heading3>5.21.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-22:  SEGDEF Segment Definition Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable&gt;</P>
+</TD><TD><P CLASS=FigureBody> 2 or 4 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Byte</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Byte</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Byte</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 98 or 99</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Segment Attribute</P>
+</TD><TD><P CLASS=FigureBody> Segment Length</P>
+</TD><TD><P CLASS=FigureBody> Segment Name Index</P>
+</TD><TD><P CLASS=FigureBody> Class Name Index</P>
+</TD><TD><P CLASS=FigureBody> Overlay Name Index</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR></TABLE>
+<A NAME=HEADING-5-21-3></A>
+<H3 CLASS=Heading3>5.21.3   Segment Attributes</H1>
+<P CLASS=Body> The segment attribute is bit-significant; the layout is:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=FigureBody> 3 bits</P>
+</TD><TD><P CLASS=FigureBody> 3 bits</P>
+</TD><TD><P CLASS=FigureBody> 1 bit</P>
+</TD><TD><P CLASS=FigureBody> 1bit</P>
+</TD><TD><P CLASS=FigureBody> 2 bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> A</P>
+</TD><TD><P CLASS=FigureBody> C</P>
+</TD><TD><P CLASS=FigureBody> B</P>
+</TD><TD><P CLASS=FigureBody> P</P>
+</TD><TD><P CLASS=FigureBody> Frame Number</P>
+</TD><TD><P CLASS=FigureBody> Offset</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> &lt;cond&gt;</P>
+</TD><TD><P CLASS=FigureBody> &lt;cond&gt;</P>
+</TD></TR></TABLE><P CLASS=Body> The fields have the following meaning:</P>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">A</STRONG></B>
+</P>
+<DL><DT><DD>
+alignment, a 3-bit field, which specifies the alignment required when this
+program segment is placed within a logical segment. Values are:
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">0</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> absolute segment</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">1</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> relocatable, byte aligned</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">2</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> relocatable, word (2 byte, 16-bit) aligned</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">3</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> relocatable, paragraph (16 byte) aligned</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">4</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> relocatable, aligned on page (4K byte) boundary.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">5</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> relocatable, aligned on double word (4 byte) boundary</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">6</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> not supported</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">7</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> not defined</P>
+</TD></TR></TABLE><DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>The new values are A=4 and A=5. Dword alignment is expected to be useful as 32-bit memory paths become more prevalent. Page-align maps to the 80386 hardware page size of 4K bytes.
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">C</STRONG></B></P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>combination, a 3-bit field, which determines the way the program segment is mapped into a logical segment. Values are:
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">0</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> private, do not combine with any other program segment</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">1</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> reserved</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">2</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> public, combine by appending at an offset which meets the alignment requirement</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">3</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> reserved</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">4</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> same as C=2 (public)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">5</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> stack, combine as for C=2.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">6</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> common, combine by overlay using maximum size</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">7</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> same as C=2 (public)</P>
+</TD></TR></TABLE>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">B</STRONG></B>
+</P>
+<DL><DT><DD>
+big, used as the high order bit of the segment length field.  If this bit is
+set the segment length value must be zero and the segment's size is 2&ordf;32
+or 4Gbytes long.
+</DL>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">P</STRONG></B>
+</P>
+<DL><DT><DD>
+Holds the descriptor table B/D bit value (this is the descriptor table D bit
+for code segments and the B bit for data segments).
+</DL>
+<DL><DT><DD>
+If zero, then segment is no larger than 64K (if data) and 16-bit addressing
+and operands are the default (if code). This is a Use16 segment.
+</DL>
+<DL><DT><DD>
+If not zero, then the segment is no larger than 64k (if data) and 32-bit
+addressing and operands are the default (if code). This is a Use32 segment.
+</DL>
+<P CLASS=Note1>
+Note:  This is the only method for defining Use32 segments.
+</P>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">Frame Number</STRONG></B>
+</P>
+<DL><DT><DD>
+Frame number from a previous FIXUPP record.  Present only for an absolute
+segment (A=0).
+</DL>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">Offset</STRONG></B>
+</P>
+<DL><DT><DD>
+Ignored by the linker.  Present only for an absolute segment (A=0).
+</DL>
+
+<A NAME=HEADING-5-21-4></A>
+<H3 CLASS=Heading3>5.21.4   Segment Length</H1>
+<P CLASS=BodyFirst>
+The Segment Length is a 2 or 4 byte numeric quantity and specifies the number
+of bytes in this program segment.
+</P>
+<P CLASS=Note>
+Note:  For record type 98H, the length can be from 0 to 64K; if a segment
+is exactly 64KB in size, segment length should be 0 and the B field in the
+ACPB byte should be 1. For record type 99H, the length can be from 0 to 4G;
+If segment is exactly 4Gbytes in size, segment length should be set to zero
+and the B field in the ACBP byte should be set to 1.
+</P>
+<A NAME=HEADING-5-21-5></A>
+<H3 CLASS=Heading3>5.21.5   Segment Name Index, Class Name Index, Overlay Name Index</H1>
+<P CLASS=BodyFirst>
+The three name indices refer to names that appeared in previous LNAMES
+record(s). The linker ignores the overlay name index. The full name of
+a segment consists of the segment and class names. Segments in different
+object modules are normally combined according to the A and C values if
+their full names are identical. These indices must be nonzero, although
+the name itself may be null.
+</P>
+<P CLASS=Body>
+The segment name index identifies the segment with a name. the name need
+not be unique -- other segments of the same name will be concatenated onto
+the first segment with that name. The name may have been assigned by the
+programmer, or it may have been generated by the compiler.
+</P>
+<P CLASS=Body>
+The class name index identifies the segment with a class name (such as CODE,
+DATA or STACK). The linker places segments with the same class name into a
+contiguous area of memory in the run-time memory map.
+</P>
+<P CLASS=Body>
+The overlay index is ignored by the linker.
+</P>
+<P CLASS=Note>
+Note:  The linker imposes a limit of 255 SEGDEF records per object module.
+</P>
+<DL CLASS=Body2>
+<DL CLASS=Body2>
+<DT CLASS=Body2><DD CLASS=Body2>The following name/class combinations are reserved:
+</DL>
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody>
+<B CLASS=CellBody><STRONG CLASS="Bold CellBody">$$TYPE</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Reserved for Debug types.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody>
+<B CLASS=CellBody><STRONG CLASS="Bold CellBody">$$SYMBOLS</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Reserved for Debug names.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody>
+<B CLASS=CellBody><STRONG CLASS="Bold CellBody">CODE32</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Reserved for IBM C Compiler.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody>
+<B CLASS=CellBody><STRONG CLASS="Bold CellBody">DATA32</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Reserved for IBM C Compiler.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody>
+<B CLASS=CellBody><STRONG CLASS="Bold CellBody">CONST32</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Reserved for IBM C Compiler.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody>
+<B CLASS=CellBody><STRONG CLASS="Bold CellBody">BSS32</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Reserved for IBM C Compiler.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody>
+<B CLASS=CellBody><STRONG CLASS="Bold CellBody">DGROUP32</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Reserved for IBM C Compiler.</P>
+</TD></TR></TABLE>
+
+<A NAME=HEADING-5-22></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-22">5.22   9AH GRPDEF Group Definition Record</A></H1>
+<A NAME=HEADING-5-22-1></A>
+<H3 CLASS=Heading3>5.22.1   Description:</H1>
+<P CLASS=Body>
+The GRPDEF record causes the program segments defined by SEGDEF records to
+be collected together (grouped). For OS/2 2.0, the segments are combined
+into a logical segment which is to be addressed through a single selector
+for flat memory.
+</P>
+
+<A NAME=HEADING-5-22-2></A>
+<H3 CLASS=Heading3>5.22.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-23:  GRPDEF Group Definition Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 9A</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Group Name Index</P>
+</TD><TD><P CLASS=FigureBody> FF</P>
+</TD><TD><P CLASS=FigureBody> Segment Def. Index</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=2><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE>
+<P CLASS=Body>
+This record causes the program segments identified by SEGDEF records to
+be collected together (grouped) within a logical segment which is to be
+addressed through a single selector.
+</P>
+<A NAME=HEADING-5-22-3></A>
+<H3 CLASS=Heading3>5.22.3   Group Name</H1>
+<P CLASS=Body>
+The group name is specified as an index into a previously defined LNAMES
+name and must be nonzero.
+</P>
+<P CLASS=Body>
+Groups from different object modules are coalesced if their names are
+identical.
+</P>
+
+<A NAME=HEADING-5-22-4></A>
+<H3 CLASS=Heading3>5.22.4   Group Components</H1>
+<P CLASS=Body>
+The group's components are segments, specified as indices into previously
+defined SEGDEF records.</P>
+<P CLASS=Body>
+The first byte of each group component is a type field for the remainder of
+the component. The linker requires a type value of FFH and always assumes that
+the component contains a segment index value.</P>
+<P CLASS=Body>
+The component fields are usually repeated so that all segments constituting
+a group can be included in one GRPDEF record.</P>
+<P CLASS=Note>
+Note:  This record is frequently followed by a THREAD fixup.</P>
+<DL CLASS=Body2>
+<UL CLASS=Body2>
+<LI>
+The linker imposes a limit of 31 GRPDEF records in a single object module
+and limits the total number of group definitions across all object modules
+to 31.
+<LI>
+An example of a group for the IBM C Compiler is DGROUP32 which groups
+DATA32, CONST32 and BSS32.
+<LI>
+The linker does special handling of the pseudo-group
+<EM CLASS="Emphasis Body2"><B CLASS="Emphasis Body2">FLAT</B></EM>.
+All address references to this group are made as offsets from the virtual
+zero address, which is the start of the memory image of the executable.
+</UL>
+</DL>
+<A NAME=HEADING-5-23></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-23">5.23   9CH or 9DH FIXUPP Fixup Record</A></H1>
+<A NAME=HEADING-5-23-1></A>
+<H3 CLASS=Heading3>5.23.1   Description:</H1>
+<P CLASS=Body>
+The FIXUPP record contains information that allows the linker to resolve
+(fix up) and eventually relocate references between object modules.  FIXUPP
+records describe the LOCATION of each address value to be fixed up, the
+TARGET address to which the fixup refers and the FRAME relative to which
+the address computation is performed.
+</P>
+<A NAME=HEADING-5-23-2></A>
+<H3 CLASS=Heading3>5.23.3   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-24:  FIXUPP Fixup Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> &lt; from the record length &gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 9C or 9D</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> THREAD subrecord or</P>
+<P CLASS=FigureBody> FIXUP subrecord</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE>
+<P CLASS=Body>
+Record type 9DH is new for LINK386; it has a Target Displacement field of
+32 bits rather than 16 bits, and the LOC field of the LOCAT word has been
+extended to 4 bits (using the previously unused higher-order 'S' bit) to
+allow new LOC values of 9, 11 and 13.
+</P>
+<P CLASS=Body>
+Each subrecord in a FIXUPP object record either defines a thread for
+subsequent use, or refers to a data location in the nearest previous
+LEDATA or LIDATA record. The high order bit of the subrecord determines
+the subrecord type: if the high order bit is 0, the subrecord is a THREAD
+subrecord; if the high order bit is 1, the subrecord is a FIXUP subrecord.
+Subrecords of different types may be mixed within one object record.
+</P>
+<P CLASS=Body>
+Information that determines how to resolve a reference can be specified
+explicitly in a FIXUP subrecord, or can be specified within a FIXUP
+subrecord by a reference to a previous THREAD subrecord. A THREAD
+subrecord describes only the method to be used by the linker to refer
+to a particular target or frame. Because the same THREAD can be referenced
+in several subsequent FIXUP subrecords, a FIXUPP object record that uses
+THREADs may be smaller than one in which THREADs are not used.
+</P>
+<P CLASS=Body>
+THREAD subrecords can be referenced in the same object record in which
+they appear and also in subsequent FIXUPP object records.
+</P>
+<A NAME=HEADING-5-23.3></A>
+<H3 CLASS=Heading3>5.23.3   THREAD</H1>
+<P CLASS=Body>
+There are 4 frame threads and 4 target threads; not all need be defined and
+they can be redefined by later THREAD subrecords in the same or later FIXUPP
+object records. The frame threads are used to specify the Frame Datum field
+in a later FIXUP subrecord: the target threads are used to specify the Target
+Datum field in a later FIXUP subrecord.
+</P>
+<P CLASS=Body>
+A THREAD subrecord defines a thread, and does not require that a previous
+LEDATA or LIDATA record occur.
+</P>
+<P CLASS=Body>
+The layout of the THREAD subrecord is as follows:
+</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD COLSPAN=5><P CLASS=FigureBody> &lt; 1 Byte &gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Bytes</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> D</P>
+</TD><TD><P CLASS=FigureBody> 0</P>
+</TD><TD><P CLASS=FigureBody> METHOD</P>
+</TD><TD><P CLASS=FigureBody> THRED</P>
+</TD><TD><P CLASS=FigureBody> Index</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 3 bits</P>
+</TD><TD><P CLASS=FigureBody> 2 bits</P>
+</TD><TD><P CLASS=FigureBody> &lt;conditional&gt;</P>
+</TD></TR></TABLE><P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">0</STRONG></B></P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>The high order bit is zero to indicate that
+this is a THREAD subrecord.
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">D</STRONG></B></P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>is 0 for a target thread, 1 for a frame thread
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">METHOD</STRONG></B></P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>is a 3-bit field.
+<DT CLASS=Body1><DD CLASS=Body1>For <U CLASS="Underline Body1">target
+threads</U>, only the lower two bits of the field are used; the high-order
+bit of the method is derived from the P bit in the FixDat field of the
+FIXUP subrecords that refer to this thread. The full list of methods is
+given here for completeness. This field determines the kind of index
+required to specify the Target Datum.
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">T0</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> specified by a SEGDEF index</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">T1</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> specified by a GRPDEF index</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">T2</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> specified by a EXTDEF index</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">T3</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> specified by an explicit frame number (not supported by the linker)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">T4</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> specified by a SEGDEF index only; the displacement in the FIXUP subrecord is assumed to be 0.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">T5</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> specified by a GRPDEF index only; the displacement in the FIXUP subrecord is assumed to be 0.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">T6</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> specified by a EXTDEF index only; the displacement in the FIXUP subrecord is assumed to be 0.</P>
+</TD></TR></TABLE><DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>
+The index type specified by the target thread method is encoded in the index
+field.
+<DT CLASS=Body1><DD CLASS=Body1>
+For <U CLASS="Underline Body1">frame threads</U>, the method field determines
+the Frame Datum field of subsequent FIXUP subrecords that refer to this thread.
+Values for the method field are:
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">F0</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> the FRAME is specified by a SEGDEF index</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">F1</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> the FRAME is specified by a GRPDEF index</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">F2</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> the FRAME is specified by a EXTDEF index. The linker determines the FRAME from the external name's corresponding PUBDEF record in another object module, which specifies either a logical segment or a group.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">F3</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> invalid (The FRAME is identified by an explicit frame number; this is not supported by the linker)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">F4</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> the FRAME is determined by the segment index of the previous LEDATA or LIDATA record (i.e. the segment in which the location is defined).</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">F5</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> the FRAME is determined by the TARGET's segment, group or external index</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">F6</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> invalid</P>
+</TD></TR></TABLE><DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>The index field is present for frame methods F0, F1, and F2 only.
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">THRED</STRONG></B></P>
+<DL><DT><DD>
+is a 2-bit field and determines the thread number (0 through 3, for the 4
+threads of each kind).
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">Index</STRONG></B></P>
+<DL><DT><DD>
+is a conditional field that contains an index value that refers to a previous
+SEGDEF, GRPDEF or EXTDEF record. The field is only present if the thread method
+is 0, 1 or 2. If method 3 were supported by the linker, the Index field would
+contain an explicit frame number.
+</DL>
+<A NAME=HEADING-5-23-4></A>
+<H3 CLASS=Heading3>5.23.4   FIXUP</H1>
+<P CLASS=Body>
+A FIXUP subrecord gives the how/what/why/where/who information required to
+convert a reference when program segments are combined or placed within
+logical segments. It applies to the nearest previous LEDATA or LIDATA
+record, which must be defined before the FIXUP. This FIXUP subrecord
+is as follows:
+</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 2 or 4 Bytes</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> LOCAT</P>
+</TD><TD><P CLASS=FigureBody> FixDat</P>
+</TD><TD><P CLASS=FigureBody> Frame Datum</P>
+</TD><TD><P CLASS=FigureBody> Target Datum</P>
+</TD><TD><P CLASS=FigureBody> Target Displacement</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> &lt;cond&gt;</P>
+</TD><TD><P CLASS=FigureBody> &lt;cond&gt;</P>
+</TD><TD><P CLASS=FigureBody> &lt;conditional&gt;</P>
+</TD></TR></TABLE>
+<P CLASS=Body>
+where the LOCAT field has an unusual format. Contrary to the usual byte order
+in Intel data structures, the most significant bits of the LOCAT field are
+found in the low-order, rather than the high-order byte.
+</P>
+<P CLASS=Body> The LOCAT field is:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD COLSPAN=4><P CLASS=FigureBody> &lt; low byte &gt;</P>
+</TD><TD><P CLASS=FigureBody> &lt; high byte &gt;</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> M</P>
+</TD><TD><P CLASS=FigureBody> LOC</P>
+</TD><TD COLSPAN=2><P CLASS=FigureBody> Data Record Offset</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 4 bits</P>
+</TD><TD COLSPAN=2><P CLASS=FigureBody> 10 bits</P>
+</TD></TR></TABLE><P CLASS=Body> where:</P>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">1</STRONG></B></P>
+<DL><DT><DD>
+the high bit of the low-order byte is set to indicate a FIXUP subrecord.
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">M</STRONG></B></P>
+<DL><DT><DD>
+is the mode, M=1 for segment-relative and M=0 for self-relative fixups
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">LOC</STRONG></B></P>
+<DL><DT><DD>
+is a 4-bit field which determines what type of location is to be fixed up:
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">0</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Low-order byte (8-bit displacement or low byte of 16-bit offset)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">1</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 16-bit Offset</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">2</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 16-bit Base - logical segment base (selector)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">3</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 32-bit Long pointer (16-bit base : 16-bit offset)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">4</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Hi-order byte (high byte of 16-bit offset) No linker support for this type.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">5</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 16-bit loader-resolved offset, treated as LOC=1 by the linker</P>
+<P CLASS=CellBody> <U CLASS="Underline CellBody">CONFLICT</U> PharLap OMF uses LOC=5 to indicate a 32-bit offset, where Microsoft and IBM use LOC=9.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">6</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> not defined, reserved</P>
+<P CLASS=CellBody> <U CLASS="Underline CellBody">CONFLICT</U> PharLap OMF uses LOC=6 to indicate a 48-bit pointer (16-bit base : 32-bit offset) where Microsoft and IBM use LOC=11.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">7</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> not defined, reserved</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">9</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 32-bit offset</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">11</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 48-bit pointer (16-bit base : 32-bit offset)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">13</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 32-bit loader-resolved offset, treated as LOC=9 by the linker</P>
+</TD></TR></TABLE><P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">Data Record Offset</STRONG></B></P>
+<DL><DT><DD>
+The Data record offset indicates the position of the location to be fixed
+up in the LEDATA or LIDATA record immediately preceding the FIXUPP record.
+This offset indicates either a byte in the data field of an LEDATA record
+or a data byte in the content field of an iterated data block in an
+LIDATA record.
+</DL>
+<P CLASS=Body> The FixDat bit layout is:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=FigureBody> F</P>
+</TD><TD><P CLASS=FigureBody> FRAME</P>
+</TD><TD><P CLASS=FigureBody> T</P>
+</TD><TD><P CLASS=FigureBody> P</P>
+</TD><TD><P CLASS=FigureBody> TARGT</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 3 bits</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 2 bits</P>
+</TD></TR></TABLE><P CLASS=Body> and is interpreted as follows:</P>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">F</STRONG></B></P>
+<DL><DT><DD>
+If F=1, the frame is given by a frame thread whose number is in the FRAME
+field (modulo 4). There is no frame datum field in the subrecord.
+</DL>
+<DL><DT><DD>
+If F=0, the frame method (in the range F0 to F5) is explicitly defined in
+this FIXUP subrecord. The method is stored in the FRAME field.
+</DL>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">FRAME</STRONG></B>
+</P>
+<DL><DT><DD>
+3-bit numeric, interpreted according to the F bit. The Frame Datum field
+is present and is an index field for frame methods F0, F1, and F2 only.
+</DL>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">T</STRONG></B>
+</P>
+<DL><DT><DD>
+If T=1 the target is defined by a target thread whose thread number is given
+in the 2-bit TARGT field. The TARGT field contains a number between 0 and 3
+that refers to a previous thread field containing the target method. The P
+bit, combined with the two low-order bits of the method field in the THREAD
+subrecord, determines the target method.
+</DL>
+<DL><DT><DD>
+If T=0 the target is specified explicitly in this FIXUP subrecord. In this
+case, the P bit and the TARGT field can be considered a 3-bit field analogous
+to the FRAME field.
+</DL>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">P</STRONG></B>
+</P>
+<DL><DT><DD>
+Determines whether the target displacement field is present.
+</DL>
+<DL><DT><DD>
+If P=1 there is no displacement field.
+</DL>
+<DL><DT><DD>
+If P=0, the displacement field is present.
+</DL>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">TARGT</STRONG></B>
+</P>
+<DL><DT><DD>
+is a 2-bit numeric, which gives the lower two bits of the target method
+(if T=0) or gives the target thread number (if T=1).
+</DL>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">Frame Datum</STRONG></B>
+</P>
+<DL><DT><DD>
+is an index field that refers to a previous SEGDEF, GRPDEF or EXTDEF record,
+depending on the FRAME method.
+</DL>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">Target Datum</STRONG></B>
+</P>
+<DL><DT><DD>
+contains a segment index, a group index or an external index depending on the
+TARGET method.
+</DL>
+<P CLASS=Body>
+<B CLASS=Body><STRONG CLASS="Bold Body">Target Displacement</STRONG></B>
+</P>
+<DL><DT><DD>
+a 16-bit or 32-bit field is present only if the P bit in the FixDat field
+is set to 0, in which case the Target Displacement field contains the offset
+used in methods 0, 1 and 2 of specifying a TARGET.
+</DL>
+<P CLASS=Note>
+Note:  FIXUPP records are used to fix references in the immediately preceding
+LEDATA, LIDATA or COMDAT record.
+</P>
+<P CLASS=Body>
+The FRAME is the translator's way of telling the linker the contents of the
+segment register used for the reference; the TARGET is the item being
+referenced whose address was not completely resolved by the translator.
+In protect mode, the only legal segment register value are selectors;
+every segment and group of segments is mapped through some selector and
+addressed by offset within the underlying memory defined by that selector.
+</P>
+
+<A NAME=HEADING-5-24></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-24">5.24   A0H or A1H LEDATA Logical Enumerated Data Record</A></H1>
+<A NAME=HEADING-5-24-1></A>
+<H3 CLASS=Heading3>5.24.1   Description:</H1>
+<P CLASS=Body> This record provides contiguous binary data -- executable code or program data -- which is part of a program segment. The data is eventually copied into the program's executable binary image by the linker.</P>
+<P CLASS=Body> The data bytes may be subject to relocation or fix-up as determined by the presence of a subsequent FIXUPP record but otherwise requires no expansion when mapped to memory at run time.</P>
+<A NAME=HEADING-5-24-2></A>
+<H3 CLASS=Heading3>5.24.2   Record Format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-25:  LEDATA Logical Enumerated Data Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 2 or 4 Bytes</P>
+</TD><TD><P CLASS=FigureBody> &lt;from Record Length&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> A0 or A1</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> SegIndex</P>
+</TD><TD><P CLASS=FigureBody> Enum Data Offset</P>
+</TD><TD><P CLASS=FigureBody> Data Bytes</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR></TABLE><P CLASS=Body> Record type A1H is new for LINK386; it has an Enumerated Data Offset field of 32 bits rather than 16 bits.</P>
+<A NAME=HEADING-5-24-3></A>
+<H3 CLASS=Heading3>5.24.3   Segment Index</H1>
+<P CLASS=Body> The SegIndex must be nonzero and is the index of a previously defined SEGDEF record. This is the segment into which the data in this LEDATA record is to be placed.</P>
+<A NAME=HEADING-5-24.4></A>
+<H3 CLASS=Heading3>5.24.4   Enumerated Data Offset</H1>
+<P CLASS=Body> The enumerated data offset is a 2 or 4 byte field (depending on the record type) which determines the offset at which the first data byte is to be placed relative to the start of the SEGDEF segment. Successive data bytes occupy successively higher locations.</P>
+<A NAME=HEADING-5-24-5></A>
+<H3 CLASS=Heading3>5.24.5   Data Bytes</H1>
+<P CLASS=Body> The maximum number of data bytes is 1024, so that a FIXUPP location field, which is 10 bits, can reference any of these data bytes. The number of data bytes is computed as the RecLength minus 5 minus the size of the SegIndex field (1 or 2 bytes).</P>
+<P CLASS=Note>Note:  Record type A1H has offset stored as a 32-bit numeric. Record type A0 encodes the offset value as a 16-bit numeric (zero extended if applied to a Use32 segment).</P>
+<DL CLASS=Body2>
+<DL CLASS=Body2>
+<DT CLASS=Body2><DD CLASS=Body2>If the LEDATA requires fixup, a FIXUPP record must immediately follow the LEDATA record.
+</DL>
+</DL>
+<A NAME=HEADING-5-25></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-25">5.25   A2H or A3H LIDATA Logical Iterated Data Record</A></H1>
+<A NAME=HEADING-5-25-1></A>
+<H3 CLASS=Heading3>5.25.1   Description:</H1>
+<P CLASS=Body> Like the LEDATA record, the LIDATA record contains binary data -- executable code or program data. The data in an LIDATA record, however, is specified as a repeating pattern (iterated), rather than by explicit enumeration.</P>
+<P CLASS=Body> The data in an LIDATA record may be modified by the linker if the LIDATA record is immediately followed by a FIXUPP record.</P>
+<A NAME=HEADING-5-25-2></A>
+<H3 CLASS=Heading3>5.25.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-26:  LIDATA Logical Iterated Data Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 4 Bytes</P>
+</TD><TD><P CLASS=FigureBody> &lt;from Record Length&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> A2 or A3</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> SegIndex</P>
+</TD><TD><P CLASS=FigureBody> Data Offset</P>
+</TD><TD><P CLASS=FigureBody> Data Block</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE><P CLASS=Body> Record type A3H is new for LINK386; it has Iterated Data Offset and Repeat Count fields of 32 bits rather than 16 bits.</P>
+<A NAME=HEADING-5-25-3></A>
+<H3 CLASS=Heading3>5.25.3   Segment Index and Data Offset</H1>
+<P CLASS=Body> The segment index and data offset (2 or 4 bytes) are the same as for an LEDATA record. The index must be nonzero.</P>
+<A NAME=HEADING-5-25-4></A>
+<H3 CLASS=Heading3>5.25.4   Data Block</H1>
+<P CLASS=Body> The data blocks have the following form:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=FigureBody> 2 or 4 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> Repeat Count</P>
+</TD><TD><P CLASS=FigureBody> Block Count</P>
+</TD><TD><P CLASS=FigureBody> Data Block</P>
+</TD></TR></TABLE><A NAME=HEADING-5-25-5></A>
+<H3 CLASS=Heading3>5.25.5   Repeat Count</H1>
+<P CLASS=Body> The Repeat Count is a 16-bit or 32-bit value which determines the number of repeats of the content field. The Repeat Count is 32 bits only if the record type is A3.</P>
+<P CLASS=Body> <U CLASS="Underline Body">CONFLICT</U>: The PharLap OMF uses a 16-bit repeat count even in 32-bit records.</P>
+<A NAME=HEADING-5-25-6></A>
+<H3 CLASS=Heading3>5.25.6   Block Count</H1>
+<P CLASS=Body> The Block Count is a 16-bit word whose value determines the interpretation of the content portion, as follows:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">0</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> indicates that the content field that follows is a one byte "count" value followed by "count" data bytes. The data bytes will be mapped to memory, repeated Repeat Count times.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">!=0</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> indicates the content field that follows is comprised of one or more Data Blocks. The Block Count value specifies the number of Data Blocks (recursive definition).</P>
+</TD></TR></TABLE><P CLASS=Note>Note:  A subsequent FIXUPP record may occur; the fixup is applied before the iterated data block is expanded. It is a translator error for a fixup to reference any of the count fields.</P>
+<A NAME=HEADING-5-26></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-26">5.26   B0H COMDEF Communal Names Definition Record</A></H1>
+<A NAME=HEADING-5-26-1></A>
+<H3 CLASS=Heading3>5.26.1   Description:</H1>
+<P CLASS=Body> The COMDEF record declares a list of one or more communal variables (uninitialized static data, or data that may match initialized static data in another compilation group).</P>
+<P CLASS=Body> The size of such a variable is the maximum size defined in any module naming the variable as communal or public. The placement of communal variables is determined by the data type using established conventions (see data type and communal length below).</P>
+<A NAME=HEADING-5-26-2></A>
+<H3 CLASS=Heading3>5.26.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-27:  COMDEF Communal Names Definition Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> &lt;string&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> &lt;from data type&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> B0</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Str. Len</P>
+</TD><TD><P CLASS=FigureBody> Communal Name</P>
+</TD><TD><P CLASS=FigureBody> Type Index</P>
+</TD><TD><P CLASS=FigureBody> Data Type</P>
+</TD><TD><P CLASS=FigureBody> Communal Length</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=5><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE><A NAME=HEADING-5-26-3></A>
+<H3 CLASS=Heading3>5.26.3   Communal Name</H1>
+<P CLASS=Body> The name is in &lt;count, char&gt; string format (and name may be null). Near and Far communals from different object files are matched at bind or link time if their names agree; the variable's size is the maximum of the sizes specified (subject to some constraints, as documented below).</P>
+<A NAME=HEADING-5-26-4></A>
+<H3 CLASS=Heading3>5.26.4   Type Index</H1>
+<P CLASS=Body> Encodes symbol information; it is parsed as an index field (one or 2 bytes), and not inspected by the linker.</P>
+<A NAME=HEADING-5-26-5></A>
+<H3 CLASS=Heading3>5.26.5   Data Type and Communal Length</H1>
+<P CLASS=Body> The data type field indicates the contents of the Communal Length field. All Data type values for Near data indicate that the Communal Length field has only one numeric value: the amount of memory to be allocated for the communal variable. All Data Type values for Far data indicate that the Communal Length field has two numeric values: the first is the number of elements and the second is the element size.</P>
+<P CLASS=Body> The DataType is one of the following hex values:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">61H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> FAR data; length specified as number of elements followed by element size in bytes.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">62H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> NEAR data; length specified as number of bytes.</P>
+</TD></TR></TABLE><P CLASS=Body> The communal length is a single numeric or a pair of numeric fields (as specified by the Data Type), encoded as follows:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">1 byte</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> value 0 through 128 (80 hex)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">3 byte</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> byte 81 hex, followed by a 16-bit word whose value is used (range 0 to 64K-1)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">4 byte</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> byte 84 hex, followed by a 3 byte value (range 0 to 16M-1)</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">5 byte</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> byte 88 hex, followed by a 4 byte value (range -2G-1 to 2G-1, signed)</P>
+</TD></TR></TABLE><P CLASS=Body> Groups of name, type index, segment type and communal length fields can be repeated so that more than one communal variable can be declared in the same COMDEF record.</P>
+<P CLASS=Note>Note:  If a public or exported symbol with the same name is found in another module with which this is bound or linked, the linker gives a multiple defined symbol error message,</P>
+<DL CLASS=Body2>
+<UL CLASS=Body2>
+<LI>Communal variables cannot be resolved to dynamic links (i.e. imported symbols).
+<LI>The records are ordered by occurrence, together with the items named in EXTDEF records (for reference in FIXUPPs).
+<LI>The IBM C Compiler generates COMDEFs for all uninitialized global data and for global scalars initialized to zero.
+</UL>
+</DL>
+<A NAME=HEADING-5-27></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-27">5.27   B2H or B3H BAKPAT Backpatch Record</A></H1>
+<A NAME=HEADING-5-27-1></A>
+<H3 CLASS=Heading3>5.27.1   Description:</H1>
+<P CLASS=Body> This record is for backpatches to locations which cannot be conveniently handled by a FIXUPP at reference time. For example, forward references in a one-pass compiler. It is essentially a specialized fixup.</P>
+<A NAME=HEADING-5-27-2></A>
+<H3 CLASS=Heading3>5.27.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-28:  BAKPAT Backpatch Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 or 4 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 2 or 4 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> B2 or B3</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> SegIndex</P>
+</TD><TD><P CLASS=FigureBody> Loc Type</P>
+</TD><TD><P CLASS=FigureBody> Offset</P>
+</TD><TD><P CLASS=FigureBody> Value</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=2><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE><P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">SegIndex</STRONG></B></P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>Segment index to which all "backpatch" fixups are to be applied. Note that, in contrast to FIXUPPs, these records need not follow the data record to be fixed up. Hence, the segment to which the backpatch applies must be specified explicitly.
+</DL>
+<P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">LocTyp</STRONG></B></P>
+<DL CLASS=Body1>
+<DT CLASS=Body1><DD CLASS=Body1>Type of location to be patched; the only valid values are:
+</DL>
+<P CLASS=BodyFirst> </P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">0</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 8-bit lobyte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">1</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 16-bit offset</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">9</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 32-bit offset, record type B3 only</P>
+</TD></TR></TABLE><P CLASS=Body> <B CLASS=Body><STRONG CLASS="Bold Body">Offset and value</STRONG></B></P>
+<UL>
+<LI>These fields are 32-bits for record type B3, 16-bit for B2.
+<LI>The Offset specifies the location to be patched (as an offset into the SEGDEF whose index is SegIndex).
+<LI>The associated Value is added to the location being patched (unsigned addition, ignoring overflow). The Value field is fixed length (16-bit or 32-bit, depending on the record type) to make object module processing easier.
+</UL>
+<P CLASS=Note>Note:  BAKPAT records can occur anywhere in the object module following the SEGDEF record to which they refer. They do not have to immediately follow the appropriate LEDATA record as FIXUPP record do.</P>
+<DL CLASS=Body2>
+<DL CLASS=Body2>
+<DT CLASS=Body2><DD CLASS=Body2>These records are buffered by the linker in Pass 2 until the end of the module, after applying all other FIXUPPs. The linker then processes the records as fixups.
+</DL>
+</DL>
+<A NAME=HEADING-5-28></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-28">5.28   B4H or B5H LEXTDEF Local External Names Definition Record</A></H1>
+<A NAME=HEADING-5-28-1></A>
+<H3 CLASS=Heading3>5.28.1   Description:</H1>
+<P CLASS=Body> This record is identical in form to the EXTDEF record described earlier. However, the symbols named in this record are not visible outside the module in which they are defined.</P>
+<A NAME=HEADING-5-28-2></A>
+<H3 CLASS=Heading3>5.28.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-29:  LEXTDEF Local External Names Definition Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> &lt;string length&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> B4 or B5</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> String Length</P>
+</TD><TD><P CLASS=FigureBody> External Name String</P>
+</TD><TD><P CLASS=FigureBody> Type Index</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=3><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE><P CLASS=Note>Note:  There is no semantic difference between the B4 and B5 flavors.</P>
+<DL CLASS=Body2>
+<UL CLASS=Body2>
+<LI>These records are associated with LPUBDEF and LCOMDEF records, ordered with the EXTDEF records by occurrence, so that they may be referenced by external index for fixups.
+<LI>The name string, when stored in LINK's internal data structures, is encoded with spaces and digits at the beginning of the name.
+</UL>
+</DL>
+<A NAME=HEADING-5-29></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-29">5.29   B6H or B7H LPUBDEF Local Public Names Definition Record</A></H1>
+<A NAME=HEADING-5-29-1></A>
+<H3 CLASS=Heading3>5.29.1   Description:</H1>
+<P CLASS=Body> This record is identical in form to the PUBDEF record described earlier. However, the symbols named in this record are not visible outside the module in which they are defined.</P>
+<A NAME=HEADING-5-29-2></A>
+<H3 CLASS=Heading3>5.29.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-30:  LPUBDEF Local Public Names Definition Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> &lt;string length&gt;</P>
+</TD><TD><P CLASS=FigureBody> 2 or 4</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> B6 or B7</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Base Group Index</P>
+</TD><TD><P CLASS=FigureBody> Base Segment Index</P>
+</TD><TD><P CLASS=FigureBody> Base Frame</P>
+</TD><TD><P CLASS=FigureBody> String Length</P>
+</TD><TD><P CLASS=FigureBody> Public Name string</P>
+</TD><TD><P CLASS=FigureBody> Public Offset</P>
+</TD><TD><P CLASS=FigureBody> Type Index</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> &lt;cond&gt;</P>
+</TD><TD COLSPAN=4><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE>
+<A NAME=HEADING-5-30></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-30">5.30   B8H LCOMDEF Local Communal Names Definition Record</A></H1>
+<A NAME=HEADING-5-30-1></A>
+<H3 CLASS=Heading3>5.30.1   Description:</H1>
+<P CLASS=Body> This record is identical in form to the COMDEF record described earlier. However, the symbols named in this record are not visible outside the module in which they are defined.</P>
+<A NAME=HEADING-5-30-2></A>
+<H3 CLASS=Heading3>5.30.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-31:  LCOMDEF Local Communal Names Definition Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> &lt;string&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> &lt;from data type&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> B8</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Str. Len</P>
+</TD><TD><P CLASS=FigureBody> Communal Name</P>
+</TD><TD><P CLASS=FigureBody> Type Index</P>
+</TD><TD><P CLASS=FigureBody> Data Type</P>
+</TD><TD><P CLASS=FigureBody> Communal Length</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=5><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE>
+<A NAME=HEADING-5-31></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-31">5.31   C2H or C3H COMDAT Initialized Communal Data Record</A></H1>
+<A NAME=HEADING-5-31-1></A>
+<H3 CLASS=Heading3>5.31.1   Description:</H1>
+<P CLASS=Body> The purpose of the COMDAT record is to combine logical blocks of code and data which may be duplicated across a number of compiled modules.</P>
+<A NAME=HEADING-5-31-2></A>
+<H3 CLASS=Heading3>5.31.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-32:  COMDAT Initialized Communal Data Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 2</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 2 or 4</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> 1 or 2</P>
+</TD><TD><P CLASS=FigureBody> &lt;string length&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> C2 or C3</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Flag</P>
+</TD><TD><P CLASS=FigureBody> Attr.</P>
+</TD><TD><P CLASS=FigureBody> Align</P>
+</TD><TD><P CLASS=FigureBody> Enum Data Offset</P>
+</TD><TD><P CLASS=FigureBody> Type Index</P>
+</TD><TD><P CLASS=FigureBody> Public Base</P>
+</TD><TD><P CLASS=FigureBody> Public Name string</P>
+</TD><TD><P CLASS=FigureBody> DAT</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> &lt;con&gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> &lt;repeat&gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE><A NAME=HEADING-5-31-3></A>
+<H3 CLASS=Heading3>5.31.3   Flags</H1>
+<P CLASS=Body> This field contains three defined bits:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">01H</STRONG></P>
+</TD><TD><P CLASS=CellBody> Continuation bit. If clear, then this COMDAT record establishes a new instance of the COMDAT variable, otherwise the data is a continuation of the previous COMDAT of the symbol.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">02H</STRONG></P>
+</TD><TD><P CLASS=CellBody> Iterated data bit. If clear, the DAT field contains enumerated data, otherwise the DAT field contains iterated data, as in an LIDATA record.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <STRONG CLASS="Bold CellBody">04H</STRONG></P>
+</TD><TD><P CLASS=CellBody> Local COMDAT. The public name is local.</P>
+</TD></TR></TABLE><A NAME=HEADING-5-31-4></A>
+<H3 CLASS=Heading3>5.31.4   Attr</H1>
+<P CLASS=Body> This field contains two 4-bit fields: the selection criteria to be used, the allocation type and the ordinal specifying the type of allocation to be performed. Values are:</P>
+<A NAME=HEADING-5-31-4-1></A>
+<H4 CLASS=Heading4> Selection criteria (high-order 4 bits):</H1>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">00H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> No match - only one instance of this COMDAT allowed.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">10H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Pick any - pick any instance of this COMDAT record.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">20H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Same size - pick any, but instances must have the same length or linker will generate an error.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">30H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Exact Match - pick any, but checksums of instances must match of linker will generate an error. Fixups are ignored.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">40H - F0H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> reserved.</P>
+</TD></TR></TABLE><A NAME=HEADING-5-31-4-2></A>
+<H4 CLASS=Heading4> Allocation Type (low-order 4 bits):</H1>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">00H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Explicit - allocate in the segment specified in the ensuing public base field.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">01H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Far Code - allocate as CODE16. The linker will create segments to contain all COMDATs of this type.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">02H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Far DATA - allocate as DATA16. The linker will create segments to contain all COMDATs of this type.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">03H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> CODE32 - allocate as CODE32. The linker will create segments to contain all COMDATs of this type.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">04H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> DATA32 - allocate as DATA32. The linker will create segments to contain all COMDATs of this type.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">05H - 0FH</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Reserved.</P>
+</TD></TR></TABLE>
+<A NAME=HEADING-5-31-5></A>
+<H3 CLASS=Heading3>5.31.5   Align</H1>
+<P CLASS=Body> These codes are based on the ones used by the SEGDEF record:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">0</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> use value from SEGDEF.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">1</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> byte aligned.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">2</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> word (2 byte) aligned.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">3</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> paragraph (16 byte) aligned.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">4</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 4K page aligned.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">5</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> dword (4 byte) aligned.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">6</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> not defined.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">7</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> not defined.</P>
+</TD></TR></TABLE><A NAME=HEADING-5-31-6></A>
+<H3 CLASS=Heading3>5.31.6   Enum Data Offset</H1>
+<P CLASS=Body> This field specifies an offset relative to the beginning location of the symbol specified in the public name field and defines the relative location of the first byte of the DAT field. Successive data bytes in the DAT field occupy higher locations of memory. This works very much like the offset field in an LEDATA record, but instead of an offset relative to a segment, this is relative to the beginning of the COMDAT symbol.</P>
+<A NAME=HEADING-5-31-7></A>
+<H3 CLASS=Heading3>5.31.7   Type Index</H1>
+<P CLASS=Body> The type index field is encoded in index format; it contains either debug type information or an old-style TYPDEF index. If this index is zero, there is no associated type data. Old-style TYPDEF indices are ignored by the linker. Present linkers do no type checking.</P>
+<A NAME=HEADING-5-31-8></A>
+<H3 CLASS=Heading3>5.31.8   Public Base</H1>
+<P CLASS=Body> This field is conditional and is identical to the public base stored in the public base field in the PUBDEF record. This field is only present if the allocation type field specifies explicit allocation.</P>
+<A NAME=HEADING-5-31-9></A>
+<H3 CLASS=Heading3>5.31.9   Public Name</H1>
+<P CLASS=Body> This field is a regular length prefixed name.</P>
+<A NAME=HEADING-5-31-10></A>
+<H3 CLASS=Heading3>5.31.10   DAT</H1>
+<P CLASS=Body> The DAT field provides up to 1024 consecutive bytes of data. If there are fixups, they must be emitted in a FIXUPP record that follows the COMDAT record. The data can be either enumerated or iterated, depending on the flags field.</P>
+<P CLASS=Note>Note:  While creating addressing frames, the linker will add the COMDAT data to the appropriate logical segments, adjusting their sizes. At that time the offset at which the data will go inside the logical segment will be calculated. Next, the linker will create physical segments from adjusted logical segments reporting any 64K boundary overflows.</P>
+<DL CLASS=Body2>
+<UL CLASS=Body2>
+<LI>If the allocation type is not explicit, COMDAT code and data is accumulated by the linker and broken up into segments, so that the total may exceed 64K.
+<LI>In pass two, only the selected occurrence of COMDAT data will be stored in the VM, fixed up and later written into the .EXE file.
+</UL>
+</DL>
+<A NAME=HEADING-5-32></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-32">5.32   C4H or C5H LINSYM Symbol Line Numbers Record</A></H1>
+<A NAME=HEADING-5-32-1></A>
+<H3 CLASS=Heading3>5.32.1   Description:</H1>
+<P CLASS=BodyFirst> This record will be used to output numbers for functions specified via COMDATs.</P>
+<A NAME=HEADING-5-32-2></A>
+<H3 CLASS=Heading3>5.32.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-33:  LINSYM Symbol Line Numbers Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable&gt;</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 2 or 4 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> C4 or C5</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Flags</P>
+</TD><TD><P CLASS=FigureBody> Symbol Name Base</P>
+</TD><TD><P CLASS=FigureBody> Line Number</P>
+</TD><TD><P CLASS=FigureBody> Line Number Offset</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=2><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE><A NAME=HEADING-5-32-3></A>
+<H3 CLASS=Heading3>5.32.3   Flags</H1>
+<P CLASS=BodyFirst> This field contains two defined bits:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">01H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Continuation bit. If clear, then this COMDAT record establishes a new instance of the COMDAT variable, otherwise the data is a continuation of the previous COMDAT of the symbol.</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">04H</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> Local COMDAT</P>
+</TD></TR></TABLE><P CLASS=Body> The <STRONG CLASS="Bold Body">Symbol Name Base</STRONG> is a length-preceded name of the base of the LINSYM record.</P>
+<P CLASS=Body> The <STRONG CLASS="Bold Body">Line Number</STRONG> is an unsigned number in the range 0 to 65535.</P>
+<P CLASS=Body> The <STRONG CLASS="Bold Body">Line Number Offset</STRONG> field is the offset relative to the base specified by the symbol name base. The size of this field depends on the record type.</P>
+<P CLASS=Note>Note:  Record type C5H identical to C4H except that the Line Number Offset field is 4 bytes instead of 2.</P>
+<DL CLASS=Body2>
+<UL CLASS=Body2>
+<LI>The record is used to output line numbers for functions specified via COMDATs. Often, the residing segment as well as the relative offsets of such function is unknown at compile time, in that the linker is the final arbitrator of such information. For such cases the compiler will generate this record to specify the line number/offset pairs relative to a symbolic name.
+<LI>The record will also be used to discard duplicate linnum information. If the linker encounters two LINSYM records with matching symbolic names, the linker will keep the first set of linnums and discard all subsequent LINSYM records of that name.
+</UL>
+</DL>
+<A NAME=HEADING-5-33></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-33">5.33   C6H ALIAS Alias Definition Record</A></H1>
+<A NAME=HEADING-5-33-1></A>
+<H3 CLASS=Heading3>5.33.1   Description:</H1>
+<P CLASS=Body> This record has been introduced to support link-time aliasing, or a method by which compilers or assembles may direct the linker to substitute all references to one symbol for another.</P>
+<A NAME=HEADING-5-33-2></A>
+<H3 CLASS=Heading3>5.33.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-34:  ALIAS Alias Definition Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable&gt;</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable&gt;</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> C6</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Alias Name</P>
+</TD><TD><P CLASS=FigureBody> Substitute Name</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=2><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE><P CLASS=Body> The <STRONG CLASS="Bold Body">Alias Name</STRONG> field is a regular length-preceded name of the alias symbol.</P>
+<P CLASS=Body> The <STRONG CLASS="Bold Body">Substitute Name</STRONG> field is a regular length-preceded name of the substitute symbol.</P>
+<P CLASS=Note>Note:  The record will consist of two symbolic names: the alias symbol and the substitute symbol. The alias symbol behaves very much like a PUBDEF in that it must be unique. If a PUBDEF of an alias symbol is encountered or another ALIAS record with a different substitute symbol is encountered, a redefinition error should be emitted by the linker.</P>
+<DL CLASS=Body2>
+<UL CLASS=Body2>
+<LI>When attempting to satisfy an external reference, if an ALIAS record whose alias symbol matches is found, the linker will halt the search for alias symbol definitions and will attempt to satisfy the reference with the substitute symbol.
+<LI>All ALIAS records must appear before the link pass 2 record.
+</UL>
+</DL>
+<A NAME=HEADING-5-34></A>
+<H2 CLASS=Heading2><A HREF="#TOC-5-34">5.34   C8H or C9H NBKPAT Named Backpatch Record</A></H1>
+<A NAME=HEADING-5-34-1></A>
+<H3 CLASS=Heading3>5.34.1   Description:</H1>
+<P CLASS=Body> The Named Backpatch record is like a BAKPAT record, except that it refers to a COMDAT, by name, rather than an LIDATA or LEDATA record.</P>
+<A NAME=HEADING-5-34-2></A>
+<H3 CLASS=Heading3>5.34.2   Record format:</H1>
+<TABLE BORDER=1><CAPTION><P CLASS=FigureTitle>Figure 2-35:  NBKPAT Named Backpatch Record</P>
+</CAPTION><TR VALIGN=TOP><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> 2 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD><TD><P CLASS=FigureBody> &lt;variable&gt;</P>
+</TD><TD><P CLASS=FigureBody> 2 or 4 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 2 or 4 Bytes</P>
+</TD><TD><P CLASS=FigureBody> 1 Byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> C8 or C9</P>
+</TD><TD><P CLASS=FigureBody> Record Length</P>
+</TD><TD><P CLASS=FigureBody> Loc Type</P>
+</TD><TD><P CLASS=FigureBody> Public Name</P>
+</TD><TD><P CLASS=FigureBody> Offset</P>
+</TD><TD><P CLASS=FigureBody> Value</P>
+</TD><TD><P CLASS=FigureBody> Chk Sum or 0</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD><TD COLSPAN=2><P CLASS=FigureBody> &lt; repeated &gt;</P>
+</TD><TD><P CLASS=FigureBody> </P>
+</TD></TR></TABLE><A NAME=HEADING-5-34-3></A>
+<H3 CLASS=Heading3>5.34.3   LocType</H1>
+<P CLASS=Body> Type of location to be patched; the only valid values are:</P>
+<TABLE BORDER=1><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">0</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 8-bit byte</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">1</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 16-bit word</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">2</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> 32-bit dword, record type C9 only</P>
+</TD></TR><TR VALIGN=TOP><TD><P CLASS=CellBody> <B CLASS=CellBody><STRONG CLASS="Bold CellBody">0x80</STRONG></B></P>
+</TD><TD><P CLASS=CellBody> local COMDAT</P>
+</TD></TR></TABLE><A NAME=HEADING-5-34-4></A>
+<H3 CLASS=Heading3>5.34.4   Public Name</H1>
+<P CLASS=Body> Length-preceded name of the COMDAT to back patch.</P>
+<A NAME=HEADING-5-34-5></A>
+<H3 CLASS=Heading3>5.34.5   Offset and Value</H1>
+<P CLASS=Body> These fields are 16-bits for record type C8, 32-bits for C9.</P>
+<P CLASS=Body> The Offset specifies the location to be patched, as an offset into the COMDAT.</P>
+<P CLASS=Body> The associated Value is added to the location being patched (unsigned addition, ignoring overflow). The Value field is fixed length (16-bit or 32-bit, depending on the record type) to make object module processing easier.</P>
+<A NAME=LINK-02-lastpage></A>
+</DIV>
+
+<DIV CLASS=WM-DIV-FOOTERS>
+<HR>
+<ADDRESS>IBM OS/2 16/32-bit Object Module Format (OMF) Specification - 14 Jun 2001</ADDRESS>
+</DIV>
+
+</BODY>
+</HTML>

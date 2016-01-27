@@ -1,0 +1,26 @@
+/* Function to calculate the square root of a number using */
+/* the Newton-Raphson method               (GKB/SSK 11/90) */
+ 
+arg num                             /* get the number      */
+ 
+if ^datatype(num,'Number')          /* valid number?       */
+  then return
+ 
+if num < 0                          /* check for negative  */
+  then return
+  else if num = 0 then return 0     /* check for 0         */
+ 
+xnew = num                          /* initialize answer   */
+ 
+                                    /* calculate maximum   */
+eps = 0.5 * 10**(1+fuzz()-digits()) /* accuracy            */
+ 
+/* Loop until a sufficiently accurate answer is obtained.  */
+ 
+do until abs(xold-xnew) < (eps*xnew)
+  xold = xnew                       /* save the old value  */
+  xnew = 0.5 * (xold + num / xold)  /* calculate the new   */
+end
+xnew = xnew / 1                     /* make it pretty      */
+ 
+return xnew

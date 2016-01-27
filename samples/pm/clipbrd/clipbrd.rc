@@ -1,0 +1,101 @@
+/*********** CLIPBRD C Sample Program Resource Script File (.RC) ***********
+ *
+ *  The window resources used by an application are defined in a resource
+ *  script file .RC.  This file is compiled by the resource compiler to
+ *  produce an executable-format file.
+ *  The definitions are either statements which define resources or
+ *  references to other files containing resources.
+ *
+ *  In this resource script file:
+ *  ------------------------------------------------------------------------
+ *  Statement:                        References:
+ *  ACCELTABLE ATABLE PRELOAD         #define INCL_PM
+ *  MENU AMENU PRELOAD                #include <os2.h>
+ *  STRINGTABLE PRELOAD               #include "clipbrd.h"
+ *                                    ICON AICON clipbrd.ico
+ *                                    BITMAP  ID_BITMAP clipbrd.bmp
+ *
+ *  Copyright (C) 1991 IBM Corporation
+ *
+ *      DISCLAIMER OF WARRANTIES.  The following [enclosed] code is
+ *      sample code created by IBM Corporation. This sample code is not
+ *      part of any standard or IBM product and is provided to you solely
+ *      for  the purpose of assisting you in the development of your
+ *      applications.  The code is provided "AS IS", without
+ *      warranty of any kind.  IBM shall not be liable for any damages
+ *      arising out of your use of the sample code, even if they have been
+ *      advised of the possibility of such damages.                                                    *
+ ******************************************************************************/
+
+
+#define INCL_PM
+#include <os2.h>
+#include "clipbrd.h"
+
+ICON AICON clipbrd.ico
+
+BITMAP  ID_BITMAP   clipbrd.bmp
+BITMAP  IDR_BITMAP  prodinfo.bmp
+
+/* application menu bar */
+
+ACCELTABLE ATABLE PRELOAD
+BEGIN
+    VK_INSERT, MENU_PASTE,  VIRTUALKEY, SHIFT
+    VK_INSERT, MENU_COPY,   VIRTUALKEY, CONTROL
+    VK_DELETE, MENU_CLEAR,  VIRTUALKEY
+    VK_DELETE, MENU_CUT,    VIRTUALKEY, SHIFT
+END
+
+MENU AMENU PRELOAD
+BEGIN
+    SUBMENU     "~Edit",                        SM_CLIPBRD
+    BEGIN
+        MENUITEM    "Cu~t\tShift+Delete",       MENU_CUT
+        MENUITEM    "~Copy\tCtrl+Insert",       MENU_COPY
+        MENUITEM    "~Paste\tShift+Insert",     MENU_PASTE
+        MENUITEM    "",                  -1,    MIS_SEPARATOR
+        MENUITEM    "C~lear\tDelete",           MENU_CLEAR
+    END
+    SUBMENU    "~Help",                         SM_HELP
+    BEGIN
+        MENUITEM    "Help ~index",       MENU_HELPINDEX,     MIS_TEXT
+        MENUITEM    "~General help",     MENU_EXTHELP,       MIS_TEXT
+        MENUITEM    "~Using help",       MENU_HELPUSING,     MIS_TEXT
+        MENUITEM    "~Keys help",        MENU_KEYSHELP,      MIS_TEXT
+        MENUITEM    "",                  -1,                 MIS_SEPARATOR
+        MENUITEM    "~Product information", MENU_PRODINFO,   MIS_TEXT
+    END
+END
+
+STRINGTABLE PRELOAD
+BEGIN
+    HELPPANEL,        "General Program Help would appear here"
+    TERMINATE,        "Do you really want to terminate the program?"
+    HELPINDEX,        "The Help Index would now be displayed"
+    KEYSHELP,         "Help on the keys used in the application would be displayed here"
+    EXTHELP,          "General Help would appear here"
+    GENHELP,          "Using Help would appear here"
+    ABOUT1            "        Clipboard Sample Program"
+    ABOUT2            ""
+    ABOUT3            "   (C) Copyright IBM Corp. 1988, 1991. "
+    ABOUT4            "    All rights reserved International "
+    ABOUT5            "         Business Machines Corp."
+END
+
+DLGTEMPLATE IDD_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Product information", IDD_PRODUCTINFO, 8, -43, 276, 137,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CONTROL         IDR_BITMAP, IDC_BITMAP, 111, 76, 21, 21, WC_STATIC,
+                        SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT           "(C) Copyright IBM Corporation 1991. All Rights rese"
+                        "rved.", 256, 7, 54, 255, 8
+        CTEXT           "International Business Machines Corp.", 257, 7, 34,
+                        255, 8
+        CTEXT           "OS/2 is a registered trademark of", 258, 7, 44, 255,
+                        8
+        DEFPUSHBUTTON   "OK", IDC_OK, 111, 8, 45, 15
+    END
+END

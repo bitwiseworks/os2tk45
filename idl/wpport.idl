@@ -1,0 +1,101 @@
+
+//  Module Header
+//
+//  Module Name: WPPORT
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpport_idl
+#define wpport_idl
+
+#include "wptrans.idl"
+#include <somcls.idl>
+#include <wprttype.idl>
+
+interface M_WPPort;
+
+interface WPPort : WPTransient
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: prtGetPortInfo,prtSetPortInfo,prtSettings,prtGetDeviceObject,
+                  prtSetPortDiscardhwndDlg,prtSetPortInstallhwndDlg,
+                  prtPrintPort,prtSetIcon,prtChangePort,prtGetStatus,
+                  prtGetComputername,prtSetStatus,prtGetPDSelf,prtSetPDSelf,
+                  prtSetUlStatus, prtGetUlStatus,prtGetPortName,
+                  prtGetPanelList,prtIncThreadCnt,prtDecThreadCnt,
+                  prtSetDevicename;
+
+    externalstem = WPport;
+    local;
+    externalprefix = port_;
+    majorversion = 1;
+    minorversion = 1;
+    filestem = wpport;
+    metaclass = M_WPPort;
+    callstyle = oidl;
+
+
+    passthru C_h =     ""
+"/* common context menu ids */"
+"#define WPPOIDM_PORT_REDIRECT       7100"
+"#define WPPOIDM_PORT_INSTALL        8001"
+"";
+
+
+    wpInitData: override;
+    wpUnInitData: override;
+    wpSetup: override ;                                            
+    somDumpSelfInt: override;
+    wpQueryTitle: override;
+    wpQueryIcon: override;
+    wpFilterPopupMenu: override;
+    wpFree: override;
+    wpConfirmDelete: override;
+    wpModifyPopupMenu: override;
+    wpMenuItemSelected: override;
+    wpMenuItemHelpSelected: override;
+    wpOpen: override;
+    wpDrop: override;
+    wpDragOver: override;
+    wpCnrSetEmphasis: override;
+    wpQueryDetailsData: override;
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPPort
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPport;
+    local;
+    externalprefix = portM_;
+    functionprefix = portM_;
+    majorversion = 1;
+    minorversion = 1;
+    filestem = wpport;
+    callstyle = oidl;
+
+    wpclsQueryTitle: override;
+    wpclsQueryIcon: override;
+    wpclsQueryIconData: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryStyle: override;
+    wpclsQueryDetailsInfo: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpport_idl */

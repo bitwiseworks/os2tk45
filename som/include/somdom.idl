@@ -1,0 +1,129 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.11 src/somd/somdom.idl, somd, som2.1 4/1/95 14:53:25 [7/30/96 14:45:48]
+
+
+//   IDL interface spec for DSOM Distributed Object Manager.
+// 
+// 
+//   This is a subclass of the abstract ObjectMgr class.
+//   All ObjectMgr methods are implemented with DSOM calls.
+
+
+
+#ifndef somdom_idl
+#define somdom_idl
+
+#include <om.idl>
+
+interface SOMDServer;
+
+interface SOMDObjectMgr : ObjectMgr
+{
+
+  // In addition to the basic ObjectMgr interface, the DSOM ObjectMgr
+  // defines the following methods to find remote server objects:
+
+  SOMDServer somdFindServer(in ImplId serverid);
+  
+  // Finds and returns a proxy to the Server object which is identified by the 
+  // ImplId.  (ImplId is defined at server registration time, and can be 
+  // obtained from the ImplDef.)
+  //
+  // OWNERSHIP of returned SOMDServer object is transferred to the caller.
+
+  SOMDServer somdFindServerByName(in string servername);
+  
+  // Finds and returns a proxy to the Server object with the specified name.
+  // (The name is defined at server registration time, and can be obtained
+  // from the ImplDef.)
+  //
+  // OWNERSHIP of returned SOMDServer object is transferred to the caller.
+
+  sequence<SOMDServer>  somdFindServersByClass(in Identifier objclass);
+  
+  // Finds all Server objects which can create an object of the named class.
+  //
+  // OWNERSHIP of returned SOMDServer objects is transferred to the caller.
+
+  SOMDServer somdFindAnyServerByClass(in Identifier objclass);
+  
+  // Finds (any) Server object which can create an object of the named class.
+  // (This is a specialization of the somdFindServerByClass method.)
+  //
+  // OWNERSHIP of returned SOMDServer object is transferred to the caller.
+
+  attribute boolean somd21somFree;
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+    releaseorder: somdFindServer, somdFindServerByName, 
+                  somdFindServersByClass, somdFindAnyServerByClass,
+		  _get_somd21somFree, _set_somd21somFree;
+
+    //# Class Modifiers
+    callstyle = idl;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+  
+    //# Method Modifiers
+    somInit: override;
+    somdNewObject: override;
+    somdGetIdFromObject: override;
+    somdGetObjectFromId: override;
+    somdReleaseObject: override;
+    somdDestroyObject: override;
+  
+    //# Passthrus
+    passthru C_h_after =  ""
+      "#ifdef SOM_STRICT_IDL"
+#ifdef _WIN16
+      "#define SOMD_ObjectMgr (*SOMD_ObjectMgrResolve())"
+      "SOMEXTERN SOMDObjectMgr * SOMLINK SOMD_ObjectMgrResolve(void);"
+#else
+      "SOMEXTERN SOMDObjectMgr   SOMDLINK SOMD_ObjectMgr;"
+#endif
+      "#else"
+#ifdef _WIN16
+      "#define SOMD_ObjectMgr (*SOMD_ObjectMgrResolve())"
+      "SOMEXTERN SOMDObjectMgr ** SOMLINK SOMD_ObjectMgrResolve(void);"
+#else
+      "SOMEXTERN SOMDObjectMgr *  SOMDLINK SOMD_ObjectMgr;"
+#endif
+      "#endif /* SOM_STRICT_IDL */"
+      ""
+      "#include <somdserv.h>"
+      "";
+
+    passthru C_xh_after =  ""
+      "class SOMDObjectMgr;"
+#ifdef _WIN16
+      "#define SOMD_ObjectMgr (*SOMD_ObjectMgrResolve())"
+      "SOMEXTERN SOMDObjectMgr ** SOMLINK SOMD_ObjectMgrResolve(void);"
+#else
+      "SOMEXTERN SOMDObjectMgr * SOMDLINK SOMD_ObjectMgr;"
+#endif
+      ""
+      "#include <somdserv.xh>"
+      "";
+
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* somdom_idl */

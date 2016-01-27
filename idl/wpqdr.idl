@@ -1,0 +1,92 @@
+
+//  Module Header
+//
+//  Module Name: WPQDR
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpqdr_idl
+#define wpqdr_idl
+
+#include "wptrans.idl"
+#include <somcls.idl>
+#include <wprttype.idl>
+
+interface M_WPQdr;
+
+interface WPQdr : WPTransient
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: prtGetQDriverInfo,prtSetQDriverInfo,prtSetQdrIcon,
+                  prtSetQDriverDiscardhwndDlg,prtSetQDriverInstallhwndDlg;
+
+    externalstem = WPqdr;
+    local;
+    externalprefix = qdr_;
+    majorversion = 1;
+    minorversion = 1;
+    filestem = wpqdr;
+    metaclass = M_WPQdr;
+    callstyle = oidl;
+
+
+    passthru C_h =     ""
+"/* common context menu ids    */"
+"#define WPPOIDM_QDR_INSTALL         8001"
+"";
+
+
+    wpInitData: override;
+    wpUnInitData: override;
+    wpSetup: override;                                            
+    somDumpSelfInt: override;
+    wpAddSettingsPages: override;
+    wpQueryTitle: override;
+    wpQueryIcon: override;
+    wpFilterPopupMenu: override;
+    wpFree: override;
+    wpConfirmDelete: override;
+    wpModifyPopupMenu: override;
+    wpMenuItemSelected: override;
+    wpMenuItemHelpSelected: override;
+    wpOpen: override;
+    wpDrop: override;
+    wpDragOver: override;
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPQdr
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPqdr;
+    local;
+    externalprefix = qdrM_;
+    functionprefix = qdrM_;
+    majorversion = 1;
+    minorversion = 1;
+    filestem = wpqdr;
+    callstyle = oidl;
+
+    wpclsQueryTitle: override;
+    wpclsQueryIcon: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryStyle: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpqdr_idl */

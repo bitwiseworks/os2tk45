@@ -1,0 +1,1736 @@
+/****************************************************************************/
+/*                                                                          */
+/*                    Copyright (c) IBM Corporation 1992, 1993              */
+/*                           All Rights Reserved                            */
+/*                                                                          */
+/* SOURCE FILE NAME:  SSMRES.RC                                             */
+/*                                                                          */
+/* DESCRIPTIVE NAME:  MMPM/2 Resource file                                  */
+/*                                                                          */
+/* NOTES: This file contains the Stream Protocol Control Blocks (SPCB's)    */
+/*        used by the MMPM/2 stream handlers. Refer to OS2MEDEF.H for a     */
+/*        defines used for SPCB datatype and subtype.                       */
+/*                                                                          */
+/* ENTRY POINTS: None                                                       */
+/*                                                                          */
+/*************************** END OF SPECIFICATIONS **************************/
+#define INCL_32
+#define INCL_OS2MM        /* added for defect 13820 on 9/2/92 by L. Ruffing */
+#include <os2.h>
+#include "os2me.h"
+
+#define  SPI_RESOURCE1                     (SPI_RESOURCE + 1)
+#define  SPI_RESOURCE2                     (SPI_RESOURCE + 2)
+#define  SPI_RESOURCE3                     (SPI_RESOURCE + 3)
+#define  SPI_RESOURCE4                     (SPI_RESOURCE + 4)
+#define  SPI_RESOURCE5                     (SPI_RESOURCE + 5)
+#define  SPI_RESOURCE6                     (SPI_RESOURCE + 6)
+#define  SPI_RESOURCE7                     (SPI_RESOURCE + 7)
+#define  SPI_RESOURCE8                     (SPI_RESOURCE + 8)
+#define  SPI_RESOURCE9                     (SPI_RESOURCE + 9)
+#define  SPI_RESOURCE10                    (SPI_RESOURCE + 10)
+#define  SPI_RESOURCE11                    (SPI_RESOURCE + 11)
+
+#define  SPCBBUF_INTERLEAVED_FIXEDBLOCK     (SPCBBUF_INTERLEAVED + SPCBBUF_FIXEDBLOCK)
+#define  SPCBBUF_INTERLEAVED_MAXSIZE        (SPCBBUF_INTERLEAVED + SPCBBUF_MAXSIZE)
+#define  SPCBBUF_NONCONTIGUOUS_INTERLEAVED  (SPCBBUF_NONCONTIGUOUS + SPCBBUF_INTERLEAVED)
+#define  SPCBBUF_NONCONTIGUOUS_FIXEDBUF     (SPCBBUF_NONCONTIGUOUS + SPCBBUF_FIXEDBUF)
+#define  SPCBHAND_RCVSYNC_GENSYNC_GENTIME   (SPCBHAND_RCVSYNC + SPCBHAND_GENSYNC + SPCBHAND_GENTIME)
+#define  SPCBHAND_RCVSYNC_GENSYNC_GENTIME_NOPREROLL (SPCBHAND_RCVSYNC+SPCBHAND_GENSYNC+SPCBHAND_GENTIME+SPCBHAND_NOPREROLL)
+#define  SPCBHAND_RCVSYNC_GENSYNC_NONSTREAM (SPCBHAND_RCVSYNC + SPCBHAND_GENSYNC + SPCBHAND_NONSTREAM)
+#define  SPCBHAND_NOSYNC_NOPREROLL          (SPCBHAND_NOSYNC + SPCBHAND_NOPREROLL)
+#define  SPCBHAND_NOSYNC_PHYSSEEK           (SPCBHAND_NOSYNC + SPCBHAND_PHYS_SEEK)
+
+RCDATA   SPI_RESOURCE
+BEGIN
+  11                                   /* number of stream handlers resources */
+END
+
+RCDATA   SPI_RESOURCE1
+  BEGIN
+     "FILESYS\0",                      /* class name */
+        "FSSH\0",                        /* Handler name */
+        SH_DLL_TYPE,                     /* PDD or DLL flag */
+        "FSSH\0",                        /* PDD or DLL name */
+        1,                               /* number of SPCB's */
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_GENERIC,                /* Generic for files / memory. This */
+                                            /* datatype will match any other*/
+           SUBTYPE_NONE,                    /* sub type */
+           0L,                              /* internal key */
+           0L,                              /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           2L,                              /* min # of buffers */
+           5L,                              /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_NONCONTIGUOUS,           /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           3000L,                           /* sync tolerance value */
+           3000L,                           /* save sync pulse generation */
+           0L,                              /* bytes/unit of time */
+           0L                               /* mmtime each unit represents */
+  END
+
+RCDATA   SPI_RESOURCE2
+  BEGIN
+     "FILESYS\0",                      /* class name */
+        "SSSH\0",                        /* Handler name */
+        SH_DLL_TYPE,                     /* PDD or DLL flag */
+        "SSSH\0",                        /* PDD or DLL name */
+        8,                               /* number of SPCB's */
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CDXA_AUDIO,             /* data type ,CD-XA ADPCM Audio datatype */
+           CDXA_LEVELB,                     /* sub type, LEVEL B Audio Stereo */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           17L,                             /* # of records */
+           1L,                              /* Block Size */
+           39984L,                          /* buffer size */
+           8L,                              /* min # of buffers, rel1.0=10 */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED,             /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           3000L,                           /* sync tolerance value */
+           3000L,                           /* save sync pulse generation */
+           2304L,                           /* bytes/unit of time */
+           160L,                            /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CDXA_AUDIO,             /* data type ,CD-XA ADPCM Audio datatype */
+           CDXA_LEVELC,                     /* sub type, LEVEL C Audio Stereo */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           17L,                             /* # of records */
+           1L,                              /* Block Size */
+           39984L,                          /* buffer size */
+           8L,                              /* min # of buffers, rel1.0=10 */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED,             /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           3000L,                           /* sync tolerance value */
+           3000L,                           /* save sync pulse generation */
+           2304L,                           /* bytes/unit of time */
+           320L,                            /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CDXA_AUDIO,             /* data type */
+           CDXA_LEVELB_MONO,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           17L,                             /* # of records */
+           1L,                              /* Block Size */
+           39984L,                          /* buffer size */
+           8L,                              /* min # of buffers, rel1.0=10 */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED,             /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           3000L,                           /* sync tolerance value */
+           3000L,                           /* save sync pulse generation */
+           2304L,                           /* bytes/unit of time */
+           320L,                            /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CDXA_AUDIO,             /* data type */
+           CDXA_LEVELC_MONO,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           17L,                             /* # of records */
+           1L,                              /* Block Size */
+           39984L,                          /* buffer size */
+           8L,                              /* min # of buffers, rel1.0=10 */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED,             /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           3000L,                           /* sync tolerance value */
+           3000L,                           /* save sync pulse generation */
+           2304L,                           /* bytes/unit of time */
+           640L,                            /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CDXA_AUDIO_HD,          /* data type */
+           0L,                              /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           17L,                             /* # of records */
+           1L,                              /* Block Size */
+           39984L,                          /* buffer size */
+           8L,                              /* min # of buffers, rel1.0=10 */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED,             /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           3000L,                           /* sync tolerance value */
+           3000L,                           /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CDXA_DATA,              /* data type */
+           0L,                              /* sub type */
+           0L,                              /* internal key */
+           0L,                              /* data flag */
+           17L,                             /* # of records */
+           1L,                              /* Block Size */
+           39984L,                          /* buffer size */
+           8L,                              /* min # of buffers, rel1.0=10 */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED,             /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           3000L,                           /* sync tolerance value */
+           3000L,                           /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CDXA_HEADERS,           /* data type */
+           0L,                              /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_NOSEEK,                 /* data flag */
+           17L,                             /* # of records */
+           1L,                              /* Block Size */
+           39984L,                          /* buffer size */
+           8L,                              /* min # of buffers, rel1.0=10 */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED,             /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           3000L,                           /* sync tolerance value */
+           3000L,                           /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CDXA_VIDEO,             /* data type */
+           0L,                              /* sub type */
+           0L,                              /* internal key */
+           0L,                              /* data flag */
+           17L,                             /* # of records */
+           1L,                              /* Block Size */
+           39984L,                          /* buffer size */
+           8L,                              /* min # of buffers */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED,             /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           3000L,                           /* sync tolerance value */
+           3000L,                           /* save sync pulse generation */
+           0L,                              /* bytes/unit of time */
+           0L                               /* mmtime each unit represents */
+  END
+
+RCDATA   SPI_RESOURCE3
+  BEGIN
+     "FILESYS\0",                      /* class name */
+        "CDDASH\0",                      /* Handler name */
+        SH_DLL_TYPE,                     /* PDD or DLL flag */
+        "CDDASH\0",                      /* PDD or DLL name */
+        1,                               /* number of SPCB's */
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_4S16,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           4L,                              /* Block Size */
+           49152L,                          /* buffer size */
+           8L,                              /* min # of buffers, rel1.0=10 */
+           12L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           7L,                              /* # full buffs to start tgt, rel1.0=8 */
+           SPCBBUF_FIXEDBUF,                /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           3000L,                           /* sync tolerance value */
+           3000L,                           /* save sync pulse generation */
+           588L,                            /* bytes/unit of time */
+           10L                              /* mmtime each unit represents */
+END
+
+RCDATA   SPI_RESOURCE4
+  BEGIN
+     "MEMSYS\0",                      /* class name */
+        "MEMSH\0",                       /* Handler name */
+        SH_DLL_TYPE,                     /* PDD or DLL flag */
+        "MEMSH\0",                       /* PDD or DLL name */
+        1,                               /* number of SPCB's */
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_GENERIC,                /* data type */
+           SUBTYPE_NONE,                    /* sub type */
+           0L,                              /* internal key */
+           0L,                              /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_NONCONTIGUOUS,           /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           3000L,                           /* sync tolerance value */
+           3000L,                           /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L                               /* mmtime each unit represents (VARIABLE) */
+  END
+
+RCDATA   SPI_RESOURCE5
+  BEGIN
+     "AUDIOSYS\0",                    /* class name */
+        "AUDIOSH$\0",                    /* Handler name */
+        SH_DLL_TYPE,                     /* PDD or DLL flag */
+        "AUDIOSH\0",                     /* PDD or DLL name */
+        53,                              /* number of SPCB's */
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_1M08,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           4096L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           20L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           147L,                            /* bytes/unit of time */
+           40L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_1S08,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           20L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           40L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_1M16,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           20L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           40L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_1S16,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           4L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           588L,                            /* bytes/unit of time */
+           40L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_2M08,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           20L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           147L,                            /* bytes/unit of time */
+           20L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_2S08,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           20L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_2M16,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           20L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_2S16,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           4L,                              /* Block Size */
+           32768L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           588L,                            /* bytes/unit of time */
+           20L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_4M08,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           147L,                            /* bytes/unit of time */
+           10L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_4S08,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           32768L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           10L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_4M16,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           32768L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           10L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_4S16,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           4L,                              /* Block Size */
+           61440L,                          /* buffer size */
+           5L,                              /* min # of buffers, rel1.0=10 */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           7L,                              /* # full buffs to start tgt, rel1.0=8 */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           588L,                            /* bytes/unit of time */
+           10L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_8M08,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           4096L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           8L,                              /* bytes/unit of time */
+           3L,                              /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_8S08,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           16L,                             /* bytes/unit of time */
+           3L,                              /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_8M16,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           16L,                             /* bytes/unit of time */
+           3L,                              /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_WAVEFORM,               /* data type */
+           WAVE_FORMAT_8S16,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           4L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           12L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           32L,                             /* bytes/unit of time */
+           3L,                              /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_ADPCM_AVC,              /* data type */
+           ADPCM_AVC_VOICE,                 /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           16128L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           3L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           576L,                            /* bytes/unit of time */
+           300L,                            /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_ADPCM_AVC,              /* data type */
+           ADPCM_AVC_MUSIC,                 /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           32712L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           3L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           1128L,                           /* bytes/unit of time */
+           300L,                            /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_ADPCM_AVC,              /* data type */
+           ADPCM_AVC_STEREO,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           31584L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           3L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           2256L,                           /* bytes/unit of time */
+           300L,                            /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_ADPCM_AVC,              /* data type */
+           ADPCM_AVC_HQ,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           32712L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           3L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           1128L,                           /* bytes/unit of time */
+           150L,                            /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MULAW,                  /* data type */
+           MULAW_8B8KS,                     /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           320L,                            /* bytes/unit of time */
+           60L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MULAW,                  /* data type */
+           MULAW_8B11KS,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           20L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           40L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MULAW,                  /* data type */
+           MULAW_8B22KS,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           20L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MULAW,                  /* data type */
+           MULAW_8B44KS,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           32768L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           10L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MULAW,                  /* data type */
+           MULAW_8B8KM,                     /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           160L,                            /* bytes/unit of time */
+           60L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MULAW,                  /* data type */
+           MULAW_8B11KM,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           20L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           147L,                            /* bytes/unit of time */
+           40L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MULAW,                  /* data type */
+           MULAW_8B22KM,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           147L,                            /* bytes/unit of time */
+           20L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MULAW,                  /* data type */
+           MULAW_8B44KM,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           32768L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           147L,                            /* bytes/unit of time */
+           10L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CT_ADPCM,               /* data type */
+           CT_ADPCM_16B8KS,                  /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           8L,                              /* bytes/unit of time */
+           3L,                              /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CT_ADPCM,               /* data type */
+           CT_ADPCM_16B11KS,                 /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           20L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           11L,                            /* bytes/unit of time */
+           3L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CT_ADPCM,               /* data type */
+           CT_ADPCM_16B22KS,                 /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           22L,                            /* bytes/unit of time */
+           3L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CT_ADPCM,               /* data type */
+           CT_ADPCM_16B44KS,                 /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           32768L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           44L,                            /* bytes/unit of time */
+           3L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CT_ADPCM,               /* data type */
+           CT_ADPCM_16B8KM,                  /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           4L,                            /* bytes/unit of time */
+           3L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CT_ADPCM,               /* data type */
+           CT_ADPCM_16B11KM,                 /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           20L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           11L,                            /* bytes/unit of time */
+           6L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CT_ADPCM,               /* data type */
+           CT_ADPCM_16B22KM,                 /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           11L,                            /* bytes/unit of time */
+           3L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CT_ADPCM,               /* data type */
+           CT_ADPCM_16B44KM,                 /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           32768L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           22L,                            /* bytes/unit of time */
+           3L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_ALAW,                   /* data type */
+           ALAW_8B8KS,                      /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           320L,                            /* bytes/unit of time */
+           60L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_ALAW,                   /* data type */
+           ALAW_8B11KS,                     /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           20L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           40L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_ALAW,                   /* data type */
+           ALAW_8B22KS,                     /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           20L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_ALAW,                   /* data type */
+           ALAW_8B44KS,                     /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           32768L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           10L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_ALAW,                   /* data type */
+           ALAW_8B8KM,                      /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           160L,                            /* bytes/unit of time */
+           60L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_ALAW,                   /* data type */
+           ALAW_8B11KM,                     /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           20L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           147L,                            /* bytes/unit of time */
+           40L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_ALAW,                   /* data type */
+           ALAW_8B22KM,                     /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           147L,                            /* bytes/unit of time */
+           20L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_ALAW,                   /* data type */
+           ALAW_8B44KM,                     /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           32768L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           15L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           147L,                            /* bytes/unit of time */
+           10L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MIDI,                   /* data type */
+           SUBTYPE_NONE,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           1024L,                           /* buffer size, was 4096 */
+           4L,                              /* min # of buffers */
+           6L,                              /* (4) max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           2L,                              /* (3) # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CDXA_AUDIO,             /* data type */
+           CDXA_LEVELB,                     /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records - must be zero */
+           1L,                              /* Block Size */
+           39984L,                          /* buffer size */
+           8L,                              /* min # of buffers, rel1.0=10 */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           7L,                              /* # full buffs to start tgt, rel1.0=8 */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           2304L,                           /* bytes/unit of time */
+           160L,                            /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CDXA_AUDIO,             /* data type */
+           CDXA_LEVELC,                     /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records - must be zero */
+           1L,                              /* Block Size */
+           39984L,                          /* buffer size */
+           8L,                              /* min # of buffers,rel1.0=10 */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           7L,                              /* # full buffs to start tgt, rel1.0=8 */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           2304L,                           /* bytes/unit of time */
+           320L,                            /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CDXA_AUDIO,             /* data type */
+           CDXA_LEVELB_MONO,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           39984L,                          /* buffer size */
+           8L,                              /* min # of buffers, rel1.0=10 */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           7L,                              /* # full buffs to start tgt, rel1.0=8 */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           2304L,                           /* bytes/unit of time */
+           320L,                            /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_CDXA_AUDIO,             /* data type */
+           CDXA_LEVELC_MONO,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           39984L,                          /* buffer size */
+           8L,                              /* min # of buffers, rel1.0=10 */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           7L,                              /* # full buffs to start tgt, rel1.0=8 */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           2304L,                           /* bytes/unit of time */
+           640L,                            /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MPEG1AUDIO,             /* data type */
+           MPEG1_FORMAT_3M16,               /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           40L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           40L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MPEG1AUDIO,             /* data type */
+           MPEG1_FORMAT_3S16,               /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           4L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           30L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           588L,                            /* bytes/unit of time          ??? */
+           40L,                             /* mmtime each unit represents ??? */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MPEG1AUDIO,             /* data type */
+           MPEG1_FORMAT_4M16,               /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           2L,                              /* Block Size */
+           8192L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           40L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           294L,                            /* bytes/unit of time */
+           40L,                             /* mmtime each unit represents */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MPEG1AUDIO,             /* data type */
+           MPEG1_FORMAT_4S16,               /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           4L,                              /* Block Size */
+           16384L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           30L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_MAXSIZE,                 /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           0L,                              /* sync tolerance value */
+           200L,                            /* save sync pulse generation  66.7ms */
+           588L,                            /* bytes/unit of time */
+           40L,                             /* mmtime each unit represents */
+
+
+  END
+
+RCDATA   SPI_RESOURCE6
+  BEGIN
+     "MIDISYS\0",                     /* class name */
+        "MISH\0",                        /* Handler name */
+        SH_DLL_TYPE,                     /* PDD or DLL flag */
+        "MISH\0",                        /* PDD or DLL name */
+        1,                               /* number of SPCB's */
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_MIDI,                   /* data type */
+           SUBTYPE_NONE,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           1024L,                           /* buffer size, was 4096 */
+           3L,                              /* min # of buffers */
+           3L,                              /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_NONCONTIGUOUS_FIXEDBUF,  /* buffer flag */
+           SPCBHAND_NOSYNC,                 /* Handler flag */
+           0L,                              /* sync tolerance value */
+           30L,                             /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L                               /* mmtime each unit represents (VARIABLE) */
+  END
+
+RCDATA   SPI_RESOURCE7
+  BEGIN
+     "NULLSYS\0",                     /* class name */
+        "NULLSH\0",                      /* Handler name */
+        SH_DLL_TYPE,                     /* PDD or DLL flag */
+        "NULLSH\0",                      /* PDD or DLL name */
+        1,                               /* number of SPCB's */
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_NULL,                   /* data type */
+           SUBTYPE_NONE,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           4096L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           2L,                              /* # full buffs to start tgt */
+           SPCBBUF_NONCONTIGUOUS,           /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_NONSTREAM, /* Handler flag */
+           3000L,                           /* sync tolerance value */
+           3000L,                           /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L                               /* mmtime each unit represents (VARIABLE) */
+  END
+
+RCDATA   SPI_RESOURCE8
+  BEGIN
+     "VIDEOSYS\0",                          /* class name */
+        "SVSH\0",                           /* Handler name */
+        SH_DLL_TYPE,                        /* PDD or DLL flag */
+        "SVSH\0",                           /* PDD or DLL name */
+        7,                                  /* number of SPCB's */
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_PHOTOM,                 /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           65536L;                          /* buffer size */
+           6L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_NONCONTIGUOUS,           /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           300L,                            /* sync tolerance value */
+           300L,                            /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_ULTIM,                  /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           131072L,                         /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_NONCONTIGUOUS,           /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           600L,                            /* sync tolerance value */
+           600L,                            /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_AVI,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           131072L,                         /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_NONCONTIGUOUS,           /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           600L,                            /* sync tolerance value */
+           600L,                            /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_MONITOR,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           4096L,                           /* buffer size */
+           2L,                              /* min # of buffers */
+           2L,                              /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_NONCONTIGUOUS,           /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           600L,                            /* sync tolerance value */
+           600L,                            /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_GENERIC,                /* data type */
+           SUBTYPE_NONE,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           65536L;                          /* buffer size */
+           5L,                              /* min # of buffers */
+           14L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           8L,                              /* # full buffs to start tgt */
+           SPCBBUF_NONCONTIGUOUS,           /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           600L,                            /* sync tolerance value */
+           600L,                            /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_FLC,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */    //@LP13472
+           192512L,                         /* buffer size */
+           1L,                              /* min # of buffers */ //@LP13473
+           5L,                              /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           5L,                              /* # full buffs to start tgt */
+           SPCBBUF_NONCONTIGUOUS,           /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           600L,                            /* sync tolerance value */
+           600L,                            /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_MPEG,                   /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           131072L,                         /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           6L,                              /* # full buffs to start tgt */
+           SPCBBUF_NONCONTIGUOUS,           /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME, /* Handler flag */
+           600L,                            /* sync tolerance value */
+           600L,                            /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+  END
+
+RCDATA   SPI_RESOURCE9
+  BEGIN
+     "MULTISYS\0",                          /* class name */
+        "MTSH\0",                           /* Handler name */
+        SH_DLL_TYPE,                        /* PDD or DLL flag */
+        "MTSH\0",                           /* PDD or DLL name */
+        6,                                  /* number of SPCB's */
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_PHOTOM,                 /* sub type */
+           0L,                              /* internal key */
+           0L,                              /* data flag */
+           32L,                             /* # of records */
+           1L,                              /* Block Size */
+           65536L,                          /* buffer size */
+           6L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           7L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED_FIXEDBLOCK   /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           0L,                              /* sync tolerance value */
+           0L,                              /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_ULTIM,                  /* sub type */
+           0L,                              /* internal key */
+           0L,                              /* data flag */
+           55L,                             /* # of records */
+           1L,                              /* Block Size */
+           131072L,                         /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           7L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED_FIXEDBLOCK   /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           0L,                              /* sync tolerance value */
+           0L,                              /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_AVI,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_YIELDTIME,              /* data flag */
+           55L,                             /* # of records */
+           32768L,                          /* Block Size */
+           131072L,                         /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           7L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED_FIXEDBLOCK   /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           0L,                              /* sync tolerance value */
+           0L,                              /* save sync pulse generation */
+           100L,                            /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_GENERIC,                /* data type */
+           SUBTYPE_NONE,                    /* sub type, Filesystem - default if nothing else */
+           0L,                              /* internal key */
+           SPCBDATA_YIELDTIME,              /* data flag */
+           55L,                             /* # of records */
+           32768L,                          /* Block Size */
+           131072L,                         /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           7L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED_FIXEDBLOCK   /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           0L,                              /* sync tolerance value */
+           0L,                              /* save sync pulse generation */
+           100L,                            /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_FLC,                    /* sub type */
+           0L,                              /* internal key */
+           0L,                              /* data flag */
+           55L,                             /* # of records */  //@LP13472
+           192512L,                         /* Block Size */
+           192512L                          /* buffer size */
+           1L,                              /* min # of buffers */  //@LP13472
+           5L,                              /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           5L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED_FIXEDBLOCK,  /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           0L,                              /* sync tolerance value */
+           0L,                              /* save sync pulse generation */
+           100L,                            /* bytes/unit of time (VARIABLE) */ //@LP13472
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_MPEG,                   /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_YIELDTIME,              /* data flag */
+           55L,                             /* # of records */
+           32768L,                          /* Block Size */
+           131072L,                         /* buffer size */
+           3L,                              /* min # of buffers */
+           10L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           7L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED_FIXEDBLOCK   /* buffer flag */
+           SPCBHAND_NOSYNC_PHYSSEEK,        /* Handler flag */
+           0L,                              /* sync tolerance value */
+           0L,                              /* save sync pulse generation */
+           100L,                            /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+  END
+
+RCDATA   SPI_RESOURCE10
+  BEGIN
+     "VIDCPSYS\0",                       /* class name */
+        "VICAPSH$\0",                    /* Handler name */
+        SH_PDD_TYPE,                     /* PDD or DLL flag */
+        "VCSHDD.SYS\0",                  /* PDD or DLL name */
+        3,                                  /* number of SPCB's */
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_AVI,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           10L,                             /* # of records */
+           1L,                              /* Block Size */
+           4096L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           18L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED_FIXEDBLOCK   /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME_NOPREROLL, /* Handler flag */
+           300L,                            /* sync tolerance value */
+           300L,                            /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_MONITOR,                /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           10L,                             /* # of records */
+           1L,                              /* Block Size */
+           4096L,                           /* buffer size */
+           2L,                              /* min # of buffers */
+           2L,                              /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED_FIXEDBLOCK   /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME_NOPREROLL, /* Handler flag */
+           300L,                            /* sync tolerance value */
+           300L,                            /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_GENERIC,                /* data type */
+           SUBTYPE_NONE,                    /* sub type */
+           0L,                              /* internal key */
+           SPCBDATA_CUETIME,                /* data flag */
+           10L,                             /* # of records */
+           1L,                              /* Block Size */
+           4096L,                           /* buffer size */
+           3L,                              /* min # of buffers */
+           18L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           SPCBBUF_INTERLEAVED_FIXEDBLOCK   /* buffer flag */
+           SPCBHAND_RCVSYNC_GENSYNC_GENTIME_NOPREROLL, /* Handler flag */
+           300L,                            /* sync tolerance value */
+           300L,                            /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L                               /* mmtime each unit represents (VARIABLE) */
+  END
+
+RCDATA   SPI_RESOURCE11
+  BEGIN
+     "CODECSYS\0",                       /* class name */
+        "CODECSH\0",                    /* Handler name */
+        SH_DLL_TYPE,                        /* PDD or DLL flag */
+        "CODECSH\0",                        /* PDD or DLL name */
+        2,                                  /* number of SPCB's */
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_DIGVIDEO,               /* data type */
+           DIGVIDEO_AVI,                    /* sub type */
+           0L,                              /* internal key */
+           0L,                              /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           32768L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           0L,                              /* buffer flag */
+           SPCBHAND_NOSYNC_NOPREROLL,       /* Handler flag */
+           300L,                            /* sync tolerance value */
+           300L,                            /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L,                              /* mmtime each unit represents (VARIABLE) */
+
+           SPCBSIZE,                        /* length of SPCB */
+           DATATYPE_GENERIC,                /* data type */
+           SUBTYPE_NONE,                    /* sub type */
+           0L,                              /* internal key */
+           0L,                              /* data flag */
+           0L,                              /* # of records */
+           1L,                              /* Block Size */
+           32768L,                          /* buffer size */
+           3L,                              /* min # of buffers */
+           16L,                             /* max # of buffers */
+           1L,                              /* # empty buffs to start src */
+           1L,                              /* # full buffs to start tgt */
+           0L,                              /* buffer flag */
+           SPCBHAND_NOSYNC_NOPREROLL,       /* Handler flag */
+           300L,                            /* sync tolerance value */
+           300L,                            /* save sync pulse generation */
+           0L,                              /* bytes/unit of time (VARIABLE) */
+           0L                               /* mmtime each unit represents (VARIABLE) */
+  END

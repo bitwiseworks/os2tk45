@@ -1,0 +1,75 @@
+
+//  Module Header
+//
+//  Module Name: WPPTR
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpptr_idl
+#define wpptr_idl
+
+#include "wpdataf.idl"
+#include <somcls.idl>
+
+interface M_WPPointer;
+
+interface WPPointer : WPDataFile
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpptr;
+    local;
+    externalprefix = ptr_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpptr;
+    metaclass = M_WPPointer;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+    wpQueryIcon: override;
+    wpFormatDragItem: override;
+    wpQueryHandleFromContents: override;  
+    wpSetContentsFromHandle:   override;  
+    wpSetupOnce: override;
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPPointer : M_WPDataFile
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpptr;
+    local;
+    externalprefix = ptrM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpptr;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+    wpclsQueryInstanceFilter: override;
+    wpclsQueryInstanceType: override;
+    wpclsInitData: override;
+    wpclsQueryTitle: override;
+    wpclsQueryDefaultHelp: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpptr_idl */

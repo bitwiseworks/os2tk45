@@ -1,0 +1,10 @@
+;+------------------------------------------------------------------------
+;| CLOCK.DEF FILE.
+;+------------------------------------------------------------------------
+
+NAME            CLOCK                WINDOWAPI
+
+DESCRIPTION     'CLOCK MMPM/2 SAMPLE PROGRAM'
+HEAPSIZE        36000
+STACKSIZE       36000
+EXPORTS         MainDialogProc

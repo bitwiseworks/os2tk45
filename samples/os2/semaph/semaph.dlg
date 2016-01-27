@@ -1,0 +1,36 @@
+DLGINCLUDE 1 "SEMAPH.H"
+
+DLGTEMPLATE IDD_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Product Information", IDD_PRODUCTINFO, 8, -43, 276, 137,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    {
+        CONTROL         IDR_RESOURCE, IDR_RESOURCE,  111, 71,   21, 21,
+                            WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT           "(C) Copyright IBM Corporation 1992. All Rights rese"
+                        "rved.",              256,  7, 54, 255,  8
+        CTEXT           "International Business Machines Corp.",
+                                              257,  7, 34, 255,  8
+        CTEXT           "OS/2 is a registered trademark of",
+                                              258,  7, 44, 255,  8
+        DEFPUSHBUTTON   "~OK", DID_OK,            111,  8,  45, 15
+    }
+}
+
+DLGTEMPLATE TIMERBOX LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "SEMAPH TIMER", TIMERBOX, 11, 29, 208, 89,
+                FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR | FCF_SYSMENU
+
+    {
+        LTEXT          "Enter minimum interval for posting", 65535,
+                                           13, 78, 184, 8, NOT WS_GROUP
+        LTEXT          "event semaphore (in msecs.)", 65535, 13, 68, 178, 8,
+                         NOT WS_GROUP
+        ENTRYFIELD     "", IDD_ENTRY,        157, 68, 34,  7,
+                          NOT ES_AUTOSCROLL | ES_MARGIN | WS_GROUP | WS_TABSTOP
+        DEFPUSHBUTTON  "~OK", DID_OK,           47, 19, 40, 15,
+                          WS_GROUP | WS_TABSTOP
+        PUSHBUTTON      "~Cancel", DID_CANCEL, 123, 19, 40, 15
+    }
+}

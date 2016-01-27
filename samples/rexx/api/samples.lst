@@ -1,0 +1,16 @@
+Samples included in this release of the Toolkit:
+
+CALLREXX  This program demonstrates how to call the REXX intrepreter.
+
+DEVINFO   This program shows how to use the variable pool interface REXX
+          provides.
+
+PMREXX    This program illustrates how to interface REXX code with
+          the Presentation Manager.
+
+REXXCALC  A Presentation Manager calculator application that is available
+          for use and illustrates steps in developing enhanced applications.
+
+REXXUTIL  A set of REXX utility functions that are available for use.
+
+RXMACDLL  A set of external REXX macros available for use.

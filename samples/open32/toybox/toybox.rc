@@ -1,0 +1,78 @@
+/*************************************************************************
+* ToyBox Demo Program resource file.									
+* 
+* Note: The BMP files used by this program are named using the
+*       convention BALLx-y.BMP, with the 'x' character indicating which
+*       'group' of objects the bitmap is used with, while the 'y' 
+*		character indicates which animation 'frame' of the 'group' the
+*		object belongs is.
+*
+* 08/08/95 - Original Version, Dan Mendrala, IBM Corporation, 1995.
+*		
+*************************************************************************/
+
+#include "toybox.h"
+
+ToyIcon ICON ToyBox.ICO
+
+BallR1 BITMAP "BALL1_1.BMP"
+BallR2 BITMAP "BALL1_2.BMP"
+BallR3 BITMAP "BALL1_3.BMP"
+BallR4 BITMAP "BALL1_4.BMP"
+BallR5 BITMAP "BALL1_5.BMP"
+BallR6 BITMAP "BALL1_6.BMP"
+
+BallB1 BITMAP "BALL2_1.BMP"
+BallB2 BITMAP "BALL2_2.BMP"
+BallB3 BITMAP "BALL2_3.BMP"
+BallB4 BITMAP "BALL2_4.BMP"
+
+BallY1 BITMAP "BALL3_1.BMP"
+BallY2 BITMAP "BALL3_2.BMP"
+BallY3 BITMAP "BALL3_3.BMP"
+BallY4 BITMAP "BALL3_4.BMP"
+BallY5 BITMAP "BALL3_3.BMP"
+BallY6 BITMAP "BALL3_2.BMP"
+
+BallG1 BITMAP "BALL4_1.BMP"
+BallG2 BITMAP "BALL4_2.BMP"
+BallG3 BITMAP "BALL4_3.BMP"
+BallG4 BITMAP "BALL4_4.BMP"
+BallG5 BITMAP "BALL4_5.BMP"
+BallG6 BITMAP "BALL4_6.BMP"
+
+BallL1 BITMAP "BALL5_1.BMP"
+BallL2 BITMAP "BALL5_2.BMP"
+BallL3 BITMAP "BALL5_3.BMP"
+BallL4 BITMAP "BALL5_4.BMP"
+
+BallP1 BITMAP "BALL6_1.BMP"
+BallP2 BITMAP "BALL6_2.BMP"
+BallP3 BITMAP "BALL6_3.BMP"
+BallP4 BITMAP "BALL6_4.BMP"
+
+ToyMenu MENU 
+
+BEGIN
+ POPUP "Main"
+ BEGIN
+  MENUITEM "Start", 			IDM_START
+  MENUITEM "Stop",				IDM_STOP
+  MENUITEM "Ma&Ximum Toys", 	IDM_MAXOBJ
+  MENUITEM "Mi&Nimum Toys", 	IDM_MINOBJ
+  MENUITEM SEPARATOR
+  MENUITEM "&Quit",				IDM_QUIT
+ END
+
+ MENUITEM "&Add Toy",			IDM_ADDOBJ
+ MENUITEM "&Delete Toy",		IDM_DELOBJ
+ MENUITEM "&Step Toys",			IDM_STEP
+
+ POPUP "Help"
+ BEGIN
+  MENUITEM "General Help",      IDM_HELP
+  MENUITEM "About ToyBox",		IDM_ABOUT
+ END
+
+END
+

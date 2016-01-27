@@ -1,0 +1,169 @@
+/*************************************************************************
++
+ * File Name    :  caption.rc
+ *
+ * Description  : This is the resource file for the Caption Creation
+ *                Utility sample program.
+ *
+ * Copyright (C) IBM 1993
+ *************************************************************************/
+#define  INCL_WIN
+#define  INCL_PM
+#define  INCL_DOS
+#define  INCL_WINMENUS
+
+#include <os2.h>
+#define INCL_CIRCULARSLIDER
+#define INCL_GRAPHICBUTTON
+#include <sw.h>
+#include "caption.h"
+
+#define ID_BMP_STOP      1201
+#define ID_BMP_PAUSE     1202
+#define ID_BMP_PAUSED    1203
+#define ID_BMP_PLAY0     1204
+#define ID_BMP_PLAY1     1205
+#define ID_BMP_PLAY2     1206
+#define ID_BMP_PLAY3     1207
+#define ID_BMP_PLAY4     1208
+#define ID_BMP_NEXTLINE  1209
+#define ID_BMP_NEXTBUSY  1210
+#define ID_BMP_REWIND    1211
+#define ID_BMP_PRODINFO  1212
+
+ICON    ID_MAIN_DLG caption.ico
+
+BITMAP  ID_BMP_STOP     LOADONCALL MOVEABLE DISCARDABLE STOP.BMP
+BITMAP  ID_BMP_PAUSE    LOADONCALL MOVEABLE DISCARDABLE PAUSE.BMP
+BITMAP  ID_BMP_PAUSED   LOADONCALL MOVEABLE DISCARDABLE PAUSED.BMP
+BITMAP  ID_BMP_PLAY0    LOADONCALL MOVEABLE DISCARDABLE PLAY0.BMP
+BITMAP  ID_BMP_PLAY1    LOADONCALL MOVEABLE DISCARDABLE PLAY1.BMP
+BITMAP  ID_BMP_PLAY2    LOADONCALL MOVEABLE DISCARDABLE PLAY2.BMP
+BITMAP  ID_BMP_PLAY3    LOADONCALL MOVEABLE DISCARDABLE PLAY3.BMP
+BITMAP  ID_BMP_PLAY4    LOADONCALL MOVEABLE DISCARDABLE PLAY4.BMP
+BITMAP  ID_BMP_NEXTLINE LOADONCALL MOVEABLE DISCARDABLE NEXTLINE.BMP
+BITMAP  ID_BMP_NEXTBUSY LOADONCALL MOVEABLE DISCARDABLE NEXTBUSY.BMP
+BITMAP  ID_BMP_REWIND   LOADONCALL MOVEABLE DISCARDABLE REWIND.BMP
+
+STRINGTABLE
+BEGIN
+  STRID_OPEN_AUDIO,          "Open audio file"
+  STRID_OPEN_TEXT,           "Open text file"
+  STRID_SAVEAS_TITLE,        "Save caption file"
+  STRID_SAVEAS_BUTTON,       "Save as"
+  STRID_HELP_TITLE,          "Help for Caption Creation Utility"
+  STRID_DEFAULT_MAIN_TITLE,  "Caption Creation Utility"
+  STRID_DEFAULT_SIZE,        "~Default size"
+  STRID_HELP_LIBRARY_NAME,   "caption.hlp"
+  STRID_AUDIO_POS_SECONDS,   "Audio position (seconds)"
+  STRID_AUDIO_POS_MINUTES,   "Audio position (mm:ss)"
+  STRID_UNKNOWN_ERROR,       "Error not found by mciGetErrorString"
+  STRID_ERROR_MESSAGE_TITLE, "Caption Creation Utility Error"
+  STRID_GENERIC_DOS_ERROR,   "Unknown DOS error"
+  STRID_OPEN_CAPTION,        "Open Caption file"
+  STRID_AUDIOFILE_EXTENTION  "*.WAV"
+  STRID_FIRSTLINE_OF_CCFILE  "CC_FILE"
+  STRID_CAPTION_FILE_NAME    "Caption : "
+  STRID_TEXT_FILE_NAME       "Text      : "
+  STRID_AUDIO_FILE_NAME      "Audio    : "
+  STRID_NONE_FILE_NAME       "[none]"
+  STRID_TRUNCATE_WARNING,    "One or more lines truncated"
+  STRID_UNEXPECTED_EOF,      "Unexpected end-of-file"
+
+  STRID_HELP_CREATION_FAILED,
+  "Creation of Help failed.  Help will not be available."
+
+  STRID_SAVECHANGES_MESSAGE,
+  "Changes have been made to the caption timing.  Do you want to "
+  "save these changes?"
+
+  STRID_UNTIMED_MESSAGE,
+  "Some lines have not been timed.\rDo you still want to save?"
+
+  STRID_OVERWRITE_QUERY,
+  "A file with this name already exists.  Select 'Ok' to overwrite the file,"
+  " or select 'Cancel' to reenter the file name."
+
+  STRID_TEXT_FILE_FORMAT,
+  "The specified file is in an unsupported file format.  Please verify "
+  "that the correct file was specified, and that the file is in the proper "
+  "format, and retry."
+
+  STRID_TOO_MANY_LINES,
+  "The text file has too many lines to be processed by the Caption Creation "
+  "Utility.  Please specify a file with a length of 500 lines or less, and "
+  "retry."
+
+  STRID_DISK_FULL,
+  "The target disk is full.  Please free space on the target disk, or specify "
+  "a different target disk, and retry."
+
+  STRID_CANNOT_FIND_TEXTFILE,
+  "The text file cannot be found.  Please ensure that the text file "
+  "is in the correct directory and retry."
+END
+
+MENU    ID_MAIN_DLG  PRELOAD
+BEGIN
+  SUBMENU "~File",                         IDM_FILE
+  BEGIN
+    SUBMENU  "~Open",                      IDM_OPEN
+    BEGIN
+      MENUITEM "~Audio...\tAlt+a",         IDM_OPEN_AUDIO,    MIS_TEXT
+      MENUITEM "~Text...\tAlt+t",          IDM_OPEN_TEXT,     MIS_TEXT
+      MENUITEM "~Captions...\tAlt+c",      IDM_OPEN_CAPTIONS, MIS_TEXT
+    END
+    MENUITEM "~Save\tAlt+s",               IDM_SAVE,          MIS_TEXT, MIA_DISABLED
+    MENUITEM "Sa~ve as...\tAlt+v",         IDM_SAVEAS,        MIS_TEXT, MIA_DISABLED
+    MENUITEM SEPARATOR
+    MENUITEM "E~xit\tF3",                  IDM_EXITPROG,      MIS_TEXT
+  END
+  SUBMENU "~Options",                      IDM_OPTIONS
+  BEGIN
+    SUBMENU "Caption ~lines",              IDM_LINES
+    BEGIN
+      MENUITEM "~2\tAlt+2",                IDM_2_LINES,       MIS_TEXT, MIA_CHECKED
+      MENUITEM "~3\tAlt+3",                IDM_3_LINES,       MIS_TEXT
+      MENUITEM "~4\tAlt+4",                IDM_4_LINES,       MIS_TEXT
+      MENUITEM "~5\tAlt+5",                IDM_5_LINES,       MIS_TEXT
+      MENUITEM "~6\tAlt+6",                IDM_6_LINES,       MIS_TEXT
+    END
+  END
+  SUBMENU "~Help",                         IDM_HELP
+  BEGIN
+    MENUITEM "Help ~index",                IDM_HELP_INDEX,    MIS_TEXT
+    MENUITEM "~General help",              IDM_GENERAL_HELP,  MIS_TEXT
+    MENUITEM "Help for ~keys",             IDM_KEYS_HELP,     MIS_TEXT
+    MENUITEM "~Using help",                IDM_USING_HELP,    MIS_TEXT
+    MENUITEM SEPARATOR
+    MENUITEM "~Product info",              IDM_PRODUCT_INFO,  MIS_TEXT
+  END
+END
+
+ACCELTABLE ID_MAIN_DLG PRELOAD
+BEGIN
+  "a",   IDM_OPEN_AUDIO,    CHAR,        ALT
+  "A",   IDM_OPEN_AUDIO,    CHAR,        ALT
+  "c",   IDM_OPEN_CAPTIONS, CHAR,        ALT
+  "C",   IDM_OPEN_CAPTIONS, CHAR,        ALT
+  "s",   IDM_SAVE,          CHAR,        ALT
+  "S",   IDM_SAVE,          CHAR,        ALT
+  "t",   IDM_OPEN_TEXT,     CHAR,        ALT
+  "T",   IDM_OPEN_TEXT,     CHAR,        ALT
+  "v",   IDM_SAVEAS,        CHAR,        ALT
+  "V",   IDM_SAVEAS,        CHAR,        ALT
+  "2",   IDM_2_LINES,       CHAR,        ALT
+  "3",   IDM_3_LINES,       CHAR,        ALT
+  "4",   IDM_4_LINES,       CHAR,        ALT
+  "5",   IDM_5_LINES,       CHAR,        ALT
+  "6",   IDM_6_LINES,       CHAR,        ALT
+  VK_F3, IDM_EXITPROG,      VIRTUALKEY
+  VK_F1, IDM_GENERAL_HELP,  VIRTUALKEY
+END
+
+HELPTABLE HELPTABLE_ID  LOADONCALL MOVEABLE DISCARDABLE
+{
+   HELPITEM ID_MAIN_DLG, SUBTABLE_MAIN_DLG, PANEL_OVERVIEW
+}
+
+rcinclude CAPTION.DLG

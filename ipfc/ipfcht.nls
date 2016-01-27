@@ -1,0 +1,21 @@
+REM="Chinese text"
+REM="(C) Copyright IBM Corporation 1989"
+
+NOTE="│╞╡∙: "
+CAUTION="к`╖N: "
+WARNING="─╡зi: "
+OLCHARS=abcdefghijklmnopqrstuvwxyz
+OLCLOSE1=.
+OLCLOSE2=)
+ULITEMID1=o
+ULITEMID2=-
+ULITEMID3=--
+GRAMMAR
+WORDS=0 - 9 + A - Z + a - z
+WORDS=вп - в╕ + в╧ - вш + вщ - гC
+REMOVENL=Б@ - ■■
+EGRAMMAR
+CGRAPHICFONTFACENAME=MINCHO
+CGRAPHICFONTWIDTH=6
+CGRAPHICFONTHEIGHT=12
+

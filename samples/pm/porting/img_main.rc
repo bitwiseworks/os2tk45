@@ -1,0 +1,122 @@
+/**************************************************************************
+ *  File name  :  img_main.rc
+ *
+ *  Description:  This resource file contains the main resource definitions
+ *                for the PM porting sample.
+ *
+ *  Concepts   :  menu items, accelerator table, string table
+ *
+ *  API's      :  [none]
+ *
+ *  Required
+ *    Files    :  OS2.H, IMG_MAIN.H, IMG_DLG.H, IMG_HELP.RC, IMAGE.DLG
+ *
+ *  Copyright (C) 1991 IBM Corporation
+ *
+ *      DISCLAIMER OF WARRANTIES.  The following [enclosed] code is
+ *      sample code created by IBM Corporation. This sample code is not
+ *      part of any standard or IBM product and is provided to you solely
+ *      for  the purpose of assisting you in the development of your
+ *      applications.  The code is provided "AS IS", without
+ *      warranty of any kind.  IBM shall not be liable for any damages
+ *      arising out of your use of the sample code, even if they have been
+ *      advised of the possibility of such damages.                                                    *
+ *************************************************************************/
+#define INCL_WINSTDFILE
+#include <os2.h>
+
+#include  "img_main.h"
+#include  "img_dlg.h"
+
+ICON IDR_MAIN image.ico
+
+MENU IDR_MAIN PRELOAD
+{
+    SUBMENU     "~File",                 IDM_FILE
+    {
+        MENUITEM    "~Open...",          IDM_FILEOPEN
+    }
+
+/*
+ * Application specific menus go here
+ */
+    SUBMENU         "~View",             IDM_VIEW
+    {
+        MENUITEM    "~Detail",           IDM_VIEWDETAIL
+
+        MENUITEM    SEPARATOR
+        SUBMENU     "~Foreground color",  IDM_VIEWFOREGROUNDCOLOR
+        {
+            MENUITEM    "~Black",  IDM_VIEWFORECOLORBLACK
+            MENUITEM    "~White",  IDM_VIEWFORECOLORWHITE
+            MENUITEM    "Bl~ue",   IDM_VIEWFORECOLORBLUE
+            MENUITEM    "~Green",  IDM_VIEWFORECOLORGREEN
+            MENUITEM    "~Yellow", IDM_VIEWFORECOLORYELLOW
+            MENUITEM    "~Red",    IDM_VIEWFORECOLORRED
+        }
+        SUBMENU     "~Background color", IDM_VIEWBACKGROUNDCOLOR
+        {
+            MENUITEM    "~Black",  IDM_VIEWBACKCOLORBLACK
+            MENUITEM    "~White",  IDM_VIEWBACKCOLORWHITE
+            MENUITEM    "Bl~ue",   IDM_VIEWBACKCOLORBLUE
+            MENUITEM    "~Green",  IDM_VIEWBACKCOLORGREEN
+            MENUITEM    "~Yellow", IDM_VIEWBACKCOLORYELLOW
+            MENUITEM    "~Red",    IDM_VIEWBACKCOLORRED
+        }
+        MENUITEM SEPARATOR
+        MENUITEM    "~Save position",    IDM_VIEWSAVEPOSITION
+        MENUITEM    "~Restore position", IDM_VIEWRESTOREPOSITION
+    }
+    SUBMENU         "~Help",             IDM_HELP
+    {
+       /*
+        * allow system to process General Help, Using Help
+        * & Help Index
+        */
+        MENUITEM    "Help ~index...",    IDM_HELPINDEX,    MIS_TEXT
+        MENUITEM    "~General help...", IDM_HELPGENERAL,   MIS_TEXT
+        MENUITEM    "~Using help...", IDM_HELPUSINGHELP
+        MENUITEM SEPARATOR
+        MENUITEM    "~Product information",         IDM_HELPPRODUCTINFO
+    }
+}
+
+
+ACCELTABLE IDR_MAIN PRELOAD
+BEGIN
+    VK_F3, IDM_FILEEXIT, VIRTUALKEY
+END
+
+
+STRINGTABLE  PRELOAD
+BEGIN
+    IDS_APPNAME                 "PM Porting Sample Program"
+    IDS_FILEOPENEXTENSION       "*.IMG"
+    IDS_HELPLIBRARYNAME         "IMAGE.HLP"     /* not to be translated */
+    IDS_OPEN                    "Open"
+    IDS_HELPWINDOWTITLE         "Image Help"
+    IDS_UNTITLED                "Untitled"
+    IDS_TITLEBARSEPARATOR       " - "
+END
+
+MESSAGETABLE
+BEGIN
+    IDMSG_INITFAILED           "Initalization failed."
+    IDMSG_MAINWINCREATEFAILED  "Failed to create main window."
+    IDMSG_CANNOTOPENINPUTFILE  "Cannot open input file."
+    IDMSG_HELPLOADERROR        "Failed to load help manager."
+    IDMSG_CANNOTLOADSTRING     "Failed to load string."
+    IDMSG_OUTOFMEMORY          "Out of memory."
+    IDMSG_LOADERROR            "Error loading Image File."
+    IDMSG_BACKEQFORE           "Foreground color = background color. Is this correct ?"
+    IDMSG_CANNOTRUNFILEOPEN    "Cannot run Open dialog."
+    IDMSG_HELPDISPLAYERROR     "Failed to display help panel."
+    IDMSG_CANNOTLOADEXITLIST   "Cannot load Exit List processor."
+    IDMSG_HELPMANAGERERROR     "Help Manager Error occurred - destroying Help instance."
+    IDMSG_WARNING              "Warning"
+END
+
+/* include dialog templates created by dialog box editor */
+rcinclude img_help.rc
+rcinclude image.dlg
+/***************************  End of img_main.rc *************************/

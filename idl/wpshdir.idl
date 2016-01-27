@@ -1,0 +1,89 @@
+
+//  Module Header
+//
+//  Module Name: WPSHDIR
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpshdir_idl
+#define wpshdir_idl
+
+#include "wpfolder.idl"
+#include <somcls.idl>
+
+interface M_WPSharedDir;
+
+interface WPSharedDir : WPFolder
+{
+  ULONG wpAddResourcePage(in HWND hwndNotebook);
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddResourcePage;
+
+    externalstem = wpshd;
+    local;
+    externalprefix = sha_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpshdir;
+    metaclass = M_WPSharedDir;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+    wpAddSettingsPages: override;
+    wpMenuItemHelpSelected: override;
+    wpMenuItemSelected: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpInitData: override;
+    wpOpen: override;
+    wpPopulate: override;
+    wpAddFolderIncludePage: override;
+    wpAddFile1Page: override;
+    wpAddFile2Page: override;
+    wpAddFile3Page: override;
+    wpAddObjectGeneralPage: override;
+    wpAddObjectGeneralPage2: override;                                          
+    wpFilterMenu: override;                                                     
+    wpModifyMenu: override;                                                     
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPSharedDir : M_WPFolder
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpshd;
+    local;
+    externalprefix = shaM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpshdir;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryTitle: override;
+    wpclsQueryIconData: override;
+    wpclsQueryIconDataN: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryStyle: override;
+    wpclsQueryDefaultView: override;
+    wpclsQuerySettingsPageSize: override; 
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpshdir_idl */

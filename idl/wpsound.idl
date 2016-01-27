@@ -1,0 +1,77 @@
+
+//  Module Header
+//
+//  Module Name: WPSOUND
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpsound_idl
+#define wpsound_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface M_WPSound;
+
+interface WPSound : WPAbstract
+
+{
+  ULONG wpAddSoundWarningBeepPage(in HWND hwndNotebook);
+
+  ULONG wpAddSoundSchemePage(in HWND hwndNotebook);
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddSoundWarningBeepPage,wpAddSoundSchemePage;
+
+    externalstem = WPsou;
+    local;
+    externalprefix = sou_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpsound;
+    metaclass = M_WPSound;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+
+    wpAddSettingsPages: override;
+    wpAddObjectWindowPage: override;
+    wpFilterMenu: override;                                                     
+    somDefaultInit: override;             
+    somDestruct:    override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPSound : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPsou;
+    local;
+    externalprefix = souM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpsound;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpclsQueryTitle: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryStyle: override;
+    wpclsQueryIconData: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpsound_idl */

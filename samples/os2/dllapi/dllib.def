@@ -1,0 +1,16 @@
+;========================================================================
+; DLLIB.DEF - DLL Sample program dynamic linking library definition file
+;========================================================================
+LIBRARY     DLLIB
+
+DESCRIPTION 'DLL Sample application Dynamic Linking library'
+
+PROTMODE
+
+DATA        MULTIPLE READWRITE LOADONCALL
+
+CODE        LOADONCALL
+
+EXPORTS     SearchFile    @1
+            ReadFileProc  @2
+            CalCulProc    @3

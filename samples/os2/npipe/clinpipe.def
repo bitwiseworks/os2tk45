@@ -1,0 +1,12 @@
+;-------------------------------------
+; CLINPIPE.DEF module definition file
+;-------------------------------------
+
+NAME           CLINPIPE  WINDOWAPI
+
+DESCRIPTION    'Client end of Named Pipe program, (c) IBM Corp.'
+PROTMODE
+HEAPSIZE       2048
+STACKSIZE      8192
+EXPORTS        MainWndProc
+               ChildWndProc

@@ -1,0 +1,73 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.13 src/somd/principl.idl, somd, som2.1 4/3/95 13:27:25 [7/30/96 14:45:38]
+
+
+
+
+#ifndef principl_idl
+#define principl_idl
+
+#include <somobj.idl>
+
+
+interface Principal : SOMObject
+
+//   This is a class interface definition which defines the CORBA-defined
+//   Principal object. CORBA defines the Principal object but (at this
+//   time) does not define the interface to this object. The methods for
+//   this object are, therefore, subject to change in future implementations.
+//
+//   The BOA guarantees that for every method invocation it will identify
+//   the principal on whose behalf the request is performed. An object
+//   implementation may request an instance of this class to determine
+//   if a method invocation has been made by someone with the appropriate
+//   authority. An instance of this class is returned when the following
+//   method is invoked on the BOA:
+//
+//     get_principal(in BOA boaobj, in Environment lcl_ev,
+//                   in SOMDObject obj, in Environment req_ev);
+//
+{
+  attribute string userName;
+  // User who made the request.
+
+  attribute string hostName;
+  // Host from which the request was made.
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+    releaseorder: _set_userName, _get_userName,
+                  _set_hostName, _get_hostName;
+
+    // Class Modifiers
+    callstyle = idl;
+    dllname = "somd.dll";
+    majorversion = 1;
+    minorversion = 0;
+
+    // Attribute Modifiers
+    userName : noset;
+    hostName : noset;
+    somDefaultInit : override, init;
+    somDestruct: override;
+
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* principl_idl */

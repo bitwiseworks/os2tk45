@@ -1,0 +1,287 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.7 src/soms/somssock.idl, somu, som2.1 9/1/94 17:46:28 [7/30/96 14:49:46]
+
+
+
+#ifndef somssock_idl
+#define somssock_idl
+
+#include <somobj.idl>
+#include <snglicls.idl>
+
+interface Sockets : SOMObject
+{
+	typedef SOMFOREIGN sockaddr;
+	#pragma modifier sockaddr : impctx="C", struct;
+	typedef SOMFOREIGN iovec;
+	#pragma modifier iovec : impctx="C", struct;
+	typedef SOMFOREIGN msghdr;
+	#pragma modifier msghdr : impctx="C", struct;
+	typedef SOMFOREIGN fd_set;
+	#pragma modifier fd_set : impctx="C", struct;
+	typedef SOMFOREIGN timeval;
+	#pragma modifier timeval : impctx="C", struct;
+	typedef SOMFOREIGN hostent;
+	#pragma modifier hostent : impctx="C", struct;
+	typedef SOMFOREIGN servent;
+	#pragma modifier servent : impctx="C", struct;
+	typedef SOMFOREIGN in_addr;
+	#pragma modifier in_addr : impctx="C", struct;
+
+
+	long somsAccept (in long s, out sockaddr name, out long namelen);
+
+	// Accept a connection request from a client.
+
+
+	long somsBind (in long s, inout sockaddr name, in long namelen);
+
+	// Binds a unique local name to the socket with descriptor s.
+
+
+	long somsConnect (in long s, inout sockaddr name, in long namelen);
+
+	// For streams sockets, attempts to establish a connection between
+	// two sockets.  For datagram sockets, specifies the socket's peer.
+
+
+	hostent *somsGethostbyaddr (in char *addr, in long addrlen, 
+		in long domain);
+
+	// Returns a hostent structure for the host address specified on
+	// the call.
+
+
+	hostent *somsGethostbyname (in string name);
+
+	// Returns a hostent structure for the host name specified on 
+	// the call.
+
+
+	hostent *somsGethostent ();
+
+	// Returns a pointer to the next entry in the hosts file.
+
+
+	unsigned long somsGethostid ();
+
+	// Returns the unique identifier for the current host.
+
+
+	long somsGethostname (in string name, in long namelength);
+
+	// Retrieves the standard host name of the local host.
+
+
+	long somsGetpeername (in long s, out sockaddr name, out long namelen);
+
+	// Gets the name of the peer connected to socket s.
+
+
+	servent *somsGetservbyname (in string name, in string protocol);
+
+	// Retrieves an entry from the /etc/services file using the service
+	// name as a search key.
+
+
+	long somsGetsockname (in long s, out sockaddr name, out long namelen);
+
+	// Stores the current name for the socket specified by the s
+	// parameter into the structure pointed to by the name parameter.
+
+
+	long somsGetsockopt (in long s, in long level, in long optname,
+		in char *optval, out long option);
+
+	// Returns the values of socket options at various protocol levels.
+
+
+	unsigned long somsHtonl (in unsigned long a);
+
+	// Translates an unsigned long integer from host-byte order to
+	// network-byte order.
+
+
+	unsigned short somsHtons (in unsigned short a);
+
+	// Translates an unsigned short integer from host-byte order to
+	// network-byte order.
+
+
+	long somsIoctl (in long s, in long cmd, in char *data, in long length);
+
+	// Controls the operating characteristics of sockets.
+
+
+	unsigned long somsInet_addr (in string cp);
+
+	// Interprets character strings representing numbers expressed in
+	// standard '.' notation and returns numbers suitable for use as
+	// internet addresses.
+
+
+	unsigned long somsInet_lnaof (in in_addr addr);
+
+	// Breaks apart the internet address and returns the local network
+	// address portion.
+
+
+	in_addr somsInet_makeaddr (in unsigned long net, in unsigned long lna);
+
+	// Takes a network number and a local network address and constructs
+	// an internet address.
+
+
+	unsigned long somsInet_netof (in in_addr addr);
+
+	// Returns the network number portion of the given internet address.
+
+
+	unsigned long somsInet_network (in string cp);
+
+	// Interprets character strings representing numbers expressed in
+	// standard '.' notation and returns numbers suitable for use as
+	// network numbers.
+
+
+	string somsInet_ntoa (in in_addr addr);
+
+	// Returns a pointer to a string expressed in the dotted-decimal
+	// notation.
+
+
+	long somsListen (in long s, in long backlog);
+
+	// Creates a connection request queue of length backlog to queue
+	// incoming connection requests, and then waits for incoming
+	// connection requests.
+
+
+	unsigned long somsNtohl (in unsigned long a);
+
+	// Translates an unsigned long integer from network-byte order
+	// to host-byte order.
+
+
+	unsigned short somsNtohs (in unsigned short a);
+
+	// Translates an unsigned short integer from network-byte order
+	// to host-byte order.
+
+
+	long somsReadv (in long s, inout iovec iov, in long iovcnt);
+
+	// Reads data on socket s and stores it in a set of buffers 
+	// described by iov.
+
+
+	long somsRecv (in long s, in char *buf, in long len, in long flags);
+
+	// Receives data on streams socket s and stores it in buf.
+
+
+	long somsRecvfrom (in long s, in char *buf, in long len, 
+		in long flags, out sockaddr name, out long namelen);
+
+	// Receives data on datagram socket s and stores it in buf.
+
+
+	long somsRecvmsg (in long s, inout msghdr msg, in long flags);
+
+	// Receives messages on a socket with descriptor s and stores them
+	// in an array of message headers.
+
+
+	long somsSelect (in long nfds, inout fd_set readfds,
+		inout fd_set writefds, inout fd_set exceptfds, 
+		inout timeval timeout);
+
+	// Monitors activity on a set of different sockets until a timeout
+	// expires, to see if any sockets are ready for reading or writing,
+	// or if an exceptional condition is pending.
+
+
+	long somsSend (in long s, in char *msg, in long len, in long flags);
+
+	// Sends msg on streams socket s.
+
+
+	long somsSendmsg (in long s, inout msghdr msg, in long flags);
+
+	// Sends messages passed in an array of message headers on a socket
+	// with descriptor s.
+
+
+	long somsSendto (in long s, inout char msg, in long len, 
+		in long flags, inout sockaddr to, in long tolen);
+
+	// Sends msg on datagram socket s.
+
+
+	long somsSetsockopt (in long s, in long level, in long optname,
+		in char *optval, in long optlen);
+
+	// Sets options associated with a socket.
+
+
+	long somsShutdown (in long s, in long how);
+
+	// Shuts down all or part of a full-duplex connection.
+
+
+	long somsSocket (in long domain, in long type, in long protocol);
+
+	// Creates an endpoint for communication and returns a socket
+	// descriptor representing the endpoint.
+
+
+	long somsSoclose (in long s);
+
+	// Shuts down socket s and frees resources allocated to the socket.
+
+
+	long somsWritev (in long s, inout iovec iov, in long iovcnt);
+
+	// Writes data on socket s.  The data is gathered from the buffers
+	// described by iov.
+
+	attribute long serrno;
+
+#ifdef __SOMIDL__
+    implementation
+    {
+	releaseorder:somsAccept, somsBind, somsConnect, somsGethostbyaddr,
+		somsGethostbyname, somsGethostent, somsGethostid,
+		somsGethostname, somsGetpeername, somsGetsockname,
+		somsGetsockopt, somsHtonl, somsHtons, somsIoctl,
+		somsInet_addr, somsInet_lnaof, somsInet_makeaddr,
+		somsInet_netof, somsInet_network, somsInet_ntoa,
+		somsListen, somsNtohl, somsNtohs, somsReadv,
+		somsRecv, somsRecvfrom, somsRecvmsg, somsSelect,
+		somsSend, somsSendmsg, somsSendto, somsSetsockopt,
+		somsShutdown, somsSocket, somsSoclose, somsWritev,
+		_set_serrno, _get_serrno, somsGetservbyname;
+
+	//# Class modifiers
+        majorversion = 2;
+        minorversion = 1;
+	callstyle=idl;
+	metaclass = SOMMSingleInstance;
+	dll="soms.dll";
+    };
+#endif /* __SOMIDL__ */
+};
+
+
+#endif  /* somssock_idl */

@@ -1,0 +1,16 @@
+
+/*  The TLKSTRN.SCR change file for MMPM2.INI  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPProgram"
+    WPTitle       = "String Test\nSample"
+    WPSetupString = "EXENAME=$(DEST)MCISTRNG.EXE;PROGTYPE=PM;STARTUPDIR=$(DIR)11;OBJECTID=<MPM2TLK_MCISTRNG>"
+    WPLocation    = "<MMPMTLK>"
+    WPFlags       = 1L
+    )
+
+/* end of TLKSTRN.SCR */

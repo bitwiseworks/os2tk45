@@ -1,0 +1,66 @@
+/*********** HELLO  C Sample Program Resource Script File (.RC) *************
+ *
+ *  The window resources used by an application are defined in a resource
+ *  script file .RC.  This file is compiled by the resource compiler to
+ *  produce an executable-format file.
+ *  The definitions are either statements which define resources or
+ *  references to other files containing resources.
+ *
+ *  In this resource script file:
+ *  ------------------------------------------------------------------------
+ *  Statement:                        References:
+ *  MENU  ID_WINDOW PRELOAD           #include <os2.h>
+ *  ACCELTABLE ID_WINDOW PRELOAD      #include "hello.h"
+ *  STRINGTABLE PRELOAD               ICON ID_WINDOW hello.ico
+ *
+ *  Copyright (C) 1991 IBM Corporation
+ *
+ *      DISCLAIMER OF WARRANTIES.  The following [enclosed] code is
+ *      sample code created by IBM Corporation. This sample code is not
+ *      part of any standard or IBM product and is provided to you solely
+ *      for  the purpose of assisting you in the development of your
+ *      applications.  The code is provided "AS IS", without
+ *      warranty of any kind.  IBM shall not be liable for any damages
+ *      arising out of your use of the sample code, even if they have been
+ *      advised of the possibility of such damages.                                                    *
+ ******************************************************************************/
+
+#include <os2.h>
+#include "hello.h"
+
+ICON    ID_WINDOW hello.ico
+
+MENU    ID_WINDOW PRELOAD
+BEGIN
+  SUBMENU "~Options", ID_OPTIONS
+  BEGIN
+    MENUITEM "Option ~1\tCtrl+A", ID_OPTION1, MIS_TEXT
+    MENUITEM "Option ~2\tCtrl+B", ID_OPTION2, MIS_TEXT
+    MENUITEM "Option ~3\tCtrl+C", ID_OPTION3, MIS_TEXT
+  END
+END
+
+ACCELTABLE ID_WINDOW PRELOAD
+BEGIN
+  "a",   ID_OPTION1,              CONTROL
+  "b",   ID_OPTION2,              CONTROL
+  "c",   ID_OPTION3,              CONTROL
+  "A",   ID_OPTION1,              CONTROL
+  "B",   ID_OPTION2,              CONTROL
+  "C",   ID_OPTION3,              CONTROL
+  "a",   ID_OPTION1,              CONTROL, SHIFT
+  "b",   ID_OPTION2,              CONTROL, SHIFT
+  "c",   ID_OPTION3,              CONTROL, SHIFT
+  "A",   ID_OPTION1,              CONTROL, SHIFT
+  "B",   ID_OPTION2,              CONTROL, SHIFT
+  "C",   ID_OPTION3,              CONTROL, SHIFT
+  VK_F3, ID_EXITPROG, VIRTUALKEY
+END
+
+STRINGTABLE PRELOAD
+BEGIN
+ IDS_HELLO, "Hello"
+ IDS_1,     "--1--    "
+ IDS_2,     "--2--    "
+ IDS_3,     "--3--    "
+END

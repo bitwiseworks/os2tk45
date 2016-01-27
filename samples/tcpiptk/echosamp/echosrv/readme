@@ -1,0 +1,96 @@
+Echosamp consists of two subdirectories, an echo client (echoclnt)
+and an echo server (echosrv), located in \TOOLKIT\SAMPLES\TCPIPTK\ECHOSAMP.
+
+The echosrv directory contains three samples of echo servers:
+
+ECHOSMT.C  - This version of the server is a multithreaded, multiclient
+             TCP/UDP echo server.  It starts a new thread for each
+             TCP connection it accepts.  The main thread is responsible for
+             handling UDP echo requests, issuing the accept() for each new
+             TCP connection, and spinning off a thread to service it.
+
+ECHOSRV.C  - This version of the server is a single threaded, multiclient
+             TCP/UDP echo server.  It services UDP echo requests, TCP echo
+             requests, and requests for new TCP connections all from one
+             thread using select().
+
+
+ECHOSTCP.C - is a single threaded, TCP only echo server.  It services only one
+             TCP echo client at a time.
+
+This program implements the server side of the Echo protocol (RFC 862).  The
+Echo protocol is very simple: whatever the client sends to the server, the
+server will send right back to the client.
+
+This version of the server services UDP echo requests, TCP echo requests, and
+requests for new TCP connections all from one thread using select().
+
+The complete RFC is reproduced below:
+
+
+Network Working Group                                          J. Postel
+Request for Comments: 862                                            ISI
+                                                                May 1983
+
+                             Echo Protocol
+
+This RFC specifies a standard for the ARPA Internet community.  Hosts on
+the ARPA Internet that choose to implement an Echo Protocol are expected
+to adopt and implement this standard.
+
+A very useful debugging and measurement tool is an echo service.  An
+echo service simply sends back to the originating source any data it
+receives.
+
+TCP Based Echo Service
+
+   One echo service is defined as a connection based application on TCP.
+   A server listens for TCP connections on TCP port 7.  Once a
+   connection is established any data received is sent back.  This
+   continues until the calling user terminates the connection.
+
+UDP Based Echo Service
+
+   Another echo service is defined as a datagram based application on
+   UDP.  A server listens for UDP datagrams on UDP port 7.  When a
+   datagram is received, the data from it is sent back in an answering
+   datagram.
+
+
+Following are details on building and executing the echo server samples:
+
+   1. To compile and link the sample programs, type:
+
+        nmake -f vacpp.mak         (to build using the VisualAge C/C++ compiler)
+
+    2. Executing echosmt.exe, echosrv.exe and echostcp.exe
+
+         a. To start the echosmt server, type:
+
+            start echosmt
+
+            An additional session is created and the following
+            messages are displayed:
+
+            TCP socket assigned is 144
+            UDP socket assigned is 145
+
+         b. To start the echosrv server, type:
+
+            start echosrv
+
+            An additional session is created and the following
+            messages are displayed:
+
+            TCP socket assigned is 146
+            UDP socket assigned is 147
+
+         c. To start the echostcp server, type:
+
+            start echostcp
+
+            An additional session is created and the following
+            message is displayed:
+
+            TCP socket assigned is 148
+

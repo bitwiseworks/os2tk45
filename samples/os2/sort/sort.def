@@ -1,0 +1,12 @@
+;-------------------------------------
+; SORT.DEF module definition file
+;-------------------------------------
+
+NAME           SORT   WINDOWAPI
+
+DESCRIPTION    'Sorting Demonstration Program'
+PROTMODE
+HEAPSIZE       8192
+STACKSIZE      16384
+EXPORTS        ClientWndProc
+               EntryFldDlgProc

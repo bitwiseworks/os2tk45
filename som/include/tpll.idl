@@ -1,0 +1,152 @@
+//#  @(#) 2.10 src/somuc/tpll.idl, somuc, som2.1 12/26/95 15:37:11 [7/30/96 14:50:05]
+//
+//   COMPONENT_NAME: somuc
+//
+//   ORIGINS: 82, 81, 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1996,1996  
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//   Copyright © 1988, 1989 Apple Computer, Inc. All rights reserved.
+
+
+/*
+ * CLASS_NAME: somf_TPrimitiveLinkedList
+ *
+ * DESCRIPTION: This class describes a primitive linked list, a sequence on 0
+ *              or more items, with a link from one item to it's following
+ *              item.
+ *
+ */
+#ifndef TPLL_idl
+#define TPLL_idl
+
+#include <somobj.idl>
+
+interface somf_MLinkable;
+
+interface somf_TPrimitiveLinkedList : SOMObject
+{
+  //# friend class TPrimitiveLinkedListIterator;
+
+  unsigned long somfCount();
+
+  // Return the number of objects in this.
+  //#   unsigned long Count() const;
+
+  void somfRemove(in somf_MLinkable aLink);
+
+  // Remove the somf_MLinkable object from the List.
+  //#   void Remove(MLinkable&);
+
+  void somfRemoveAll();
+
+  // Remove all of the objects from this.
+  //#   void RemoveAll();
+
+  somf_MLinkable somfRemoveFirst();
+
+  // Remove the first object in the List.
+  //#   MLinkable* RemoveFirst();
+
+  somf_MLinkable somfRemoveLast();
+
+  // Remove the last object in the List.
+  //#   MLinkable* RemoveLast();
+
+  void somfAddBefore(in somf_MLinkable existing,
+		    in somf_MLinkable obj);
+
+  // Add the obj object into the List before the existing object.
+  //#   void AddBefore(MLinkable& existing, MLinkable* obj);
+
+  void somfAddAfter(in somf_MLinkable existing,
+		   in somf_MLinkable obj);
+
+  // Add the obj object into the List after the existing object.
+  //#   void AddAfter(MLinkable& existing, MLinkable* obj);
+
+  void somfAddFirst(in somf_MLinkable obj);
+
+  // Add the obj object as the first object in the List.
+  //#   void AddFirst(MLinkable* obj);
+
+  void somfAddLast(in somf_MLinkable obj);
+
+  // Add the obj object as the last object in the List.
+  //#   void AddLast(MLinkable* obj);
+
+  somf_MLinkable somfAfter(in somf_MLinkable existingobj);
+
+  // Return the object that comes after the existingobj object in the List.
+  //#   MLinkable* After(const MLinkable&) const;
+
+  somf_MLinkable somfBefore(in somf_MLinkable existingobj);
+
+  // Return the object that comes before the existingobj object in the List.
+  //#   MLinkable* Before(const MLinkable&) const;
+
+  somf_MLinkable somfFirst();
+
+  // Return the first object in the List.
+  //#   MLinkable* First() const;
+
+  somf_MLinkable somfLast();
+
+  // Return the last object in the List.
+  //#   MLinkable* Last() const;
+
+  //#private:
+  //#
+  //#  // Don't allow these operations.
+  //#  TPrimitiveLinkedList(const TPrimitiveLinkedList&);
+  //#  void operator=(const TPrimitiveLinkedList&);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: somfCount,somfRemove,somfRemoveAll,somfRemoveFirst,somfRemoveLast,
+		  somfAddBefore,somfAddAfter,somfAddFirst,somfAddLast,
+		  somfAfter,somfBefore,somfFirst,somfLast;
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = tpll;
+    dllname = "somuc.dll";
+
+
+    passthru C_xh_after =  ""
+""
+"#include <mlink.xh>"
+"";
+
+    passthru C_h_after =  ""
+""
+"#include <mlink.h>"
+"";
+
+    //# Internal Instance Variables
+    somf_MLinkable fSentinel;
+
+    //# Method Modifiers
+    somInit: override;
+    somUninit: override;
+    somfCount: nomodify;
+    somfAfter: nomodify;
+    somfBefore: nomodify;
+    somfFirst: nomodify;
+    somfLast: nomodify;
+
+    //# Data Modifiers
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* TPLL_idl */

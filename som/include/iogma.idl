@@ -1,0 +1,148 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.9 src/somp/iogma.idl, somp, som2.1 12/26/95 16:56:50 [7/30/96 14:46:53]
+
+
+
+#ifndef iogma_idl
+#define iogma_idl
+
+#include <somp.idl>
+#include <somobj.idl>
+#include <somperrd.idl>
+interface SOMPMediaInterfaceAbstract;
+interface SOMPIOGroup;
+interface SOMPPersistentId;
+interface SOMPPersistentObject;
+
+interface SOMPIOGroupMgrAbstract : SOMObject
+
+// This is the abstract class for an IO Group Manager object.  An IO Group
+// Manager is a class which is used by the Persistent Storage Manager
+// (see psm.sc) for storing/restoring persistent objects and groups of
+// persistent objects.
+//
+// An IO Group Manager object is the principle object which knows the
+// stored format of a group of objects stored on some media.  The IO
+// Group Manager does not know how an individual object is formatted.
+// The stored format of an individual object is known only by the
+// encoder/decoder for that object. The encoder/decoder for an object
+// is invoked by the IO Group Manager.
+//
+// There may be many IO Group Managers available in the system. The
+// IO Group Manager which is used to store a given persistent object is
+// determined by the persistent ID (see pid.sc) of that object. The
+// class name of the IO Group Manager is part of the persistent ID.
+
+{
+   void sompNewMediaInterface(in string IOInfo) raises(SOMPError::sompException);
+// Gets a new Media Interface for this IO Group Mgr and prepares it
+// for I/O.  This method must be called prior to calling any of the
+// other methods of this class since other methods rely on the media
+// interface.
+
+   SOMPMediaInterfaceAbstract sompGetMediaInterface();
+// Returns this group's media interface. If sompNewMediaInterface
+// has not been called first, this method returns NULL.
+// This method also returns NULL after (the last) sompFreeMediaInterface.
+
+   void sompFreeMediaInterface();
+// Frees this IOGroup Mgr's media interface.
+
+   SOMPMediaInterfaceAbstract sompInstantiateMediaInterface();
+// Override this if you want to change the MediaInterface
+// this IOGroupMananager uses to write out IO Groups.
+
+   boolean sompWriteGroup(in SOMPPersistentObject thisPo) raises(SOMPError::sompException);
+// Store the object and everything grouped with it or just store
+// the object given. It is the choice of the IO Group Mgr implementor.
+//
+// To store the object and all the others grouped with,
+// invoke _sompGetIOGroup(thisPo) to get the group and then
+// iterate across the group, storing each object. If a group is
+// stored this method must return TRUE.
+// Note:
+// Only objects in the IO Group which have been marked as "dirty"
+// should be stored. (See po.idl for methods to get the state of a
+// persistent object.)
+//
+// If the IO Group Mgr is written to store only the given object,
+// this method must return FALSE.
+//
+
+// OLD INTERFACE...
+// void sompWriteGroup(in SOMPIOGroup thisGroup) raises(SOMPError::sompException);
+
+   SOMPPersistentObject sompReadGroup(in SOMPPersistentId objectID) raises(SOMPError::sompException);
+// At the very least, this method will instantiate the persistent object which
+// is specified by the given objectID and return that object. This method
+// may be implemented to instantiate all the objects stored in the same group
+// as the specified object. It may restore objects and mark them as
+// SOMP_STATE_STABLE, however this is typically accomplished via the
+// sompReadObjectData.
+// The returned object is NULL if an error is encountered and
+// an exception is raised.
+
+// OLD INTERFACE...
+// SOMPIOGroup sompReadGroup(in string IOInfo) raises(SOMPError::sompException);
+// Restores the IO Group with the name given in <IOInfo>.
+// The instance data of the objects in the IO Group is not read.
+// The returned IO Group is NULL if an error is encountered and
+// an exception is raised.
+
+   void sompReadObjectData(in SOMPPersistentObject thisPo) raises(SOMPError::sompException);
+// Read the given persistent object's data from storage.
+
+   boolean sompGroupExists(in string IOInfo);
+// See if the IO Group with the name given in <IOInfo> exists in persistent
+// storage. Returns TRUE if group exists, FALSE otherwise.
+
+   boolean sompObjectInGroup(in SOMPPersistentId objectID) raises(SOMPError::sompException);
+// See if the persisent object specified by <objectID> is in the group.
+// If so, return TRUE, otherwise FALSE.
+
+   boolean sompMediaFormatOk(in string mediaFormatName);
+// Check to see if the given mediaFormatName is supported by this
+// IO Group Manager. If it is, returns TRUE, otherwise returns FALSE.
+
+   void sompDeleteObjectFromGroup(in SOMPPersistentId objectID) raises(SOMPError::sompException);
+// Delete the persisent object specified by <objectID>.
+
+#ifdef __SOMIDL__
+
+implementation
+{
+    callstyle=idl;
+    dllname="somp.dll";
+
+    releaseorder: sompNewMediaInterface, sompGetMediaInterface,
+		  sompFreeMediaInterface, sompInstantiateMediaInterface,
+		  sompWriteGroup, sompReadGroup,
+		  sompReadObjectData, sompGroupExists,
+		  sompObjectInGroup, sompMediaFormatOk,
+		  sompDeleteObjectFromGroup;
+
+// Class Modifiers
+   majorversion = 2;
+   minorversion = 1;
+   filestem = iogma;
+
+// Method Modifiers
+
+};
+#endif /* __SOMIDL__ */
+
+};
+
+
+#endif  /* iogma_idl */

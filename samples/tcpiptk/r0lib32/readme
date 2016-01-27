@@ -1,0 +1,124 @@
+*****************************************************************************
+* NOTE :                                                                    *
+*     The samples of R0LIB are similar to the samples for R0LIB32           *
+*****************************************************************************
+1. include "r0lib.h"
+   include "nerrno.h"
+   These are the include files provided to you.
+
+2. int sock_init(void)
+        returns 0 for success else failure.
+This call is a must. sock_init() should be the first call
+before any other socket call is made. Internally sock_init()
+attaches to INET$ and prepares the library to do socket calls.
+If sock_init() fails, it means that INET$ (sockets.sys) is not
+loaded. Check your config.sys "device=" statement. Or execute
+command "inetver" at os/2 command prompt, it should return you
+TCP/IP version greater than 3.00.
+
+3. The following socket calls are available:
+
+ int sock_init(void);
+ long socket(int, int,int);
+ long bind(int,char far *, int);
+ long connect(int, char far *, int);
+ long listen(int,int);
+ long accept(int, char far *, int far *);
+ long sendto(int, char far *, int, int, char far *, int);
+ long send(int, char far *, int, int);
+ long sendmsg(int, char far *, int);
+ long recvfrom(int, char far *, int, int, char far *, int far *);
+ long recv(int, char far *, int, int);
+ long recvmsg(int, char far *, int);
+ long shutdown(int, int);
+ long setsockopt(int, int, int, char far *, int);
+ long getsockopt(int, int, int, char far *, int far *);
+ long getsockname(int, char far *, int far *);
+ long getpeername(int, char far *, int far *);
+ unsigned long gethostid(void);
+ long soclose(int);
+ long ioctl(int, int, char far *, int);
+ long select(int far *, int, int, int, long);
+
+The only difference between these calls and the ones described in
+tcp/ip programmer's reference is the return value. These calls
+return "long" instead of "int". The reason is to return the errno
+in case of an error condition.
+
+"THE BSD VERSION OF SELECT IS NOT SUPPORTED IN THE R0LIB.LIB."
+
+4. How to interpret error number?
+   For example,
+        long rc;
+        rc = send(...);
+        if(rc < 0) {
+        /* this is the error condition case */
+        /* The rc will be like this: 0xffff0041 */
+        /* separate the two words : low = 0x0041, high=0xffff */
+        /* The errno is 0x0041 --- EHOSTUNREACH ( no route to host) */
+
+        }
+        else {
+        /* This is the number of bytes sent successfully */
+        }
+
+  You can write a small macro to separate the two words and
+return the errno from the return value.
+
+5. Link this r0lib32.lib into your final R0 application and you
+shall be ready to use it.
+
+
+**************************************************************
+
+The FOLLOWING LINES ARE ADDED TO HELP IN TESTINIG R0LIB32.LIB
+
+**************************************************************
+
+To test r0lib32.lib we have to build test.sys (use makefile.sys) and add
+an entry for the device driver in config.sys,copy test.sys in \mptn\protocol,
+reboot the machine so that test.sys is loaded in memory.Now compile testini.c
+(use makefile.ini) and generate testini.exe.Now by running testini.exe
+the function test_server()(in driver.c) will be invoked which acts as a server
+and waits for the client at port no 5000.Compile and run the client
+program(client.c) on any other machine.
+
+1) The client sends 1k of data(all 'a') the server modifies the data
+(changes all 'a' to 'b'),sends the modified data to  the client,the client
+prints the data received from the server.
+
+2) The client sends a string(shiva) to the client using sendmsg() call, the
+server recevies it (by recvmsg() call) and sends another string( ganesha) to
+the client,the client recevies the string and prints it.
+
+3) The function test_server() tests the following calls in internet domain
+   socket(),bind(),listen(),accept(),send(),revc(),sendmsg(),recvmsg(),ioctl(),
+   setsockopt(),getsockopt(),getpeername(),getsockname(),gethostid(),
+   soclose(),shutdown(),sock_init(),
+   Rest of the socket call supported by r0lib32.lib are tested by the
+   function init().
+   Note: test_server() and other fucnction calls in init() are mutually
+   exclusive,i.e if we call test_server() in init() we have to comment rest
+   of the code in init(), else we comment only  test_server();
+
+New function test_server() was added  to driver.c file,this function is invoked
+in the function init() and init() is invoked by calling Dosdevioctl()( in
+testini.c ) with CALL_INIT as one of its parameters.The function init()
+was earlier making all socket calls now it just calls test_server()
+and all the lines are commented.The test_server() can be modified so that
+it can act as a client but we have to take care of sstods coversions when
+ever we are using local variables(pointer),we have to use sstods as we have
+used in test_server() while passing the of local variables(pointer) to any
+function or when assigning a local pointer.
+
+test_server opens a STREAM socket in the internet domain and waits for a
+client at port no 5000.The client program should be run from another machine,
+in the client program the ip address of the server machine which has test.sys
+is to be specified while filling the structure sockaddr_in.To compile the
+client program use makefile.cli.
+
+The client program is ring3 program.In the server program we are trying
+to access the socket calls(i.e socket.sys) through r0lib32,usually we access
+socket call through tcpip32.dll(if 32 bit) or tcpipdll.dll(if 16 bit).Tcpbeui
+uses r0lib.lib.
+

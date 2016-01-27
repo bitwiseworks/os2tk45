@@ -1,0 +1,61 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) somu/sombacls.idl 2.14 9/1/94 17:48:10 [7/30/96 14:49:53]
+
+
+#ifndef sombacls_idl
+#define sombacls_idl
+
+#include <somcls.idl>
+
+interface SOMMBeforeAfter
+			  : SOMClass
+{
+  boolean sommBeforeMethod(in SOMObject object, 
+			in somId methodId, 
+			in va_list ap);
+  // returns one of the following values:
+  //      TRUE  --  continue Before/After processing
+  //      FALSE --  skip to executing the corresponding After method
+  //                (this includes skipping the requested method)
+
+  void sommAfterMethod(in SOMObject object, 
+			in somId methodId, 
+			in somToken returnedvalue, 
+			in va_list ap);
+
+
+#ifdef __SOMIDL__
+
+implementation 
+{
+  releaseorder: sommBeforeMethod,
+		sommAfterMethod;
+
+  //# Class Modifiers
+  majorversion = 2;
+  minorversion = 1;
+  filestem = sombacls;
+  callstyle = idl;
+
+
+  //# Method Modifiers
+  somDefaultInit: override, init;
+  somInitMIClass: override;
+
+};
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* sombacls_idl */

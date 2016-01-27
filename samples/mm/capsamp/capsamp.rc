@@ -1,0 +1,127 @@
+/*************************************************************************
+ * File Name    : CAPSAMP.RC
+ *
+ * Description  : This is the resource file for the Caption sample program
+ *
+ * Copyright (C) IBM 1993
+ *************************************************************************/
+
+#define  INCL_WIN
+#define  INCL_PM
+#define  INCL_WINMENUS
+
+#define  INCL_CIRCULARSLIDER  /* need this for the circular slider control */
+#define  INCL_GRAPHICBUTTON   /* need this for the graphic buttons control */
+#define  INCL_BITMAP
+
+#include <os2.h>
+#include <sw.h>
+
+#include "captions.H"
+#include "capsamp.h"
+
+ICON ID_ICON capsamp.ICO
+
+/*
+ * Bitmap's
+ */
+BITMAP ID_BMP_PLAY0 LOADONCALL MOVEABLE DISCARDABLE PLAY0.BMP
+BITMAP ID_BMP_PLAY1 LOADONCALL MOVEABLE DISCARDABLE PLAY1.BMP
+BITMAP ID_BMP_PLAY2 LOADONCALL MOVEABLE DISCARDABLE PLAY2.BMP
+BITMAP ID_BMP_PLAY3 LOADONCALL MOVEABLE DISCARDABLE PLAY3.BMP
+BITMAP ID_BMP_PLAY4 LOADONCALL MOVEABLE DISCARDABLE PLAY4.BMP
+BITMAP ID_BMP_STOP LOADONCALL MOVEABLE DISCARDABLE STOP.BMP
+BITMAP ID_BMP_PAUSE LOADONCALL MOVEABLE DISCARDABLE PAUSE.BMP
+BITMAP ID_BMP_REWIND LOADONCALL MOVEABLE DISCARDABLE REWIND.BMP
+
+
+MENU IDD_MAIN_WINDOW
+{
+   SUBMENU "~Options",                      IDM_OPTIONS_MENU
+   {
+      MENUITEM  "~Settings...",             IDM_SETTINGS
+   }
+
+   SUBMENU "~Help",                         IDM_HELP_MENU,       MIS_TEXT
+   {
+      MENUITEM  "Help ~Index...",           IDM_HELP_INDEX,      MIS_TEXT
+      MENUITEM  "~General Help...",         IDM_HELP_GENERAL,    MIS_TEXT
+      MENUITEM  "~Using Help...",           IDM_HELP_USING,      MIS_TEXT
+      MENUITEM  "~Keys Help...",            IDM_HELP_KEYS,       MIS_TEXT
+      MENUITEM  SEPARATOR
+      MENUITEM  "~Product Information...",  IDM_HELP_PRODUCTINFO
+   }
+}
+
+
+/*
+ * Help Table Definition.
+ *
+ * The help table definition for the dialog window.
+ */
+
+HELPTABLE ID_AUDIO_HELPTABLE
+{
+   HELPITEM IDD_MAIN_WINDOW,         0,                    0
+   HELPITEM ID_MESSAGEBOX, ID_SUBTABLE_MESSAGEBOX, ID_MESSAGEBOX
+}
+
+HELPSUBTABLE ID_SUBTABLE_MESSAGEBOX
+{
+}
+
+/*
+ * String Table Definition.
+ */
+STRINGTABLE
+{
+  IDS_PROGRAM_TITLE,        "Caption Sample Application"
+  IDS_CAP_SAM_ERROR,        "Caption Sample Application Error"
+  IDS_HELP_WINDOW_TITLE,    "Caption Sample Application Help"
+  IDS_HELP_LIBRARY_NAME,    "capsamp.hlp"
+  IDS_DEFAULTSIZE,          "~Default Size"
+  IDS_WHITE,                "White"
+  IDS_YELLOW,               "Yellow"
+  IDS_GRAY,                 "Gray"
+  IDS_BLUE,                 "Blue"
+  IDS_BLACK,                "Black"
+  IDS_RED,                  "Red"
+  IDS_CENTER,               "Lower Center"
+  IDS_LEFT,                 "Lower Left"
+  IDS_RIGHT,                "Lower Right"
+
+  /*
+   * Messages.
+   */
+  IDS_HELP_CREATION_FAILED,
+  "Creation of Help failed.  Help will not be available."
+
+  IDS_UNKNOWN,
+  "Unknown MCI Error"
+
+  IDS_CANNOT_FIND_AUDIO_FILE,
+  "The audio file cannot be found.  Please ensure that the audio file "
+  "is in the correct directory and retry."
+
+  IDS_UNEXPECTED_EOF,
+  "An unexpected end-of-file marker was encountered.  Please ensure that "
+  "the caption file is not corrupt and retry."
+
+  IDS_INVALID_FILE_FORMAT,
+  "An invalid file format was encountered.  Please ensure that the audio "
+  "and caption file are valid, and retry."
+
+  IDS_TOO_MANY_LINES,
+  "There are too many text lines in the captioned file.  Please ensure that "
+  "the caption file is 500 lines or less, and retry."
+
+  IDS_INVALID_WINDOW_HANDLE,
+  "The caption window cannot be initialized. An invalid main window "
+  "handle given."
+
+  IDS_INVALID_FILE_NAME,
+  "The caption file cannot be found.  Please ensure that the caption file "
+  "is in the correct directory and retry."
+}
+
+rcinclude CAPSAMP.DLG

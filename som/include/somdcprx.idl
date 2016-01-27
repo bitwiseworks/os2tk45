@@ -1,0 +1,141 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.15.2.2 src/somd/somdcprx.idl, somd, som2.1 2/20/95 10:05:56 [7/30/96 14:45:44]
+
+
+// 
+//   This is the class that implements DSOM proxy objects in clients.
+// 
+//   This class is a subclass of SOMDObject.  It inherits the basic behavior
+//   (methods) of a CORBA object reference from that parent class.
+//   Thus, it "is a" SOMDObject.
+// 
+//   This class overrides the usual somDispatch methods with versions
+//   that build a DSOM Request for the invocation and dispatch it, remotely.
+//   It is intended that the implementation of this "generic" proxy class
+//   will be used to derive specific proxy classes via multiple inheritance.
+//   The new dispatch method is inherited from this client proxy class, while
+//   the desired interface--and language bindings--are inherited from the 
+//   target class (but no implementation).
+// 
+//   E.g.,
+//          SOMDClientProxy      Animal
+//                    \           /
+//                     \         / (interface only)
+//                      \       /
+//                   Animal__Proxy
+//
+//   Note that SOMDClientProxy is an instance of SOMDMetaProxy. 
+
+
+#ifndef somdcprx_idl
+#define somdcprx_idl
+
+#include <somdobj.idl>
+
+interface CommBinding;
+interface somdMemoryMgr;
+
+interface SOMDClientProxy : SOMDObject
+{
+
+  // To aid in distribution transparency, the following SOMObject methods
+  // are FORWARDED to the remote object:
+  //     somFree
+  //     somGetClass
+  //     somGetClassName
+  //     somDestruct    (unless the remote connection is no longer valid)
+  //     somDefaultInit (when the proxy has already been initialized)
+  //     all assignment operator and copy constructor methods
+  //        (requires that the "fromObj" parameter also be a proxy
+  //         that refers to an object in the same address space.
+  //
+  // The following additional methods are provided to explicitly direct
+  // method calls to the local proxy or to the remote object.
+
+  void somdTargetFree();
+  // Forwards _somFree method call to the remote target object.
+
+  SOMClass somdTargetGetClass();
+  // Forwards _somGetClass method call to the remote target object.
+
+  string somdTargetGetClassName();
+  // Forwards _somGetClassName method call to the remote target object.
+
+  void somdProxyFree();
+  // Performs _somFree method call on the local proxy object.
+
+  SOMClass somdProxyGetClass();
+  // Performs _somGetClass method call on the local proxy object.
+
+  string somdProxyGetClassName();
+  // Performs _somGetClassName method call on the local proxy object.
+
+  void somdReleaseResources();
+  // Instructs the proxy to free any memory it owns for use by the client.
+
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+
+    releaseorder: somdTargetFree, somdTargetGetClass, 
+		  somdTargetGetClassName,
+		  somdProxyFree, somdProxyGetClass, 
+		  somdProxyGetClassName,
+		  set_binding, get_binding, reset_binding,
+		  _get_ctx_seq, _set_ctx_seq, somdReleaseResources,
+		  _get_memoryMgr;
+
+  
+    //# Class Modifiers
+    callstyle = idl;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+  
+    //# Method Modifiers
+    create_request	: override;
+    create_request_args	: override;
+    is_proxy		: override;
+    release		: override;
+    somDispatch		: override;
+    somDispatchV	: override;
+    somDispatchL	: override;
+    somDispatchD	: override;
+    somDispatchA	: override;
+    somFree		: override;
+    somGetClass		: override;
+    somGetClassName	: override;
+    somDestruct		: override;
+    somDefaultInit	: override;
+    set_binding         : procedure;
+    get_binding         : procedure;
+    reset_binding       : procedure;
+    somDefaultVCopyInit : override;
+    somDefaultConstVCopyInit : override;
+    somDefaultCopyInit  : override;
+    somDefaultConstCopyInit : override;
+    somDefaultAssign    : override;
+    somDefaultConstAssign  : override;
+    somDefaultVAssign   : override;
+    somDefaultConstVAssign : override;
+
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* somdcprx_idl */

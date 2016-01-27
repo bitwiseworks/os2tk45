@@ -1,0 +1,41 @@
+C)   RPC consists of three C programs: RAWX.C, GENESEND.C, and 
+     GENESERV.C (located in \TOOLKIT\SAMPLES\TCPIPTK\RPC).
+
+     RAWX.C provides an example of the RAW Client/Server usage.  
+       Portmapper must be running.  
+     GENESERV.C is a generic server.  It receives an integer or float and 
+       returns them respectively.  Portmapper must be running.  
+     GENESEND.C  sends an integer to the remote host (GENESEND) and
+       receives the integer back at the local host.  Portmapper and Remote 
+       server (GENESEND) must be running.  
+
+     Following are details on building and executing the RPC Samples:
+
+     (1) To Compile and Link the sample program, type:
+
+           nmake  -f rpcsamp.mak
+
+     (2) To start Portmapper, type:
+
+           start portmap
+
+     (3) To start the geneserv.exe server, type:
+
+           start geneserv
+
+     (4) To run genesend.exe, type:
+           
+           genesend hostname integer
+
+         For example,
+
+           genesend charm 1000
+
+     (5) To run rawex.exe, type:
+           
+           rawex integer
+
+         For example,
+
+           rawex 1000
+

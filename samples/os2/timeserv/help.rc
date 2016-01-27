@@ -1,0 +1,130 @@
+/*==============================================================*\
+ *  Help.rc - Sample apps help rc file
+ *      Copyright 1992 IBM Corp.
+ *--------------------------------------------------------------
+ *
+ *  This resource file contains the Help table and subtable
+ *  resources used by the help manager.
+ *
+ *  You should add new tables for each dialog box and new
+ *  for each menu and dialog item you add to your application.
+ *
+\*==============================================================*/
+
+#define  INCL_HELP
+#include <os2.h>
+#include "clock.h"
+#include "help.h"
+#include "res.h"
+
+
+/*--------------------------------------------------------------*\
+ *  Help table definition
+\*--------------------------------------------------------------*/
+HELPTABLE   CLOCK_HELP_TABLE
+BEGIN
+    HELPITEM    IDR_MAIN,       SUBTABLE_MAIN,         PANEL_MAIN
+    HELPITEM    IDD_ABOUTBOX,   SUBTABLE_ABOUTBOXDLG,  PANEL_ABOUTBOXDLG
+    HELPITEM    IDD_ALARM,      SUBTABLE_ALARM,        PANEL_SETTINGSALARM
+    HELPITEM    IDD_TICKS,      SUBTABLE_TICKS,        PANEL_SETTINGSTICKS
+    HELPITEM    IDD_TIME,       SUBTABLE_TIME,         PANEL_SETTINGSDATETIME
+    HELPITEM    TYPEDATE,       SUBTABLE_TYPEDATE,     PANEL_SETTINGSCOLORS
+END
+
+
+/*--------------------------------------------------------------*\
+ *  Main window subtable, includes menu item help
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+BEGIN
+    HELPSUBITEM     IDM_SETTINGS,               PANEL_SETTINGS
+    HELPSUBITEM     IDM_COLORS,                 PANEL_SETTINGSCOLORS
+    HELPSUBITEM     IDM_TICKS,                  PANEL_SETTINGSTICKS
+    HELPSUBITEM     IDM_DATETIME,               PANEL_SETTINGSDATETIME
+    HELPSUBITEM     IDM_ALARM,                  PANEL_SETTINGSALARM
+    HELPSUBITEM     IDM_SECONDHAND,             PANEL_SETTINGSSECONDHAND
+    HELPSUBITEM     IDM_TOGGLECONTROLS,         PANEL_SETTINGSTOGGLECONTROLS
+
+    HELPSUBITEM     IDM_VIEW,                   PANEL_VIEW
+    HELPSUBITEM     IDM_TIME,                   PANEL_VIEWTIME
+    HELPSUBITEM     IDM_DATE,                   PANEL_VIEWDATE
+    HELPSUBITEM     IDM_ANALOG,                 PANEL_VIEWANALOG
+    HELPSUBITEM     IDM_DIGITAL,                PANEL_VIEWDIGITAL
+
+    HELPSUBITEM     IDM_HELP,                   PANEL_HELP
+    HELPSUBITEM     IDM_HELPHELPFORHELP,        PANEL_HELPHELPFORHELP
+    HELPSUBITEM     IDM_HELPKEYS,               PANEL_HELPKEYS
+    HELPSUBITEM     IDM_HELPINDEX,              PANEL_HELPINDEX
+    HELPSUBITEM     IDM_HELPABOUT,              PANEL_HELPABOUT
+END
+
+/*--------------------------------------------------------------*\
+ *  about... dialog help subtable
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_ABOUTBOXDLG
+SUBITEMSIZE     2
+BEGIN
+    HELPSUBITEM     IDC_OK,             PANEL_ABOUTBOX_OK
+END
+
+HELPSUBTABLE SUBTABLE_ALARM
+SUBITEMSIZE     2
+BEGIN
+    HELPSUBITEM     IDC_HOURMINUTES,    PANEL_ALARM_TIME
+
+    HELPSUBITEM     RB_AM,              PANEL_ALARM_AMPM
+    HELPSUBITEM     RB_PM,              PANEL_ALARM_AMPM
+
+    HELPSUBITEM     RB_ALARMON,         PANEL_ALARM_TOGGLE
+    HELPSUBITEM     RB_ALARMOFF,        PANEL_ALARM_TOGGLE
+
+    HELPSUBITEM     IDC_BEEP,           PANEL_ALARM_AUDIBLE
+
+    HELPSUBITEM     IDC_MSG,            PANEL_ALARM_MESSAGE
+END
+
+HELPSUBTABLE SUBTABLE_TICKS
+SUBITEMSIZE     2
+BEGIN
+    HELPSUBITEM     CLKCLR_BACKGROUND,  PANEL_TICKS_MAJOR
+    HELPSUBITEM     CLKCLR_FACE,        PANEL_TICKS_MAJOR
+    HELPSUBITEM     CLKCLR_HOURHAND,    PANEL_TICKS_MAJOR
+
+    HELPSUBITEM     513,                PANEL_TICKS_MINOR
+    HELPSUBITEM     514,                PANEL_TICKS_MINOR
+    HELPSUBITEM     516,                PANEL_TICKS_MINOR
+END
+
+HELPSUBTABLE SUBTABLE_TIME
+SUBITEMSIZE     2
+BEGIN
+    HELPSUBITEM     TIME,               PANEL_SET_TIME
+    HELPSUBITEM     DATE,               PANEL_SET_DATE
+END
+
+HELPSUBTABLE SUBTABLE_TYPEDATE
+SUBITEMSIZE     2
+BEGIN
+    HELPSUBITEM     CLKCLR_BACKGROUND,  PANEL_COLOR_PARTS
+    HELPSUBITEM     CLKCLR_FACE,        PANEL_COLOR_PARTS
+    HELPSUBITEM     CLKCLR_HOURHAND,    PANEL_COLOR_PARTS
+    HELPSUBITEM     CLKCLR_MINUTEHAND,  PANEL_COLOR_PARTS
+
+    HELPSUBITEM     TYPETIME,           PANEL_COLOR_BUTTONS
+    HELPSUBITEM     IDD_ALARM,          PANEL_COLOR_BUTTONS
+    HELPSUBITEM     IDD_TICKS,          PANEL_COLOR_BUTTONS
+    HELPSUBITEM     IDD_ABOUT,          PANEL_COLOR_BUTTONS
+    HELPSUBITEM     DOWNDATE,           PANEL_COLOR_BUTTONS
+    HELPSUBITEM     TYPEDATE,           PANEL_COLOR_BUTTONS
+    HELPSUBITEM     IDM_ADD,            PANEL_COLOR_BUTTONS
+    HELPSUBITEM     UPTIME,             PANEL_COLOR_BUTTONS
+    HELPSUBITEM     IDM_ABOUT,          PANEL_COLOR_BUTTONS
+    HELPSUBITEM     IDM_SELECT,         PANEL_COLOR_BUTTONS
+    HELPSUBITEM     IDM_SET,            PANEL_COLOR_BUTTONS
+    HELPSUBITEM     IDM_CLEAR,          PANEL_COLOR_BUTTONS
+    HELPSUBITEM     IDM_EXIT,           PANEL_COLOR_BUTTONS
+    HELPSUBITEM     IDM_ALARM,          PANEL_COLOR_BUTTONS
+    HELPSUBITEM     IDM_TICKS,          PANEL_COLOR_BUTTONS
+    HELPSUBITEM     DOWNTIME,           PANEL_COLOR_BUTTONS
+END

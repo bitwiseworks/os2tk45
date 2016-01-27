@@ -1,0 +1,43 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) somu/somtrcls.idl 2.11 9/1/94 17:46:53 [7/30/96 14:49:57]
+
+
+#ifndef somtrcls_idl
+#define somtrcls_idl
+
+#include "sombacls.idl"
+interface SOMMTraced : SOMMBeforeAfter
+{
+  attribute boolean sommTraceIsOn;
+
+#ifdef __SOMIDL__
+implementation
+{
+  releaseorder: _set_sommTraceIsOn, _get_sommTraceIsOn;
+
+  //# Class Modifiers
+  filestem = somtrcls;
+  callstyle = idl;
+  majorversion = 2;
+  minorversion = 1;
+
+  //# Method Modifiers
+  somInitMIClass: override;
+  sommBeforeMethod: override;
+  sommAfterMethod: override;
+
+};
+#endif /* __SOMIDL__ */
+};
+#endif  /* somtrcls_idl */

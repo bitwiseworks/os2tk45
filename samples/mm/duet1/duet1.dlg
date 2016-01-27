@@ -1,0 +1,73 @@
+/*************************************************************************
+ * File Name    :  duet1.dlg
+ *
+ * Description  :  This file holds the dialog window used by the Duet
+ *                 Player 1 sample program.
+ *
+ * Concepts     :  See this sample program's C source file.
+ *                 The WS_ANIMATE frame style allows this window to
+ *                 respond to system sounds.
+ *
+ * MMPM/2 API's :  None.
+ *
+ * Required
+ *    Files     :  See this sample program's C source file.
+ *
+ * Copyright (C) IBM 1991, 1992, 1993
+ ***************************************************************************/
+#define  INCL_CIRCULARSLIDER  /* need this for the circular slider control */
+#define  INCL_GRAPHICBUTTON   /* need this for the graphic buttons control */
+
+#include <sw.h>
+
+DLGTEMPLATE ID_DLG_MAIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   DIALOG "",              /* window title will be set explicitly */
+          ID_DLG_MAIN,
+          40, 40,          /* x, y position  */
+          257, 120,        /* width, height  */
+          FS_NOBYTEALIGN | FS_SIZEBORDER | WS_VISIBLE | WS_SAVEBITS | WS_ANIMATE,
+          FCF_SYSMENU | FCF_TITLEBAR | FCF_MINBUTTON | FCF_NOBYTEALIGN |
+          FCF_TASKLIST | FCF_VERTSCROLL | FCF_HORZSCROLL | FCF_ICON
+
+   BEGIN
+      CONTROL "Duet", ID_TEXT_DUET, 9, 105, 30, 8, WC_STATIC,
+                  SS_TEXT | DT_LEFT | DT_TOP | WS_VISIBLE
+
+      CONTROL "", ID_LB_DUET, 9, 28, 100, 72, WC_LISTBOX,
+                  WS_TABSTOP | WS_VISIBLE | WS_GROUP
+
+      CONTROL "", ID_GPB_PLAY, 200, 85, 45, 6, WC_GRAPHICBUTTON,
+                  GBS_ANIMATION | GBS_3D_TEXTRAISED | WS_GROUP |
+                  WS_TABSTOP | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 5,          /* Number of bitmaps */
+                                           ID_BMP_PLAY0,
+                                           ID_BMP_PLAY1,
+                                           ID_BMP_PLAY2,
+                                           ID_BMP_PLAY3,
+                                           ID_BMP_PLAY4
+
+      CONTROL "", ID_GPB_PAUSE, 163, 85, 23, 6, WC_GRAPHICBUTTON,
+                  GBS_3D_TEXTRAISED | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 1, ID_BMP_PAUSE
+
+      CONTROL "", ID_GPB_STOP, 125, 85, 23, 6, WC_GRAPHICBUTTON,
+                  GBS_3D_TEXTRAISED | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 1, ID_BMP_STOP
+
+
+      CONTROL "Volume", ID_TEXT_VOLUME, 165, 70, 36, 8, WC_STATIC,
+                  SS_TEXT | DT_LEFT | DT_TOP | WS_GROUP | WS_VISIBLE
+
+      CONTROL "", ID_SL_VOLUME, 110, 21, 140, 47, WC_CIRCULARSLIDER,
+                  WS_TABSTOP | WS_VISIBLE | CSS_NOTEXT
+
+
+      CONTROL "Cancel", ID_PB_CANCEL, 9, 8, 38, 13, WC_BUTTON,
+                  BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_VISIBLE
+
+      CONTROL "Help", ID_PB_HELP, 54, 8, 38, 13, WC_BUTTON,
+                  BS_PUSHBUTTON | BS_HELP | WS_VISIBLE
+   END
+END
+

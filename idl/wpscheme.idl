@@ -1,0 +1,85 @@
+
+//  Module Header
+//
+//  Module Name: WPSCHEME
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpscheme_idl
+#define wpscheme_idl
+
+#include "wppalet.idl"
+#include <somcls.idl>
+
+interface M_WPSchemePalette;
+
+interface WPSchemePalette : WPPalette
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpsch;
+    local;
+    externalprefix = sch_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpscheme;
+    metaclass = M_WPSchemePalette;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    passthru C_h_after =  ""
+"";
+
+    wpPaintCell: override;
+    wpEditCell: override;
+    wpSetupCell: override;
+    wpDragCell: override;
+    wpQueryPaletteHelp: override;
+    wpSetup: override;
+    wpSetupOnce: override;                                                      
+    wpMenuItemHelpSelected: override;
+    wpSaveCellData: override;                                                   
+    wpRestoreCellData: override;                                                
+    wpFreeCellData: override;                                                   
+    somDefaultInit: override;             
+    somDestruct:    override;             
+    wpSelectCell: override;
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPSchemePalette : M_WPPalette
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpsch;
+    local;
+    externalprefix = schM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpscheme;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpclsQueryEditString: override;
+    wpclsQueryTitle: override;
+    wpclsQueryStyle: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryIconData: override;
+    wpclsCreateDefaultTemplates: override;                                      
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpscheme_idl */

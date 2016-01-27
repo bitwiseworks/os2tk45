@@ -1,0 +1,1399 @@
+
+//  Module Header
+//
+//  Module Name: WPOBJECT
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpobject_idl
+#define wpobject_idl
+
+#include <somobj.idl>
+#include <sombacls.idl>
+
+interface WPFolder;
+interface M_WPObject;
+interface M_WPObject;
+
+#include "wptypes.idl"
+
+interface WPObject : SOMObject
+
+{
+  ULONG wpAddObjectGeneralPage(in HWND hwndNotebook);
+
+  ULONG wpAddObjectGeneralPage2(in HWND hwndNotebook);                          
+
+  ULONG wpAddObjectWindowPage(in HWND hwndNotebook);
+
+  BOOL wpAddSettingsPages(in HWND hwndNotebook);
+
+  BOOL wpAddToObjUseList(in PUSEITEM pUseItem);
+
+  PBYTE wpAllocMem(in ULONG cbBytes,
+                   in PULONG prc);
+
+  BOOL32 wpAppendObject(in WPObject targetObject,
+                        in BOOL32 fMove);
+
+  BOOL wpAssertObjectMutexSem();
+
+  BOOL wpClose();
+
+  PMINIRECORDCORE wpCnrInsertObject(in HWND hwndCnr,
+                                    in PPOINTL pptlIcon,
+                                    in PMINIRECORDCORE preccParent,
+                                    in PRECORDINSERT pRecInsert);
+
+  BOOL wpCnrRemoveObject(in HWND hwndCnr);
+
+  BOOL wpCnrSetEmphasis(in ULONG ulEmphasisAttr,
+                        in BOOL fTurnOn);
+
+  ULONG wpConfirmDelete(in ULONG fConfirmations);
+
+  ULONG wpConfirmObjectTitle(in WPFolder Folder,
+                             inout WPObject ppDuplicate,
+                             in PSZ pszTitle,
+                             in ULONG cbTitle,
+                             in ULONG menuID);
+
+  VOID wpCopiedFromTemplate();
+
+  WPObject wpCopyObject(in WPFolder Folder,
+                        in BOOL fLock);
+
+  WPObject wpCreateAnother(in PSZ pszTitle,
+                           in PSZ pszSetupEnv,
+                           in WPFolder Folder);
+
+  WPObject wpCreateFromTemplate(in WPFolder folder,
+                                in BOOL fLock);
+
+  WPObject wpCreateShadowObject(in WPFolder Folder,
+                                in BOOL fLock);
+
+  ULONG wpDelete(in ULONG fConfirmations);
+
+  BOOL wpDeleteFromObjUseList(in PUSEITEM pUseItem);
+
+  BOOL wpDisplayHelp(in ULONG HelpPanelId,
+                     in PSZ HelpLibrary);
+
+  HWND   wpDisplayMenu(in HWND hwndOwner, in HWND hwndClient,
+                       inout POINTL ptlPopupPt, in ULONG ulMenuType,
+                       in ULONG ulReserved);
+
+  BOOL wpDoesObjectMatch(in PVOID pvoidExtendedCriteria);
+
+  MRESULT wpDraggedOverObject(in WPObject DraggedOverObject);
+
+  MRESULT wpDragOver(in HWND hwndCnr,
+                     in PDRAGINFO pdrgInfo);
+
+  MRESULT wpDrop(in HWND hwndCnr,
+                 in PDRAGINFO pdrgInfo,
+                 in PDRAGITEM pdrgItem);
+
+  BOOL wpDroppedOnObject(in WPObject DroppedOnObject);
+
+  MRESULT wpEndConversation(in ULONG ulItemID,
+                            in ULONG flResult);
+
+  ULONG wpFilterPopupMenu(in ULONG ulFlags,
+                          in HWND hwndCnr,
+                          in BOOL fMultiSelect);
+
+  BOOL  wpFilterMenu(inout FILTERFLAGS  pFlags,
+                     in    HWND         hwndCnr,
+                     in    BOOL         fMultiSelect,
+                     in    ULONG        ulMenuType,
+                     in    ULONG        ulView,
+                     in    ULONG        ulReserved);
+
+  PUSEITEM wpFindUseItem(in ULONG type,
+                         in PUSEITEM pCurrentItem);
+
+  BOOL wpFormatDragItem(in PDRAGITEM pdrgItem);
+
+  BOOL wpFree();
+
+  BOOL wpFreeMem(in PBYTE pByte);
+
+  BOOL wpHide();
+
+  VOID wpInitData();
+
+  BOOL wpInsertPopupMenuItems(in HWND hwndMenu,
+                              in ULONG iPosition,
+                              in HMODULE hmod,
+                              in ULONG MenuID,
+                              in ULONG SubMenuID);
+
+  BOOL wpInsertMenuItems(in HWND hwndMenu,
+                         in ULONG iPosition,
+                         in HMODULE hmod,
+                         in ULONG MenuID,
+                         in ULONG SubMenuID);
+
+  ULONG wpInsertSettingsPage(in HWND hwndNotebook,
+                             in PPAGEINFO ppageinfo);
+
+  BOOL wpMenuItemHelpSelected(in ULONG MenuId);
+
+  BOOL wpMenuItemSelected(in HWND hwndFrame,
+                          in ULONG ulMenuId);
+
+  BOOL wpModifyPopupMenu(in HWND hwndMenu,
+                         in HWND hwndCnr,
+                         in ULONG iPosition);
+
+  BOOL wpModifyMenu(in HWND hwndMenu,
+                    in HWND hwndCnr,
+                    in ULONG iPosition,
+                    in ULONG ulMenuType,
+                    in ULONG ulView,
+                    in ULONG ulReserved);
+
+  BOOL wpMoveObject(in WPFolder Folder);
+
+  HWND wpOpen(in HWND hwndCnr,
+              in ULONG ulView,
+              in ULONG param);
+
+  BOOL wpPrintObject(in PPRINTDEST pPrintDest,
+                     in ULONG ulReserved);
+
+  ULONG wpQueryConcurrentView();
+
+  ULONG wpQueryButtonAppearance();
+
+  ULONG wpQueryConfirmations();
+
+  BOOL wpQueryDefaultHelp(in PULONG pHelpPanelId,
+                          in PSZ HelpLibrary);
+
+  ULONG wpQueryDefaultView();
+
+  ULONG wpQueryDetailsData(inout PVOID ppDetailsData,
+                           in PULONG pcp);
+
+  ULONG wpQueryError();
+
+  BOOL wpSetFolder(in WPObject container);
+
+  WPObject wpQueryFolder();
+
+  HPOINTER wpQueryIcon();
+
+  ULONG wpQueryIconData(in PICONINFO pIconInfo);
+
+  ULONG wpQueryMinWindow();
+
+  ULONG wpQueryNameClashOptions(in ULONG menuID);
+
+  ULONG wpQueryStyle();
+
+  BOOL32 wpSetTaskRec(in PTASKREC pNew,
+                      in PTASKREC pOld);
+
+  PTASKREC wpFindTaskRec();
+
+  PSZ wpQueryTitle();
+
+  BOOL wpRegisterView(in HWND hwndFrame,
+                      in PSZ pszViewTitle);
+
+  ULONG wpReleaseObjectMutexSem();
+
+  MRESULT wpRender(in PDRAGTRANSFER pdxfer);
+
+  MRESULT wpRenderComplete(in PDRAGTRANSFER pdxfer,
+                           in ULONG ulResult);
+
+  BOOL32 wpReplaceObject(in WPObject targetObject,
+                         in BOOL32 fMove);
+
+  ULONG wpRequestObjectMutexSem(in ULONG ulTimeout);
+
+  BOOL wpRestore();
+
+  BOOL wpRestoreData(in PSZ pszClass,
+                     in ULONG ulKey,
+                     in PBYTE pValue,
+                     in PULONG pcbValue);
+
+  BOOL wpRestoreLong(in PSZ pszClass,
+                     in ULONG ulKey,
+                     in PULONG pulValue);
+
+  BOOL wpRestoreState(in ULONG ulReserved);
+
+  BOOL wpRestoreString(in PSZ pszClass,
+                       in ULONG ulKey,
+                       in PSZ pszValue,
+                       in PULONG pcbValue);
+
+  BOOL wpSaveData(in PSZ pszClass,
+                  in ULONG ulKey,
+                  in PBYTE pValue,
+                  in ULONG cbValue);
+
+  BOOL wpSaveImmediate();
+
+  BOOL wpSaveDeferred();
+
+  BOOL wpSaveLong(in PSZ pszClass,
+                  in ULONG ulKey,
+                  in ULONG ulValue);
+
+  BOOL wpSaveState();
+
+  BOOL wpSaveString(in PSZ pszClass,
+                    in ULONG ulKey,
+                    in PSZ pszValue);
+
+  BOOL wpScanSetupString(in PSZ pszSetupString,
+                         in PSZ pszKey,
+                         in PSZ pszValue,
+                         in PULONG pcbValue);
+
+  VOID wpSetConcurrentView(in ULONG ulCCView);
+
+  VOID wpSetButtonAppearance(in ULONG ulButtonType);
+
+  BOOL wpSetDefaultHelp(in ULONG HelpPanelId,
+                        in PSZ HelpLibrary);
+
+  BOOL wpSetDefaultView(in ULONG ulView);
+
+  BOOL wpSetError(in ULONG ulErrorId);
+
+  SGID   wpQueryScreenGroupID( in SGID   sgidPrevSgId );                       
+
+  BOOL   wpSetupOnce (in PSZ pszSetupString);
+
+  BOOL wpSetIcon(in HPOINTER hptrNewIcon);
+
+  BOOL wpSetIconData(in PICONINFO pIconInfo);
+
+  VOID wpSetMinWindow(in ULONG ulMinWindow);
+
+  BOOL wpModifyStyle(in ULONG ulStyleFlags,
+                     in ULONG ulStyleMask);
+
+  BOOL wpSetTitle(in PSZ pszNewTitle);
+
+  BOOL wpSetup(in PSZ pszSetupString);
+
+  BOOL wpSwitchTo(in ULONG View);
+
+  VOID wpUnInitData();
+
+  HWND wpViewObject(in HWND hwndCnr,
+                    in ULONG ulView,
+                    in ULONG param);
+
+  ULONG wpQueryTrueStyle();
+
+  HOBJECT wpQueryHandle();
+
+  BOOL wpUnlockObject();
+
+   VOID wpObjectReady( in ULONG ulCode, in WPObject refObject );
+
+   BOOL wpIsObjectInitialized();
+
+   WPObject wpCreateShadowObjectExt( in WPFolder Folder, in BOOL fLock,
+                                     in PSZ pszSetup, in M_WPObject shadowClass );
+
+  BOOL wpCnrDeleteUseItem(in HWND hwndCnr);
+
+  BOOL wpIsDeleteable();
+
+  PMINIRECORDCORE wpQueryCoreRecord();
+
+  BOOL wpSetObjectID(in PSZ pszObjectID);
+
+  PSZ wpQueryObjectID();
+
+  BOOL wpSetDefaultIconPos(in PPOINTL pPointl);
+
+  BOOL wpQueryDefaultIconPos(in PPOINTL pPointl);
+
+  VOID wpCnrRefreshDetails();
+
+  PVIEWITEM wpFindViewItem(in ULONG flViews,
+                           in PVIEWITEM pCurrentItem);
+
+  VOID wpLockObject();
+
+  BOOL wpIsLocked();
+
+  PULONG wpQueryContainerFlagPtr();
+
+  ULONG wpWaitForClose(in LHANDLE lhView,
+                       in ULONG ulViews,
+                       in LONG lTimeOut,
+                       in BOOL bAutoClose);
+
+  BOOL wpSetMenuStyle(in ULONG ulStyle);
+
+ULONG wpQueryMenuStyle();
+
+  BOOL wpIdentify(in PSZ pszIdentity);
+
+  BOOL wpSetStyle(in ULONG ulNewStyle);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpSetTitle,wpQueryTitle,
+                  wpSetStyle,
+                  wpQueryStyle,wpSetIcon,
+                  wpQueryIcon,wpSetFolder,wpQueryFolder,
+                  wpObjectPrivate1,
+                  wpObjectPrivate2,
+                  wpSetDefaultView,wpQueryDefaultView,
+                  wpObjectPrivate3,
+                  wpSaveState,
+                  wpObjectPrivate4,
+                  wpObjectPrivate5,
+                  wpSaveLong,wpSaveString,wpSaveData,
+                  wpObjectPrivate6,
+                  wpRestoreState,
+                  wpObjectPrivate7,
+                  wpObjectPrivate8,
+                  wpRestoreLong,
+                  wpRestoreString,wpRestoreData,
+                  wpObjectPrivate9,
+                  wpAllocMem,wpFreeMem,wpAddToObjUseList,wpDeleteFromObjUseList,
+                  wpFindUseItem,wpSwitchTo,withdrawn1,wpFilterPopupMenu,
+                  wpModifyPopupMenu,wpMenuItemSelected,wpFormatDragItem,
+                  wpDrop,wpDragOver,wpRender,wpEndConversation,withdrawn10,
+                  wpObjectPrivate10,
+                  wpObjectPrivate11,
+                  wpFree,wpCopiedFromTemplate,
+                  wpAddSettingsPages,wpAddObjectGeneralPage,wpDisplayHelp,
+                  wpMenuItemHelpSelected,wpInsertSettingsPage,wpInsertPopupMenuItems,
+                  withdrawn5,withdrawn6,withdrawn4,withdrawn3,wpCnrInsertObject,
+                  wpCnrRemoveObject,wpInitData,wpUnInitData,wpSetup,
+                  wpScanSetupString,wpSaveImmediate,wpOpen,wpClose,
+                  wpHide,wpRestore,wpSetIconData,wpQueryIconData,
+
+                  wpObjectPrivate12,
+                  wpDelete,wpConfirmDelete,withdrawn2,withdrawn11,
+                  withdrawn7,wpRegisterView,wpIdentify,wpSetDefaultHelp,
+                  wpQueryDefaultHelp,wpDoesObjectMatch,wpCnrRefreshDetails,
+                  wpSetError,wpQueryError,wpDraggedOverObject,wpDroppedOnObject,
+                  wpSetDefaultIconPos,wpQueryDefaultIconPos,
+                  wpObjectPrivate13,
+                  wpObjectPrivate14,
+                  wpSetObjectID,wpQueryObjectID,wpIsDeleteable,
+                  wpQueryHandle,wpSaveDeferred,wpAddObjectWindowPage,
+                  wpQueryConcurrentView,wpSetConcurrentView,wpQueryMinWindow,
+                  wpSetMinWindow,wpViewObject,wpQueryButtonAppearance,
+                  wpSetButtonAppearance,wpQueryConfirmations,wpCnrSetEmphasis,
+                  wpQueryCoreRecord,wpFindViewItem,wpCreateFromTemplate,
+                  wpQueryTrueStyle,wpAssertObjectMutexSem,wpReleaseObjectMutexSem,
+                  wpRequestObjectMutexSem,wpCreateAnother,wpCreateShadowObject,
+                  wpCopyObject,wpMoveObject,wpLockObject,wpUnlockObject,
+                  wpIsLocked,wpRenderComplete,wpQueryDetailsData,wpPrintObject,
+                  wpObjectPrivate15,
+                  wpSetTaskRec,
+                  wpObjectPrivate16,
+                  wpModifyStyle,
+                  wpObjectPrivate17,
+                  wpFindTaskRec,wpAppendObject,wpReplaceObject,
+                  wpQueryNameClashOptions,wpConfirmObjectTitle,_get_pobjNext,
+                  wpQueryContainerFlagPtr,
+                  wpObjectPrivate18,
+                  wpObjectPrivate19,
+                  wpObjectPrivate20,
+                  wpCnrDeleteUseItem,
+                  wpObjectReady, wpIsObjectInitialized,
+                  wpCreateShadowObjectExt,
+                  wpObjectPrivate21,
+                  wpObjectPrivate22,
+                  wpObjectPrivate26,
+                  wpDisplayMenu,
+                  wpWaitForClose, wpQueryScreenGroupID, wpSetupOnce,            
+                  wpAddObjectGeneralPage2,
+                  wpObjectPrivate23,
+                  wpObjectPrivate24,
+                  wpModifyMenu, wpFilterMenu, wpInsertMenuItems,                
+                  wpSetMenuStyle,wpQueryMenuStyle,                             
+                  wpObjectPrivate27,                                           
+                  wpObjectPrivate28,                                           
+                  wpObjectPrivate29,                                           
+                  wpObjectPrivate30,                                           
+                  wpQueryOpenView,                                             
+                  wpSetOpenView,                                               
+
+                 wpObjectPrivate31,                                             
+                 wpObjectPrivate32,                                             
+                 wpObjectPrivate33;                                             
+
+    externalstem = wpobj;
+    local;
+    externalprefix = obj_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpobject;
+    metaclass = M_WPObject;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    passthru C_h =      ""
+"   #define INCL_WINSTDCNR"
+"   #include <pmstddlg.h>"
+""
+"      #ifndef __cplusplus"
+"        #ifndef M_WPObject"
+"          #define M_WPObject SOMClass"
+"        #endif"
+"        #ifndef WPObject"
+"          #define WPObject SOMObject"
+"        #endif"
+"      #else"
+"        class M_WPObject;"
+"        class WPObject;"
+"      #endif"
+""
+"      #ifdef _wpCreateShadowObject2"
+"         #undef _wpCreateShadowObject2"
+"      #endif"
+"      #define _wpCreateShadowObject2 _wpCreateShadowObjectExt"
+""
+"      #ifdef __cplusplus                                                 " 
+"            extern \"C\" {                                               " 
+"      #endif                                                             " 
+"      /* Export a convience function to find BS_NOTEBOOKBUTTON buttons */" 
+"      HWND APIENTRY WinNotebookButtonFromID(HWND hwndDlg, ULONG id);     " 
+""
+"      /* Allow applications to wait for the Shell to be available */     " 
+"      #define WWFS_QUERY            0x80000000                           " 
+"      #define WWFS_DESKTOPCREATED   1                                    " 
+"      #define WWFS_DESKTOPOPENED    2                                    " 
+"      #define WWFS_DESKTOPPOPULATED 3                                    " 
+"      BOOL APIENTRY WinWaitForShell( ULONG ulEvent );                    " 
+"      #ifdef __cplusplus                                                 " 
+"            }                                                            " 
+"      #endif                                                             " 
+"                                                                         " 
+""
+"      /* Object style flags (see wpSetStyle) */"
+""
+"      #define OBJSTYLE_NOMOVE         0x00000002"                              
+"      #define OBJSTYLE_NOLINK         0x00000004"                              
+"      #define OBJSTYLE_NOCOPY         0x00000008"                              
+"      #define OBJSTYLE_NOTDEFAULTICON 0x00000010   /* Intentionally not declared CLSSTYLE */ " 
+
+"      #define OBJSTYLE_TEMPLATE       0x00000020"                              
+"      #define OBJSTYLE_NODELETE       0x00000040"                              
+"      #define OBJSTYLE_NOPRINT        0x00000080"                              
+"      #define OBJSTYLE_NODRAG         0x00000100"                              
+"      #define OBJSTYLE_NOTVISIBLE     0x00000200"                              
+"      #define OBJSTYLE_NOSETTINGS     0x00000400"                              
+"      #define OBJSTYLE_NORENAME       0x00000800"                              
+"      #define OBJSTYLE_NODROP         0x00001000"  
+"      #define OBJSTYLE_NODROPON       0x00002000   /* Use instead of OBJSTYLE_NODROP, " 
+"                                              because OBJSTYLE_NODROP and     "
+"                                              CLSSTYLE_PRIVATE have the same  "
+"                                              value (DD 86093F) */            "
+"      #define OBJSTYLE_CUSTOMICON     0x00004000  /* Use instead of OBJSTYLE_NOTDEFAULTICON  " 
+"                                               because OBJSTYLE_NOTDEFAULTICON and    "
+"                                               CLSSTYLE_NEVERTEMPLATE have the same   "
+"                                               value (DD 86093F) */                   "
+
+"      #define OBJSTYLE_LOCKEDINPLACE  0x00020000 /* Lock an object in place */    " 
+
+""
+"      /*  Class style flags (see wpclsQueryStyle) */"
+""
+"      #define CLSSTYLE_NEVERMOVE      OBJSTYLE_NOMOVE"
+"      #define CLSSTYLE_NEVERLINK      OBJSTYLE_NOLINK"
+"      #define CLSSTYLE_NEVERCOPY      OBJSTYLE_NOCOPY"
+"      #define CLSSTYLE_NEVERTEMPLATE  0x00000010"                              
+"      #define CLSSTYLE_NEVERDELETE    OBJSTYLE_NODELETE"
+"      #define CLSSTYLE_NEVERPRINT     OBJSTYLE_NOPRINT"
+"      #define CLSSTYLE_NEVERDRAG      OBJSTYLE_NODRAG"
+"      #define CLSSTYLE_NEVERVISIBLE   OBJSTYLE_NOTVISIBLE"
+"      #define CLSSTYLE_NEVERRENAME    OBJSTYLE_NORENAME"
+"      #define CLSSTYLE_PRIVATE        0x00001000   /* Intentionally not declared OBJSTYLE */     " 
+"      #define CLSSTYLE_NEVERSETTINGS  OBJSTYLE_NOSETTINGS                      /*DD 86093F*/ "
+"      #define CLSSTYLE_NEVERDROPON    OBJSTYLE_NODROPON                        /*DD 86093F*/ "
+"      #define CLSSTYLE_HIDDEN         0x00008000  /* Use instead of CLSSTYLE_PRIVATE          " 
+"                                                 because OBJSTYLE_NODROP and             "
+"                                                 CLSSTYLE_PRIVATE have the same          "
+"                                                 value (DD 86093F) */                    "
+"      #define CLSSTYLE_DONTTEMPLATE   0x00010000  /* Use instead of CLSSTYLE_NEVERTEMPLATE    " 
+"                                                 because OBJSTYLE_NOTDEFAULTICON and     "
+"                                                 CLSSTYLE_NEVERTEMPLATE have the same    "
+"                                                 value (DD 86093F) */                    "
+
+"      #define CLSSTYLE_ALWAYSTEMPLATE 0x00040000"                              
+""
+"      /* Flags for wpObjectReady() method */ "
+"      #define OR_NEW           0x00000001"
+"      #define OR_AWAKE         0x00000002"
+"      #define OR_REFERENCE     0x10000000"
+"      #define OR_FROMTEMPLATE (0x00000004 | OR_REFERENCE)"
+"      #define OR_FROMCOPY     (0x00000008 | OR_REFERENCE)"
+"      #define OR_SHADOW       (0x00000010 | OR_REFERENCE)"
+""
+"      /*  Flags for the wpFilterPopupMenu/wpFilterMenu methods */"
+""
+"      /* DWORD 0  */"
+"      #define CTXT_CRANOTHER     0x0001   /* Flags for ulFlags */"
+"      #define CTXT_NEW           CTXT_CRANOTHER"
+"      #define CTXT_OPEN          0x0002"
+"      #define CTXT_WINDOW        0x0004"
+"      #define CTXT_SWITCHTO      CTXT_WINDOW"
+"      #define CTXT_CLOSE         0x0008"
+"      #define CTXT_SETTINGS      0x0010"
+"      #define CTXT_PROPERTIES    CTXT_SETTINGS"         
+"      #define CTXT_PRINT         0x0020"
+"      #define CTXT_HELP          0x0040"
+"      #define CTXT_DELETE        0x0080"
+"      #define CTXT_COPY          0x0100"
+"      #define CTXT_MOVE          0x0200"
+"      #define CTXT_SHADOW        0x0400"
+"      #define CTXT_LINK          CTXT_SHADOW"
+"      #define CTXT_PROGRAM       0x0800"
+"      #define CTXT_ICON        0x001000"
+"      #define CTXT_TREE        0x002000"
+"      #define CTXT_DETAILS     0x004000"
+"      #define CTXT_FIND        0x008000"
+"      #define CTXT_SELECT      0x010000"
+"      #define CTXT_ARRANGE     0x020000"
+"      #define CTXT_SORT        0x040000"
+"      #define CTXT_SHUTDOWN    0x080000"
+"      #define CTXT_LOCKUP      0x100000"
+"      #define CTXT_PALETTE     0x200000"
+"      #define CTXT_REFRESH     0x400000"
+"      #define CTXT_PICKUP      0x800000"             
+"      #define CTXT_PUTDOWN        0x1000000"         
+"      #define CTXT_PUTDOWN_CANCEL 0x2000000"         
+"      #define CTXT_CHANGETOICON   0x4000000"         
+"      #define CTXT_CHANGETOTREE   0x8000000"         
+"      #define CTXT_CHANGETODETAILS 0x10000000"       
+"      #define CTXT_VIEW            0x20000000"       
+"      #define CTXT_PASTE           0x40000000"       
+"      #define CTXT_UNDOARRANGE     0x80000000"       
+""
+"      /* DWORD 1  */"
+"      #define CTXT_SELECTALL      0x00000001" 
+"      #define CTXT_DESELECTALL    0x00000002" 
+"      #define CTXT_OPENPARENT     0x00000004" 
+"      #define CTXT_SETUP          0x00000008" 
+"      #define CTXT_PRODINFO       0x00000010" 
+"      #define CTXT_ORIGINAL       0x00000020" 
+"      #define CTXT_LOCATEORIGINAL 0x00000040" 
+"      #define CTXT_DELETEORIGINAL 0x00000080" 
+"      #define CTXT_COPYORIGINAL   0x00000100" 
+"      #define CTXT_NOOBJECTS      0x00000200" 
+"      #define CTXT_MAXIMIZE       0x00000400" 
+"      #define CTXT_RESTORE        0x00000800" 
+"      #define CTXT_WINDOWLIST     0x00002000" 
+"      #define CTXT_CREATEPARTITION 0x00004000" 
+"      #define CTXT_COPYDISK       0x00008000" 
+"      #define CTXT_FORMATDISK     0x00010000" 
+"      #define CTXT_CHECKDISK      0x00020000" 
+"      #define CTXT_LOCKDISK       0x00040000" 
+"      #define CTXT_UNLOCKDISK     0x00080000" 
+"      #define CTXT_EJECTDISK      0x00100000" 
+"      #define CTXT_LOGIN          0x00200000" 
+"      #define CTXT_LOGOUT         0x00400000" 
+"      #define CTXT_ASSIGN         0x00800000" 
+"      #define CTXT_UNASSIGN       0x01000000" 
+"      #define CTXT_ACCESSNEW      0x02000000" 
+"      #define CTXT_DATETIME       0x04000000" 
+"      #define CTXT_LOCKEDINPLACE    0x08000000" 
+"      #define CTXT_LOCKEDINPLACEYES 0x10000000" 
+"      #define CTXT_LOCKEDINPLACENO  0x20000000" 
+"      #define CTXT_STANDARD         0x40000000" 
+"      #define CTXT_PERIMETER        0x80000000" 
+""
+"      /* DWORD 2  */"
+"      #define CTXT_SELECTEDHORZ     0x00000001" 
+"      #define CTXT_SELECTEDVERT     0x00000002" 
+"      #define CTXT_ARRANGETOP       0x00000004" 
+"      #define CTXT_LOGOFF           0x00000008" 
+"      #define CTXT_ARRANGELEFT      0x00000010" 
+"      #define CTXT_ARRANGERIGHT     0x00000020" 
+"      #define CTXT_ARRANGEBOTTOM    0x00000040" 
+"      #define CTXT_UNDOSORT         0x00000080" 
+""
+"     /* Flags for the wpDisplayMenu() method */"
+""
+"     #define MENU_OBJECTPOPUP          0x00000001"
+"     #define MENU_OPENVIEWPOPUP        0x00000002"
+"     #define MENU_TITLEBARPULLDOWN     0x00000003"
+"     #define MENU_TITLEBARPULLDOWNINT  0x00000004"
+"     #define MENU_FOLDERPULLDOWN       0x00000005" 
+"     #define MENU_VIEWPULLDOWN         0x00000006" 
+"     #define MENU_HELPPULLDOWN         0x00000007" 
+"     #define MENU_EDITPULLDOWN         0x00000008" 
+"     #define MENU_SELECTEDPULLDOWN     0x00000009" 
+"     #define MENU_FOLDERMENUBAR        0x0000000A" 
+"     #define MENU_NODISPLAY            0x40000000" 
+"     #define MENU_USER                 0x80000000"
+""
+"      typedef struct _FILTERFLAGS"        
+"      {"                                  
+"         ULONG       cbItem;"             
+"         ULONG       Flags[3];"           
+"      } FILTERFLAGS;"                     
+"      typedef FILTERFLAGS *PFILTERFLAGS;" 
+""
+"      /* common context menu ids */"
+""
+"      #define WPMENUID_USER          0x6500"
+"      #define WPMENUID_PRIMARY            0"
+"      #define WPMENUID_OPEN               1"
+"      #define WPMENUID_HELP               2"
+"      #define WPMENUID_PRINT              3"
+"      #define WPMENUID_SELECT             4"
+"      #define WPMENUID_SORT               5"
+"      #define WPMENUID_TREE               123                                 /*DD 86092F*/  "
+"      #define WPMENUID_FIND               8                                   /*DD 86092F*/  "
+"      #define WPMENUID_CREATEANOTHER      101                                 /*DD 86092F*/  "
+"      #define WPMENUID_MOVE               107                                 /*DD 86092F*/  "
+"      #define WPMENUID_COPY               108                                 /*DD 86092F*/  "
+"      #define WPMENUID_DELETE             109                                 /*DD 86092F*/  "
+"      #define WPMENUID_PROPERTIES         112                                 /*DD 86092F*/  "
+"      #define WPMENUID_SELALL             114                                 /*DD 86092F*/  "
+"      #define WPMENUID_DESELALL           115                                 /*DD 86092F*/  "
+"      #define WPMENUID_RESERVED1          118                                 /*DD 86092F*/  "
+"      #define WPMENUID_CLOSE              120                                 /*DD 86092F*/  "
+"      #define WPMENUID_FORMAT             124                                 /*DD 86092F*/  "
+"      #define WPMENUID_CHKDSK             128                                 /*DD 86092F*/  "
+"      #define WPMENUID_FIXDSK             129                                 /*DD 86092F*/  "
+"      #define WPMENUID_PROGRAM            132                                 /*DD 86092F*/  "
+"      #define WPMENUID_COPYDSK            182                                 /*DD 86092F*/  "
+"      #define WPMENUID_LOCKDISK           184                                 /*DD 86092F*/  "
+"      #define WPMENUID_EJECTDISK          185                                 /*DD 86092F*/  "
+"      #define WPMENUID_UNLOCKDISK         186                                 /*DD 86092F*/  "
+"      #define WPMENUID_PICKUP             188                                 /* rme77131*/  "
+"      #define WPMENUID_PUTDOWN            189                                 /* rme77131*/  "
+"      #define WPMENUID_PUTDOWN_COPY       190                                 /* rme77131*/  "
+"      #define WPMENUID_PUTDOWN_MOVE       191                                 /* rme77131*/  "
+"      #define WPMENUID_PUTDOWN_LINK       192                                 /* rme77131*/  "
+"      #define WPMENUID_PUTDOWN_CANCEL     193                                 /* rme77131*/  "
+"      #define WPMENUID_PUTDOWN_CREATE     194                                 /* rme77131*/  "
+"      #define WPMENUID_PUTDOWN_CREATEPROGRAMOBJECT     195                    /*rme146942*/  "
+"      #define WPMENUID_ICON               303                                 /*DD 86092F*/  "
+"      #define WPMENUID_DETAILS            304                                 /*DD 86092F*/  "
+"      #define WPMENUID_ARRANGE            309                                 /*DD 86092F*/  "
+"      #define WPMENUID_RESERVED2          315                                 /*DD 86092F*/  "
+"      #define WPMENUID_CREATESHADOW       316                                 /*DD 86092F*/  "
+"      #define WPMENUID_PALETTE            317                                 /*DD 86092F*/  "
+"      #define WPMENUID_REFRESH            503                                 /*DD 86092F*/  "
+"      #define WPMENUID_HELP_FOR_HELP      601                                 /*DD 86092F*/  "
+"      #define WPMENUID_HOWTOGETHELP       601                                 /*DD 86092F*/  "
+"      #define WPMENUID_EXTENDEDHELP       602                                 /*DD 86092F*/  "
+"      #define WPMENUID_HELPKEYS           603                                 /*DD 86092F*/  "
+"      #define WPMENUID_HELPINDEX          604                                 /*DD 86092F*/  "
+"      #define WPMENUID_SHUTDOWN           704                                 /*DD 86092F*/  "
+"      #define WPMENUID_LOCKUP             705                                 /*DD 86092F*/  "
+"      #define WPMENUID_LOGIN              708                                 /*DD 86092F*/  "
+"      #define WPMENUID_LOGOUT             709                                 /*DD 86092F*/  "
+"      #define WPMENUID_ASSIGN             710                                 /*DD 86092F*/  "
+"      #define WPMENUID_UNASSIGN           711                                 /*DD 86092F*/  "
+"      #define WPMENUID_ACCESSNEW          712                                 /*DD 86092F*/  "
+"      #define WPMENUID_SYSTEMSETUP        713                                 /*DD 86092F*/  "
+"      #define WPMENUID_OPENPARENT         714                                 /*DD 86092F*/  "
+""
+"      /* menu ids for folder menu bar */"
+"      #define WPMENUID_PASTE              715                                 /*pwbopend */  "
+"      #define WPMENUID_CHANGETOICON       716                                 /*pwbopend */  "
+"      #define WPMENUID_CHANGETOTREE       717                                 /*pwbopend */  "
+"      #define WPMENUID_CHANGETODETAILS    718                                 /*pwbopend */  "
+"      #define WPMENUID_FOLDERPULLDOWN     719                                 /*pwbopend */  "
+"      #define WPMENUID_EDITPULLDOWN       720                                 /*pwbopend */  "
+"      #define WPMENUID_VIEWPULLDOWN       721                                 /*pwbopend */  "
+"      #define WPMENUID_SELECTEDPULLDOWN   722                                 /*pwbopend */  "
+"      #define WPMENUID_HELPPULLDOWN       723                                 /*pwbopend */  "
+"      #define WPMENUID_VIEW               104                                 /*pwbopend */  "
+"      #define WPMENUID_UNDOARRANGE        724                                 /*pwbopend */  "
+"      #define WPMENUID_MAXIMIZE           725                                 /*pwbopend */  "
+"      #define WPMENUID_RESTORE            726                                 /*pwbopend */  "
+"      #define WPMENUID_WINDOWLIST         728                                 /*pwbopend */  "
+"      #define WPMENUID_DOCSHELL           729                                 /*aba142270*/  "
+"      #define WPMENUID_LOCKEDINPLACE      730                                 /*lwb146937*/  "
+"      #define WPMENUID_LOCKEDINPLACEYES   731                                 /*lwb146937*/  "
+"      #define WPMENUID_LOCKEDINPLACENO    732                                 /*lwb146937*/  "
+"      #define WPMENUID_STANDARD           733                                 /*lwb146937*/  "
+"      #define WPMENUID_ARRANGETOP         734                                 /*lwb149411*/  "
+"      #define WPMENUID_ARRANGELEFT        735                                 /*lwb149411*/  "
+"      #define WPMENUID_ARRANGERIGHT       736                                 /*lwb149411*/  "
+"      #define WPMENUID_ARRANGEBOTTOM      737                                 /*lwb149411*/  "
+"      #define WPMENUID_LOGOFF             738                                 /*pgm 141223*/ "
+"      #define WPMENUID_PERIMETER          739                                 /*lwb149411*/  "
+"      #define WPMENUID_SELECTEDHORZ       740                                 /*lwb149411*/  "
+"      #define WPMENUID_SELECTEDVERT       741                                 /*lwb149411*/  "
+""
+""
+"      /*  Views for the wpOpen(), wpFilterMenu and wpModifyMenu methods */"
+""
+"      #define OPEN_UNKNOWN      -1"
+"      #define OPEN_DEFAULT       0"
+"      #define OPEN_CONTENTS      1"
+"      #define OPEN_SETTINGS      2"
+"      #define OPEN_HELP          3"
+"      #define OPEN_RUNNING       4"
+"      #define OPEN_PROMPTDLG     5"
+"      #define OPEN_PALETTE       121" 
+"      #define CLOSED_ICON        122" 
+"      #define OPEN_USER          0x6500"
+""
+"      /*  Definitions for the INUSE list that is kept"
+"       *  for every object via wpAddToObjUseList and"
+"       *  wpRemoveFromObjUseList methods..."
+"       */"
+""
+"      /* This structure is always followed immediately by a type"
+"       * dependant struct such as MEMORYITEM,RECORDITEM,VIEWITEM"
+"       * or some other user defined structure..."
+"       */"
+"      typedef struct _USEITEM"
+"      {"
+"         ULONG  type;                  /* Type of this Item */"
+"         struct _USEITEM *pNext;   /* Next item in use list */"
+"      } USEITEM;"
+"      typedef USEITEM *PUSEITEM;"
+""
+"      #define USAGE_MEMORY          1  /* Values of 'type' */"
+"      #define USAGE_RECORD          4"
+"      #define USAGE_OPENVIEW        5"
+"      #define USAGE_LINK            6"
+"      #define USAGE_OPENFILE       20"
+"      #define USAGE_NOTIFY         21"
+"      #define USAGE_BACKGROUNDBMP  22"                                         
+""
+"      typedef struct _MEMORYITEM       /* USAGE_MEMORY struct */"
+"      {"
+"         ULONG     cbBuffer;           /* Number of bytes in memory block */"
+"      } MEMORYITEM;"
+"      typedef MEMORYITEM *PMEMORYITEM;"
+""
+"      typedef struct _RECORDITEM       /* USAGE_RECORD struct */"
+"      {"
+"         HWND            hwndCnr;      /* Cnr into which object is inserted */"
+"         PMINIRECORDCORE pRecord;      /* Record pointer within that cnr */"
+"         ULONG           ulUser;       /* For application use RECSH */ "
+"      } RECORDITEM;"
+"      typedef RECORDITEM *PRECORDITEM;"
+""
+"      #define VIEWSTATE_OPENING       0x0001   /* The view is being opened */"
+"      #define VIEWSTATE_OBJECTDELETED 0x0002   /* The object has been deleted */"
+"      #define VIEWSTATE_USERHIDDEN    0x0004   /* The view was hidden by user */"
+"      #define VIEWSTATE_POPULATING    0x0008   /* The view is populating      */"
+"      #define VIEWSTATE_USERMINIMIZED 0x0010   /* The view was minimized by the user */"
+"      #define VIEWSTATE_CLOSING       0x0020   /* The view is closing */"
+"      #define VIEWSTATE_DELETING      0x0040   /* The object is being deleted */"
+"      #define VIEWSTATE_PAINTED       0x0080   /* The view was painted */"     
+""
+"      typedef struct _VIEWITEM         /* USAGE_OPENVIEW struct */"
+"      {"
+"         ULONG        view;            /* Object view that this represents */"
+"         LHANDLE      handle;          /* Open handle */"
+"         ULONG        ulViewState;     /* View State flags */"
+"         HWND         hwndCnr;         /* System use only (window animation) */"
+"         PMINIRECORDCORE pRecord;      /* System use only (window animation) */"
+"      } VIEWITEM;"
+"      typedef VIEWITEM *PVIEWITEM;"
+""
+"      typedef struct _LINKITEM         /* USAGE_LINK and USAGE_NOTIFY struct */"
+"      {"
+"         WPObject    *LinkObj;         /* The link object */"
+"      } LINKITEM;"
+"      typedef LINKITEM *PLINKITEM;"
+""
+"      typedef struct _VIEWFILE         /* USAGE_OPENFILE struct */"
+"      {"
+"         ULONG        ulMenuId;        /* Menu id if association or menu page */"
+"         LHANDLE      handle;          /* Open handle */"
+"         HWND         hwndCnr;         /* System use only (window animation) */"
+"         PMINIRECORDCORE pRecord;      /* System use only (window animation) */"
+"      } VIEWFILE;"
+"      typedef VIEWFILE *PVIEWFILE;"
+""                                                                              
+"      typedef struct _BACKGROUNDBMPITEM /* USAGE_BACKGROUNDBMP struc */"       
+"      {"                                                                       
+"         PVOID        pFolderBackground;"                                      
+"      } BACKGROUNDBMPITEM;"                                                    
+"      typedef BACKGROUNDBMPITEM *PBACKGROUNDBMPITEM;"                          
+""
+"      /* Notes: The class name immediately follows the control block. The"
+"       *        first instance variable control block immediately follows"
+"       *        this."
+"       */"
+"      typedef struct _WPSRCLASSBLOCK"
+"      {"
+"        SHORT   ClassNameLength;       /* Length of class name, including the"
+"                                        * .. null terminator. This must be a"
+"                                        * .. SHORT and must be at the beginning"
+"                                        * .. of the structure."
+"                                        */"
+"        USHORT  IVarLength;            /* Length of instance variable"
+"                                        * .. information, including the two-"
+"                                        * .. byte null terminator"
+"                                        */"
+"      } WPSRCLASSBLOCK;"
+""
+"      /*  Persistant storage structures (see wpSaveShort"
+"       *  and wpRestoreShort etc...)"
+"       */"
+""
+""
+"      /* This control structure does not reside in the dormant state."
+"       * It is used only when a persistant data block is"
+"       * resident in memory - either when an object is being saved or"
+"       * when it is being restored..."
+"       */"
+"      typedef struct _OBJDATA"
+"      {"
+"         WPSRCLASSBLOCK       *CurrentClass;"
+"         WPSRCLASSBLOCK       *First;"
+"         PUCHAR                NextData;"
+"         USHORT                Length;"
+"      } OBJDATA;"
+"      typedef OBJDATA *POBJDATA;"
+""
+"      /* Note: On PowerPC all structures are word aligned. sizeof"
+"       * returns the size of structures aligned to the largest type"
+"       * found in structure.  In otherwords, a structure containing"
+"       * a long and a short will result in a sizeof 8 rather than 6"
+"       * because the larger type long is used to align the structure."
+"       * 3 shorts in a structure will return 6 as expected."
+"       * The following two macros are used in place of the sizeof operator"
+"       * when referencing the OBJDATA structure to ensure we have the"
+"       * correct offset.  BEWARE: Changing the OBJDATA structure requires"
+"       * that the following macros are change accordingly."
+"       */"
+"      #define POBJDATA_SIZE             offsetof(OBJDATA,Length)+2"
+"      #define ADVANCEOVER_OBJDATA( x )  (((UCHAR*)(x))+POBJDATA_SIZE)"
+""
+"      /*  wpCnrInsertObject/wpCnrRemoveObject structs"
+"       *  and macros..."
+"       */"
+""
+"      typedef struct _CLASSDETAILS     /* Class Details struct */"
+"      {"
+"         PSZ          pszAttribute;    /* Translatable string for a class attribute*/"
+"         PVOID        pSortRecord;     /* Function pointer for sort function for attribute*/"
+"         struct _CLASSDETAILS *pNext; /* Next item in class details list */"
+"      } CLASSDETAILS;"
+"      typedef CLASSDETAILS *PCLASSDETAILS;"
+""
+"      /* Macro to return the object associated with a given MINIRECORDCORE"
+"       * that was inserted using the wpCnrInsertObject method"
+"       */"
+"      #define OBJECT_FROM_PREC( prec )   ( (PVOID)( * (((PULONG)prec)-2) ) )"
+""
+"      /* Macro to access the app defineable dword within the RECORDITEM"
+"       * structure that is created when an object is put into a list"
+"       * control using the wpCnrInsertObject method."
+"       */"
+"      PULONG EXPENTRY ShlGetUserWordPtr("
+"         HWND            hwndCnr,"
+"         PMINIRECORDCORE prec );"
+""
+"      #define USERWORD_FROM_PREC( hwnd, prec ) \ "
+"         ( (ULONG)( *ShlGetUserWordPtr(hwnd,prec) ) )"
+""
+"      /* Details comparison function definition"
+"       *"
+"       *    Param1  PVOID   - Pointer to details field value"
+"       *    Param2  PVOID   - Pointer to value to be compared with"
+"       *"
+"       *    Returns LONG    - Must be CMP_EQUAL, CMP_GREATER, CMP_LESS"
+"       */"
+"      typedef LONG (EXPENTRY FNCOMPARE)(PVOID,PVOID);"
+"      typedef FNCOMPARE *PFNCOMPARE;"
+""
+"      #define CMP_EQUAL            0"
+"      #define CMP_GREATER          1"
+"      #define CMP_LESS             2"
+"      #define CMP_GREATER_OR_EQUAL 3"
+"      #define CMP_LESS_OR_EQUAL    4"
+"      #define CMP_NOT_EQUAL        5"
+""
+"      #define NUM_CMP_VALUES       6"
+""
+"      /* Owner draw function definition"
+"       *"
+"       *    Param1  HWND  - Handle of window that is being painted"
+"       *    Param2  PVOID - POWNERITEM structure pointer, see the container"
+"       *                    control programming reference for the meaning"
+"       *                    of the fields in this structure."
+"       *    Param3  PVOID - Pointer to the comparison value to draw (this"
+"       *                    is NULL, except when this function is painting"
+"       *                    its value into the include criteria dialog"
+"       *                    when it points to Criteria.CompareValue...)"
+"       *"
+"       *    Returns BOOL  - TRUE if the field was ownerdrawn, FALSE if the"
+"       *                    container control should do default painting."
+"       */"
+"      typedef BOOL (EXPENTRY FNOWNDRW)(HWND,PVOID,PVOID);"
+"      typedef FNOWNDRW *PFNOWNDRW;"
+""
+"      /* Details comparison criteria structure"
+"       */"
+"      typedef struct _CRITERIA"
+"      {"
+"         PVOID            pReserved;           /* Reserved - MUST be null!!!! */"
+"         struct _CRITERIA *pNext;"
+"         struct _CRITERIA *pPrev;"
+"         ULONG            ClassFieldInfoIndex; /* Index of the details field  */"
+"         ULONG            LogicalOperator;     /* CRITERIA_AND or CRITERIA_OR */"
+"         ULONG            ComparisonType;      /* CMP_LESS_OR_EQUAL etc...    */"
+"         ULONG            ulLenCompareValue;   /* sizeof(ComparisonData)      */"
+"         CHAR             CompareValue[1];     /* Value to be compared with   */"
+"      } CRITERIA;"
+"      typedef CRITERIA *PCRITERIA;"
+""
+"      #define CRITERIA_AND        0"
+"      #define CRITERIA_OR         1"
+""
+"      /* ClassCriteria structure: points to a linked list of CRITERIA"
+"       * for the given class. ClassCriteria may be linked into a list"
+"       * too - and passed to a filter object, or the wpclsFindObjectFirst"
+"       * method call..."
+"       */"
+"      typedef struct _CLASSCRITERIA" 
+"      {"
+"         struct _CLASSCRITERIA *pNext;"
+"         struct _CLASSCRITERIA *pPrev;"
+"         M_WPObject            *Class;          /* Class object */"
+"         PCRITERIA              pCriteria;      /* Linked list of criteria */"
+"         WPObject              *NotifyObject;   /* Owner of the criteria list */"
+"      } CLASSCRITERIA;"
+"      typedef CLASSCRITERIA *PCLASSCRITERIA;"
+""
+"      /* This structure is passed to a details criteria edit window"
+"       * when it is created, so that it knows the current value and"
+"       * min/max values for the criteria to be edited."
+"       *"
+"       * As the user modifies the compare value using the criteria"
+"       * edit window, it should update the buffer pointed to by"
+"       * 'pCompareValue'."
+"       */"
+"      typedef struct _EDITCTLINIT" 
+"      {"
+"         ULONG cb;                /* must have length in control data! */"
+"         PVOID pCompareValue;     /* Buffer containing the current value */"
+"         ULONG ulLenCompareValue; /* Length of pCompareValue buffer */"
+"         PVOID pMinCompareValue;  /* READ-ONLY parameter, NULL => default */"
+"         PVOID pMaxCompareValue;  /* READ-ONLY parameter, NULL => default */"
+"      } EDITCTLINIT;"
+"      typedef EDITCTLINIT *PEDITCTLINIT;"
+""
+"      /* Structure for wpclsQueryDetailsInfo method"
+"       *"
+"       * CLASSFIELDINFO is identical to the FIELDINFO structure of the"
+"       * container control with the following differences:"
+"       *"
+"       * - The offStruct field from FIELDINFO is reserved."
+"       * - The offFieldData and usLenFieldData structure elements have"
+"       *   been added."
+"       * - Compare/Sort/Ownerdraw fields have also been added for the"
+"       *   convenience of the programmer, so that object details can"
+"       *   be customized and objects can be found or included by any"
+"       *   of their displayable object details."
+"       *"
+"       * For example if the application has the following details data:"
+"       *"
+"       * typedef struct _SAMPLE {"
+"       *   CDATE   cdate;"
+"       *   CTIME   ctime;"
+"       *   PSZ     psz;"
+"       * }  SAMPLE;"
+"       *"
+"       * classfieldinfo[0].offFieldData   = FIELDOFFSET(SAMPLE,cdate);"
+"       * classfieldinfo[0].ulLenFieldData = FIELDOFFSET(SAMPLE,ctime) -"
+"       *                                    FIELDOFFSET(SAMPLE,cdate);"
+"       *"
+"       * classfieldinfo[1].offFieldData   = FIELDOFFSET(SAMPLE,ctime);"
+"       * classfieldinfo[1].ulLenFieldData = FIELDOFFSET(SAMPLE,psz) -"
+"       *                                    FIELDOFFSET(SAMPLE,ctime);"
+"       *"
+"       * classfieldinfo[2].offFieldData   = FIELDOFFSET(SAMPLE,psz);"
+"       * classfieldinfo[2].ulLenFieldData = sizeof(SAMPLE) -"
+"       *                                    FIELDOFFSET(SAMPLE,psz);"
+"       *"
+"       * NOTE: It is essential that the fields be linked in order ex. above"
+"       *       cdate must be followed by ctime and finally psz."
+"       */"
+"      typedef struct _CLASSFIELDINFO" 
+"      {"
+"         /* Details field attributes"
+"          */"
+"         ULONG      cb;                  /* size of CLASSFIELDINFO struct  */"
+"         ULONG      flData;              /* attributes of field's data     */"
+"         ULONG      flTitle;             /* attributes of field's title    */"
+"         PVOID      pTitleData;          /* title data (default is string) */"
+"                                         /* If CFT_BITMAP, must be HBITMAP */"
+"         ULONG      ulReserved;          /* Reserved                       */"
+"         PVOID      pUserData;           /* pointer to user data           */"
+"         struct _CLASSFIELDINFO *pNextFieldInfo; /* pointer to next linked */"
+"                                                /* CLASSFIELDINFO structure*/"
+"         ULONG      cxWidth;             /* width of field in pels         */"
+"         ULONG      offFieldData;        /* offset from beginning of       */"
+"                                         /*   this class's data for this   */"
+"                                         /*   field. (first field is 0).   */"
+"         ULONG      ulLenFieldData;      /* width of data in bytes.        */"
+"                                         /*   (4 for a pointer).           */"
+"         PFNOWNDRW  pfnOwnerDraw;        /* Ownerdraw procedure for detail */"
+"                                         /* column. Can be NULL except if  */"
+"                                         /* ownerdraw is being used.       */"
+"         /* Include/Sort parameters"
+"          */"
+"         ULONG      flCompare;           /* Flags: for example, use the    */"
+"                                         /*   COMPARE_SUPPORTED flag if    */"
+"                                         /*   your field can be compared   */"
+"         PFNCOMPARE pfnCompare;          /* Comparison function for this   */"
+"                                         /*   field. Can be NULL unless    */"
+"                                         /*   ownerdraw is used.           */"
+"         ULONG      DefaultComparison;   /* This is the default compare    */"
+"                                         /*   operator in the include      */"
+"                                         /*   page criteria dialog. (eg:   */"
+"                                         /*   CMP_LESS_OR_EQUAL)           */"
+"         ULONG      ulLenCompareValue;   /* Maximum length of the compare  */"
+"                                         /*   data. Can be NULL unless     */"
+"                                         /*   ownerdraw is used.           */"
+"         PVOID      pDefCompareValue;    /* The default value to be used   */"
+"                                         /*   for comparisons. Can be NULL */"
+"                                         /*   unless ownerdraw is used.    */"
+"         PVOID      pMinCompareValue;    /* The default value to be used   */"
+"                                         /*   for comparisons.Can be NULL  */"
+"                                         /*   unless ownerdraw is used.    */"
+"         PVOID      pMaxCompareValue;    /* The default value to be used   */"
+"                                         /*   for comparisons.Can be NULL  */"
+"                                         /*   unless ownerdraw is used.    */"
+"         PSZ        pszEditControlClass; /* Window class to be used to edit*/"
+"                                         /*   the compare value. Can be    */"
+"                                         /*   NULL unless ownerdraw is used*/"
+"         PFNCOMPARE pfnSort;             /* Sort function for this         */"
+"                                         /*   field. Can be NULL unless    */"
+"                                         /*   ownerdraw is used.           */"
+"         PSZ        *pNewComp;"
+"      } CLASSFIELDINFO;"
+""
+"      typedef CLASSFIELDINFO *PCLASSFIELDINFO;"
+""
+"      #define COMPARE_SUPPORTED      1"
+"      #define SORTBY_SUPPORTED       2"
+""
+"      /* Standard notebook size constants */"
+"      #define STDNOTEBOOKWIDTH    250"
+"      #define STDNOTEBOOKHEIGHT   125"
+""
+"      /* Confirm flags */"
+"      #define CONFIRM_DELETE             0x0001"
+"      #define CONFIRM_DELETEFOLDER       0x0002"
+"      #define CONFIRM_RENAMEFILESWITHEXT 0x0004"
+"      #define CONFIRM_KEEPASSOC          0x0008"
+"      #define CONFIRM_ACTION             0x0010"
+"      #define CONFIRM_PROGRESS           0x0020"
+"      #define CONFIRM_ALLOWFORCEDELETE   0x0040"                       
+"      #define CONFIRM_FORCEDELETE        0x0080"                       
+""
+"      #define OK_DELETE             1"
+"      #define NO_DELETE             2"
+"      #define CANCEL_DELETE         3"
+""
+"      #define NUM_OBJDETAILS_FIELDS    5     /* number of object details */"
+""
+"      /* Search Type for wpclsQueryExtendedCriteria */"
+""
+"      #define SEARCH_ALL_FOLDERS 1"
+"      #define SEARCH_THIS_FOLDER 2"
+"      #define SEARCH_THIS_TREE   3"
+""
+"      /* Find method related types and constants */"
+""
+"      typedef WPObject   *OBJECT;" 
+"      typedef OBJECT     *POBJECT;"
+"      typedef M_WPObject *CLASS;"
+"      typedef CLASS      *PCLASS;"
+"      typedef LHANDLE     HFIND;"
+"      typedef HFIND      *PHFIND;"
+""
+"      /* wpDrop method return code  */"
+""
+"      #define RC_DROP_DROPCOMPLETE 2"
+"      #define RC_DROP_ITEMCOMPLETE 1"
+"      #define RC_DROP_RENDERING    0"
+"      #define RC_DROP_ERROR       -1"
+""
+"      /*handle for files being tracked by the shell */"
+""
+"      typedef LHANDLE HFS;"
+"      typedef LHANDLE HABS;"
+"      #define MAXSZHFS 10       /* size of the translated string */"
+"      #define MAKE_HOBJ(base, handle) ((HOBJECT) (((ULONG)(base) & 0x00FF0000) | (((ULONG)(handle) & 0x00FF0000) << 8) | ((ULONG)(handle) & 0x0000FFFF)) )"
+"      #define BASEHANDLE_FROM_HOBJ(objh) ((ULONG) ((((objh) & 0xFF000000) >> 8) | ((objh) & 0xFFFF)))"
+"      #define HABS_FROM_HOBJ(objh) ((HABS)BASEHANDLE_FROM_HOBJ(objh))"
+"      #define HFS_FROM_HOBJ(objh) ((HFS)BASEHANDLE_FROM_HOBJ(objh))"
+"      #define BASECLS_FROM_HOBJ(objh) ((ULONG) ((objh) & 0x00FF0000))"
+"      #define MAXHANDLE  0x00FFFFFF"
+""
+"      #define SETTINGS_PAGE_REMOVED  -1"
+""
+"    /* wpSetConcurrentView values */"
+"      #define CCVIEW_DEFAULT 0"
+"      #define CCVIEW_ON      1"
+"      #define CCVIEW_OFF     2"
+""
+"    /* wpSetMinWindow values */"
+"      #define MINWIN_DEFAULT 0"
+"      #define MINWIN_HIDDEN  1"
+"      #define MINWIN_VIEWER  2"
+"      #define MINWIN_DESKTOP 3"
+""
+"    /* wpSetButtonAppearance values */"
+"      #define HIDEBUTTON      1"
+"      #define MINBUTTON      2"
+"      #define DEFAULTBUTTON  3"
+""                                                                              
+"    /* wpConfirmObjectTitle return values */"                                  
+"      #define NAMECLASH_CANCEL              0x00"                              
+"      #define NAMECLASH_NONE                0x01"                              
+"      #define NAMECLASH_RENAME              0x02"                              
+"      #define NAMECLASH_APPEND              0x04"                              
+"      #define NAMECLASH_REPLACE             0x08"                              
+"      #define NAMECLASH_RENAME_KEEPASSOCS   0x20"                              
+"      #define NAMECLASH_NONE_KEEPASSOCS     0x30"                              
+""                                                                              
+"    /* wpQueryNameClashOptions return values */"                               
+"      #define NO_NAMECLASH_RENAME           0x10"                              
+"      #define NO_NAMECLASH_APPEND           0x20"                              
+"      #define NO_NAMECLASH_REPLACE          0x40"                              
+"      #define NO_NAMECLASH_DIALOG           0x80"                              
+""
+"      #define  HIDDENMINWINDOW_DEFAULT MINWIN_VIEWER"
+"      #ifndef __cplusplus"
+"        #ifndef WPFolder"
+"          #define WPFolder SOMObject     /* Define WPFolder */"
+"        #endif"
+"      #else"
+"        class WPFolder;"
+"      #endif"
+""
+"      typedef struct _TASKREC"
+"      {"
+"         struct _TASKREC *next;     /* next in the list of current tasks   */"
+"         ULONG            useCount; /* can be referenced by multiple object*/"
+"         PVOID            pStdDlg;  /* ptr to standard WP task dialog      */"
+"         WPFolder        *folder;   /* intended folder for the object      */"
+"         LONG             xOrigin;  /* intended position for the object    */"
+"         LONG             yOrigin;  /* intended position for the object    */"
+"         PSZ              pszTitle; /* intended name for the object        */"
+"         ULONG            cbTitle;  /* length of the name buffer           */"
+"         PMINIRECORDCORE  positionAfterRecord; /* intended sort position   */"
+"         BOOL            fKeepAssociations;"
+"         PVOID            pReserved;    /* reserved - equal null           */"
+""
+"      }  TASKREC;"
+"      typedef TASKREC *PTASKREC;"
+""
+"      typedef struct _OBJDETAILS"
+"      {"
+"        PSZ    ObjTitle;"
+"        ULONG  ObjStyle;"
+"        PSZ    ObjClass;"
+"      } OBJDETAILS;"
+"      typedef OBJDETAILS *POBJDETAILS;"
+""
+"#define VIEW_CONTENTS      0x00000001"
+"#define VIEW_SETTINGS      0x00000002"
+"#define VIEW_HELP          0x00000004"
+"#define VIEW_RUNNING       0x00000008"
+"#define VIEW_DETAILS       0x00000010"
+"#define VIEW_TREE          0x00000020"
+"#define VIEW_ANY           0xFFFFFFFF  /* Special case - will find any ViewItem */"
+""
+"/* Identifier types for the wpIdentify() method */"
+""
+"#define ID_TYPE_DISK     'H'"
+"#define ID_TYPE_FILE     'F'"
+"#define ID_TYPE_DIR      'D'"
+"#define ID_TYPE_TRANS    'T'"
+"#define ID_TYPE_ABS      'A'"
+""                                                                      
+"/*"
+" * Passthru some stuff to the .h file"
+" */"
+"";
+
+
+    wpQueryTrueStyle: procedure;
+
+    somInit: override;
+    somUninit: override;
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPObject : SOMClass
+{
+  BOOL wpclsCreateDefaultTemplates(in WPObject Folder);
+
+  VOID wpclsInitData();
+
+  WPObject wpclsMakeAwake(in PSZ pszTitle,
+                          in ULONG ulStyle,
+                          in HPOINTER hptrIcon,
+                          in POBJDATA pObjData,
+                          in WPFolder Folder,
+                          in ULONG ulUser);
+
+  WPObject wpclsNew(in PSZ pszTitle,
+                    in PSZ pszSetupEnv,
+                    in WPFolder Folder,
+                    in BOOL fLock);
+
+  BOOL wpclsQueryDefaultHelp(in PULONG pHelpPanelId,
+                             in PSZ pszHelpLibrary);
+
+  ULONG wpclsQueryDefaultView();
+
+  PCLASSDETAILS wpclsQueryDetails();
+
+  ULONG wpclsQueryDetailsInfo(inout PCLASSFIELDINFO ppClassFieldInfo,
+                              in PULONG pSize);
+
+  BOOL wpclsQueryExtendedCriteria(in PSZ pszName,
+                                  in ULONG ulSearchType,
+                                  in PVOID pvoidExtendedCriteria);
+
+  WPObject wpclsQueryFolder(in PSZ pszLocation,
+                            in BOOL fLock);
+
+  HPOINTER wpclsQueryIcon();
+
+  VOID wpclsQuerySearchInfo(inout M_WPObject ClassExtended,
+                            inout M_WPObject ClassCreate,
+                            in PULONG pulClassCriteriaSize);
+
+  ULONG wpclsQueryStyle();
+
+  PSZ wpclsQueryTitle();
+
+  VOID wpclsUnInitData();
+
+  BOOL wpclsFindObjectFirst(in PCLASS pClassList,
+                            in PHFIND phFind,
+                            in PSZ pszTitle,
+                            in WPFolder Folder,
+                            in BOOL fSubfolders,
+                            in PVOID pExtendedCriteria,
+                            in POBJECT pBuffer,
+                            in PULONG pCount);
+
+  BOOL wpclsFindObjectNext(in HFIND hFind,
+                           in POBJECT pBuffer,
+                           in PULONG pCount);
+
+  BOOL wpclsFindObjectEnd(in HFIND hFind);
+
+  BOOL wpclsSetError(in ULONG ulErrorId);
+
+  ULONG wpclsQueryError();
+
+  BOOL wpclsQuerySettingsPageSize(in PSIZEL pSizl);
+
+  ULONG wpclsQueryIconData(in PICONINFO pIconInfo);
+
+  WPObject wpclsQueryObject(in HOBJECT hObject);
+
+  ULONG wpclsQueryButtonAppearance();
+
+  VOID wpclsDecUsage();
+
+  VOID wpclsIncUsage();
+
+  BOOL wpclsInsertMultipleObjects(in HWND hwndCnr,
+                                  in PPOINTL pptlIcon,
+                                  inout PVOID pObjectArray,
+                                  in PVOID pRecordParent,
+                                  in ULONG NumRecords);
+
+  WPObject wpclsFindOneObject(in HWND hwndOwner, in PSZ pszFindParams);
+
+  BOOL wpclsSetSettingsPageSize(in PSIZEL pSizl);
+
+  BOOL wpclsSetIconData(in PICONINFO pIconInfo);
+
+  BOOL wpclsSetIcon(in HPOINTER hptrNewIcon);
+
+  WPObject wpclsObjectFromHandle(in HOBJECT hObject);
+
+  BOOL wpclsRemoveObjects(in HWND hwndCnr,
+                          inout PVOID pRecordArray,
+                          in ULONG NumRecords,
+                          in BOOL RemoveAll);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpclsInitData,wpclsUnInitData,withdrawn8,wpclsMakeAwake,
+                  wpclsIncUsage,wpclsDecUsage,wpclsQueryTitle,wpclsQueryIcon,
+                  wpclsQueryDefaultHelp,wpclsQueryStyle,wpclsQueryDetailsInfo,
+                  wpclsQueryDefaultView,wpclsQueryDetails,wpclsQuerySearchInfo,
+                  wpclsQueryExtendedCriteria,wpclsCreateDefaultTemplates,
+                  withdrawn9,wpclsFindObjectFirst,wpclsFindObjectNext,
+                  wpclsFindObjectEnd,
+                  wpclsObjectPrivate1,
+                  wpclsSetError,
+                  wpclsQueryError,wpclsQuerySettingsPageSize,wpclsSetSettingsPageSize,
+                  wpclsQueryIconData,wpclsSetIcon,wpclsSetIconData,
+                  wpclsQueryObject,wpclsObjectFromHandle,
+                  wpclsObjectPrivate2,
+                  wpclsObjectPrivate3,
+                  wpclsObjectPrivate4,
+                  wpclsObjectPrivate5,
+                  wpclsObjectPrivate6,
+                  wpclsQueryButtonAppearance,
+                  wpclsNew,wpclsQueryFolder,
+                  wpclsObjectPrivate7,
+                  wpclsObjectPrivate8,
+                  wpclsRemoveObjects,wpclsInsertMultipleObjects,
+                  wpclsObjectPrivate9,
+                  wpclsFindOneObject,
+                  wpclsObjectPrivate10;
+
+    externalstem = wpobj;
+    local;
+    externalprefix = objM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpobject;
+    callstyle = oidl;
+    dllname = "pmwp.dll";             /* sahsom2 */
+
+
+    somUninit: override;
+
+    somClassReady: override;
+    somNew: override;
+    somRenew: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+
+#endif  /* wpobject_idl */

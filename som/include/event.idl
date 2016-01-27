@@ -1,0 +1,71 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.7 src/somem/event.idl, somu, som2.1 9/1/94 17:45:53 [7/30/96 14:46:09]
+
+
+#ifndef event_idl
+#define event_idl
+
+#include <somobj.idl>
+
+interface SOMEEvent : SOMObject
+
+// SOMEEvent is the base class for all generic events within the Event Manager.
+// It simply timestamps an event before it is passed to a callback routine.
+// The event type is set to the true type by a subclass. The types currently used
+// by the event management framework are defined in eventmsk.h.
+// An subclassing of this class must avoid name and value collisions with eventmsk.h
+
+{
+  unsigned long somevGetEventTime();
+
+  // Returns the time of the generic event in milliseconds
+
+  unsigned long somevGetEventType();
+
+  // Returns the type of generic event
+
+  void somevSetEventTime(in unsigned long time);
+
+  // Sets the time of the generic event (time is in milliseconds)
+
+  void somevSetEventType(in unsigned long type);
+
+  // Sets the type of generic event
+
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: somevGetEventTime,somevGetEventType,somevSetEventTime,
+                  somevSetEventType;
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = event;
+    callstyle = idl;
+
+
+
+    //# Method Modifiers
+    somInit: override;
+
+    //# Data Modifiers
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* event_idl */

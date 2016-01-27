@@ -1,0 +1,127 @@
+
+//  Module Header
+//
+//  Module Name: WPDEVICE
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpdevice_idl
+#define wpdevice_idl
+
+#include "wptrans.idl"
+#include "somcls.idl"
+
+#include "wptypes2.idl"
+
+interface M_WPDevice;
+
+interface WPDevice : WPTransient
+{
+
+  ULONG wpAddDeviceDevice1Page(in HWND hwndNotebook);
+
+  ULONG wpAddDeviceDevice2Page(in HWND hwndNotebook);
+
+  ULONG wpAddDeviceDMA1Page(in HWND hwndNotebook);
+
+  ULONG wpAddDeviceIRQ1Page(in HWND hwndNotebook);
+
+  ULONG wpAddDeviceMemory1Page(in HWND hwndNotebook);
+
+  ULONG wpAddDeviceIO1Page(in HWND hwndNotebook);
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder:
+                  wpDevicePrivate1, wpDevicePrivate2, wpDevicePrivate3,
+                  wpDevicePrivate4, wpDevicePrivate5,
+                  wpDevicePrivate6, wpDevicePrivate7,
+                  wpDevicePrivate8, wpDevicePrivate9, wpDevicePrivate10,
+                  wpDevicePrivate11, wpDevicePrivate12,
+                  wpDevicePrivate13, wpDevicePrivate14,
+                  wpDevicePrivate15,
+                  wpDevicePrivate16, wpDevicePrivate17, wpDevicePrivate18,
+                  wpDevicePrivate19, wpDevicePrivate20,
+                  wpDevicePrivate21,
+                  wpDevicePrivate22, wpDevicePrivate23, wpDevicePrivate24, wpDevicePrivate25,
+                  wpDevicePrivate26, wpDevicePrivate27,
+                  wpDevicePrivate28, wpDevicePrivate29, wpDevicePrivate30,
+                  wpDevicePrivate31, wpDevicePrivate32,
+                  wpDevicePrivate33, wpDevicePrivate34,
+                  wpDevicePrivate35, wpDevicePrivate36,
+                  wpDevicePrivate37, wpDevicePrivate38,
+                  wpDevicePrivate39, wpDevicePrivate40,
+                  wpDevicePrivate41, wpDevicePrivate42, wpDevicePrivate43,
+                  wpDevicePrivate44, wpDevicePrivate45,
+                  wpDevicePrivate46,
+                  wpDevicePrivate47, wpDevicePrivate48, wpDevicePrivate49, wpDevicePrivate50,
+                  wpDevicePrivate51, wpDevicePrivate52,
+
+                  wpAddDeviceDevice1Page, wpAddDeviceDevice2Page,
+                  wpAddDeviceDMA1Page, wpAddDeviceIRQ1Page,
+                  wpAddDeviceMemory1Page, wpAddDeviceIO1Page
+                  ;
+
+    externalstem = wpdevice;
+    functionprefix = device_;
+    local;
+//    externalprefix = device_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpdevice;
+    metaclass = M_WPDevice;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+    passthru C_h =  ""
+"";
+
+
+     wpAddSettingsPages: override;
+     wpInitData        : override;
+     wpModifyPopupMenu : override;
+     wpQueryDetailsData: override;
+     wpRestoreState    : override;
+     wpSaveState       : override;
+     wpSetup           : override;
+     wpUnInitData      : override;
+     wpCnrInsertObject : override;
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDevice : M_WPTransient
+{
+
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpdevice;
+    functionprefix = deviceM_;
+    local;
+//    externalprefix = deviceM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpdevice;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+
+    wpclsInitData:          override;
+    wpclsQueryIconData:     override;                                          //bjf152374
+    wpclsQueryDefaultHelp:  override;
+    wpclsQueryDefaultView:  override;
+    wpclsQueryDetailsInfo:  override;
+    wpclsQueryStyle:        override;
+    wpclsQueryTitle:        override;
+    wpclsUnInitData:        override;
+  };
+
+};
+
+#endif  /* wpdevice_idl */

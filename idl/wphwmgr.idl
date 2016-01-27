@@ -1,0 +1,96 @@
+
+//  Module Header
+//
+//  Module Name: WPHWMGR
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wphwmgr_idl
+#define wphwmgr_idl
+
+#include "wpfolder.idl"
+#include "somcls.idl"
+
+interface M_WPHwManager;
+
+interface WPHwManager : WPFolder
+{
+
+  ULONG wpAddSnoop1Page(in HWND hwndNotebook);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddSnoop1Page,
+                  wpHwManagerPrivate1, wpHwManagerPrivate2,
+                  wpHwManagerPrivate3, wpHwManagerPrivate4
+                  ;
+
+    externalstem = wphwmgr;
+    functionprefix = hwmgr_;
+    local;
+//    externalprefix = hwmgr_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wphwmgr;
+    metaclass = M_WPHwManager;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+    passthru C_h =  ""
+"#define INCL_DOSMODULEMGR"
+"#include <os2.h>         "
+"#define SNOOP_WARPRISK  0"
+"#define SNOOP_NORISK    1"
+"#define SNOOP_LORISK    2"
+"#define SNOOP_MEDRISK   3"
+"#define SNOOP_HIRISK    4"
+"";
+
+     wpAddSettingsPages: override;
+     wpInitData        : override;
+     wpMenuItemSelected: override;
+     wpModifyPopupMenu : override;
+     wpPopulate        : override;
+     wpSetupOnce       : override;
+     wpUnInitData      : override;
+     wpCnrInsertObject : override;   
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPHwManager : M_WPFolder
+{
+
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wphwmgr;
+    functionprefix = hwmgrM_;
+    local;
+//    externalprefix = hwmgrM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wphwmgr;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+
+    wpclsInitData:         override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryIconData:    override;                                           //bjf152374
+    wpclsQueryIconDataN:   override;
+    wpclsQueryStyle:       override;
+    wpclsQueryTitle:       override;
+    wpclsUnInitData:       override;
+  };
+
+};
+
+#endif  /* wphwmgr_idl */

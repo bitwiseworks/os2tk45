@@ -1,0 +1,47 @@
+<HTML><HEAD>
+<TITLE>Gramnar Guide</TITLE><HEAD>
+<BODY>
+<A NAME=Top_Of_Page>&nbsp;</A>
+</HEAD><BODY>
+<IMG SRC="bannerx.gif" ALT=""><BR>
+<H1>Grammar Guide</H1>
+<HR>
+<H1>A guide to linking grammars to applications</H1>
+<p> An SGL file describes a link between an application and a list of
+compiled grammars. When Voice Manager starts to navigate an application
+it will automatically load the compiled grammars that are defined in
+that application's SGL file. The SGL file must be located in the
+<TT>spch_ro\langs\<I>lang-code</I>\grammars</TT> subdirectory.
+The name of the SGL file must match the
+filename of the application. For example, the name of the executable
+for the system editor is <TT>E.EXE</TT>, thus the name of the related
+SGL would be <TT>E.SGL</TT>. The contents of the SGL file are the line
+<PRE>
+
+***Speech Grammar List***
+
+</PRE>
+
+followed by the names of the compiled grammar files, one per line.
+For example, suppose you wrote and compiled to grammars---SGRAM.FSG
+and MYNUM.FSG---and you would like to have these grammars linked to
+the spreadsheet application, SPREAD.EXE.  You would create a file
+SPREAD.SGL consisting of the following lines:
+
+<PRE>
+
+***Speech Grammar List***
+sgram.fsg
+mynum.fsg
+
+</PRE>
+<p>
+Now whenever Voice Manager navigates the spreadsheet application
+the grammars SGRAM.FSG and MYNUM.FSG will automatically be loaded.
+<p><p>
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="tidygram.htm">Previous Page</A> &#124; <A HREF="gram-faq.htm">Next Page</A> &#124; <A HREF="grammar.htm">Back to Grammar Guide</A> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+
+</BODY>
+</HTML>
+

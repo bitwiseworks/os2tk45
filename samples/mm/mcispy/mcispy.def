@@ -1,0 +1,5 @@
+NAME MCISPY WINDOWAPI                        
+DESCRIPTION 'Multimedia MCI Message Spy V1.0' 
+STACKSIZE 65536                              
+HEAPSIZE  40000                              
+PROTMODE                                     

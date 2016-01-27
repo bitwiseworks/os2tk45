@@ -1,0 +1,47 @@
+/*********** DIALOG C Sample Program Dialog Resource File (.DLG) **************
+ *
+ *  This file contains one or more dialog box templates.
+ *  The file is referenced in the .RC file by the RCINCLUDE statement and
+ *  is compiled into the DIALOG.RES file along with the other resources
+ *  used by the program module.  DIALOG.H resolving symbolic constants.
+ *
+ ******************************************************************************/
+
+
+DLGINCLUDE 1 "DIALOG.H"
+
+DLGTEMPLATE ID_MYDIALOG PRELOAD MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Where", ID_MYDIALOG, 91, 90, 111, 59,
+           WS_VISIBLE | WS_SAVEBITS,
+           FCF_DLGBORDER | FCF_NOBYTEALIGN | FCF_TITLEBAR | FCF_SYSMENU
+    BEGIN
+        CONTROL "Where do you live?", ID_NULL, 9, 43, 91, 10, WC_STATIC,
+                SS_TEXT | DT_LEFT | DT_TOP | WS_VISIBLE
+        CONTROL "", ID_ENTRYFIELD, 10, 27, 87, 8, WC_ENTRYFIELD,
+                ES_LEFT | ES_AUTOSCROLL | ES_MARGIN |
+                WS_GROUP | WS_TABSTOP | WS_VISIBLE
+        CONTROL "~OK", 1, 6, 4, 40, 12, WC_BUTTON,
+                BS_PUSHBUTTON | BS_DEFAULT | WS_GROUP | WS_TABSTOP |
+                WS_VISIBLE
+        CONTROL "Cancel", 2, 60, 4, 40, 12, WC_BUTTON,
+                BS_PUSHBUTTON | WS_VISIBLE
+    END
+END
+
+DLGTEMPLATE ID_PRODINFO PRELOAD MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Product Information", ID_PRODINFO, 75, 75, 275, 130,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CONTROL         ID_BITMAP, ID_BITMAP, 110, 70, 21, 21, WC_STATIC,
+                        SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT           "(C) Copyright IBM Corporation 1991. All Rights rese"
+                        "rved.", 256, 7, 54, 255, 8
+        CTEXT           "OS/2 is a registered trademark of", 258, 7, 44, 255,
+                        8
+        CTEXT           "International Business Machines Corp.", 257, 7, 34,
+                        255, 8
+        DEFPUSHBUTTON   "~OK", -1, 111, 8, 45, 15
+    END
+END

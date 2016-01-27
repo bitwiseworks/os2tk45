@@ -1,0 +1,45 @@
+/**************************************************************************
+ *  File name  :  image.dlg
+ *
+ *  Description:  This file contains one or more dialog box templates.
+ *                The file is referenced in the .RC file by the RCINCLUDE
+ *                statement and is compiled into the IMAGE.RES file along
+ *                with the other resources used by the program module.
+ *                IMG_DLG.H resolves the symbolic constants.
+ *
+ *  Concepts   :  dialog
+ *
+ *  API's      :  [none]
+ *
+ *  Required
+ *    Files    :  IMG_DLG.H
+ *
+ *  Copyright (C) 1991 IBM Corporation
+ *
+ *      DISCLAIMER OF WARRANTIES.  The following [enclosed] code is
+ *      sample code created by IBM Corporation. This sample code is not
+ *      part of any standard or IBM product and is provided to you solely
+ *      for  the purpose of assisting you in the development of your
+ *      applications.  The code is provided "AS IS", without
+ *      warranty of any kind.  IBM shall not be liable for any damages
+ *      arising out of your use of the sample code, even if they have been
+ *      advised of the possibility of such damages.                                                    *
+ *************************************************************************/
+DLGTEMPLATE IDD_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Product information", IDD_PRODUCTINFO, 9, 9, 256, 125,
+                FS_NOBYTEALIGN | FS_DLGBORDER |
+                WS_VISIBLE | WS_CLIPSIBLINGS | WS_SAVEBITS,
+                FCF_TITLEBAR | FCF_SYSMENU
+    BEGIN
+        CONTROL         IDR_BITMAP, IDC_BITMAP, 108, 66, 21, 21, WC_STATIC,
+                        SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT        "(C) Copyright IBM Corporation 1991. All Rights reserved.",
+                        256, 4, 54, 240, 8
+        CTEXT           "OS/2 is a registered trademark of", 258, 4, 44, 240,
+                        8
+        CTEXT           "International Business Machines Corp.", 257, 4, 34,
+                        240, 8
+        DEFPUSHBUTTON   "OK", IDC_OK, 105, 8, 45, 15
+    END
+END

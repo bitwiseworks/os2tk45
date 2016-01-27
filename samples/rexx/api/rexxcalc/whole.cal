@@ -1,0 +1,4 @@
+/* Validate a Rexx whole number */
+parse arg number                       /* get the number             */
+call lineout 'd:\rexxcalc\calc.log', number
+return datatype(number, 'Whole')       /* return the validation      */

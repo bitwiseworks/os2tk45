@@ -1,0 +1,23 @@
+// ------------------------------------------------------------------
+// File:  browcls.idl
+//
+// This file contains the IDL type definitions for the foreign types
+// defined in the Browse IDL files.
+//
+// ------------------------------------------------------------------
+
+// interface Browse_O_Matic : WPDataFile
+
+typedef short         *PSHORT;
+typedef short          APIRET;
+typedef unsigned int     UINT;
+
+struct   S_LINERECORD
+{
+   PSZ   pszLine;       /* Pointer to beginning of each line of text */
+   UINT  unLength;      /* The length of each line of text */
+
+};
+
+typedef S_LINERECORD LINERECORD;
+

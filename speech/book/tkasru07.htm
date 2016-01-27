@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<HTML><HEAD>
+<TITLE>API Reference</TITLE>
+<!-- Begin Header Records  ========================================== -->
+</HEAD><BODY>
+<!-- End Header Records  ============================================ -->
+<A NAME=Top_Of_Page>&nbsp;</A>
+<H1>Application Programming Interface (API) Reference</H1>
+<HR>
+<H1><A NAME="HDRDATYP" HREF="tkasrun.htm#ToC_223">Data Types</A></H1>
+<P>
+The following data types are used.
+They are listed in alphabetic order.
+<A NAME=IDX649>&nbsp;</A>
+<A NAME=IDX650>&nbsp;</A>
+<A NAME=IDX651>&nbsp;</A>
+<A NAME=IDX652>&nbsp;</A>
+<HR>
+<H2><A NAME="LENSMARG" HREF="tkasrun.htm#ToC_116">SmArg</A></H2>
+<P>
+Speech argument list structure.
+<TABLE BORDER><TR><TD><BR>
+<PRE>
+typedef struct _SmArg
+(CHAR         <VAR>name</VAR>;
+AmArgVal      <VAR>value</VAR>;
+  )   SmArg;
+
+typedef SmArg SmArg;
+</PRE><BR>
+</TD></TR></TABLE>
+Fields:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P><B><VAR>name</VAR>
+</B></TD><TD><P>Name of speech argument.
+</TD></TR><TR VALIGN=TOP><TD><P><B><VAR>value</VAR>
+</B></TD><TD><P>Value of speech argument if size of argument is less than or
+equal to size of (long); otherwise, a pointer to the speech
+argument value.
+</TD></TR></TABLE>
+<A NAME=IDX653>&nbsp;</A>
+<A NAME=IDX654>&nbsp;</A>
+<A NAME=IDX655>&nbsp;</A>
+<A NAME=IDX656>&nbsp;</A>
+<HR>
+<H2><A NAME="LENSMAVAL" HREF="tkasrun.htm#ToC_117">SmArgVal</A></H2>
+<P>
+Value of speech argument if size of argument is less than
+or equal to sizeof(long); otherwise, a pointer to the speech
+argument value.
+<TABLE BORDER><TR><TD><BR>
+<PRE>
+typedef LONG  SmArgVal;
+</PRE><BR>
+</TD></TR></TABLE>
+<P><P>
+<A NAME=IDX657>&nbsp;</A>
+<A NAME=IDX658>&nbsp;</A>
+<A NAME=IDX659>&nbsp;</A>
+<HR>
+<H2><A NAME="LENCADDR" HREF="tkasrun.htm#ToC_118">caddr_t</A></H2>
+<P>
+Pointer to character-aligned data.
+<TABLE BORDER><TR><TD><BR>
+<PRE>
+typedef CHAR  caddr_t;
+</PRE><BR>
+</TD></TR></TABLE>
+<P><P>
+<A NAME=IDX660>&nbsp;</A>
+<A NAME=IDX661>&nbsp;</A>
+<A NAME=IDX662>&nbsp;</A>
+<HR>
+<H2><A NAME="LENSMHANDL" HREF="tkasrun.htm#ToC_119">SmHandler</A></H2>
+<P>
+Return value from callback-handler function.
+<TABLE BORDER><TR><TD><BR>
+<PRE>
+typedef INT  SmHandler;
+</PRE><BR>
+</TD></TR></TABLE>
+<P><P>
+<A NAME=IDX663>&nbsp;</A>
+<A NAME=IDX664>&nbsp;</A>
+<A NAME=IDX665>&nbsp;</A>
+<HR>
+<H2><A NAME="LENSMMSG" HREF="tkasrun.htm#ToC_120">SmMsg</A></H2>
+<P>
+Pointer to message between speech engine and application.
+<TABLE BORDER><TR><TD><BR>
+<PRE>
+typedef VOID  SM_MSG;
+</PRE><BR>
+</TD></TR></TABLE>
+<P><P>
+<A NAME=IDX666>&nbsp;</A>
+<A NAME=IDX667>&nbsp;</A>
+<A NAME=IDX669>&nbsp;</A>
+<HR>
+<H2><A NAME="LENSMVOCWD" HREF="tkasrun.htm#ToC_121">SM_VOCWORD</A></H2>
+<P>
+Vocabulary word-attribute structure.
+<TABLE BORDER><TR><TD><BR>
+<PRE>
+typedef struct _SM_VOCWORD (
+LONG       <VAR>flags</VAR>;
+SHORT      <VAR>spelling_size</VAR>;
+CHAR       <VAR>spelling</VAR>;
+  ) SM_VOCWORD;
+
+typedef SM_VOCWORD  SM_VOCWORD;
+</PRE><BR>
+</TD></TR></TABLE>
+Fields:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P><B><VAR>flags</VAR>
+</B></TD><TD><P>Reserved for internal use.
+</TD></TR><TR VALIGN=TOP><TD><P><B><VAR>spelling_size</VAR>
+</B></TD><TD><P>Number of chars in word spelling plus one for terminating NULL.
+</TD></TR><TR VALIGN=TOP><TD><P><B><VAR>spelling</VAR>
+</B></TD><TD><P>Word spelling.
+</TD></TR></TABLE>
+<P><P>
+<A NAME=IDX670>&nbsp;</A>
+<A NAME=IDX671>&nbsp;</A>
+<A NAME=IDX672>&nbsp;</A>
+<HR>
+<H2><A NAME="LENSMWORD" HREF="tkasrun.htm#ToC_122">SM_WORD</A></H2>
+<P>
+Word-attribute structure.
+<TABLE BORDER><TR><TD><BR>
+<PRE>
+typedef struct _SM_WORD (
+LONG       <VAR>tag</VAR>;
+LONG       <VAR>flags</VAR>;
+LONG       <VAR>score</VAR>;
+SHORT      <VAR>spelling_size</VAR>;
+CHAR       <VAR>spelling</VAR>;
+SHORT      <VAR>vocab_size</VAR>;
+CHAR       <VAR>vocab</VAR>;
+  ) SM_WORD;
+
+typedef SM_WORD  SM_WORD;
+</PRE><BR>
+</TD></TR></TABLE>
+Fields:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P><B><VAR>tag</VAR>
+</B></TD><TD><P>Unique ID defined by speech engine for this word.
+</TD></TR><TR VALIGN=TOP><TD><P><B><VAR>flags</VAR>
+</B></TD><TD><P>Formatting flags for words from predefined vocabularies.
+</TD></TR><TR VALIGN=TOP><TD><P><B><VAR>score</VAR>
+</B></TD><TD><P>Measure of word&#39;s probability.
+</TD></TR><TR VALIGN=TOP><TD><P><B><VAR>spelling_size</VAR>
+</B></TD><TD><P>Number of chars in word spelling plus one for terminating NULL.
+</TD></TR><TR VALIGN=TOP><TD><P><B><VAR>spelling</VAR>
+</B></TD><TD><P>Word spelling.
+</TD></TR><TR VALIGN=TOP><TD><P><B><VAR>vocab_size</VAR>
+</B></TD><TD><P>Number of chars in vocabulary name plus one for terminating NULL.
+</TD></TR><TR VALIGN=TOP><TD><P><B><VAR>vocab</VAR>
+</B></TD><TD><P>Vocabulary name.
+</TD></TR></TABLE>
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="tkasru06.htm">Previous Page</A> &#124; <A HREF="tkasru08.htm">Next Page</A> &#124; <A HREF="tkasrun.htm#ToC">Table of Contents</A> &#124; <A HREF="tkasru11.htm#HDRINDEX_START">Index</A
+> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+</BODY></HTML>
+

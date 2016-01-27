@@ -1,0 +1,16 @@
+#include <mmioos2.h>
+#include "convproc.h"
+
+RCDATA CONV_NLS_CHARSET_INFO
+BEGIN
+        MMIO_DEFAULT_CODE_PAGE,
+        MMIO_CC_USA,
+        MMIO_LC_US_ENGLISH,
+        MMIO_DC_US_ENGLISH
+END
+
+RCDATA CONV_IOPROC_NAME_TABLE
+BEGIN
+        HEX_FOURCC_FFT,      "An Example Custom I/O Procedure\0",
+        0,                   "\0"
+END

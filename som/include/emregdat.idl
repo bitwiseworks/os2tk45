@@ -1,0 +1,86 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.8 src/somem/emregdat.idl, somu, som2.1 9/1/94 17:45:56 [7/30/96 14:46:09]
+
+
+#ifndef emregdat_idl
+#define emregdat_idl
+
+#include <somobj.idl>
+
+interface SOMEEMRegisterData : SOMObject
+
+// SOMEEMRegisterData is the class utilized for holding registration
+// data for events types to be registered with Event Management Framework(EMan)
+
+{
+  void someClearRegData();
+
+  // Clears the registration data
+
+  void someSetRegDataClientType(in string clientType);
+
+  // Sets the client event type within the registration data
+
+  void someSetRegDataEventMask(in long eventType, in va_list ap);
+
+  // Sets the generic event mask within the registration data, using NULL terminated
+  // event type list. Event types are defined in eventmsk.h
+
+  void someSetRegDataSink(in long sink);
+
+  // Sets the sink, or source i/o file descriptor, within the registration data
+
+  void someSetRegDataSinkMask(in unsigned long sinkMask);
+
+  // Sets the sink mask within the registration data
+
+  void someSetRegDataTimerCount(in long count);
+
+  // Sets the number of times the timer will trigger, within the registration data.
+  // The default behavior is for the timer to trigger indefinitely.
+
+  void someSetRegDataTimerInterval(in long interval);
+
+  // Sets the timer interval within the registration data.
+  // Interval specification is in milliseconds
+
+
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: someClearRegData,someSetRegDataClientType,someSetRegDataEventMask,
+                  someSetRegDataSink,someSetRegDataSinkMask,
+                  someSetRegDataTimerCount,someSetRegDataTimerInterval
+                  ;
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = emregdat;
+    callstyle = idl;
+
+
+    //# Method Modifiers
+    somInit: override;
+    somUninit: override;
+
+    //# Data Modifiers
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* emregdat_idl */

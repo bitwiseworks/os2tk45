@@ -1,0 +1,75 @@
+//
+//   Module Name: WPHTML
+//
+//   OS/2 Work Place Shell - HTML data file object
+//
+//   Copyright (C) 1996 IBM Corporation
+//
+
+#ifndef WPHtml_idl
+#define WPHtml_idl
+
+#include <wpdataf.idl>
+#include <somcls.idl>
+
+interface M_WPHtml;
+
+interface WPHtml : WPDataFile
+
+{
+
+   implementation
+   {
+      externalstem = html_;
+      local;
+      externalprefix = html_;
+      majorversion = 1;
+      minorversion = 2;
+      filestem = wphtml;
+      metaclass = M_WPHtml;
+      callstyle = oidl;
+      dllname = "wpinet.dll";
+
+      wpSetupOnce:          override;                                            
+
+      wpCreateFromTemplate: override;                                          
+
+      wpCreateAnother:      override;                                          
+
+      somDefaultInit:       override;
+      somDestruct:          override;
+
+   };
+};
+
+interface M_WPHtml : M_WPDataFile
+{
+   implementation
+   {
+      externalstem = htmlM_;
+      local;
+      externalprefix = htmlM_;
+      majorversion = 1;
+      minorversion = 2;
+      filestem = wphtml;
+      callstyle = oidl;
+      dllname = "wpinet.dll";
+
+
+      wpclsInitData: override;
+
+      wpclsQueryDefaultHelp: override;
+
+      wpclsQueryTitle: override;
+
+      wpclsQueryStyle: override;
+
+      wpclsQueryInstanceFilter: override;
+
+      wpclsQueryInstanceType: override;
+
+      wpclsCreateDefaultTemplates: override;
+
+   };
+};
+#endif

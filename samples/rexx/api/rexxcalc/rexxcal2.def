@@ -1,0 +1,21 @@
+;********************************************************************
+;*                                                                  *
+;* REXXCALC.DEF - a simple pocket calculator                        *
+;*                                                                  *
+;********************************************************************
+
+ NAME REXXCAL2 WINDOWAPI
+
+ DESCRIPTION 'Simple Pocket Calculator'
+
+ PROTMODE
+
+ STUB        'OS2STUB.EXE'
+
+ DATA    MULTIPLE                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                              
+ STACKSIZE   16384                                                                                                                                                                                                                                            
+ HEAPSIZE    8192                                                                                                                                                                                                                                             
+
+ EXPORTS
+   Calculator  @1

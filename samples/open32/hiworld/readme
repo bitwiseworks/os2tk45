@@ -1,0 +1,20 @@
+HIWORLD Sample Program
+
+This version of HIWORLD will build without source changes on a Win32 system
+with the appropriate development tools.
+
+To execute HIWORLD on OS/2, you must follow the steps in the conversion
+guide to obtain the OS/2 version of HIWORLD.  For your reference, the
+OS/2 version of HIWORLD can be found in a sister directory to this one
+called HIWORLD2, along with a readme that briefly describes the steps
+that will take this Win32 version of HIWORLD to a native OS/2 executable.
+
+In this directory, you will find these files:
+
+        hiworld.c - source code for hiworld
+        hiworld.h - include file
+        hiworld.rc - resource file
+        icon2.ico - custom icon
+        cursor1.cur - custom cursor
+        readme - this file
+

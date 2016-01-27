@@ -1,0 +1,68 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.7 src/somem/clientev.idl, somu, som2.1 9/1/94 17:45:15 [7/30/96 14:46:07]
+
+
+#ifndef clientev_idl
+#define clientev_idl
+
+#include <event.idl>
+
+interface SOMEClientEvent : SOMEEvent
+
+// SOMEClientEvent is the class for generic client events within the Event Manager.
+// This class should be queried for events of the following type(s):
+//      EMClientEvent
+//
+// An instance of this class is initialized and passed to the
+// callback routine for all client events regardless of their clientevent type.
+
+{
+  void* somevGetEventClientData();
+
+  // Returns the client data of the generic client event
+
+  string somevGetEventClientType();
+
+  // Returns the client type of the generic client event
+
+  void somevSetEventClientData(in void *clientData);
+
+  // Sets the client type of the generic client event
+
+  void somevSetEventClientType(in string clientType);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: somevGetEventClientData,somevGetEventClientType,somevSetEventClientData,
+                  somevSetEventClientType;
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = clientev;
+    callstyle = idl;
+
+
+    //# Method Modifiers
+    somInit: override;
+
+    //# Data Modifiers
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* clientev_idl */

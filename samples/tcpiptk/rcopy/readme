@@ -1,0 +1,34 @@
+RCOPY is located in \TOOLKIT\SAMPLES\TCPIPTK\SOCKET.
+
+RCOPY makes use of the FTP API (FTPAPI.DLL) to transfer a directory and
+all of its subdirectories between a client and FTP server.  RCOPY does
+not read userid or password from the NETRC file so they must be specified
+when required.
+
+     put  transfers from local host to remote host (default)
+     get  transfers from remote host to local host.
+     binary  Binary transfer mode (default).
+     ascii   ASCII transfer mode.
+
+Following are the details on building and executing the RCOPY Sample:
+
+     1.  To compile and link the sample, type:
+
+           nmake -f vacpp.mak         (to build using the VisualAge C/C++ compiler)
+
+     2.  Executing rcopy.exe
+
+         a)  Command Syntax
+
+               RCOPY put|get ascii|binary [-l<local path>] -h<host>
+                     -u<userid> -p<password> [-r<rem path>] [-a<account>]
+
+         b)  Example
+
+               rcopy put -ld:\tmp -holeg -uyozzo -pyozzops -rc:\newtmp
+
+               Where:  d:\tmp   is a local path to transfer
+                       oleg     is a remote host (ftp server)
+                       yozzo    is a remote userid
+                       yozzops  is a remote password
+

@@ -1,0 +1,60 @@
+//
+//   COMPONENT_NAME: somr
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.8 src/somr/nameable.idl, somr, som2.1 9/1/94 15:51:27 [7/30/96 14:49:26]
+
+
+
+#ifndef nameable_idl
+#define nameable_idl
+
+#include <somobj.idl>
+interface SOMRNameable : SOMObject
+
+//Any object derived from this class would have a string name.
+
+{
+  void somrSetObjName(in string name);
+
+  // Sets the internal pointer to "name" .
+  //           The OWNERSHIP of the string is transferred to this object.
+
+  string somrGetObjName();
+
+  // Returns a pointer to the name string.
+  //          The OWNERSHIP of the string stays with this object.
+
+  #ifdef __SOMIDL__
+
+  implementation
+  {
+    callstyle=idl;
+
+    releaseorder: somrSetObjName, somrGetObjName;
+
+    // Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = nameable;
+
+    // Internal Instance Variables
+    string name;
+
+    // Method Modifiers
+    somInit: override;
+    somUninit: override;
+
+  };
+#endif /* __SOMIDL__ */
+
+};
+#endif  /* nameable_idl */

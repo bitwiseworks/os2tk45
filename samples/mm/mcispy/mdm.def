@@ -1,0 +1,41 @@
+LIBRARY MDM INITINSTANCE TERMINSTANCE        
+SEGMENTS                                     
+  SHR_SEG   CLASS 'DATA' SHARED              
+DATA MULTIPLE NONSHARED                      
+IMPORTS                                      
+       mciGetErrorString          = mci.3     
+       mciQueryDefaultConnections = mci.6     
+       mciDefaultConnection       = mci.7     
+       mciQueryConnections        = mci.8     
+       mciConnection              = mci.9     
+       mciSetSysValue             = mci.10    
+       mciQuerySysValue           = mci.11    
+       mciMakeGroup               = mci.12    
+       mciDeleteGroup             = mci.13    
+       mciGetDeviceID             = mci.16    
+       mdmDriverNotify            = mci.17    
+       MCI16GETERRORSTRING        = mci.18    
+       MCI16SENDSTRING            = mci.19    
+       MCI16GETDEVICEID           = mci.20    
+       MM_DosLoadModule           = mci.21    
+EXPORTS                                      
+       mciSendCommand              @1        
+       mciSendString               @2        
+       mciGetErrorString           @3        
+       mciQueryDefaultConnections  @6        
+       mciDefaultConnection        @7        
+       mciQueryConnections         @8        
+       mciConnection               @9        
+       mciSetSysValue              @10       
+       mciQuerySysValue            @11       
+       mciMakeGroup                @12       
+       mciDeleteGroup              @13       
+       mciGetDeviceID              @16       
+       mdmDriverNotify             @17       
+       MCI16GETERRORSTRING         @18       
+       MCI16SENDSTRING             @19       
+       MCI16GETDEVICEID            @20       
+       MM_DosLoadModule            @21       
+       RegisterSpy                 @22       
+       QueryOpenInstance           @23       
+       SpySystemSounds             @24       

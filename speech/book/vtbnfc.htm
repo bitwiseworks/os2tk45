@@ -1,0 +1,162 @@
+<HTML><HEAD>
+<TITLE>Grammar Guide</TITLE><HEAD>
+</HEAD><BODY>
+<IMG SRC="bannerx.gif" ALT=""><BR>
+<H1>Grammar Guide</H1>
+<HR>
+<H1>Grammar compiler options</H1>
+<P>
+There are three options associated with the grammar compiler&#58;
+<OL>
+<P><LI><B><I>Non-uniform probability computation</I></B>
+<P>By default, grammars are compiled with what is known as the uniform
+probability computation, which means that all words out of a given state are
+equally likely. The non-uniform probably option enables the developer to turn
+the uniform probability computation off.
+<P>The recognition performance differences between the two options is
+strongly grammar dependent.  An extreme example is&#58;
+<PRE>
+   &lt;Number&gt; = "point" &lt;digit&gt; &#124; &lt;digit&gt;
+   &lt;digit&gt;  = 0 &#124; 1 &#124; 2 &#124; 3 &#124; 4 &#124; 5 &#124; 6 &#124; 7 &#124; 8 &#124; 9
+</PRE>
+The first word that can be spoken is "point" or a digit.
+With the uniform probability computation, all
+initial words have probability 1/11.
+Without the uniform
+probability computation, "point" has a probability of 0.5, while each digit has
+a probability of only 0.05.
+<P>Without the uniform probability computation, language model
+probabilities
+are assigned to be locally uniform for each production rule in the BNF file.
+Take the following example&#58;
+<PRE>
+   &lt;A&gt; = &lt;a1&gt; &#124; &lt;a2&gt;
+   &lt;a1&gt; = "West Palm"
+   &lt;a2&gt; = "Hawthorne" &#124; "Yorktown"
+</PRE>
+<P>Without a uniform probability computation, &lt;a1&gt; and &lt;a2&gt; each get
+probability 0.5. &lt;a1&gt; expands to a single terminal,
+"West Palm," which has probability 0.5 x 1 or 0.5.  Since &lt;a2&gt; expands to
+two terminals, which are considered equally likely, "Hawthorne" and "Yorktown"
+each get probability 0.5 x 0.5 or 0.25.  Consequently, "West Palm" has twice
+the probability of the other alternative phrases.  This allows an application
+developer the opportunity to bias word probabilities, where they are known or
+where they make sense to use.
+<P>If &lt;A&gt; were rewritten as&#58;
+<PRE>
+   &lt;A&gt; = "West Palm" &#124; "Hawthorne" &#124; "Yorktown"
+</PRE>
+then all possibilities are equally likely.  This is what the uniform
+probability computation will generate, independent of how the rules are
+expressed in the BNF file.
+<P>To be independent of rule construction in BNF files, most application
+developers would likely want to keep the default; that is, they should use the
+uniform probability computation.
+<P><LI><B><I>Mumble words</I></B>
+<P>Use this option to generate
+an FSG file that handles cases where
+the end user injects mumbling or
+other non-speech noise while speaking.
+For example, in a grammar with the following construct&#58;
+<PRE>
+
+  &lt;rule&gt; = open &lt;program&gt;
+
+</PRE>
+the user might say "uhm...open Lotus Notes" instead of
+"open Lotus Notes."
+Specifying the mumble words option
+causes the speech engine
+to ignore any speech that
+is not defined as valid by the BNF grammar.
+<P>You can also tell the speech
+engine to return the
+non-speech noise text back to the application,
+along with the word or phrase
+that was recognized.  A mumble is flagged as an SM_WORD with an empty spelling
+("") in an SM_RECOGNIZED_PHRASE message.
+Flag settings for mumble on a run-time SmDefineGrammar
+call override the flags compiled into the FSG.
+<P><LI><B><I>Silence words</I></B>
+<P>Use this option to generate an FSG file that handles cases where the end
+user pauses briefly while speaking a command. For example, in a grammar with
+the following construct&#58;
+<PRE>
+
+  &lt;rule&gt; = open &lt;program&gt;
+
+</PRE>
+the user might say "open &lt;pause&gt; Lotus Notes" instead of
+"open Lotus Notes."
+Specifying this option causes the speech engine to ignore any silence within an
+utterance.
+<P>
+SMAPI treats silence similarly to mumbles.  Silence is allowed within a
+phrase, and is returned as an SM_WORD with a spelling of "&lt;silence&gt;."
+As with the mumble words option, flag settings for silence on a run-time
+SmDefineGrammar call override the flags compiled into the FSG.
+</OL>
+
+<HR>
+<H1>Compiling grammar files</H1>
+Grammar files are compiled using the program <TT>vtbnfc.exe</TT>,
+the syntax of the command is:
+<PRE>
+
+vtbnfc [-n] [-m | -m- | -m+] [-s | -s- | -s+] [-o outfile] grammarfile
+
+</PRE>
+The available options are:
+<p><DL>
+<DT><strong>-n</strong>
+<DD>This option causes the uniform probability computation to  be turned off.
+<p>
+<DT><strong>-m</strong>
+<DD>This option instructs the compiler to enable mumble words.
+This option (called "mumble mode") allows the user to have filled pauses in his or
+her speech. For example, consider a grammar that accepts <I>move up four words</I> and a
+user saying   <I>move up, ah, four words</I>. Without this option (-m) selected, this
+phrase would not be recognized since <i>ah</I> is not in the grammar. However,
+with the option enabled the phrase would be recognized.
+
+<UL>
+<LI>Use <strong>-m</strong> to tell the speech engine to enable mumble words, but
+not to return the mumble text.
+<LI>Use <strong>-m+</strong> to tell the speech engine to enable mumble words
+and to return the mumble text.
+Without this option, the mumble words mentioned above would not be returned
+to the application (In, the example above where the user said <I>move up, ah, four words</I>
+the words <TT>move up four words</TT> would be sent to the application. With this option
+enabled, the mumble words are also sent to the application.
+<LI>Use <strong>-m-</strong> to disable mumble words (this is the default).
+</UL>
+<p>
+<DT><strong>-s</strong>
+<DD>This option instructs the compiler to enable silence words.
+<UL>
+<LI>Use <strong>-s</strong> to tell the speech engine to enable silences, but not to
+return silence words (this is the default).
+<LI>Use <strong>-s+</strong> to tell the speech engine to enable silences and to
+return silence words.
+<LI>Use <strong>-s-</strong> to disable silence words.
+</UL>
+<p>
+<DT><strong>-o<I>filename</I></strong>
+<DD>This option specifies the name of the output file. By default the
+output file has the same name as the input file but with the extension
+<tt>.fsg</TT>.
+<p>
+<DT><strong>grammarfile</strong>
+<DD>The name of the BNF grammar file to be compiled.  The grammar file
+name must be fully qualified if it does not reside in the current directory.
+The file extension does not have to be specified (it defaults to .bnf).
+If you write non-English grammars (for examples, those with accented characters
+or "umlate"), the grammar file must be in code page 1252 so that the special
+characters are handled properly.
+</DL>
+<p>
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="bnf.htm">Previous Page</A> &#124; <A HREF="wcs.htm">Next Page</A> &#124; <A HREF="grammar.htm">Back to Grammar Guide</A> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+ </BODY>
+ </HTML>
+

@@ -1,0 +1,105 @@
+
+//  Module Header
+//
+//  Module Name: WPSPOOL
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpspool_idl
+#define wpspool_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+#include <wprttype.idl>
+
+interface M_WPSpool;
+
+interface WPSpool : WPAbstract
+{
+
+  ULONG wpAddSetPathPage(in HWND hwndNotebook);
+  ULONG wpAddSetPriorityPage(in HWND hwndNotebook);
+  ULONG wpAddSetPortRedirPage(in HWND hwndNotebook);
+  ULONG wpAddSetViewPage(in HWND hwndNotebook);
+  ULONG wpAddSetSyncPage(in HWND hwndNotebook);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddSetPathPage,wpAddSetPriorityPage,pdvQueryXSplitBarAllJobs,
+                  pdvSetXSplitBarAllJobs,wpAddSetPortRedirPage,
+                  wpAddSetViewPage, splSetDetailsColumnVisibility,
+                  splIsDetailsColumnVisible, wpAddSetSyncPage;
+
+    externalstem = WPspl;
+    local;
+    externalprefix = spl_;
+    majorversion = 1;
+    minorversion = 1;
+    filestem = wpspool;
+    metaclass = M_WPSpool;
+    callstyle = oidl;
+
+
+    passthru C_h =     ""
+"/* common context menu ids */"
+"#define WPPOICM_SPOOL_ENABLE        5001"
+"#define WPPOIDM_SPOOL_ENABLE        5101"
+"#define WPPOICM_SPOOL_DISABLE       5002"
+"#define WPPOIDM_SPOOL_DISABLE       5102"
+"";
+
+
+    wpInitData: override;
+    wpUnInitData: override;
+    somDumpSelfInt: override;
+    wpQueryTitle: override;
+    wpQueryIcon: override;
+    wpFilterPopupMenu: override;
+    wpModifyPopupMenu: override;
+    wpMenuItemSelected: override;
+    wpMenuItemHelpSelected: override;
+    wpOpen: override;
+    wpDrop: override;
+    wpCopyObject: override;
+    wpDragOver: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpAddSettingsPages: override;
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPSpool
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPspl;
+    local;
+    externalprefix = splM_;
+    functionprefix = splM_;
+    majorversion = 1;
+    minorversion = 1;
+    filestem = wpspool;
+    callstyle = oidl;
+
+    wpclsQueryTitle: override;
+    wpclsQueryIcon: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryStyle: override;
+    wpclsQueryIconData: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpspool_idl */

@@ -1,0 +1,225 @@
+
+//  Module Header
+//
+//  Module Name: WPPGM
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wppgm_idl
+#define wppgm_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface M_WPProgram;
+
+interface WPProgram : WPAbstract
+
+{
+  ULONG wpAddProgramAssociationPage(in HWND hwndNotebook);
+
+  BOOL wpQueryProgDetails(in PPROGDETAILS pProgDetails,
+                          in PULONG pulSize);
+
+  BOOL wpSetProgDetails(in PPROGDETAILS pProgDetails);
+
+  ULONG wpAddProgramPage(in HWND hwndNotebook);
+
+  ULONG wpAddProgramSessionPage(in HWND hwndNotebook);
+
+  PSZ wpQueryAssociationFilter();
+
+  PSZ wpQueryAssociationType();
+
+  BOOL wpSetAssociationFilter(in PSZ pszFilter);
+
+  BOOL wpSetAssociationType(in PSZ pszType);
+
+  PSZ wpQueryProgramAssociations( in    PBYTE ptr,
+                                  in    PSZ pszAssoc,
+                                  in    BOOL fFilter );
+
+  BOOL wpSetProgramAssociations( in PSZ pszAssoc,
+                                 in BOOL fFilter );
+
+  BOOL wpQueryWarnBeforeStart();
+
+  BOOL wpSetWarnBeforeStart(in BOOL fWarnBeforeStart);
+
+  BOOL wpSetProgIcon(in PFEA2LIST pfeal);
+
+ VOID wpSetDefaultBidiSettings(in ULONG ulBidiSetting,
+                               in BOOL flSet);
+
+ VOID wpSetDefaultCpSettings();
+
+  BOOL wpQueryDefaultBidiSettings(in ULONG ulBidiSetting);
+
+  VOID wpSetBidiValues(in ULONG ulBidiSetting,
+                       in ULONG ulBidiValue,
+                       in ULONG ulBidiMask);
+
+  VOID wpSetCpValues(in ULONG ulSetting,
+                       in VOID *ulValue);
+
+  ULONG wpQueryBidiValues(in ULONG ulBidiSetting);
+
+  VOID wpQueryCpValues(in ULONG ulSetting, in VOID *ulValue);
+
+   BOOL wpInsertBidiPage(in HWND hwndNotebook,
+                         in ULONG ulBidiSettings);
+
+   BOOL wpSaveBidiState();
+
+   BOOL wpSaveCpState();
+
+   BOOL wpRestoreBidiState(in ULONG ulReserved);
+
+   BOOL wpRestoreCpState();
+
+  VOID wpUndoCpSettings();
+
+   void wpInitBidiData();
+
+   void wpInitCpData();
+
+   BOOL wpBidiSetup(in PSZ pszSetupString);
+
+   HWND wpSettingsNotebook();
+
+VOID SetUpdateIndicator(in ULONG ulBidiSetting,
+                          in BOOL flSet);
+
+  BOOL QueryUpdateIndicator(in ULONG ulBidiSetting);
+
+  VOID SetNeedSave(in BOOL flNeedSave);
+
+  BOOL QueryNeedSave();
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddProgramPage,wpAddProgramSessionPage,wpQueryProgDetails,
+                  wpSetProgDetails,
+                  wpProgramPrivate1,
+                  wpProgramPrivate2,
+                  wpAddProgramAssociationPage,
+                  wpSetProgIcon,wpQueryAssociationFilter,wpQueryAssociationType,
+                  wpSetAssociationFilter,wpSetAssociationType,
+                  wpQueryProgramAssociations, wpSetProgramAssociations,
+                  wpQueryWarnBeforeStart, wpSetWarnBeforeStart,
+
+                  undefined1, wpSetDefaultBidiSettings, wpQueryDefaultBidiSettings,
+                  SetUpdateIndicator,QueryUpdateIndicator,wpSetBidiValues,
+                  wpQueryBidiValues,SetNeedSave,QueryNeedSave,undefined6,
+                  wpInsertBidiPage, wpSaveBidiState,
+                  wpRestoreBidiState, wpBidiSetup, wpInitBidiData,
+                  _get_hwndSettingsNotebook, _set_hwndSettingsNotebook, wpSettingsNotebook,
+                  wpSetDefaultCpSettings, wpSetCpValues, wpQueryCpValues,
+                  wpSaveCpState, wpRestoreCpState, wpInitCpData, wpUndoCpSettings;
+
+    externalstem = wppgmref;
+    local;
+    externalprefix = ref_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wppgm;
+    metaclass = M_WPProgram;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+passthru C_h_after =
+" #define DebugBox(title, text) WinMessageBox(  \            "
+"                                 HWND_DESKTOP, \            "
+"                                 HWND_DESKTOP, \            "
+"                                 (PSZ) text,   \            "
+"                                 (PSZ) title,  \            "
+"                                 0, MB_OK | MB_INFORMATION) ";
+
+passthru C_ih =     ""
+"   #define INCL_WIN"
+"   #define INCL_DOS"
+"   #define INCL_WINWORKPLACE"
+"   #include <os2.h>"
+"";
+
+
+    wpAddProgramAssociationPage: namelookup;
+    wpQueryProgDetails: namelookup;
+    wpSetProgDetails: namelookup;
+    wpAddProgramPage: namelookup;
+    wpAddProgramSessionPage: namelookup;
+    wpQueryAssociationFilter: namelookup;
+    wpQueryAssociationType: namelookup;
+    wpSetAssociationFilter: namelookup;
+    wpSetAssociationType: namelookup;
+    wpQueryProgramAssociations: namelookup;
+    wpSetProgramAssociations: namelookup;
+    wpQueryWarnBeforeStart: namelookup;
+    wpSetWarnBeforeStart: namelookup;
+    wpQueryDefaultHelp: override;
+    wpInitData: override;
+    wpSetup: override;
+    wpUnInitData: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpAddSettingsPages: override;
+    wpOpen: override;
+    wpMenuItemSelected: override;
+    wpMenuItemHelpSelected: override;
+    wpCreateFromTemplate: override;
+    wpCreateAnother: override;
+    wpQueryIconData: override;
+    wpSetIconData: override;
+    wpQueryIcon: override;
+    wpMoveObject: override;
+    wpCopyObject: override;
+    wpDragOver: override;
+    wpDrop: override;
+    wpCnrInsertObject: override;
+    wpSetTitle: override;
+    wpModifyMenu: override;                                                     
+    wpFilterMenu: override;                                                     
+    somDefaultInit: override;          
+    somDestruct: override;             
+    wpSetProgIcon: namelookup;
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPProgram : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wppgmref;
+    local;
+    externalprefix = refM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wppgm;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryTitle: override;
+    wpclsQueryIconData: override;
+    wpclsQueryStyle: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsCreateDefaultTemplates: override;                                      
+    wpclsQuerySettingsPageSize: override; 
+    wpclsInitData: override;
+    wpclsUnInitData: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wppgm_idl */

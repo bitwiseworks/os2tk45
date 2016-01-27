@@ -1,0 +1,275 @@
+
+//  Module Header
+//
+//  Module Name: WPPOWER
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wppower_idl
+#define wppower_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+typedef USHORT TID;
+
+interface M_WPPower;
+
+interface WPPower : WPAbstract
+
+{
+
+  ULONG wpAddPowerPage(in HWND hwndNotebook);
+
+#ifdef _PPC_                                           
+  ULONG wpAddPowerPage2(in HWND hwndNotebook);
+
+#endif                                                 
+
+  ULONG wpAddPowerResumePage(in HWND hwndNotebook);                             
+
+  ULONG wpAddGeyservillePage(in HWND hwndNotebook);    //pcr1609 start block
+
+/****************************************************************************\  
+ * METHOD: ULONG wpAddGeyservillePage (HWND hwndNotebook);
+ *
+ * DESCRIPTION:
+ *   This method adds the Geyserville page to the settings notebook.
+ *
+ * PARAMETERS:
+ *
+ *   Parameter1 - HWND    hwndNotebook - window handle for the settings notebook
+ *
+ *   Returns    - ULONG   success      - where:
+ *                0        =  Unsuccessful
+ *                ulPageId = Identifier for the inserted page
+ * REMARKS:
+ *
+ *   ( ) PRIVATE
+ *   (X) PUBLIC
+ *
+ * HOW TO OVERRIDE:
+ *   Method should always be overridden in order to replace or remove
+ *   the resume page from an object which replaces the WPPower class.
+ *   In most cases, an override of this method will not call the parent.
+ *
+ * HISTORY:
+ *   August 20, 1999  Sarah Hughes created
+\****************************************************/  //pcr1609 end block
+
+  ULONG wpAddPowerViewPage(in HWND hwndNotebook);
+
+#ifndef _PPC_
+  BOOL wpChangePowerState(in ULONG ulParm1,
+                          in ULONG ulParm2);
+
+#endif
+
+#ifdef _PPC_                                           
+  BOOL wpChangePPCPowerState(in ULONG ulParm1,
+                             in ULONG ulParm2);
+
+#endif                                                       
+
+  BOOL wpPowerOff(in BOOL bConfirm);                                            
+
+  ULONG wpQueryAPMLevel();                                                      
+
+  BOOL wpQueryAutoRefresh();
+
+  BOOL wpQueryBIOSPowerManagementSupport(out BOOL pbEnable);                    
+
+  BOOL wpQueryCapabilities(out ULONG pulBatteryMax,out ULONG pulCapabilities);  
+
+  ULONG wpQueryDefStatusView();
+
+#ifdef _PPC_                                           
+  BOOL wpQueryDischarge();
+
+#endif                                                 
+
+#ifdef _PPC_                                           
+  ULONG wpQueryMachineStateSettings(in ULONG ulEvent);
+
+#endif                                                 
+
+  BOOL wpQueryOS2PowerManagementSupport(out BOOL pbEnable);                     
+
+  BOOL wpQueryPowerConfirmation();
+
+  BOOL wpQueryPowerManagement();
+
+  ULONG wpQueryRefreshRate();
+
+  BOOL wpQueryResumeOnRing(out BOOL pbEnable);                                  
+
+  BOOL wpQueryResumeOnTimer(out BOOL  pbEnable,                                 
+                            out ULONG pulYear,
+                            out ULONG pulMonth,
+                            out ULONG pulDay,
+                            out ULONG pulHour,
+                            out ULONG pulMinute,
+                            out ULONG pulSecond);
+
+  BOOL wpQueryTimerBasedRequests(out BOOL pbEnable);                            
+
+  VOID wpRefreshNotebookPages();                                                
+
+  VOID wpSetAutoRefresh(in BOOL fAutoRefresh);
+
+  BOOL wpSetBIOSPowerManagementSupport(in BOOL bEnable);                        
+
+  VOID wpSetDefStatusView(in ULONG ulDefStatus);
+
+#ifdef _PPC_                                           
+  BOOL wpSetDischarge(in BOOL bDischarge);
+
+#endif                                                 
+
+#ifdef _PPC_                                           
+  BOOL wpSetMachineStateSettings(in ULONG ulEvent, in ULONG ulState);
+
+#endif                                                 
+
+  BOOL wpSetOS2PowerManagementSupport(in BOOL bEnable);                         
+
+  VOID wpSetPowerConfirmation(in BOOL fConfirm);
+
+  BOOL wpSetPowerManagement(in BOOL fPower);
+
+  BOOL wpSetRefreshRate(in ULONG ulRefreshRate);
+
+  BOOL wpSetResumeOnRing(in BOOL bEnable);                                      
+
+  BOOL wpSetResumeOnTimer(in BOOL  bEnable,                                     
+                          in ULONG ulYear,
+                          in ULONG ulMonth,
+                          in ULONG ulDay,
+                          in ULONG ulHour,
+                          in ULONG ulMinute,
+                          in ULONG ulSecond);
+
+  BOOL wpSetTimerBasedRequests(in BOOL bEnable);                                
+
+  BOOL wpSuspend(in BOOL bConfirm);                                             
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpChangePowerState,wpSetPowerManagement,wpQueryPowerManagement,
+                  wpSetPowerConfirmation,wpQueryPowerConfirmation,
+                  wpAddPowerPage,wpAddPowerViewPage,wpSetAutoRefresh,
+                  wpQueryAutoRefresh,wpQueryRefreshRate,wpSetRefreshRate,
+                  wpPowerPrivate1, wpPowerPrivate2,
+                  wpQueryDefStatusView,
+                  wpSetDefStatusView,
+#ifdef _PPC_                                                          
+                  wpAddPowerPage2,wpQueryMachineStateSettings,
+                  wpSetMachineStateSettings,wpQueryDischarge,wpSetDischarge,
+                  wpChangePPCPowerState
+#endif                                                                
+                  wpAddPowerResumePage,                                         
+                  wpPowerPrivate3,                                              
+                  wpQueryAPMLevel,                                              
+                  wpQueryBIOSPowerManagementSupport,wpSetBIOSPowerManagementSupport, 
+                  wpQueryOS2PowerManagementSupport,wpSetOS2PowerManagementSupport, 
+                  wpQueryTimerBasedRequests,wpSetTimerBasedRequests,            
+                  wpQueryResumeOnRing,wpSetResumeOnRing,                        
+                  wpQueryResumeOnTimer,wpSetResumeOnTimer,                      
+                  wpQueryCapabilities,                                          
+                  wpPowerOff,wpSuspend,wpRefreshNotebookPages,wpAddGeyservillePage; 
+
+    externalstem = WPPower;
+    local;
+    externalprefix = pwr_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wppower;
+    metaclass = M_WPPower;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    passthru C_h =
+"    #define OPEN_STATUS  131"
+"    #define OPEN_BATTERY 132"
+""
+"    #define APMLEVEL_NONE    0"                                                
+"    #define APMLEVEL_UNKNOWN 1"                                                
+"    #define APMLEVEL_10      2"                                                
+"    #define APMLEVEL_11      3"                                                
+"    #define APMLEVEL_12      4"                                                
+""                                                                              
+#ifdef _PPC_                                             
+"    #define QWL_POWERPAGE2 QWL_USER+sizeof(ULONG)"
+#endif                                                   
+"";
+
+    ULONG ulAPMLevel;                                                           
+    BOOL  bBIOSPowerManagementSupport;                                          
+    BOOL  bOS2PowerManagementSupport;                                           
+    BOOL  bTimerBasedRequests;                                                  
+    BOOL  bResumeOnRing;                                                        
+    BOOL  bResumeOnTimer;                                                       
+    ULONG ulResumeYear;                                                         
+    ULONG ulResumeMonth;                                                        
+    ULONG ulResumeDay;                                                          
+    ULONG ulResumeHour;                                                         
+    ULONG ulResumeMinute;                                                       
+    ULONG ulResumeSecond;                                                       
+    ULONG ulBatteryMax;                                                         
+    ULONG ulCapabilities;                                                       
+    ULONG ulDialogRevision;                                                     
+
+    wpAddObjectWindowPage: override;
+    wpAddSettingsPages: override;
+    wpFilterMenu: override;                                                     
+    wpInitData: override;
+    wpMenuItemHelpSelected: override;
+    wpMenuItemSelected: override;
+    wpModifyMenu: override;                                                     
+    wpObjectReady: override;                                                    
+    wpOpen: override;
+    wpRestoreState: override;
+    wpSaveState: override;
+    wpSetup: override;                                                          
+    wpUnInitData: override;                                                     
+    somDefaultInit: override;             
+    somDestruct:    override;             
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPPower : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPPower;
+    local;
+    externalprefix = pwrM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wppower;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpclsInitData: override;                                                    
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryIconData: override;
+    wpclsQueryStyle: override;
+    wpclsQueryTitle: override;
+    wpclsUnInitData: override;                                                  
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wppower_idl */

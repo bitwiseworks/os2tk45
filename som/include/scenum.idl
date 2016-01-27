@@ -1,0 +1,50 @@
+//
+//   COMPONENT_NAME: some
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) somc/scenum.idl 2.7 12/26/95 16:22:18 [7/30/96 14:45:59]
+
+
+#ifndef scenum_idl
+#define scenum_idl
+
+#include <scentry.idl>
+
+interface SOMTEnumNameC;
+
+interface SOMTEnumEntryC : SOMTEntryC
+{
+SOMTEnumNameEntryC somtGetFirstEnumName();
+SOMTEnumNameEntryC somtGetNextEnumName();
+
+#ifdef __SOMIDL__
+  implementation {
+    releaseorder: somtGetFirstEnumName, somtGetNextEnumName;
+  
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = scenum;
+    callstyle = oidl;
+  
+    //# Method Modifiers
+    somDumpSelfInt: override;
+    somtSetSymbolsOnEntry: override;
+  
+    //# Attribute Modifiers
+    somtEnumNames: nodata;
+  };
+#endif /* __SOMIDL__ */
+};
+
+
+#endif  /* scenum*/

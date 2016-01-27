@@ -1,0 +1,16 @@
+
+/*  The TLKMVSPL.SCR change file for MMPM2.INI  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPProgram"
+    WPTitle       = "Movie Sample"
+    WPSetupString = "EXENAME=$(DEST)MOVIE.EXE;PROGTYPE=PM;STARTUPDIR=$(DIR)42;OBJECTID=<MOVIE_SAMPLE>"
+    WPLocation    = "<MMPMTLK>"
+    WPFlags       = 1L
+    )
+
+/* end of TLKMVSPL.SCR */

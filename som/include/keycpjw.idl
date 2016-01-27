@@ -1,0 +1,37 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.9 src/somp/keycpjw.idl, somp, som2.1 12/26/95 16:57:23 [7/30/96 14:46:54]
+
+
+
+//  This class dictKeyCharPjw is identical to dictKeyChar with the
+//  exception that it uses a different hash function. The hash function
+//  used here is that described by Aho in his book on compilers.
+//  The hash function takes more time to run but produces a more even
+//  distribution of values for character strings - particularly of string
+//  keys which differ only by their suffix.
+//  The hash function used by this class is also more appropriate if the
+//  hash table size is large. The addition hash used by dictKeyChar will
+//  tend to bunch up hash values in a large table.
+
+#ifndef keycpjw_idl
+#define keycpjw_idl
+
+/*
+Public definition of class.
+--------------------------- */
+#include <somobj.idl>
+interface dictKeyCharPjw : SOMObject{
+};
+
+#endif  /* keycpjw_idl */

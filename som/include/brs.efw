@@ -1,0 +1,249 @@
+:copyrightS
+/* @(#) somc/brs.efw 2.4 9/1/94 19:28:20 [7/30/96 14:44:53] */
+
+/*
+ *   COMPONENT_NAME: some
+ *
+ *   ORIGINS: 27
+ *
+ *
+ *   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+ *   All Rights Reserved
+ *   Licensed Materials - Property of IBM
+ *   US Government Users Restricted Rights - Use, duplication or
+ *   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+
+:prologS
+Section: prologS
+
+  timeStamp = "<timeStamp>"
+
+:baseIncludesPrologS
+Section: baseIncludesPrologS
+
+:baseIncludesS
+Section: baseIncludesS
+
+  baseName = "<baseName>"
+  baseComment = "<-- baseComment>"
+  baseLineNumber = "<baseLineNumber>"
+  baseEntryType = "<baseEntryType>"
+  baseMajorVersion = "<baseMajorVersion>"
+  baseMinorVersion = "<baseMinorVersion>"
+  baseSourceFile = "<baseSourceFile>"
+  baseSourceFileStem = "<baseSourceFileStem>"
+  baseInclude = "<baseInclude>"
+
+:baseIncludesEpilogS
+Section: baseIncludesEpilogS
+
+:metaIncludePrologS
+Section: metaIncludePrologS
+
+  metaName = "<metaName>"
+  metaComment = "<-- metaComment>"
+  metaLineNumber = "<metaLineNumber>"
+  metaEntryType = "<metaEntryType>"
+  metaMajorVersion = "<metaMajorVersion>"
+  metaMinorVersion = "<metaMinorVersion>"
+  metaSourceFile = "<metaSourceFile>"
+  metaSourceFileStem = "<metaSourceFileStem>"
+  metaInclude = "<metaInclude>"
+
+:metaIncludeS
+Section: metaIncludeS
+
+:metaIncludeEpilogS
+Section: metaIncludeEpilogS
+
+:classS
+Section: classS
+
+  className = "<className>"
+  classComment = "<-- classComment>"
+  classLineNumber = "<classLineNumber>"
+  classMods = "<classMods, ...>"
+  classEntryType = "<classEntryType>"
+  classMajorVersion = "<classMajorVersion>"
+  classMinorVersion = "<classMinorVersion>"
+  classSourceFile = "<classSourceFile>"
+  classSourceFileStem = "<classSourceFileStem>"
+  classReleaseOrder = "<classReleaseOrder, ...>"
+  classInclude = "<classInclude>"
+:methodsAgainS
+Section: methodsAgainS
+
+  methodName = "<methodName>"
+  methodComment = "<-- methodComment>"
+  methodLineNumber = "<methodLineNumber>"
+  methodMods = "<methodMods, ...>"
+  methodEntryType = "<methodEntryType>"
+  methodType = "<methodType>"
+  methodSourceText = "<methodSourceText>"
+  methodReturnType = "<methodReturnType>"
+  methodClassName = "<methodClassName>"
+  methodFullPrototypeVA = "(<methodFullPrototypeVA, ...>)"
+  methodFullPrototype = "(<methodFullPrototype, ...>)"
+  methodSOMPrototype = "(<methodSOMPrototype, ...>)"
+  methodFullCallArgs = "(<methodFullCallArgs, ...>)"
+  methodCallArgs = "(<methodCallArgs, ...>)"
+
+:metaS
+Section: metaS
+
+  metaName = "<metaName>"
+  metaComment = "<-- metaComment>"
+  metaLineNumber = "<metaLineNumber>"
+  metaMods = "<metaMods, ...>"
+  metaEntryType = "<metaEntryType>"
+  metaMajorVersion = "<metaMajorVersion>"
+  metaMinorVersion = "<metaMinorVersion>"
+  metaSourceFile = "<metaSourceFile>"
+  metaSourceFileStem = "<metaSourceFileStem>"
+  metaReleaseOrder = "<metaReleaseOrder, ...>"
+  metaInclude = "<metaInclude>"
+
+:basePrologS
+Section: basePrologS
+
+:baseS
+Section: baseS
+
+  baseName = "<baseName>"
+  baseComment = "<-- baseComment>"
+  baseLineNumber = "<baseLineNumber>"
+  baseEntryType = "<baseEntryType>"
+  baseMajorVersion = "<baseMajorVersion>"
+  baseMinorVersion = "<baseMinorVersion>"
+  baseSourceFile = "<baseSourceFile>"
+  baseSourceFileStem = "<baseSourceFileStem>"
+  baseInclude = "<baseInclude>"
+
+:baseEpilogS
+Section: baseEpilogS
+
+:passthruPrologS
+Section: passthruPrologS
+
+:passthruS
+Section: passthruS
+
+  passthruName = "<passthruName>"
+  passthruComment = "<-- passthruComment>"
+  passthruLineNumber = "<passthruLineNumber>"
+  passthruMods = "<passthruMods, ...>"
+  passthruEntryType = "<passthruEntryType>"
+  passthruLanguage = "<passthruLanguage>"
+  passthruTarget = "<passthruTarget>"
+  passthruBody = "<passthruBody>"
+
+:passthruEpilogS
+Section: passthruEpilogS
+
+:releaseS
+Section: releaseS
+
+  classReleaseOrder = "<classReleaseOrder, ...>"
+
+:dataPrologS
+Section: dataPrologS
+
+:dataS
+Section: dataS
+
+  dataName = "<dataName>"
+  dataComment = "<-- dataComment>"
+  dataLineNumber = "<dataLineNumber>"
+  dataMods = "<dataMods, ...>"
+  dataEntryType = "<dataEntryType>"
+  dataType = "<dataType>"
+  dataSourceText = "<dataSourceText>"
+
+:dataEpilogS
+Section: dataEpilogS
+
+:methodsPrologS
+Section: methodsPrologS
+
+:methodsS
+Section: methodsS
+
+  methodName = "<methodName>"
+  methodComment = "<-- methodComment>"
+  methodLineNumber = "<methodLineNumber>"
+  methodMods = "<methodMods, ...>"
+  methodEntryType = "<methodEntryType>"
+  methodType = "<methodType>"
+  methodSourceText = "<methodSourceText>"
+  methodReturnType = "<methodReturnType>"
+  methodClassName = "<methodClassName>"
+  methodFullPrototypeVA = "(<methodFullPrototypeVA, ...>)"
+  methodFullPrototype = "(<methodFullPrototype, ...>)"
+  methodSOMPrototype = "(<methodSOMPrototype, ...>)"
+  methodFullCallArgs = "(<methodFullCallArgs, ...>)"
+  methodCallArgs = "(<methodCallArgs, ...>)"
+
+
+:overrideMethodsS
+Section: overrideMethodsS
+
+  methodName = "<methodName>"
+  methodComment = "<-- methodComment>"
+  methodLineNumber = "<methodLineNumber>"
+  methodMods = "<methodMods, ...>"
+  methodEntryType = "<methodEntryType>"
+  methodType = "<methodType>"
+  methodSourceText = "<methodSourceText>"
+  methodReturnType = "<methodReturnType>"
+  methodClassName = "<methodClassName>"
+  methodFullPrototypeVA = "(<methodFullPrototypeVA, ...>)"
+  methodFullPrototype = "(<methodFullPrototype, ...>)"
+  methodSOMPrototype = "(<methodSOMPrototype, ...>)"
+  methodFullCallArgs = "(<methodFullCallArgs, ...>)"
+  methodCallArgs = "(<methodCallArgs, ...>)"
+
+:overriddenMethodsS
+Section: overriddenMethodsS
+
+  methodName = "<methodName>"
+  methodComment = "<-- methodComment>"
+  methodLineNumber = "<methodLineNumber>"
+  methodMods = "<methodMods, ...>"
+  methodEntryType = "<methodEntryType>"
+  methodType = "<methodType>"
+  methodSourceText = "<methodSourceText>"
+  methodReturnType = "<methodReturnType>"
+  methodClassName = "<methodClassName>"
+  methodFullPrototypeVA = "(<methodFullPrototypeVA, ...>)"
+  methodFullPrototype = "(<methodFullPrototype, ...>)"
+  methodSOMPrototype = "(<methodSOMPrototype, ...>)"
+  methodFullCallArgs = "(<methodFullCallArgs, ...>)"
+  methodCallArgs = "(<methodCallArgs, ...>)"
+
+:inheritedMethodsS
+Section: inheritedMethodsS
+
+  methodName = "<methodName>"
+  methodComment = "<-- methodComment>"
+  methodLineNumber = "<methodLineNumber>"
+  methodMods = "<methodMods, ...>"
+  methodEntryType = "<methodEntryType>"
+  methodType = "<methodType>"
+  methodSourceText = "<methodSourceText>"
+  methodReturnType = "<methodReturnType>"
+  methodClassName = "<methodClassName>"
+  methodFullPrototypeVA = "(<methodFullPrototypeVA, ...>)"
+  methodFullPrototype = "(<methodFullPrototype, ...>)"
+  methodSOMPrototype = "(<methodSOMPrototype, ...>)"
+  methodFullCallArgs = "(<methodFullCallArgs, ...>)"
+  methodCallArgs = "(<methodCallArgs, ...>)"
+
+:methodsEpilogS
+Section: methodsEpilogS
+
+:epilogS
+Section: epilogS
+
+
+

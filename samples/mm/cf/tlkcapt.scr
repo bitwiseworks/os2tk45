@@ -1,0 +1,16 @@
+
+/*  The TLKCAPT.SCR change file  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPProgram"
+    WPTitle       = "Caption Sample\nApplication"
+    WPSetupString = "EXENAME=$(DEST)CAPSAMP.EXE;PROGTYPE=PM;STARTUPDIR=$(DIR)24;OBJECTID=<MPM2TLK_ACAPSAMP> "
+    WPLocation    = "<MMPMTLK>"
+    WPFlags       = 1L
+    )
+
+/* end of TLKCAPT.SCR */

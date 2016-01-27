@@ -1,0 +1,56 @@
+/* SM$FO F:\WORK\HIWORLD.RC - Thursday  05/23/1996  16:24:15 */
+// resource file for hiworld sample
+
+#include "hiworld.h"
+#include <os2.h>
+
+// menu for main program
+MENU HIWORLDMENU DISCARDABLE 
+BEGIN
+    SUBMENU "~Information", 0xF200
+    BEGIN
+        MENUITEM "~ScreenDimensions",      IDM_SCRDIM
+        SUBMENU "~Time", 0xF201
+        BEGIN
+            MENUITEM "~Up time\000",       IDM_UPTIME
+            MENUITEM "~Local time\000T+L", IDM_LOCALTIME
+        END
+        SUBMENU "~Colors", 0xF202
+        BEGIN
+            MENUITEM "~Show colors",       IDM_SHOWCOLORS
+            MENUITEM "~Change colors",     IDM_CHANGECOLORS
+            MENUITEM "~Restore colors",    IDM_RESTORECOLORS
+,             ,MIA_DISABLED
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "E~xit",                  IDM_EXIT
+    END
+    SUBMENU "~Beep", 0xF203
+    BEGIN
+        MENUITEM "Beep...",                IDM_BEEP
+    END
+END
+
+// dialog for beep
+DLGTEMPLATE BEEPDIALOG DISCARDABLE  
+BEGIN
+  DIALOG "Beep settings", BEEPDIALOG, 122, 122, 184, 150,
+  WS_VISIBLE | FS_DLGBORDER | FS_SCREENALIGN,
+  FCF_TITLEBAR | FCF_SYSMENU | FCF_NOMOVEWITHOWNER
+  BEGIN
+    GROUPBOX      "Frequency",            -1,  12,  90, 159,  50, DT_MNEMONIC
+    GROUPBOX      "Duration",             -1,  12,  30, 159,  50, DT_MNEMONIC
+    CONTROL       "",             ID_FREQBAR,  24, 110, 135,  10, WC_SCROLLBAR, SBS_HORZ | WS_VISIBLE
+    CONTROL       "",              ID_DURBAR,  24,  50, 135,  10, WC_SCROLLBAR, SBS_HORZ | WS_VISIBLE
+    PUSHBUTTON    "Beep",         ID_BEEPNOW,  37,   5,  37,  15
+    PUSHBUTTON    "Done",            ID_DONE, 110,   5,  37,  15
+  END
+END
+
+
+// icon for hiworld
+ICON       IDI_ICON2    DISCARDABLE   "icon2.ico"
+
+// cursor for hiworld
+POINTER     IDC_CURSOR1  DISCARDABLE   "cursor1.cur"
+

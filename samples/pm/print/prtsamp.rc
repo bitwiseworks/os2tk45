@@ -1,0 +1,155 @@
+#include <os2.h>
+#include "prtsdlg.h"
+#include "prtshlp.h"
+
+
+MENU ID_PRTSAMP
+  BEGIN
+    SUBMENU      "~File",                       IDM_FILE,           MIS_TEXT
+      BEGIN
+        MENUITEM "~Open...\tCtrl+O",            IDM_OPEN,           MIS_TEXT
+        MENUITEM "Printer ~Setup...\tCtrl+P",   IDM_SETUP,          MIS_TEXT
+        MENUITEM "~Print...\tSh+Print Screen",  IDM_PRINT,          MIS_TEXT
+      END
+
+    SUBMENU      "~Options",                    IDM_OPTIONS,        MIS_TEXT
+      BEGIN
+        MENUITEM "Page ~setup...\tCtrl+S",      IDM_PAGESETUP,      MIS_TEXT
+        MENUITEM "Set ~font...\tCtrl+F",        IDM_SETFONT,        MIS_TEXT
+        MENUITEM "Next page\tPgDn",             IDM_PAGEDOWN,       MIS_TEXT
+        MENUITEM "View half size\tDown",        IDM_VIEWHALF,       MIS_TEXT
+        MENUITEM "View full size\tUp",          IDM_VIEWFULL,       MIS_TEXT
+      END
+    SUBMENU         "~Help",                    IDM_HELP
+      BEGIN
+        MENUITEM    "Help ~index",              IDM_HELPINDEX,      MIS_TEXT
+        MENUITEM    "~General help",            IDM_HELPEXTENDED,   MIS_TEXT
+        MENUITEM    "~Using help",              IDM_USINGHELP,      MIS_TEXT
+        MENUITEM "",                            0,                  MIS_SEPARATOR
+        MENUITEM "~Product Information",        IDM_PRODINFO,       MIS_TEXT
+      END
+  END
+
+ICON ID_PRTSAMP prtsamp.ico
+
+/* bitmap resource for product info dialog */
+BITMAP IDR_PRODINFO  "prodinfo.bmp"
+
+
+HELPTABLE       ID_PRTSAMP
+BEGIN
+
+/*              Window ID        Help table ID    Panel ID        */
+    HELPITEM    ID_PRTSAMP,      ID_PRTSAMP,      PANEL_HELPGENERAL
+    HELPITEM    IDD_FILETYPE,    IDD_FILETYPE,    PANEL_FILETYPE
+END
+
+
+HELPSUBTABLE ID_PRTSAMP
+BEGIN
+
+/*                  SubWindow ID            Panel ID             */
+    HELPSUBITEM     ID_PRTSAMP,             PANEL_HELPGENERAL
+    HELPSUBITEM     IDM_FILE,               PANEL_MENUFILE
+    HELPSUBITEM     IDM_OPTIONS,            PANEL_MENUOPTIONS
+    HELPSUBITEM     IDM_HELP,               PANEL_MENUHELP
+
+/* FILE */
+    HELPSUBITEM     IDM_OPEN,               PANEL_OPEN
+    HELPSUBITEM     IDM_SETUP,              PANEL_SETUP
+    HELPSUBITEM     IDM_PRINT,              PANEL_PRINT
+
+/* OPTIONS */
+    HELPSUBITEM     IDM_SETFONT,            PANEL_SETFONT
+    HELPSUBITEM     IDM_PAGEDOWN,           PANEL_PAGEDOWN
+    HELPSUBITEM     IDM_VIEWHALF,           PANEL_VIEWHALF
+    HELPSUBITEM     IDM_VIEWFULL,           PANEL_VIEWFULL
+
+/* HELP    */
+    HELPSUBITEM     IDM_HELPINDEX,          PANEL_HELPINDEX
+    HELPSUBITEM     IDM_HELPEXTENDED,       PANEL_HELPEXTENDED
+    HELPSUBITEM     IDM_USINGHELP,          PANEL_USINGHELP
+END
+
+HELPSUBTABLE IDD_FILETYPE
+BEGIN
+    HELPSUBITEM     IDC_CK_TEXT,            PANEL_FILETYPE
+    HELPSUBITEM     IDC_CK_METAFILE,        PANEL_FILETYPE
+    HELPSUBITEM     IDC_CK_BITMAP,          PANEL_FILETYPE
+END
+
+HELPSUBTABLE IDD_QUERYPRINT
+BEGIN
+    HELPSUBITEM     IDD_QPTEXT,             PANEL_QUERYPRINT
+    HELPSUBITEM     IDD_QPLISTBOX,          PANEL_QUERYPRINT
+    HELPSUBITEM     IDD_QPJOBPROP,          PANEL_QUERYPRINT
+END
+
+HELPSUBTABLE IDD_PRINT
+BEGIN
+    HELPSUBITEM     IDD_PRTCOPIES,          PANEL_PRINTDLG
+    HELPSUBITEM     IDD_PRTSELECT,          PANEL_PRINTDLG
+    HELPSUBITEM     IDD_PRTALL,             PANEL_PRINTDLG
+    HELPSUBITEM     IDD_PRTFROM,            PANEL_PRINTDLG
+    HELPSUBITEM     IDD_PRTTO,              PANEL_PRINTDLG
+    HELPSUBITEM     IDD_PRTFIRSTPAGE,       PANEL_PRINTDLG
+    HELPSUBITEM     IDD_PRTLASTPAGE,        PANEL_PRINTDLG
+    HELPSUBITEM     IDD_PRTPREVIEW,         PANEL_PRINTDLG
+    HELPSUBITEM     IDD_PRTPAGEGROUP,       PANEL_PRINTDLG
+    HELPSUBITEM     IDD_PRTPRINTER,         PANEL_PRINTDLG
+    HELPSUBITEM     IDD_PRTDOCUMENT,        PANEL_PRINTDLG
+END
+
+
+
+STRINGTABLE
+BEGIN
+  PROGRAM_TITLE,                "Print Sample"
+  PROGRAM_AUTHORS               "Original Print Sample written by Eric Brown and Monte Copeland.
+                                 The Print Sample was improved and extended by Michael Perks."
+
+  PRINT_ABORT_MSG               "Aborting..."
+  PRINT_PAGE_MSG                "Printing page %d..."
+  PRINT_SCAN_MSG                "Scanning to page %d..."
+
+  ERRMSG_BAD_BITMAP             "The file you tried to load is not a valid bitmap."
+  ERRMSG_BITMAP_NOT_SUPPORTED,  "This bitmap format is not supported."
+  ERRMSG_CLOSE_QUESTION,        "Close the application?"
+  ERRMSG_DEFAULT_FONT,          "The font you have chosen is not available. A default font has been chosen instead."
+  ERRMSG_FILE_NOT_FOUND,        "File not found."
+  ERRMSG_FORM_CHANGE            "Form %s that you previously chose is no longer available. A new form %s has been used to replace it."
+  ERRMSG_NOTHING_PRINTED        "No pages were printed. Select different pages to print."
+  ERRMSG_NO_ENUMERATE,          "Unable to enumerate print queues."
+  ERRMSG_NO_HELP,               "Help file not found."
+  ERRMSG_NO_MEMORY,             "Out of memory."
+  ERRMSG_NO_QUEUES_DEFINED,     "There are no printers defined."
+  ERRMSG_READ_ERROR,            "File read error."
+  ERRMSG_WRONG_FORM,            "You have chosen to print on the form named %s. It does not match the form selected in the printer job properties."
+  ERRMSG_NEW_DRIVER_VERSION,    "The printer driver version has changed. The job properties will default to those from the printer object."
+  ERRMSG_DEVICE_CHANGED         "The printer device name has changed. The job properties will default to those from the printer object."
+
+END
+
+
+ACCELTABLE ID_PRTSAMP
+  BEGIN
+    "O",          IDM_OPEN,                 CONTROL
+    "o",          IDM_OPEN,                 CONTROL
+    "P",          IDM_SETUP,                CONTROL
+    "p",          IDM_SETUP,                CONTROL
+    "S",          IDM_PAGESETUP,            CONTROL
+    "s",          IDM_PAGESETUP,            CONTROL
+    "F",          IDM_SETFONT,              CONTROL
+    "f",          IDM_SETFONT,              CONTROL
+    "A",          IDM_AUTHORS,              CONTROL, SHIFT
+    "a",          IDM_AUTHORS,              CONTROL, SHIFT
+    VK_PRINTSCRN, IDM_PRINT,                VIRTUALKEY, SHIFT
+    VK_PAGEDOWN,  IDM_PAGEDOWN,             VIRTUALKEY
+    VK_UP,        IDM_VIEWFULL,             VIRTUALKEY
+    VK_DOWN,      IDM_VIEWHALF,             VIRTUALKEY
+  END
+
+
+rcinclude prtsamp.dlg
+
+

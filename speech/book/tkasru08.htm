@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<HTML><HEAD>
+<TITLE>API Reference</TITLE>
+<!-- Begin Header Records  ========================================== -->
+</HEAD><BODY>
+<!-- End Header Records  ============================================ -->
+<A NAME=Top_Of_Page>&nbsp;</A>
+<H1>Application Programming Interface (API) Reference</H1>
+<HR>
+<H1><A NAME="HDRATTRIB" HREF="tkasrun.htm#ToC_224">SMAPI Attributes</A></H1>
+<A NAME=IDX674>&nbsp;</A>
+<P>
+This chapter lists and describes the SMAPI attributes.
+<P>
+If you set arguments to the speech manager,
+copies are held in internal structures, keeping
+the state of the speech manager.
+<P>
+If you query arguments, you get read-only values pointing
+into state structure of the speech manager.
+<B>DO NOT</B> free these pointers.
+<HR>
+<H2><A NAME="Header_225" HREF="tkasrun.htm#ToC_225">System Dependent Speech Manager Definition for Argument Lists</A></H2>
+<A NAME=IDX675>&nbsp;</A>
+<P>
+The typedef for SmArgVal has to be chosen such that
+<TABLE BORDER><TR><TD><BR>
+<PRE>
+sizeof (SmArgVal) >= sizeof(char *)
+                     sizeof(SmCallback *)
+                     sizeof(SmLogger (*) ())
+</PRE><BR>
+</TD></TR></TABLE>
+<PRE>
+
+typedef long SmArgVal;
+
+     typedef struct {
+      char      *name;            /* name of the argument  */
+      SmArgVal  value;            /* value of the argument */
+     } SmArg;
+
+</PRE>
+<HR>
+<H2><A NAME="Header_226" HREF="tkasrun.htm#ToC_226">Argument Attribute List</A></H2>
+<A NAME=IDX676>&nbsp;</A>
+<A NAME=IDX677>&nbsp;</A>
+<PRE>
+ /*-------------------------------------------------------*/
+ /*Macro to set the components of a SmArg structure       */
+ /*-------------------------------------------------------*/
+ #define SmSetArg(a, n, d)    ( (a).name = (n), (a).value = (long)(d) )
+ #define SmSesSetArg(a, n, d) ( (a).name = (n), (a).value = (long)(d) )
+
+
+ /*-------------------------------------------------------*/
+ /* set the application name                              */
+ /*-------------------------------------------------------*/
+ #define SmNapplicationName             "applicationName"
+
+
+ /*-------------------------------------------------------*/
+ /* requested services                                    */
+ /*-------------------------------------------------------*/
+ #define SmNresetServices               "resetServices"
+ #define SmNdatabase                    "database"
+ #define SmNrecognize                   "recognize"
+
+
+ /*-------------------------------------------------------*/
+ /* option flags for the disconnection from               */
+ /* the SmNrecognize service                              */
+ /*-------------------------------------------------------*/
+ #define SmNdiscardSessionData        "discardSessionData"
+ #define SmNdiscardSessionAdaptation  "discardSessionAdaptation"
+ #define SmNsaveSessionData           "saveSessionData"
+ #define SmNsaveSessionAdaptation     "saveSessionAdaptation"
+
+
+ /*-------------------------------------------------------*/
+ /* option flags for the disconnection from               */
+ /* the SmNenrollment service                             */
+ /*-------------------------------------------------------*/
+ #define SmNsuspendEnrollment         "suspendEnrollment"
+ #define SmNcompleteEnrollment        "completeEnrollment"
+
+
+ /*-------------------------------------------------------*/
+ /* use the X eventhandler to dispatch incoming replies,  */
+ the handler is accessed over the toplevel widget         */
+ /*-------------------------------------------------------*/
+ #define SmNuseToplevelWidget           "useToplevelWidget"
+
+
+ /*-------------------------------------------------------*/
+ /* name constant used by pm applications                 */
+ /* to set the window id                                  */
+ /*-------------------------------------------------------*/
+ #define SmNwindowHandle                "windowHandle"
+
+
+ /*-------------------------------------------------------*/
+ /* arguments to set the user                             */
+ /*-------------------------------------------------------*/
+ #define SmNuser                        "user"
+ #define SmNuserId                      "userId"
+ #define SmNenrollId                    "enrollId"
+ #define SmNenrollIdDescription         "enrollIdDescription"
+ #define SmNenrollDirectory             "enrollDirectory"
+ #define SmNpassword                    "password"
+ #define SmNtask                        "task"
+ #define SmNconnectionId                "connectionId"
+ #define SmNnavigator                   "navigator"
+ #define SmNoverrideLock                "overrideLock"
+
+
+ /*-------------------------------------------------------*/
+ /* Callbacks for connection/disconnection                */
+ /* to the Speech Manager                                 */
+ /*-------------------------------------------------------*/
+ #define SmNconnectCallback             "connectCallback"
+ #define SmNdisconnectCallback          "disconnectCallback"
+
+
+ /*-------------------------------------------------------*/
+ /* Callbacks for all other replies from the SMAPI   */
+ /*-------------------------------------------------------*/
+ #define SmNaddPronunciationCallback    "addPronunciationCallback"
+ #define SmNaddToVocabCallback          "addToVocabCallback"
+ #define SmNaudioLevelCallback          "audioLevelCallback"
+
+ #define SmNcancelPlaybackCallback      "cancelPlaybackCallback"
+ #define SmNcorrectTextCallback         "correctTextCallback"
+ #define SmNcorrectTextCancelCallback   "correctTextCancelCallback"
+
+ #define SmNdefineVocabCallback         "defineVocabCallback"
+ #define SmNdisableVocabCallback        "disableVocabCallback"
+ #define SmNdiscardDataCallback         "discardDataCallback"
+
+ #define SmNenableVocabCallback         "enableVocabCallback"
+ #define SmNeventNotifyCallback         "eventNotifyCallback"
+ #define SmNeventSynchCallback          "eventSynchCallback"
+
+
+ #define SmNhaltRecognizerCallback      "haltRecognizerCallback"
+
+ #define SmNmicOffCallback              "micOffCallback"
+ #define SmNmicOnCallback               "micOnCallback"
+
+ #define SmNrequestMicOffCallback       "requestMicOffCallback"
+ #define SmNrequestMicOnCallback        "requestMicOnCallback"
+ #define SmNmicOffRequestedCallback     "micOffRequestedCallback"
+ #define SmNmicOnRequestedCallback      "micOnRequestedCallback"
+
+ #define SmNnewContextCallback          "newContextCallback"
+
+ #define SmNplayMessageCallback         "playMessageCallback"
+ #define SmNplayMessageStatusCallback   "playMessageStatusCallback"
+ #define SmNplayUtteranceCallback       "playUtteranceCallback"
+ #define SmNplayUtteranceStatusCallback "playUtteranceStatusCallback"
+ #define SmNplayWordsCallback           "playWordsCallback"
+ #define SmNplayWordsStatusCallback     "playWordsStatusCallback"
+
+ #define SmNqueryAddedWordsCallback     "queryAddedWordsCallback"
+ #define SmNqueryAlternatesCallback     "queryAlternatesCallback"
+ #define SmNqueryCallback               "queryCallback"
+ #define SmNqueryDefaultCallback        "queryDefaultCallback"
+ #define SmNqueryEnabledVocabsCallback  "queryEnabledVocabsCallback"
+ #define SmNqueryEnrollIdsCallback      "queryEnrollIdsCallback"
+ #define SmNqueryLanguagesCallback      "queryLANGUAGESCallback"
+ #define SmNqueryPronunciationsCallback "queryPronunciationsCallback"
+ #define SmNqueryTasksCallback          "queryTasksCallback"
+ #define SmNqueryUsersCallback          "queryUsersCallback"
+ #define SmNqueryUserInfoCallback       "queryUserInfoCallback"
+ #define SmNqueryVocabsCallback         "queryVocabsCallback"
+ #define SmNqueryWordCallback           "queryWordCallback"
+
+ #define SmNremoveFromVocabCallback     "removeFromVocabCallback"
+ #define SmNrecognizeNextWordCallback   "recognizeNextWordCallback"
+ #define SmNrecognizedTextCallback      "recognizedTextCallback"
+ #define SmNrecognizedWordCallback      "recognizedWordCallback"
+ #define SmNrecognizedPhraseCallback    "recognizedPhraseCallback"
+ #define SmNremovePronunciationCallback "removePronunciationCallback"
+
+ #define SmNsetCallback                 "setCallback"
+ #define SmNsetDefaultCallback          "setDefaultCallback"
+ #define SmNsetUserInfoCallback         "setUserInfoCallback"
+
+ #define SmNwordCorrectionCallback      "wordCorrectionCallback"
+
+ #define SmNundefineVocabCallback       "undefineVocabCallback"
+ #define SmNutteranceCompletedCallback  "utteranceCompletedCallback"
+ #define SmNreportEngineErrorCallback   "reportEngineErrorCallback"
+ #define SmNqueryPronunciationCallback  "queryPronunciationCallback"
+
+ #define SmNcommandWordCallback         "commandWordCallback"
+ #define SmNmicStateCallback            "micStateCallback"
+ #define SmNfocusStateCallback          "focusStateCallback"
+ #define SmNengineStateCallback         "engineStateCallback"
+
+ #define SmNrequestFocusCallback        "requestFocusCallback"
+ #define SmNreleaseFocusCallback        "releaseFocusCallback"
+ #define SmNfocusLostCallback           "focusLostCallback"
+ #define SmNfocusGrantedCallback        "focusGrantedCallback"
+
+ #define SmNdefineGrammarCallback       "defineGrammarCallback"
+
+ #define SmNquerySessionsCallback       "querySessionsCallback"
+ #define SmNdetachSessionsCallback      "detachSessionsCallback"
+ #define SmNdetachRequestedCallback     "detachRequestedCallback"
+
+ #define SmNquerySpeechDataCallback     "querySpeechDataCallback"
+ #define SmNsaveSpeechDataCallback      "saveSpeechDataCallback"
+ #define SmNrestoreSpeechDataCallback   "restoreSpeechDataCallback"
+</PRE>
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="tkasru07.htm">Previous Page</A> &#124; <A HREF="tkasru09.htm">Next Page</A> &#124; <A HREF="tkasrun.htm#ToC">Table of Contents</A> &#124; <A HREF="tkasru11.htm#HDRINDEX_START">Index</A
+> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+</BODY></HTML>
+

@@ -1,0 +1,98 @@
+//#  @(#) 2.10 src/somuc/tpllitr.idl, somuc, som2.1 12/26/95 15:39:15 [7/30/96 14:50:07]
+//
+//   COMPONENT_NAME: somuc
+//
+//   ORIGINS: 82, 81, 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1996,1996  
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//   Copyright © 1988, 1989 Apple Computer, Inc. All rights reserved.
+
+/*
+ * CLASS_NAME: somf_TPrimitiveLinkedListIterator
+ *
+ * DESCRIPTION: An iterator for somf_TPrimitiveLinkedList that will iterate over
+ *              all of the objects in a primitive linked list.
+ *
+ *
+ */
+
+#ifndef TPLLItr_idl
+#define TPLLItr_idl
+
+#include <somobj.idl>
+
+interface somf_TPrimitiveLinkedList;
+interface somf_MLinkable;
+
+interface somf_TPrimitiveLinkedListIterator : SOMObject
+{
+  somf_TPrimitiveLinkedListIterator somfTPrimitiveLinkedListIteratorInit(in somf_TPrimitiveLinkedList list);
+
+  // Initialize somf_TPrimitiveLinkedListIterator using somf_TPrimitiveLinkedList list.
+  //#   TPrimitiveLinkedListIterator(TPrimitiveLinkedList* list);
+
+  somf_MLinkable somfFirst();
+
+  // Reset the iterator and return the first element of the list.
+  //#   MLinkable* First();
+
+  somf_MLinkable somfNext();
+
+  // Retrieve the next object in the list and return it.
+  //#   MLinkable* Next();
+
+  somf_MLinkable somfLast();
+
+  // Retrieve the last object in the list and return it.
+  //#   MLinkable* Last();
+
+  somf_MLinkable somfPrevious();
+
+  // Retrieve the previous object in the list and return it.
+  //#   MLinkable* Previous();
+
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: somfFirst,somfNext,somfLast,somfPrevious,
+		  somfTPrimitiveLinkedListIteratorInit;
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = tpllitr;
+    dllname = "somuc.dll";
+
+
+    passthru C_xh_after =  ""
+"#include <mlink.xh>"
+"#include <tpll.xh>";
+
+    passthru C_h_after =  ""
+"#include <mlink.h>"
+"#include <tpll.h>";
+
+    //# Internal Instance Variables
+    somf_TPrimitiveLinkedList fList;
+    somf_MLinkable fCurrent;
+    somf_MLinkable fSentinel;
+
+    //# Method Modifiers
+    somUninit: override;
+    somfTPrimitiveLinkedListIteratorInit: nooverride;
+
+    //# Data Modifiers
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* TPLLItr_idl */

@@ -1,0 +1,29 @@
+        The CONTROL.SCR might be thought of like a config.sys.
+It tells the package name, the codepage, where the filelist is that
+will be used, how many groups there are, how many diskettes there
+are, and the media names to be used on the diskettes.  It sets
+the environment for where the files are coming from and where they
+are going.  It also defines the groups that will be involved by defining
+their group number, size, name, version and where the file is that
+will be used to change the ini file.
+
+        The FILELIST file contains the number of files that are used, then
+defines what disk they are on, what group they are in, what the
+destination directory will be, what source directory to use and the
+file name.
+
+        The other .SCR files define whether this is a program or a folder and
+then where to locate the associated icons.
+
+        The .CH files make the necessary changes to the config.sys in the path
+and set statements.
+
+        All of these files are interrelated in the sense that the install
+needs to know all the information above to successfully install the component.
+In other words the install program reads the CONTROL.SCR for the
+environment and paths, then goes to the filelist and puts the files where
+they belong, then goes to the .SCR files and puts the folders or programs
+in there respective areas and finally changes the config.sys to be able to
+find all the various files.  There are many other functions necessary for a
+more complicated install process so please refer to chapter 6 in the
+programers guide for more documentation.

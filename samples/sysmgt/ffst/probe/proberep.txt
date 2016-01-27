@@ -1,0 +1,65 @@
+Descriptive_Name         = 'System Management Example Template file'
+*
+* 'File name only' can be specified as long as the message files are on the
+* system's DPATH otherwise full path must be specified.
+* NOTE:  MESSAGE FILES WILL BE 6 CHAR file name with a .MSG Extension
+* Created by MKMSGF utility
+*
+*A single template file can contain entries for an entire product or a single program
+*depending soley on the development teams preferences.  The only requirement is that all
+*users of the template file use the same DMI triplet or hardcode to the same path
+*
+Default_message_pathname = probe.msg
+Default_causes_pathname  = probe.msg
+Default_actions_pathname = probe.msg
+Default_details_pathname = probe.msg
+*
+*Template number is associated with the FFSTProbe call
+*
+Template_number          = 11111
+*
+* Message_number is the message number you want displayed on the SYSLOG summary
+* screen
+*
+Message_number           = 1
+*
+* Log_class 1 is hardware, 2 is software
+*
+Log_class                = 2
+*
+*Default_xxxxx_pathname can be overriden on a template entry basis like this:
+*Causes_pathname          = c:\os2\system\othrCmsg.msg
+*Actions_pathname         = c:\os2\system\othrAmsg.msg
+*Details_pathname         = c:\os2\system\othrDmsg.msg
+*
+* On the right of the = sign you specify which message number you want displayed in the
+* relevent _causes _actions section of the SYSLOG display. Here message 4 is displayed
+* from FRIZMSG.MSG in the Fail_causes section of SYSLOG.
+*
+Fail_causes              = 4,0,0,0
+Fail_actions             = 0,0,0,0
+Install_causes           = 0,0,0,0
+Install_actions          = 0,0,0,0
+User_causes              = 0,0,0,0
+User_actions             = 0,0,0,0
+*
+Template_number          = 22222
+Message_number           = 2
+Log_class                = 2
+Fail_causes              = 4,0,0,0
+Fail_actions             = 0,0,0,0
+Install_causes           = 0,0,0,0
+Install_actions          = 0,0,0,0
+User_causes              = 5,0,0,0
+User_actions             = 6,0,0,0
+*
+*Detail data allows you to format the FFSTProbes log_user_data (if used). You can use as
+*many Detail data phrases as needed and they can overlap the same data. The format is
+*Detail_data = L,O,H,T where L is Length of data, O is the Offset it starts at, T is the Type
+*of data as it was sent and how you want it formated (e.g. binary show as hex) and H is *The Heading message number you want to display with it.
+*
+Detail_data              = 8,0,7,3
+Detail_data              = 8,0,8,1
+Detail_data              = 8,0,9,2
+*
+

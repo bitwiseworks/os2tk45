@@ -1,0 +1,31 @@
+
+/*  The TLKBASE.SCR change file for MMPM2.INI  */
+
+/*                                       FOOTNOTES                */
+
+/*   The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY) */
+/*   All keywords are unique.   All keywords are shown            */
+
+/*   WPTitle is the folder title to be specified under the icon.  */
+/*   The (\n) paramater allows the title to wordwrap              */
+
+/*   WPSetupString OBJECTID is required to destroy the object.    */
+
+/*   WPFlags can use 0, 1, 2 (L), generally for programs 1L works */
+/*   well and for folders 2L works well*/
+
+/*   $(DEST)filename is replaced with the full path of the file   */
+/*   that was used to copy the file to its destination on the drive*/
+
+
+WPObject =
+    (
+    WPClassName   = "WPFolder"
+    WPTitle       = "Sample Multimedia Presentation\nManager Toolkit/2"
+    WPSetupString = "ICONFILE=$(DEST)MMTOOLKT.ICO;OBJECTID=<SAMPLE_MMPMTLK>"
+    WPLocation    = "<WP_DESKTOP>"
+    WPFlags       = 2L
+    )
+
+
+/* end of TLKBASE.SCR */

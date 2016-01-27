@@ -1,0 +1,79 @@
+
+//  Module Header
+//
+//  Module Name: WPTRANS
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wptrans_idl
+#define wptrans_idl
+
+#include "wpobject.idl"
+#include <somcls.idl>
+
+interface M_WPTransient;
+
+interface WPTransient : WPObject
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wptrn;
+    local;
+    externalprefix = trn_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wptrans;
+    metaclass = M_WPTransient;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+    wpQueryHandle: override;
+    wpCopyObject: override;
+    somDefaultInit: override;          
+    somDestruct: override;             
+    wpQueryIcon: override;             
+    wpSaveImmediate: override;                                          
+
+    wpIdentify: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPTransient : M_WPObject
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder:
+    wpclsTransientPrivate1,wpclsTransientPrivate2;
+
+    externalstem = wptrn;
+    local;
+    externalprefix = trnM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wptrans;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    HMTX hmtxTransientList;       
+
+    wpclsQueryTitle: override;
+    wpclsQueryStyle: override;
+
+    wpclsObjectFromHandle: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wptrans_idl */

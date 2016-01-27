@@ -1,0 +1,18 @@
+;******* IMAGE     C Sample Program Module Definition File (.DEF) ********
+;
+;  The module definition file supplies extra information about the program
+;  module to the LINKER.
+
+;  Note the WINDOWAPI keyword is required for link386
+NAME    IMAGE WINDOWAPI
+
+DESCRIPTION  'Image Porting Sample'
+
+STUB    'OS2STUB.EXE'
+
+DATA    MULTIPLE
+
+HEAPSIZE   4096
+STACKSIZE  16376
+
+PROTMODE

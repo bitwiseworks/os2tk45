@@ -1,0 +1,19 @@
+/* Rexx Calculator program 3 key - average of memory registers       */
+parse arg num                          /* get the count of memories  */
+numeric digits CalcPrecision()         /* set current precision      */
+numeric form value CalcForm()          /* set current form           */
+
+if \datatype(num, 'Whole')             /* must be whole number       */
+  then return 'Error'                  /* return error indicator     */
+
+if num < 1 | num >50                   /* valid for counter          */
+  then return 'Error'                  /* return error indicator     */
+
+accumulator = 0                        /* start at zero              */
+
+do i = 1 to num                        /* loop for given number      */
+  'GET' i 'REGISTER'                   /* get next register          */
+  accumulator = accumulator + register /* add to total               */
+end
+
+return accumulator / num               /* return the average         */

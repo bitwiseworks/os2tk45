@@ -1,0 +1,100 @@
+/*
+ *    Svrnpipe.rc - Resource file for Sample pipe server.
+ *       Copyright 1992, IBM Corp.
+ */
+
+#include <os2.h>
+#include "svrpmain.h"
+#include "svrphelp.h"
+
+ICON IDR_MAIN "namepipe.ico"
+BITMAP IDR_MAIN "prodinfo.bmp"
+
+MENU IDR_MAIN
+{
+    SUBMENU     "~File", IDM_FILE, MIS_TEXT
+    {
+        MENUITEM    "E~xit\tF3",           IDM_FILEEXIT,       MIS_TEXT
+    }
+
+    SUBMENU     "~Options", IDM_OPTION, MIS_TEXT
+    {
+        MENUITEM    "~Clear Messages",     IDM_OPTIONCLEAR,    MIS_TEXT
+    }
+
+    SUBMENU     "~Help",    IDM_HELP,   MIS_TEXT
+    {
+        MENUITEM    "~Help for help...",    IDM_HELPHELPFORHELP, MIS_TEXT
+        MENUITEM    "~Keys help...",        IDM_HELPKEYS,       MIS_TEXT
+        MENUITEM    "Help ~index...",       IDM_HELPINDEX,      MIS_TEXT
+        MENUITEM SEPARATOR
+        MENUITEM    "~Product Information...",  IDM_HELPABOUT,      MIS_TEXT
+    }
+
+}
+
+ACCELTABLE IDR_MAIN
+{
+    VK_F3,          IDM_FILEEXIT,           VIRTUALKEY
+}
+
+
+DLGTEMPLATE IDD_ABOUTBOX LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Product Information", IDD_ABOUTBOX,                9,  17, 250, 120,
+            FS_NOBYTEALIGN | FS_DLGBORDER | WS_VISIBLE | WS_CLIPSIBLINGS | WS_SAVEBITS, FCF_TITLEBAR
+    BEGIN
+        CONTROL IDR_MAIN, IDC_ICON,                           98,  77,   0,   0,
+                 WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "Tic-Tac-Toe Named Pipe Server", 256,          0,  65, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "Version 1.0", 258,                            0,  55, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "(C) Copyright IBM Corporation 1991."
+                " All Rights reserved.", 257,
+                                                               0,  45, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "OS/2 is a registered trademark of", 258,      0,  35, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "International Business Machines Corp.", 257,  0,  25, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CONTROL "Ok", IDC_OK,                                105,   6,  38,  13,
+                 WC_BUTTON, BS_PUSHBUTTON | BS_DEFAULT | WS_TABSTOP | WS_VISIBLE
+    END
+END
+
+
+STRINGTABLE
+{
+    IDS_APPNAME                 "Tic-Tac-Toe Server"
+    IDS_HELPLIBRARYNAME         "SVRNPIPE.HLP"
+    IDS_HELPWINDOWTITLE         "Tic-Tac-Toe Server Help"
+}
+
+MESSAGETABLE
+{
+    IDMSG_INITFAILED            "Initialization failed."
+    IDMSG_MAINWINCREATEFAILED   "Failed to create main window."
+    IDMSG_HELPLOADERROR         "Failed to load help manager."
+    IDMSG_CANNOTLOADSTRING      "Failed to load string."
+    IDMSG_HELPDISPLAYERROR      "Failed to display help panel."
+    IDMSG_CREATE_SEM_FAILED     "Could not create semaphore."
+    IDMSG_CREATE_THREAD_FAILED  "Could not start thread."
+    IDMSG_SEMAPHORE_ERROR       "Could not access event semaphore."
+    IDMSG_CREATE_PIPE_FAILED    "Could not create pipe."
+    IDMSG_PIPE_WRITE_FAILED     "Could not write to named pipe."
+    IDMSG_PIPE_READ_FAILED      "Could not read from named pipe."
+    IDMSG_START_PIPE_ERROR      "Can not reinitialize main pipe."
+    IDMSG_CONNECT_FAILED        "Could not connect pipe."
+    IDMSG_GAME_EXITTING         "Game thread is exitting."
+    IDMSG_GAME_PIPE_CONNECTED   "Game pipe is connected."
+    IDMSG_CANNOT_EXEC_CLIENT    "Could not start client process."
+}
+
+rcinclude svrphelp.rc

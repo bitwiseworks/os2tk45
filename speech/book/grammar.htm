@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<HTML><HEAD>
+<TITLE>Grammar Guide</TITLE>
+</HEAD><BODY>
+<IMG SRC="bannerx.gif" ALT=""><BR>
+<A NAME=Top_Of_Page>&nbsp;</A>
+<H1>Grammar Guide</H1>
+<P><B>Version 1.0 - April 1997</B><P>
+IBM VoiceType Developer&#39;s Toolkit for OS/2<BR>
+Grammar Guide<BR>
+<P> Version 1.0<P>
+<P>
+<HR>
+<H1>Grammars</H1>
+<p>Grammars are used in two contexts:
+<UL>
+<LI>They can be used by your speech-enabled application to specify
+what phrases to accept (For example, to accept <I>move up three</I> and
+not <I>move up tree</I>)
+<LI>They can be used to enhance Voice Manager navigation of applications
+that are not speech-enabled. In addition to describing what phrases to
+accept, Voice Manager grammars also specify what action to take when a
+given phrase is recognized (for example, to send the keystrokes
+<TT>[up][up][up]</TT> when
+<I>move up three</I> is recognized.)
+</UL>
+<p>
+<HR>
+<H2> Basic steps to writing an application grammar</H2>
+<UL>
+<LI> <A HREF="bnf.htm">write a grammar file</A> using a text editor. By convention, this file has
+      the extension ".bnf".
+<LI> <A HREF="vtbnfc.htm">compile the grammar file</A> using VTBNFC.EXE
+      By convention, the resulting file has the extension ".fsg".
+<LI>  <A HREF="wcs.htm">write a file describing what will be displayed in the What
+      Can I Say window</A>. By convention, this file has the extension
+      ".wcs"
+<LI>  <A HREF="tidygram.htm">combine the FSG and WCS files</A> using TIDYGRAM.EXE
+      (the resultant file has the extension ".fsg" by convention)
+<LI> <A HREF="sgl.htm">write a file that links a grammar to an application</A>. This file
+      is required to have the extension ".sgl"
+</UL>
+<P><HR>
+<H2>Other Links</H2>
+<UL>
+<LI><A HREF="gramtool.htm">Grammar Compiler Tools</A>
+<LI><A HREF="gram-faq.htm">Frequently asked questions about grammars</A>
+</UL>
+
+
+<HR>
+<title>Notices</title>
+</head>
+
+<body>
+<h1><a name=notices>Notices</a></h1>
+<HR>
+
+<p><b>First Edition (April 1997)</b>
+</p>
+
+<p>
+<b>The following paragraph does not apply to the United
+Kingdom or any
+country where such provisions are inconsistent with local
+law:</b>
+</p>
+
+<p>INTERNATIONAL
+BUSINESS MACHINES CORPORATION PROVIDES THIS PUBLICATION
+"AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR
+IMPLIED, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
+PARTICULAR PURPOSE.
+</p>
+
+<p>Some states do not allow disclaimer of express or implied warranties
+in certain transactions, therefore, this statement may not
+apply to you.
+</p>
+
+<p>
+This publication could include technical inaccuracies or typographical
+errors.  Changes are periodically made to the information herein;
+these changes will be incorporated in new editions of the publication.
+IBM may make improvements and/or changes in the product(s) and/or
+the program(s) described in this publication at any time.
+</p>
+
+<p>It is possible that this publication may contain reference to, or
+information about, IBM products (machines and programs), programming,
+or services that are not announced in your country.  Such references
+or information must not be construed to mean that IBM intends to
+announce such IBM products, programming, or services in your country.
+</p>
+
+<p>Requests for technical information about IBM
+products should be made to your IBM reseller or IBM marketing representative.
+</p>
+<HR>
+
+<h2>Copyright Notices</h2>
+
+<p><b>&#169 Copyright International Business Machines
+Corporation 1997.  All rights reserved.</b>
+</p>
+
+<p>Note to U.S. Government Users: Documentation related to
+restricted rights - use, duplication or disclosure is
+subject to
+restrictions set forth in GSA ADP Schedule Contract with IBM
+Corp.
+</p>
+<HR>
+
+<h2>Disclaimers</h2>
+
+<p>References in this publication to IBM products, programs,
+or services
+do not imply that IBM intends to make these available in all countries
+in which IBM operates.
+Any reference to an IBM product, program or service is not intended to
+state or imply that only that IBM product, program,
+or service may be used.
+Subject to IBM's valid intellectual property or other legally
+protectable rights, any functionally equivalent product, program, or
+service may be used instead of the IBM product, program, or service.
+The evaluation and verification of operation in conjunction with other products,
+except those expressly designated by IBM, are the responsibility of the user.
+</p>
+
+<p>IBM may have patents or pending patent applications covering
+subject matter in this document.
+The furnishing of this document does not give you any
+license to these patents.
+You can send license inquiries, in writing, to:
+</p>
+
+<p>
+IBM Director of Licensing
+<br>
+IBM Corporation
+<br>
+500 Columbus Avenue
+<br>
+Thornwood, NY  10594
+<br>
+U.S.A.
+</p>
+
+<p>
+Asia-Pacific users can inquire, in writing, to the IBM Director of
+Intellectual Property and Licensing, IBM World Trade Asia Corporation,
+2-31 Roppongi 3-chome, Minato-ku, Tokyo 106, Japan.
+</p>
+
+<p>
+Licensees of this program who wish to have information about it for
+the purpose of enabling: (i) the exchange of information between
+independently created programs and other programs (including this
+one) and (ii) the mutual use of the information which has been
+exchanged, should contact IBM Corporation, Department LZKS,
+11400 Burnet Road, Austin, TX 78758 U.S.A.  Such information may be
+available, subject to appropriate terms and conditions, including
+in some cases, payment of a fee.
+</p>
+<p>
+The following terms are trademarks of the IBM Corporation in
+the United States or other countries or both:
+</p>
+<p>
+IBM
+<br>
+</p>
+
+
+<p>
+Other company, product, and service names, which may be denoted
+by a double asterisk (**), may be trademarks
+or service marks of others.
+</p>
+
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="grammar.htm">Previous Page</A> &#124; <A HREF="bnf.htm">Next Page</A> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+
+</head>
+</htm>
+
+

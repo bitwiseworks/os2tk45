@@ -1,0 +1,16 @@
+;========================================================
+; DLLAPI.DEF - DLL Sample PM application definition file
+;========================================================
+NAME         DLLAPI  WINDOWAPI
+
+DESCRIPTION 'Dynamic Linking Library Sample application'
+
+CODE         MOVEABLE
+DATA         MOVEABLE MULTIPLE
+
+HEAPSIZE     4096
+STACKSIZE    8192
+
+IMPORTS     SearchFile   = DLLIB.1
+            ReadFileProc = DLLIB.2
+            CalCulProc   = DLLIB.3

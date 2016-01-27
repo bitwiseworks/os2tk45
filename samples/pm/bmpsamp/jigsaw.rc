@@ -1,0 +1,108 @@
+/******************************************************************************
+*
+*  File Name   : JIGSAW.RC
+*
+*  Description : Define Jigsaw application's menus and strings
+*
+*  Concepts    : resource files
+*
+*  Copyright (C) 1992 IBM Corporation
+*
+*      DISCLAIMER OF WARRANTIES.  The following [enclosed] code is
+*      sample code created by IBM Corporation. This sample code is not
+*      part of any standard or IBM product and is provided to you solely
+*      for  the purpose of assisting you in the development of your
+*      applications.  The code is provided "AS IS", without
+*      warranty of any kind.  IBM shall not be liable for any damages
+*      arising out of your use of the sample code, even if they have been
+*      advised of the possibility of such damages.                                                    *
+******************************************************************************/
+#define INCL_PM
+
+#include <os2.h>
+#include "jigsaw.h"
+
+/*
+ *   Define icons and bitmaps included as resources
+ */
+
+ICON   IDR_MAIN   "jigsaw.ico"
+BITMAP IDB_BACK_1 "prodinfo.bmp"
+
+/*
+ *   Define accelerator key table
+ */
+
+ACCELTABLE IDR_MAIN PRELOAD
+{
+    VK_F6, IDM_SWITCH, VIRTUALKEY
+}
+
+/*
+ *   Define action bar menu with all pull-down submenus
+ */
+
+MENU IDR_MAIN PRELOAD
+BEGIN
+    SUBMENU "~File",                           IDM_FILE
+    BEGIN
+        MENUITEM "~Open...",                   IDM_LOAD
+    END
+
+    SUBMENU "~Options",                        IDM_OPTIONS
+    BEGIN
+        SUBMENU "Size",                        IDM_SIZE_MENU,    0, MIA_DISABLED
+        BEGIN
+            MENUITEM "Small",                  IDM_SIZE_SMALL,   0, MIA_DISABLED
+            MENUITEM "Medium",                 IDM_SIZE_MEDIUM,  0, MIA_DISABLED
+            MENUITEM "Large",                  IDM_SIZE_LARGE,   0, MIA_DISABLED
+            MENUITEM "Full Size",              IDM_SIZE_FULL,    0, MIA_DISABLED
+                                                                   | MIA_CHECKED
+        END
+
+        MENUITEM "~Jumble!",                   IDM_JUMBLE,       0, MIA_DISABLED
+    END
+
+    SUBMENU "~Help",                           IDM_HELP,            MIS_TEXT
+    BEGIN
+        MENUITEM "Help ~index",                IDM_HELPINDEX,       MIS_TEXT
+        MENUITEM "~General help",              IDM_HELPEXTENDED,    MIS_TEXT
+        MENUITEM "~Using help",                IDM_HELPHELPFORHELP, MIS_TEXT
+        MENUITEM     SEPARATOR
+        MENUITEM "~Product information",       IDM_HELPABOUT,       MIS_TEXT
+    END
+END
+
+/*
+ *   Define all strings to be used by this application
+ */
+
+STRINGTABLE PRELOAD
+{
+    IDS_TITLEBAR          "Jigsaw"
+    IDS_TERMINATE         "OK to end this program?"
+    IDS_OPENDLGHEADER     "Open"
+    IDS_OPENDLGBUTTON     "~Open"
+    IDS_FILEOPENEXTENSION "*.BMP"
+    IDS_CANNOTLOADSTRING  "Failed to load resource string"
+    IDS_CANNOTRUNFILEDLG  "Failed to initiate open dialog"
+    IDS_HELPLIBRARYNAME   "JIGSAW.HLP"     /* not to be translated */
+    IDS_HELPWINDOWTITLE   "Jigsaw Help"
+    IDS_HELPLOADERROR     "Failed to load Help Manager."
+    IDS_HELPDISPLAYERROR  "Failed to display help panel."
+    IDS_HELPMANAGERERROR  "Help Manager Error occurred - destroying help instance."
+    IDS_OPTIONJUMBLE      "Choose option Jumble! to start the puzzle"
+    IDS_LOADBITMAP        "Choose File Open to load the puzzle"
+    IDS_ERRORMSG          "%s encountered in file %s line %ld"
+    IDS_UNKNOWNMSG        "Unknown Error encounted in file %s line %ld"
+    IDS_ERROR_READ        "Error reading file."
+    IDS_ERROR_OUTOFMEMORY "Error - out of memory"
+    IDS_ERROR_TITLE       "Error Message"
+}
+
+/*
+ *   Include additional resource files and dialog files here
+ */
+
+rcinclude jighelp.rc
+rcinclude jigsaw.dlg

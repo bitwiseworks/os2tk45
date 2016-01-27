@@ -1,0 +1,14 @@
+;+------------------------------------------------------------------------
+;| RECORDER.DEF FILE
+;|
+;| Copyright (C) IBM 1993
+;+------------------------------------------------------------------------
+
+NAME            WAVEREC                 WINDOWAPI
+
+DESCRIPTION     'Audio Recorder MMPM/2 Sample Program'
+HEAPSIZE        20000
+STACKSIZE       20000
+EXPORTS         MainDlgProc
+                OpenFileDlgProc
+                ProductInfoDlgProc

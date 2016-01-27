@@ -1,0 +1,121 @@
+/*---------------------------------------------------------------------------*/
+/* File Name    :  caption.dlg                                               */
+/*                                                                           */
+/* Description  :  This file holds the dialog window used by the             */
+/*                 Caption Creation Utility sample program.                  */
+/*                                                                           */
+/* Concepts     :  See this sample program's C source file.                  */
+/*                 The WS_ANIMATE frame style allows this window to          */
+/*                 respond to system sounds.                                 */
+/*                                                                           */
+/* Required                                                                  */
+/*    Files     :  See this sample program's C source file.                  */
+/*                                                                           */
+/* Copyright (C) IBM 1993                                              */
+/*---------------------------------------------------------------------------*/
+DLGTEMPLATE ID_MAIN_DLG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", ID_MAIN_DLG, 10, 55, 255, 120,
+            FS_NOBYTEALIGN | FS_SIZEBORDER | WS_SAVEBITS | WS_ANIMATE,
+            FCF_SYSMENU | FCF_TITLEBAR | FCF_MINBUTTON | FCF_NOBYTEALIGN |
+            FCF_MENU | FCF_TASKLIST | FCF_VERTSCROLL | FCF_HORZSCROLL |
+            FCF_ICON | FCF_ACCELTABLE
+    BEGIN
+        CONTROL  "Synchronize audio and text", -1, 5, 55, 130, 38, WC_STATIC,
+                 SS_GROUPBOX | WS_VISIBLE
+                 PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+        CONTROL  "", ID_SET_TIMING, 10, 57, 60, 14, WC_GRAPHICBUTTON,
+                 GBS_ANIMATION |  WS_VISIBLE | WS_DISABLED | WS_GROUP |
+                 WS_TABSTOP
+                 CTLDATA GB_RESOURCE, "Start timing", 5, ID_BMP_PLAY0,
+                                                         ID_BMP_PLAY1,
+                                                         ID_BMP_PLAY2,
+                                                         ID_BMP_PLAY3,
+                                                         ID_BMP_PLAY4
+                 PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+        CONTROL  "", ID_NEXTLINE, 70, 57, 60, 14, WC_GRAPHICBUTTON,
+                 GBS_HILITEBITMAP | WS_VISIBLE | WS_DISABLED
+                 CTLDATA GB_RESOURCE, "Advance line", 2, ID_BMP_NEXTLINE,
+                                                      ID_BMP_NEXTBUSY
+                 PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+        CONTROL  "Files", -1, 140, 55, 110, 38, WC_STATIC,
+                 SS_GROUPBOX | WS_VISIBLE
+                 PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+        CONTROL  "", ID_AUDIOTXT, 145, 77, 90, 8, WC_STATIC, SS_TEXT |
+                 DT_LEFT | DT_TOP | WS_VISIBLE
+                 PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        CONTROL  "", ID_TEXTTXT, 145, 67, 90, 8, WC_STATIC, SS_TEXT |
+                 DT_LEFT | DT_TOP | WS_VISIBLE
+                 PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        CONTROL  "", ID_CAPTIONTXT, 145, 57, 90, 8, WC_STATIC, SS_TEXT |
+                  DT_LEFT | DT_TOP | WS_VISIBLE
+                 PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+
+        CONTROL  "", ID_PLAY, 88, 15, 48, 10, WC_GRAPHICBUTTON,
+                 GBS_ANIMATION | WS_VISIBLE | WS_DISABLED | WS_GROUP |
+                 WS_TABSTOP
+                 CTLDATA GB_RESOURCE, "", 5, ID_BMP_PLAY0,
+                                                    ID_BMP_PLAY1,
+                                                    ID_BMP_PLAY2,
+                                                    ID_BMP_PLAY3,
+                                                    ID_BMP_PLAY4
+
+        CONTROL  "", ID_PAUSE, 60, 15, 25, 10, WC_GRAPHICBUTTON,
+                 GBS_HILITEBITMAP | GBS_3D_TEXTRAISED | WS_VISIBLE | WS_DISABLED
+                 CTLDATA GB_RESOURCE, "", 2, ID_BMP_PAUSE, ID_BMP_PAUSED
+
+        CONTROL  "", ID_STOP, 33, 15, 25, 10, WC_GRAPHICBUTTON,
+                 GBS_3D_TEXTRAISED | WS_VISIBLE | WS_DISABLED |
+                 CTLDATA GB_RESOURCE, "", 1, ID_BMP_STOP
+
+        CONTROL  "", ID_REWIND, 5, 15, 25, 10, WC_GRAPHICBUTTON,
+                 GBS_3D_TEXTRAISED | WS_VISIBLE | WS_DISABLED
+                 CTLDATA GB_RESOURCE, "", 1, ID_BMP_REWIND
+
+        CONTROL  "", ID_AUDIO_POSITION, 153, 45, 115, 8, WC_STATIC , SS_TEXT |
+                 DT_LEFT | DT_TOP | WS_VISIBLE
+                 PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+        CONTROL  "", ID_AUDIO_SLIDER, 144, 32, 94, 13,
+                 WC_SLIDER, SLS_HORIZONTAL | SLS_TOP | SLS_HOMELEFT |
+                 SLS_PRIMARYSCALE1 | SLS_PRIMARYSCALE2 | WS_GROUP | WS_TABSTOP |
+                 SLS_BUTTONSLEFT | WS_VISIBLE | SLS_RIBBONSTRIP | WS_DISABLED
+                 CTLDATA 12, 0, 10, 0, AUDIO_SLIDER_TICKS, 0
+                 PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+                 PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+        CONTROL  "Volume:", -1, 153, 22, 30, 8, WC_STATIC, SS_TEXT | DT_LEFT |
+                 DT_TOP | WS_VISIBLE |
+                 PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+        CONTROL  "", ID_VOLUME, 135, -7, 115, 30, WC_SLIDER, SLS_HORIZONTAL |
+                 SLS_PRIMARYSCALE1 | SLS_PRIMARYSCALE2 | WS_GROUP | WS_TABSTOP
+                 SLS_TOP | SLS_BUTTONSLEFT | WS_VISIBLE | SLS_RIBBONSTRIP
+                 CTLDATA 12, 0, 100, 0, 100, 0
+                 PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+                 PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+    END
+END
+
+DLGTEMPLATE ID_DLG_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Caption Creation Utility - Product Information", ID_DLG_PRODUCTINFO,
+       62, 62, 250, 90,
+       FS_NOBYTEALIGN | FS_SIZEBORDER | WS_VISIBLE | WS_SAVEBITS, FCF_SYSMENU |
+       FCF_TITLEBAR | FCF_MINBUTTON | FCF_VERTSCROLL | FCF_HORZSCROLL
+    BEGIN
+        CTEXT "MMPM/2 Caption Creation Utility"       -1, 5, 72, 235, 8
+        CTEXT "1.10"                                  -1, 5, 64, 235, 8
+        CTEXT "(C) Copyright IBM Corporation 1993."   -1, 5, 56, 235, 8
+        CTEXT "All Rights Reserved."                  -1, 5, 48, 235, 8
+        CTEXT "IBM is a registered Trademark of"      -1, 5, 40, 235, 8
+        CTEXT "International Business Machine Corp."  -1, 5, 32, 235, 8
+        DEFPUSHBUTTON "OK"          DID_OK,            100, 8, 40, 16
+    END
+END

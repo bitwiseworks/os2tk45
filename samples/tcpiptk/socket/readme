@@ -1,0 +1,135 @@
+
+ SOCKET consists of three client/server samples and SELECTS.C
+ (located in \TOOLKIT\SAMPLES\TCPIPTK\SOCKET).
+
+ SELECTS.C is a simple TCP and UDP server that uses the BSD
+ select() call. MSGC.C/MSGS.C, TCPC.C/TCPS.C and UDPC.C/UDPS.C
+ are sample C socket client/server programs demonstrating
+ network programming with OS/2 sockets.
+
+ Following are details on building and executing the RPC Samples:
+
+    1. To compile and link the sample programs, type:
+
+         nmake -f vacpp.mak         (to build using the VisualAge C/C++ compiler)
+
+    2. Executing udps.exe and udpc.exe
+
+         a. To start udps server, type:
+
+            start udps
+
+            An additional session is created and the following
+            message is displayed:
+
+            Port assigned is 1028
+
+
+         b. To run udpc client, type:
+
+            udpc 9.67.60.10 1028
+
+            Where:
+
+            9.67.60.10       IP address of machine where udps
+                             server is running.
+
+            1028             Port assigned by udps server.
+
+            After executing the udpc client, you will see the
+            following output on the server session:
+
+                     Received message Hello ................
+
+
+    3. Executing tcps.exe and tcpc.exe
+
+         a. To start tcps server, type
+
+            start tcps 2000
+
+            where:
+
+            2000             Port number assigned to tcps server
+
+         b. To run tcpc client, type
+
+            tcpc charm 2000
+
+            where:
+
+            charm            hostname of machine where tcps server
+                             is running.
+
+            2000              Port assigned to tcps server.
+
+    4. Executing selects.exe
+
+       The SELECTS server has the same function as the TCPS and
+       UDPS servers.
+
+         a. To start the SELECTS server, type:
+
+            start selects 2000
+
+            where:
+
+            2000             Port number assigned to selects server
+
+         b. To run tcpc client, type
+
+            tcpc charm 2000
+
+            where:
+
+            charm            hostname of machine where selects
+                             server is running.
+
+            2000             Port assigned to selects server.
+
+         c. To run udpc client, type
+
+            udpc 9.67.60.10 2000
+
+            where:
+
+            9.67.60.10       IP address of machine where selects
+                             server is running.
+
+            2000             Port assigned by selects server.
+
+       After executing the udpc client, you will see the following
+       output on the server session:
+
+       Received message Hello ................
+
+
+    5. Executing msgs.exe and msgc.exe
+
+       msgs.c and msgc.c are the same program as udps.c and
+       udpc.c except they are written using recvmsg() and
+       sendmsg() calls.
+
+         a. To start the msgs server, type:
+
+            start msgs
+
+            An additional session will be created and the following
+            message will appear.
+
+            Port assigned is 1028
+
+
+         b. To run msgc client, type
+
+            msgc 9.67.60.10 1028
+
+            where:
+
+            9.67.60.10       IP address of machine where msgs
+                             server is running.
+
+            1028             Port assigned by msgs server.
+
+
+

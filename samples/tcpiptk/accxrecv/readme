@@ -1,0 +1,53 @@
+ACCEPT_AND_RECV
+---------------
+The accept_and_recv() API function accepts a connection on a socket, receives
+the first message from the connected client, and returns the local and peer
+addresses.
+It accepts a new connection, receives the first block of data from the client
+and returns the local and remote addresses to the application.  The thread
+sleeping on accept_and_recv() wakes-up only after it gets the first data block
+from the client.
+
+SAMPLES FOR ACCEPT_AND_RECV
+---------------------------
+
+There are two exes named
+
+a) accept.exe   - TCP server application
+b) recv.exe     - TCP client application
+
+for explaining the accept_and_recv. The server opens a socket to which
+it binds and then does a listen on that socket.  It starts the number of
+specified threads and does accept_and_recv on each of them.
+The client opens a socket, connects to the server and sends the data.
+As the timeout option is set(by using setsockopt), whenever the client
+connects but doesn't send any data, the server times out.
+
+The server can be started  as follows -
+
+accept [server port] [number of acceptex threads]
+where:
+a) [server port] - stands for the port number to which  the server is to be bound.
+b) [number of acceptex threads] - stands for the number of simultaneous threads
+   on which accept_and_recv is to be done.
+
+The client can be started as follows -
+
+recv [server port]
+where;
+a) [server port] - is the port on which the server is bound.
+
+COMPILATION
+------------
+
+The source code for the server and the client are in the files
+by name -
+
+1) accept.c
+2) recv.c
+
+These can be compiled by using the makefile given and running
+the following command
+
+nmake /a
+

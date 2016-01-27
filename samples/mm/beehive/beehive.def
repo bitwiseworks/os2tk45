@@ -1,0 +1,11 @@
+NAME        BEEHIVE      WINDOWAPI
+
+DESCRIPTION 'Sprite compiler game demo'
+
+HEAPSIZE    8192         ; Must be non-zero to use Local memory manager
+STACKSIZE   16384        ; Must be non-zero for SS == DS (suggest 16k min)
+
+PROTMODE
+
+EXPORTS     MyWindowProc
+

@@ -1,0 +1,71 @@
+/*****************************************************************************
+ *
+ * Toybox demonstation program.
+ *
+ * This is a simple program that demonstrates how to use multiple bitmaps to
+ * simulate smooth motion of multiple objects on the client area.
+ *
+ * The program begins by loading into memory all of the bitmaps that are used
+ * by the program and then for each bitmap a DC is created. By creating the
+ * DC initially when the bitmaps are loaded, they can be quickly accessed
+ * by the BitBlt operation and then displayed onto the output client area.
+ *
+ * The user can then select several options from the main menu bar, allowing
+ * them to add or delete toys (both singly and rapidly to maximum and minimum
+ * values), to single step the toys (allowing you to see what is happening)
+ * start and stop of the automatic motion, and to get some basic help on the
+ * program (the About Box, however, is not just your normal dialog box).
+ *
+ * As objects are added to the client area, a random type of toy is selected
+ * from the six predefined toys, and a random starting frame of animation is
+ * selected. By giving each toy a different starting frame, it increases the
+ * apparent number of different objects, since they are not all in lock-step
+ * animation. The toy is MARKED as new, so initial display of the toy is
+ * handled correctly.
+ *
+ * When an object is deleted, it is only MARKED for deletion, but not actually
+ * deleted until all of the balls are drawn.
+ *
+ * When a frame/animation request is received, a loop is entered for all of the
+ * items currently selected. If the current object is a new toy, nothing is
+ * initially done, but if it is a normal toy, the object is erased using
+ * BitBlt with the SRCINVERT option (this allows objects to overlap each other
+ * without you caring about how to fix up the overlaps). Now, if the toy is
+ * supposed to move, we compute where/how its moving, do bounds checks (it must
+ * stay within the client area) and then compute the new location.
+ *
+ * Since each toy has a fixed number of animation frames that can be displayed,
+ * we must also compute the new frame to display for the toy. It is important
+ * to note that the resource file in this program determines how the frames
+ * are ordered, so that motion appears fluid when the toys are displayed.
+ * If the toy * is not Marked for delete, we BitBlt (using SRVINVERT again)
+ * the toy onto the client screen and repeat until all the toys are processed.
+ *
+ ******************************************************************************
+ *
+ * If the user selects the Help option and then About, a special client window
+ * is created that displays several lines of text about the program, and then
+ * displays the six toys along the border of the box in an animated style.
+ *
+ * The processing of this window is much simpler than the main client, since
+ * much less is done. On entry to the window, a timer is (hopefully) created
+ * that is used for animation. If the timer create is not successful, the
+ * only difference is the toys will not rotate in the help box.
+ *
+ * The animation routine is much simpler, since we do not need to move the
+ * toys nor worry about overlap of the toys (they are at fixed locations).
+ * When the timer request is received, the animation routine simply:
+ *  1. Erase the old object using PatBlt with the BLACKNESS attribute.
+ *  2. Compute the new frame of the toy (don't forget, else no rotation).
+ *  3. Display the toy on the screen using BitBlt with the SRCCOPY option.
+ *     Since we totally erase the toy every time, and then draw the new
+ *     toy on, we only want to see the toys picture, and this is a faster
+ *     way than SRVINVERT (which will work the same).
+ *
+ * This process repeats until the user closes the about box by re-selecting
+ * Help and About from the main client area.
+ *
+ * Copyright (C) 1995 IBM Corporation
+ *
+ *****************************************************************************/
+

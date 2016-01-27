@@ -1,0 +1,318 @@
+<HTML><HEAD>
+<TITLE>Grammar Guide</TITLE><HEAD>
+</HEAD><BODY>
+<IMG SRC="bannerx.gif" ALT=""><BR>
+<H1>Grammar Guide</H1>
+<HR>
+<H1>A guide to writing What Can I Say description files</H1>
+<p>
+The What Can I Say window dynamically displays phrases that
+Voice Manager will recognize.  These phrases are not automatically
+generated from a grammar file but must be written by hand in a
+What Can I Say description file.  This allows for more control
+over how a grammar is represented in the What Can I Say window.
+For example, the grammar writer may want to organize the What
+Can I Say information in a certain way, or may wish to elide
+specific phrases.
+
+<H2>Syntax of the description file</H2>
+Each line of the description file contains an 8 character prefix.
+Many of the character positions of this prefix are not used
+by Voice Manager (they are used by other applications).
+As a result, many of these
+positions contain a period (".") as a placeholder. The
+positions (from left to right) denote the following:
+<DL>
+<DT>column 1
+<DD>The possible values for this column are:
+<MENU>
+<LI><strong><TT>T</TT></strong> denotes the title line. Each What Can I Say file
+must start with a title line and there can only be one title line
+per file.
+<LI><strong><TT>H</TT></strong> denotes a heading. Typically, headers are names
+of  general categories of phrases that a user might say. For example, a header might be "move commands". A What Can I
+Say description file can be thought of as a simple outline. The headers
+are general topics with phrases listed as entries underneath them.
+<LI><strong><TT>X</TT></strong> denotes a phrase that can be said by a user.
+<LI><strong><TT>D</TT></strong> denotes the start of a definition sequence.
+This will be further explained in
+<A HREF="wcs.htm#and-annotation">the section on the <TT>&&_</TT> annotation</A>.
+</MENU>
+<DT>column 2
+<DD>The value of this column is always <strong><TT>E</TT></strong>
+<DT>column 3
+<DD>The possible values for this column are:
+<MENU>
+<LI><strong><TT>S</TT></strong> if the line is to be shown in the
+What Can I Say Window.
+<LI><strong><TT>H</TT></strong> if the line is to be hidden in the
+What Can I Say Window. For example, the line may be intended as a
+comment when viewing the description file.
+</MENU>
+<DT>column 4
+<DD>The value of this column is always a period (".").
+<DT>column 5
+<DD>The value of this column can be:
+<MENU>
+<LI><strong><TT>.</TT></strong> (period), which is mandatory if the value of
+the first column is D. It is also mandatory if the first column
+is X and the line contains no <TT>&&_</TT> sequences.
+<LI><strong><TT>+</TT></strong> which indicates that the subentries of this
+line are collapsed.
+<LI><strong><TT>-</TT></strong> which indicates that subentries of this
+line are expanded. Either a <TT>+</TT> or <TT>-</TT> are required if
+the first column is a <TT>T</TT> or an <TT>H</TT>. One of them is
+also required if the first column is an <TT>X</TT> and the line
+contains an <TT>&&_</TT> sequence.
+</MENU>
+<DT>column 6
+<DD>The value of this column is always a period.
+<DT>column 7
+<DD>The value of this column is:
+<MENU>
+<LI><strong><TT>.</TT></strong> if the line is to be displayed in the
+default font color (typically, black).
+<LI><strong><TT>X</TT></strong> if the line is to be displayed in blue.
+</MENU>
+<DT>column 8
+<DD>The value of this column is always a period.
+</DL>
+<p>
+<HR>
+<H2>An Example</H2>
+
+<PRE>
+
+TES.+...Simple Example
+HES.+...Alignment Commands
+XES.....align left
+XES.....align right
+XES.....center
+XES.....justify
+HES.+...Insertion Commands
+XES.....insert bullet
+XES.....insert note
+XES.....insert today's date
+XES.....insert time
+XES.....insert page break
+
+</PRE>
+
+Recall that the <TT>+</TT> in column five indicates that the
+line should be viewed with the subentries collapsed.
+Thus, this grammar will add the following line to the What Can I Say
+window:
+
+<PRE>
+
++  Simple Example
+
+</PRE>
+
+If a user clicks on that line it will be expanded to
+
+<PRE>
+
+-  Simple Example
+   + Alignment Commands
+   + Insertion Commands
+
+</PRE>
+
+If a user clicks on the <TT>+ Alignment Commands</TT> line the
+result will be:
+
+
+<PRE>
+
+-  Simple Example
+   - Alignment Commands
+       align left
+       align right
+       center
+       justify
+   + Insertion Commands
+
+</PRE>
+
+Suppose we change the first line of the description file from
+<PRE>
+TES.+...Simple Example
+</PRE><p>
+to
+<PRE>
+TES.-...Simple Example
+</PRE>
+<p>
+replacing the <TT>+</TT> in column 5 with a <TT>-</TT>.
+Now, instead of initially displaying the single line
+
+<PRE>
+
++  Simple Example
+
+</PRE>
+
+the following will be displayed:
+
+<PRE>
+
+-  Simple Example
+   + Alignment Commands
+   + Insertion Commands
+
+</PRE>
+<HR>
+<H2><A NAME="and-annotation">The <TT>&&_</TT> annotation</A></H2>
+Suppose you have the following two rules in your grammar file:
+
+<PRE>
+
+&lt;color-command&gt; = set the color to &lt;colors&gt; .
+&lt;colors&gt; = red | orange | yellow | green | blue |
+           indigo  | violet .
+
+</PRE>
+
+You may want the What Can I Say window to display the phrases
+allowed by these rules as follows:
+
+<PRE>
+
+- Example
+
+   set the color to red
+   set the color to orange
+   set the color to yellow
+   set the color to green
+   set the color to blue
+   set the color to indigo
+   set the color to violet
+
+</PRE>
+
+However, there is another way of presenting this information, which
+may be more helpful to the users of your grammar.  A single line
+might be displayed as in
+
+<PRE>
+
+- Example
+
+  + set the color to <strong>colorname</strong>
+
+</PRE>
+A user can click on this line to expand it to:
+
+<PRE>
+
+  - set the color to <strong>colorname</strong>
+    Possible values of colorname are
+       red
+       orange
+       yellow
+       green
+       blue
+       indigo
+       violet
+
+</PRE>
+
+This format can easily be define in the What Can I say description
+file by using the <TT>&&_</TT> annotation. The format of this annotation
+is
+<PRE>
+
+   &&_<I>variable-name.annotation-name</I>_&&
+
+</PRE>
+
+where <I>annotation-name</I> is the string that will be displayed
+to the user and <I>variable-name</I> is the name of a description
+sequence that occurs at the end of the What Can I Say description
+file.
+For example, the following description file generates the above example:
+
+ <PRE>
+
+TES.-...Example
+XES.+...set the color to &&_colorlist.colorname_&&
+D.......colorlist
+XES.....Possible values of colorname are
+XES...C.   red
+XES...C.   orange
+XES...C.   yellow
+XES...C.   blue
+XES...C.   indigo
+XES...C.   violet
+
+
+</PRE>
+
+<H3>The &&_Extern_counts.<count>_&& annotation</H3>
+This annotation is a special case of the &&_ annotation mentioned
+above. It is typically used to describe phrases generated by
+a grammar that contains the line <TT>EXTERN &lt;Extern_counts&gt;</TT>.
+This annotation does not require a description sequence and it is used as
+follows.
+
+<PRE>
+
+TES.-...Example
+XES.+...move up &&_Extern_counts.&lt;count&gt;_&& lines
+
+</PRE>
+
+The resulting What Can I Say display will be
+
+<PRE>
+
+- Example
+  + move up &lt;count&gt; lines
+
+</PRE>
+
+When a user click on the  <TT>+ move up &lt;count&gt; lines</TT> line
+the following display will result:
+
+
+
+<PRE>
+
+- Example
+  - move up &lt;count&gt; lines
+    Count values
+      one
+      two
+      three
+      four
+      five
+      six
+      seven
+      eight
+      nine
+      ten
+      eleven
+      twelve
+      thirteen
+      fourteen
+      fifteen
+      sixteen
+      seventeen
+      eighteen
+      nineteen
+      twenty
+      thirty
+      forty
+      fifty
+
+
+</PRE>
+<p><p>
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="vtbnfc.htm">Previous Page</A> &#124; <A HREF="tidygram.htm">Next Page</A> &#124; <A HREF="grammar.htm">Back to Grammar Guide</A> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+
+</BODY>
+</HTML>
+
+

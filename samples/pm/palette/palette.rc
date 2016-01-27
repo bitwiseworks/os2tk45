@@ -1,0 +1,149 @@
+/*ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿*/
+/*³                                                                          ³*/
+/*³ PROGRAM NAME: PALETTE                                                    ³*/
+/*³ -------------                                                            ³*/
+/*³  A PM program demonstrating vector fonts, palette manager APIs, and IPF  ³*/
+/*³  help.                                                                   ³*/
+/*³                                                                          ³*/
+/*³ COPYRIGHT:                                                               ³*/
+/*³ ----------                                                               ³*/
+/*³  Copyright (C) International Business Machines Corp., 1992               ³*/
+/*³                                                                          ³*/
+/*³ DISCLAIMER OF WARRANTIES:                                                ³*/
+/*³ -------------------------                                                ³*/
+/*³  The following [enclosed] code is sample code created by IBM Corporation.³*/
+/*³  This sample code is not part of any standard IBM product and is provided³*/
+/*³  to you solely for the purpose of assisting you in the development of    ³*/
+/*³  your applications.  The code is provided "AS IS", without warranty of   ³*/
+/*³  any kind.  IBM shall not be liable for any damages arising out of your  ³*/
+/*³  use of the sample code, even if they have been advised of the           ³*/
+/*³  possibility of such damages.                                            ³*/
+/*³                                                                          ³*/
+/*³ For details on what this program does etc., please see the PALETTE.C     ³*/
+/*³ file.                                                                    ³*/
+/*³                                                                          ³*/
+/*ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+
+/*ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿*/
+/*³ PALETTE.RC                                                               ³*/
+/*³                                                                          ³*/
+/*³ Palette Manager Resource File                                            ³*/
+/*ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+
+/*ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿*/
+/*³ Includes                                                                 ³*/
+/*ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+
+#define INCL_PM
+#include <os2.h>
+#include "palette.h"
+
+
+ICON ID_WINDOW PRELOAD  palette.ico
+
+MENU ID_WINDOW PRELOAD
+BEGIN
+   SUBMENU "~Options", IDM_OPTIONS
+   BEGIN
+      MENUITEM "~Stop",       IDM_STARTSTOP,  MIS_TEXT
+      SUBMENU  "S~peed",      IDM_SPEED,      MIS_TEXT
+      BEGIN
+         MENUITEM "S~low",    IDM_SPEEDSLOW,  MIS_TEXT
+         MENUITEM "~Medium",  IDM_SPEEDMEDIUM,MIS_TEXT
+         MENUITEM "~Fast",    IDM_SPEEDFAST,  MIS_TEXT
+      END
+      SUBMENU "~Logo",        IDM_LOGO,       MIS_TEXT
+      BEGIN
+         MENUITEM "~IBM",     IDM_LOGOIBM,    MIS_TEXT
+         MENUITEM "~OS/2",    IDM_LOGOOS2,    MIS_TEXT
+      END
+   END
+
+   SUBMENU     "~Help",       IDM_HELP
+   BEGIN
+        MENUITEM    "Help ~index...",          IDM_HELP_INDEX,    MIS_TEXT
+        MENUITEM    "~General help...",        IDM_EXTENDED_HELP, MIS_TEXT
+        MENUITEM    "~Keys help...",           IDM_KEYS_HELP,     MIS_TEXT
+        MENUITEM    "~Using help...",          IDM_HELPFORHELP,   MIS_TEXT
+        MENUITEM SEPARATOR
+        MENUITEM    "~Product information...", IDM_HELPABOUT,     MIS_TEXT
+   END
+END
+
+
+ACCELTABLE ID_WINDOW
+BEGIN
+  VK_F3,        IDM_EXIT,        VIRTUALKEY
+END
+
+
+/*ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿*/
+/*³ Help Table Definition                                                    ³*/
+/*³                                                                          ³*/
+/*³ The main help table is defined including the window for which help will  ³*/
+/*³ be displayed, the help subtable which references the help panels and the ³*/
+/*³ panel id for the extended help panel.                                    ³*/
+/*ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+
+HELPTABLE MAIN_HELPTABLE
+BEGIN
+    HELPITEM ID_WINDOW, SUBTABLE_OPTION, IDM_EXTENDED_HELP
+END
+
+
+/*ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿*/
+/*³ Help Sub Table Definition                                                ³*/
+/*³                                                                          ³*/
+/*³ The help subtable is defined including the id for each item for which    ³*/
+/*³ help is available, and the id to the corresponding help panel.  The id's ³*/
+/*³ for the locations in the program are defined in the PALETTE.H file, and  ³*/
+/*³ the help panels are defined in the HELP.IPF file.                        ³*/
+/*ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+/*     HELPSUBITEM     SC_HELPEXTENDED,   IDM_EXTENDED_HELP */
+/*     HELPSUBITEM     SC_HELPKEYS,       IDM_KEYS_HELP     */
+/*     HELPSUBITEM     SC_HELPINDEX,      IDM_HELP_INDEX    */
+
+HELPSUBTABLE SUBTABLE_OPTION
+BEGIN
+     HELPSUBITEM     IDM_OPTIONS,       IDM_OPTIONS
+     HELPSUBITEM     IDM_STARTSTOP,     IDM_STARTSTOP
+     HELPSUBITEM     IDM_SPEED,         IDM_SPEED
+     HELPSUBITEM     IDM_SPEEDSLOW,     IDM_SPEEDSLOW
+     HELPSUBITEM     IDM_SPEEDMEDIUM,   IDM_SPEEDMEDIUM
+     HELPSUBITEM     IDM_SPEEDFAST,     IDM_SPEEDFAST
+     HELPSUBITEM     IDM_LOGO,          IDM_LOGO
+     HELPSUBITEM     IDM_LOGOIBM,       IDM_LOGOIBM
+     HELPSUBITEM     IDM_LOGOOS2,       IDM_LOGOOS2
+     HELPSUBITEM     IDM_HELP,          IDM_HELP
+     HELPSUBITEM     IDM_HELPFORHELP,   IDM_HELPFORHELP
+     HELPSUBITEM     IDM_HELPABOUT,     IDM_HELPABOUT
+     HELPSUBITEM     IDM_EXTENDED_HELP, IDM_EXTENDED_HELP
+     HELPSUBITEM     IDM_KEYS_HELP,     IDM_KEYS_HELP
+     HELPSUBITEM     IDM_HELP_INDEX,    IDM_HELP_INDEX
+END
+
+
+/*ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿*/
+/*³ Product Information (about) dialog                                       ³*/
+/*ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+
+BITMAP IDR_BITMAP prodinfo.bmp
+
+DLGTEMPLATE IDD_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Product information", IDD_PRODUCTINFO, 9, 17, 276, 137,
+                FS_NOBYTEALIGN | FS_DLGBORDER |
+                WS_VISIBLE | WS_CLIPSIBLINGS | WS_SAVEBITS,
+                FCF_TITLEBAR | FCF_SYSMENU
+    BEGIN
+        CONTROL         IDR_BITMAP, IDC_BITMAP, 111, 76, 21, 21, WC_STATIC,
+                        SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT           "(C) Copyright IBM Corporation 1992. All Rights rese"
+                        "rved.", 256, 7, 54, 255, 8
+        CTEXT           "OS/2 is a registered trademark of", 258, 7, 44, 255,
+                        8
+        CTEXT           "International Business Machines Corp.", 257, 7, 34,
+                        255, 8
+        DEFPUSHBUTTON   "OK", IDC_OK, 111, 8, 45, 15
+    END
+END

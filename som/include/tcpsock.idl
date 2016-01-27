@@ -1,0 +1,81 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.7 src/soms/tcpsock.idl, somu, som2.1 9/1/94 17:46:13 [7/30/96 14:49:47]
+
+
+
+#ifndef tcpsock_idl
+#define tcpsock_idl
+
+#include <somssock.idl>
+#include <snglicls.idl>
+
+interface TCPIPSockets : Sockets
+{
+#ifdef __SOMIDL__
+    implementation
+    {
+	//# Class modifiers
+        majorversion = 2;
+        minorversion = 1;
+	callstyle=idl;
+	dllname="somst.dll";
+	metaclass=SOMMSingleInstance;
+
+	//# Method modifiers
+	somsAccept: override;
+	somsBind: override;
+	somsConnect: override;
+        somsGethostbyaddr: override;
+	somsGethostbyname: override;
+	somsGethostent: override;
+	somsGethostid: override;
+	somsGethostname: override;
+	somsGetpeername: override;
+	somsGetservbyname: override;
+	somsGetsockname: override;
+	somsGetsockopt: override;
+	somsHtonl: override;
+	somsHtons: override;
+	somsIoctl: override;
+	somsInet_addr: override;
+	somsInet_lnaof: override;
+	somsInet_makeaddr: override;
+	somsInet_netof: override;
+	somsInet_network: override;
+	somsInet_ntoa: override;
+	somsListen: override;
+	somsNtohl: override;
+	somsNtohs: override;
+	somsReadv: override;
+	somsRecv: override;
+	somsRecvfrom: override;
+	somsRecvmsg: override;
+	somsSelect: override;
+	somsSend: override;
+	somsSendmsg: override;
+	somsSendto: override;
+	somsSetsockopt: override;
+	somsShutdown: override;
+	somsSocket: override;
+	somsSoclose: override;
+	somsWritev: override;
+	_set_serrno: override;
+	_get_serrno: override;
+	somInit: override;
+	somUninit: override;
+    };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* tcpsock_idl */

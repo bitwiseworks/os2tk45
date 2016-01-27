@@ -1,0 +1,78 @@
+/*************************************************************************
+* ToyBox Demo Program resource file.
+*
+* Note: The BMP files used by this program are named using the
+*       convention BALLx-y.BMP, with the 'x' character indicating which
+*       'group' of objects the bitmap is used with, while the 'y'
+*               character indicates which animation 'frame' of the 'group' the
+*               object belongs is.
+*
+* 08/08/95 - Original Version, Dan Mendrala, IBM Corporation, 1995.
+*
+*************************************************************************/
+
+#include "toybox.h"
+
+ICON ToyIcon ToyBox.ICO
+
+BITMAP BallR1 "BALL1_1.BMP"
+BITMAP BallR2 "BALL1_2.BMP"
+BITMAP BallR3 "BALL1_3.BMP"
+BITMAP BallR4 "BALL1_4.BMP"
+BITMAP BallR5 "BALL1_5.BMP"
+BITMAP BallR6 "BALL1_6.BMP"
+
+BITMAP BallB1 "BALL2_1.BMP"
+BITMAP BallB2 "BALL2_2.BMP"
+BITMAP BallB3 "BALL2_3.BMP"
+BITMAP BallB4 "BALL2_4.BMP"
+
+BITMAP BallY1 "BALL3_1.BMP"
+BITMAP BallY2 "BALL3_2.BMP"
+BITMAP BallY3 "BALL3_3.BMP"
+BITMAP BallY4 "BALL3_4.BMP"
+BITMAP BallY5 "BALL3_3.BMP"
+BITMAP BallY6 "BALL3_2.BMP"
+
+BITMAP BallG1 "BALL4_1.BMP"
+BITMAP BallG2 "BALL4_2.BMP"
+BITMAP BallG3 "BALL4_3.BMP"
+BITMAP BallG4 "BALL4_4.BMP"
+BITMAP BallG5 "BALL4_5.BMP"
+BITMAP BallG6 "BALL4_6.BMP"
+
+BITMAP BallL1 "BALL5_1.BMP"
+BITMAP BallL2 "BALL5_2.BMP"
+BITMAP BallL3 "BALL5_3.BMP"
+BITMAP BallL4 "BALL5_4.BMP"
+
+BITMAP BallP1 "BALL6_1.BMP"
+BITMAP BallP2 "BALL6_2.BMP"
+BITMAP BallP3 "BALL6_3.BMP"
+BITMAP BallP4 "BALL6_4.BMP"
+
+MENU ToyMenu
+
+BEGIN
+ SUBMENU "Main", 0xF200
+ BEGIN
+  MENUITEM "Start",                     IDM_START
+  MENUITEM "Stop",                              IDM_STOP
+  MENUITEM "Ma~Ximum Toys",     IDM_MAXOBJ
+  MENUITEM "Mi~Nimum Toys",     IDM_MINOBJ
+  MENUITEM SEPARATOR
+  MENUITEM "~Quit",                             IDM_QUIT
+ END
+
+ MENUITEM "~Add Toy",                   IDM_ADDOBJ
+ MENUITEM "~Delete Toy",                IDM_DELOBJ
+ MENUITEM "~Step Toys",                 IDM_STEP
+
+ SUBMENU "Help", 0xF201
+ BEGIN
+  MENUITEM "General Help",      IDM_HELP
+  MENUITEM "About ToyBox",              IDM_ABOUT
+ END
+
+END
+

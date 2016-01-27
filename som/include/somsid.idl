@@ -1,0 +1,80 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//# @(#) 2.7 src/somu/somsid.idl, somu, som2.1 9/1/94 17:46:57 [7/30/96 14:49:56]
+
+
+#ifndef somsid_idl
+#define somsid_idl
+
+#include <somida.idl>
+
+interface SOMUTStringId : SOMUTId
+
+// This is the abstract base class for an ASCIIZ string (an ASCII string
+// terminated with a zero) based ID. Refer to derived classes for details.
+//
+// Intances of classes derived from this one should represent a string
+// value which can be used to identify something... such as an object,
+// a file, a network node, etc, etc...
+//
+
+{
+  long somutSetIdString(in string IdString);
+  // Sets the ID to the given string.
+  // Returns nonzero error code if given IdString is not syntactically correct.
+
+  string somutGetIdString(in string toBuffer);
+  // Stores the ID as a string into the given buffer <toBuffer> and
+  // returns the buffer <toBuffer>.
+  // Use somutGetIdStringLen to determine appropriate <toBuffer> size.
+
+  long somutGetIdStringLen();
+  // Returns the length of the ID string.
+
+  boolean somutEqualsString(in string IdString);
+  // Checks to see if this object's ID is equivalent to the given string.
+  // Returns TRUE if the ID is equivalent to the string, FALSE otherwise.
+
+  short somutCompareString(in string IdString);
+  // Performs an ordered comparison with the given string.
+  // If this ID < IdString -1 is returned.
+  // If this ID = IdString  0 is returned.
+  // If this ID > IdString  1 is returned.
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+
+    callstyle = idl;
+
+    releaseorder: somutSetIdString, somutGetIdString, somutGetIdStringLen,
+                  somutEqualsString, somutCompareString;
+
+    majorversion = 2;
+    minorversion = 1;
+    filestem = somsid;
+
+    //# Method Modifiers
+    somutSetIdId:   override;
+    somutEqualsId:  override;
+    somutCompareId: override;
+    somutHashId:    override;
+
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* somsid_idl */

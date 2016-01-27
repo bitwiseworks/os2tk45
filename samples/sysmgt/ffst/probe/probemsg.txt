@@ -1,0 +1,19 @@
+;Input file for MKMSGF the resulting .MSG file must be placed in the DPATH or 
+;the template file specification must specify the path on the boot drive.
+;
+;The 'number' component of the msg id must be 4 numeric chars.
+;This 'number' is what is used in the template file _causes _actions phrases
+;between the comma's. e.g. Fail Causes = 4,5,0,0 will cause SYSLOG to display 
+;message BNB0004I followed by BNB0005I in its fail causes section. 
+;Message text can continue across multiple lines if so desired. 
+BNB
+BNB0001I: Message for probe 11111, with 2 substitution vars: %1 and %2
+BNB0002I: Message for probe 22222, with 2 substitution vars: %1 and %2
+BNB0003I: Hello World!
+BNB0004I: Hello World! My_Dummy_API returned a non-zero rc
+BNB0005I: A non-zero rc is the result of 123456 not being sent to My_Dummy_API
+BNB0006I: Call My_Dummy_API with 123456 passed as Mydata.
+BNB0007I: Is the Log User Data sent with this probe, formatted to hexidecimal
+BNB0008I: Is the Log User Data sent with this probe, formatted to ASCII
+BNB0009I: Is the Log User Data sent with this probe, formatted as decimal
+

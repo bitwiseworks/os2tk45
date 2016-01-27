@@ -1,0 +1,60 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.7 src/somem/timerev.idl, somu, som2.1 9/1/94 17:45:34 [7/30/96 14:46:14]
+
+
+#ifndef timerev_idl
+#define timerev_idl
+
+#include <event.idl>
+
+interface SOMETimerEvent : SOMEEvent
+
+// SOMETimerEvent is the class for generic timer events within the Event Manager.
+// This class should be queried for events of the following type(s):
+//      EMTimerEvent
+// An instance of this class is initialized and passed to the callback
+// of a timer event.
+{
+  long somevGetEventInterval();
+
+  // Returns the interval of the generic timer event (time in milliseconds)
+
+  void somevSetEventInterval(in long interval);
+
+  // Sets the interval of the generic timer event (time in milliseconds)
+
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: somevGetEventInterval,somevSetEventInterval;
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = timerev;
+    callstyle = idl;
+
+
+    //# Method Modifiers
+    somInit: override;
+
+    //# Data Modifiers
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* timerev_idl */

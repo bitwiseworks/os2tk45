@@ -1,0 +1,87 @@
+/*************************************************************************
+
+ * File Name    : movie.rc
+ *
+ * Description  : This is the resource file for the Movie Sample Application
+ *                Program.
+ *
+ * Concepts     : See the C source file for this program.
+ *
+ * MMPM/2 API's : See the C source file for this program.
+ *
+ * Required
+ *    Files     : See the C source file for this program.
+ *
+ * Copyright (C) IBM 1993
+ *************************************************************************/
+
+#define  INCL_WIN
+#define  INCL_PM
+#define  INCL_DOS
+#define  INCL_GRAPHICBUTTON
+#define  INCL_CIRCULARSLIDER
+#define  INCL_BITMAP
+
+#include <os2.h>
+#include <sw.h>
+
+#include "movie.h"
+
+RCINCLUDE movie.dlg
+
+ICON ID_ICON movie.ico
+
+/*
+ * Bitmap's
+ */
+BITMAP ID_BMP_PLAY0 LOADONCALL MOVEABLE DISCARDABLE PLAY0.BMP
+BITMAP ID_BMP_STOP LOADONCALL MOVEABLE DISCARDABLE STOP.BMP
+BITMAP ID_BMP_PAUSE LOADONCALL MOVEABLE DISCARDABLE PAUSE.BMP
+BITMAP ID_BMP_REWIND LOADONCALL MOVEABLE DISCARDABLE REWIND.BMP
+
+/*
+ * Help Table Definition.
+ *
+ * The help table definition for the dialog window.
+ */
+
+HELPSUBTABLE ID_SUBTABLE_MESSAGEBOX
+{
+}
+
+/*
+ * String Table Definition.
+ */
+STRINGTABLE
+{
+  IDS_PROGRAM_TITLE,        "Movie Sample Application"
+  IDS_MOVIE_ERROR,          "Movie Sample Application Error"
+  IDS_HELP_WINDOW_TITLE,    "Movie Sample Application General Help"
+  IDS_HELP_LIBRARY_NAME,    "movie.hlp"
+  IDS_DEFAULTSIZE,          "~Default Size"
+  IDS_HELP,                 "~Help"
+
+  /*
+   * Messages.
+   */
+
+  IDS_EDIT_MOVIE,
+  "The movie.avi file is about to be edited. "
+  "Please see the routine EditTheMovie in the source file movie.c "
+  "for technical details."
+
+  IDS_HELP_CREATION_FAILED,
+  "Creation of Help failed. Help will not be available."
+
+  IDS_UNKNOWN,
+  "Unknown MCI Error"
+
+  IDS_CANNOT_FIND_MOVIE_FILE,
+  "The movie file cannot be found.  Please ensure that the movie file "
+  "is in the correct directory and retry."
+
+  IDS_CANNOT_LOAD_MOVIE_FILE,
+  "The movie file cannot be loaded.  Please ensure that the movie file "
+  "is in the correct directory and retry."
+
+}

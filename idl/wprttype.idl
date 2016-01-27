@@ -1,0 +1,150 @@
+//  Module Header
+//
+//  Module Name: WPRTTYPE.IDL
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef  WPRTTYPE_IDL
+#define WPRTTYPE_IDL
+
+interface WPObject;
+
+#define CHAR           char
+#define SHORT          short
+
+struct DATETIME {    /* date */
+    UCHAR   hours;
+    UCHAR   minutes;
+    UCHAR   seconds;
+    UCHAR   hundredths;
+    UCHAR   day;
+    UCHAR   month;
+    USHORT  year;
+    SHORT   timezone;
+    UCHAR   weekday;
+};
+typedef DATETIME    *PDATETIME;
+
+struct DRIVDATA {     /* driv */
+   LONG    cb;
+   LONG    lVersion;
+   CHAR    szDeviceName[32];
+   CHAR    abGeneralData[1];
+};
+typedef DRIVDATA  *PDRIVDATA;
+
+#define DRIV_NAME_SIZE           8     /* name of device driver     */
+#define DRIV_DEVICENAME_SIZE    31     /* see DRIVDATA struc        */
+#define QNLEN           12             /* Queue name maximum length */
+#define PDLEN            8             /* Print destination length  */
+
+
+struct PRJINFO2 {    /* prj2 */
+   USHORT  uJobId;
+   USHORT  uPriority;
+   PSZ     pszUserName;
+   USHORT  uPosition;
+   USHORT  fsStatus;
+   ULONG   ulSubmitted;
+   ULONG   ulSize;
+   PSZ     pszComment;
+   PSZ     pszDocument;
+} ;
+typedef PRJINFO2   *PPRJINFO2;
+typedef PRJINFO2   *NPPRJINFO2;
+
+struct PRJINFO3 {    /* prj */
+   USHORT  uJobId;
+   USHORT  uPriority;
+   PSZ     pszUserName;
+   USHORT  uPosition;
+   USHORT  fsStatus;
+   ULONG   ulSubmitted;
+   ULONG   ulSize;
+   PSZ     pszComment;
+   PSZ     pszDocument;
+   PSZ     pszNotifyName;
+   PSZ     pszDataType;
+   PSZ     pszParms;
+   PSZ     pszStatus;
+   PSZ     pszQueue;
+   PSZ     pszQProcName;
+   PSZ     pszQProcParms;
+   PSZ     pszDriverName;
+   PDRIVDATA pDriverData;
+   PSZ     pszPrinterName;
+};
+typedef PRJINFO3   *PPRJINFO3;
+typedef PRJINFO3   *NPPRJINFO3;
+
+struct PRJINFO4 {                                                  /* @BIDI */
+ USHORT uJobId;
+ USHORT uPriority;
+ PSZ    pszUserName;
+ USHORT uPosition;
+ USHORT fsStatus;
+ ULONG  ulSubmitted;
+ ULONG  ulSize;
+ PSZ    pszComment;
+ PSZ    pszDocument;
+ PSZ    pszSpoolFileName;
+ PSZ    pszPortName;
+ PSZ    pszStatus;
+ ULONG  ulPagesSpooled;
+ ULONG  ulPagesSent;
+ ULONG  ulPagesPrinted;
+ ULONG  ulTimePrinted;
+ ULONG  ulExtendJobStatus;
+ ULONG  ulStartPage;
+ ULONG  ulEndPage;
+} ;
+typedef PRJINFO4 *PPRJINFO4;
+
+struct PRDINFO3 {    /* prd */
+   PSZ     pszPrinterName;
+   PSZ     pszUserName;
+   PSZ     pszLogAddr;
+   USHORT  uJobId;
+   USHORT  fsStatus;
+   PSZ     pszStatus;
+   PSZ     pszComment;
+   PSZ     pszDrivers;
+   USHORT  time;
+   USHORT  usTimeOut;
+} ;
+typedef PRDINFO3   *PPRDINFO3;
+typedef PRDINFO3   *NPPRDINFO3;
+
+/*
+* structure for DosPrintDriverEnum
+*/
+struct PRDRIVINFO {  /* prdid */
+   CHAR    szDrivName[DRIV_NAME_SIZE+1+DRIV_DEVICENAME_SIZE+1];
+} ;
+typedef PRDRIVINFO   *PPRDRIVINFO;
+typedef PRDRIVINFO   *NPPRDRIVINFO;
+
+/*
+* structure for DosPrintPortEnum Level 1
+*/
+struct PRPORTINFO1 {  /* prpo1 */
+   PSZ     pszPortName ;
+   PSZ     pszPortDriverName ;
+   PSZ     pszPortDriverPathName ;
+} ;
+typedef PRPORTINFO1   *PPRPORTINFO1;
+typedef PRPORTINFO1   *NPPRPORTINFO1;
+
+/*
+* structure for DosPrintQProcessorEnum
+*/
+struct PRQPROCINFO {  /* prqp */
+   CHAR    szQProcName[QNLEN+1];
+} ;
+typedef PRQPROCINFO   *PPRQPROCINFO;
+typedef PRQPROCINFO   *NPPRQPROCINFO;
+
+#endif  /* WPRTTYPE_IDL */

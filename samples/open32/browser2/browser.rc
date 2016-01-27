@@ -1,0 +1,50 @@
+/* SM$FO E:\CODE\TOOLSBR\BROWSER.RC - Monday  10/16/1995  12:39:41 */
+
+#include <os2.h>
+#include "browser.h"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+MENU BROWSERM DISCARDABLE
+BEGIN
+    SUBMENU "~File", 0xF200
+    BEGIN
+        MENUITEM "~Browse File...",             IDM_BROWSE
+        MENUITEM SEPARATOR
+        MENUITEM "E~xit",                       IDM_EXIT
+    END
+        MENUITEM "~Help",                       IDM_HELP1
+END
+
+MENU BROWSFILEM DISCARDABLE
+BEGIN
+    SUBMENU "~File", 0xF201
+    BEGIN
+        MENUITEM "~Browse File...",             IDM_BROWSE
+        MENUITEM "~Select Font...",             IDM_FONT
+        MENUITEM "~Close",                      IDM_CLOSEF
+        MENUITEM SEPARATOR
+        MENUITEM "E~xit",                       IDM_EXIT
+    END
+    SUBMENU "~Window", 0xF202
+    BEGIN
+        MENUITEM "~Cascade",                    IDM_CASCADE
+        MENUITEM "~Tile Vertically",            IDM_TILEV
+        MENUITEM "Tile ~Horizontally",          IDM_TILEH
+        MENUITEM "Arrange ~Icons",              IDM_ARRANGE
+        MENUITEM "Close ~All",                  IDM_CLOSEALL
+    END
+        MENUITEM "~Help",                       IDM_HELP2
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+ICON  IDI_WIZZARD   icon1.ico
+
+

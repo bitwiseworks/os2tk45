@@ -1,0 +1,15 @@
+;+------------------------------------------------------------------------
+;| smvsamp.def file
+;|
+;| Copyright (C) IBM 1993
+;+------------------------------------------------------------------------
+
+NAME        movie       WINDOWAPI
+
+DESCRIPTION 'Movie Sample Application'
+
+STACKSIZE   20000
+HEAPSIZE    20000
+
+EXPORTS         MainDlgProc
+

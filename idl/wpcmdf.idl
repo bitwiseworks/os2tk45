@@ -1,0 +1,70 @@
+
+//  Module Header
+//
+//  Module Name: WPCMDF
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpcmdf_idl
+#define wpcmdf_idl
+
+#include "wppgmf.idl"
+#include <somcls.idl>
+
+interface M_WPCommandFile;
+
+interface WPCommandFile : WPProgramFile
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpcmd;
+    local;
+    externalprefix = cmd_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpcmdf;
+    metaclass = M_WPCommandFile;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+    wpSetupOnce: override;                                                      //pgm154974
+    wpPrintObject: override;
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPCommandFile : M_WPProgramFile
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpcmd;
+    local;
+    externalprefix = cmdM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpcmdf;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryStyle: override;
+    wpclsQueryInstanceFilter: override;
+    wpclsQueryInstanceType: override;
+    wpclsQueryTitle: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpcmdf_idl */

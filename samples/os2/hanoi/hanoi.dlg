@@ -1,0 +1,32 @@
+DLGINCLUDE 1 "hanoi.h"
+
+DLGTEMPLATE IDD_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Product Information", IDD_PRODUCTINFO, 8, -43, 276, 137,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CONTROL         IDR_BITMAP, IDC_BITMAP,   111, 71, 21,  21,
+                            WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT           "(C) Copyright IBM Corporation 1995. All Rights rese"
+                        "rved.",              256,  7, 54, 255,  8
+        CTEXT           "International Business Machines Corp.",
+                                              257,  7, 34, 255,  8
+        CTEXT           "OS/2 is a registered trademark of",
+                                              258,  7, 44, 255,  8
+        DEFPUSHBUTTON   "~OK", DID_OK,            111,  8,  45, 15
+    END
+END
+
+DLGTEMPLATE IDD_SETCOUNT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Set Number of Disks", IDD_SETCOUNT,   23, 75, 195, 58,
+             FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Number of disks to move:", fERASE, 2, 41, 155, 8
+        ENTRYFIELD      "", IDD_ENTRYFLD,     158, 41,  23, 8,
+                          NOT ES_AUTOSCROLL | ES_MARGIN | WS_GROUP | WS_TABSTOP
+        DEFPUSHBUTTON   "~OK", DID_OK,    90, 12, 38, 12, WS_GROUP | WS_TABSTOP
+        PUSHBUTTON      "~Cancel", DID_CANCEL, 140, 12, 38, 12
+    END
+END
+

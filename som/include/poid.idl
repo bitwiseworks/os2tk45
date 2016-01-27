@@ -1,0 +1,48 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1996,1996  
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.10 src/somp/poid.idl, somp, som2.1 12/26/95 17:03:43 [7/30/96 14:47:07]
+
+
+
+#ifndef poid_idl
+#define poid_idl
+
+#include <somp.idl>
+#include <poida.idl>
+interface SOMPIdAssigner : SOMPIdAssignerAbstract
+
+// See poida.csc for the abstract definition of this class.
+
+{
+
+#ifdef __SOMIDL__
+
+implementation
+{
+   callstyle=idl;
+   dllname="somp.dll";
+
+// Class Modifiers
+   majorversion = 2;
+   minorversion = 1;
+   filestem = poid;
+
+// Method Modifiers
+   sompGetSystemAssignedId: override;
+
+};
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* poid_idl */

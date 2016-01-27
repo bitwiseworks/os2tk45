@@ -1,0 +1,24 @@
+REM="Swedish"
+REM="(C) Copyright IBM Corporation 1989, 1991"
+
+NOTE="Anm:  "
+CAUTION=Varning!
+WARNING="Obs!  "
+OLCHARS=abcdefghijklmnopqrstuvwxyzÜÑî
+OLCLOSE1=.
+OLCLOSE2=)
+ULITEMID1=
+ULITEMID2=-
+ULITEMID3=--
+CGRAPHICFONTFACENAME="Courier"
+CGRAPHICFONTWIDTH=11
+CGRAPHICFONTHEIGHT=18
+
+REM=" WORDS defines the characters that make words.  This is used for"
+REM=" searching and data compression.  The following is for Code page 850."
+
+GRAMMAR
+WORDS=0 - 9 + A - Z + a - z +
+Ç + Ñ + Ü + â + é + è + ê + î + ô + ”
+EGRAMMAR
+

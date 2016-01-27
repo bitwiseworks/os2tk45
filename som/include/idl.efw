@@ -1,0 +1,111 @@
+:copyrightS
+/* @(#) somc/idl.efw 2.7 9/1/94 19:27:56 [7/30/96 14:44:48] */
+
+/*
+ *   COMPONENT_NAME: some
+ *
+ *   ORIGINS: 27
+ *
+ *
+ *   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+ *   All Rights Reserved
+ *   Licensed Materials - Property of IBM
+ *   US Government Users Restricted Rights - Use, duplication or
+ *   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+
+:copyrightS
+:prologS
+#ifndef <classSourceFileStem>_idl
+#define <classSourceFileStem>_idl
+
+:somclsIncludeS
+#include \<somcls.idl\>
+:baseIncludesS
+#include <baseInclude>
+:basePrologS
+:baseS
+:baseEpilogS
+:metaIncludeS
+#include <metaInclude>
+:forwardDeclarationsS
+
+?<forwardDeclarations>
+:interfacePrologS
+interface <className><baseNames>
+?//# Comment for parent <baseName>:\n<-- parentComment>
+?<-- classComment>\n
+{
+:newMethodsPrologS
+:newMethodsS
+?  <-- groupComment>\n
+  <methodReturnType> <methodName>(<methodSOMPrototype, ...>);
+?  <-- methodComment>\n
+:newMethodsEpilogS
+
+:classPrologS
+
+#ifdef __SOMIDL__
+:classS
+  implementation {
+
+?    releaseorder: <classReleaseOrder, ...>;\n
+    //# Class Modifiers
+?    <-- releaseComment>\n
+    <classMods; ...>;
+?    metaclass = <metaName>;
+    callstyle = oidl;
+
+:passthruPrologS
+:passthruS
+    passthru <passthruLanguage>_<passthruTarget>_<passthruBeforeAfter> = <@23> <passthruBody>;
+?    <-- passthruComment>
+:passthruEpilogS
+
+:dataPrologS
+    //# Internal Instance Variables
+?    <-- dataSectionComment>
+:dataS
+    <dataSourceText>;<@34><-- dataComment>
+:dataEpilogS
+
+:attributePrologS
+  //# Public/Private instance variables are mapped onto attributes. 
+:attributeS
+  attribute <dataType> <dataName>;<@34><-- dataComment>
+:attributeEpilogS
+
+:attributeMPrologS
+    //# Attribute Modifiers.
+:attributeMS
+    <dataName>: indirect;
+:attributeMEpilogS
+
+:methodModifiersPrologS
+    //# Method Modifiers
+:methodModifiersS
+?    <-- groupComment>\n
+?    <methodName>: <methodMods, ...>;    
+?    <-- overrideComment>
+:methodModifiersEpilogS
+
+:dataModifiersPrologS
+    //# Data Modifiers
+:dataModifiersS
+?    <dataName>: <dataMods, ...>;
+:dataModifiersEpilogS
+
+:privatePrologS
+#ifdef __PRIVATE__
+
+:privateEpilogS
+#endif
+
+:classEpilogS
+  };
+#endif /* __SOMIDL__ */
+:interfaceEpilogS
+};
+
+:epilogS
+#endif  /* <classSourceFileStem>_idl */

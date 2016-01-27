@@ -1,0 +1,80 @@
+//
+//   Module Name: WPURL
+//
+//   OS/2 Work Place Shell - Base URL object class
+//
+//   Copyright (C) 1996 IBM Corporation
+//
+
+#ifndef WPUrl_idl
+#define WPUrl_idl
+
+#include <wpdataf.idl>
+#include <somcls.idl>
+
+interface M_WPUrl;
+
+interface WPUrl : WPDataFile
+
+{
+   implementation
+   {
+      releaseorder:
+                    WPUrlPrivate1,
+                    WPUrlPrivate2,
+                    WPUrlPrivate3,
+                    WPUrlPrivate4,
+                    WPUrlPrivate5;
+      externalstem = url_;
+      local;
+      externalprefix = url_;
+      majorversion = 1;
+      minorversion = 2;
+      filestem = wpurl;
+      metaclass = M_WPUrl;
+      callstyle = oidl;
+      dllname = "wpinet.dll";
+
+
+      wpObjectReady: override;
+      wpOpen: override;
+      wpSwitchTo: override;
+      wpSetup: override;
+      wpSetupOnce: override;
+      wpSaveState: override;
+      wpQueryDetailsData: override;
+      wpRestoreState: override;
+      somDefaultInit: override;
+      somDestruct: override;
+      wpAddSettingsPages: override;
+      wpCreateFromTemplate: override;
+      wpCreateAnother: override;
+   };
+};
+
+interface M_WPUrl : M_WPDataFile
+{
+   implementation
+   {
+      externalstem = urlM_;
+      local;
+      externalprefix = urlM_;
+      majorversion = 1;
+      minorversion = 2;
+      filestem = wpurl;
+      callstyle = oidl;
+      dllname = "wpinet.dll";
+
+      wpclsCreateDefaultTemplates: override;
+      wpclsInitData: override;
+      wpclsQueryDefaultHelp: override;
+      wpclsQueryDefaultView: override;
+      wpclsQueryDetailsInfo: override;
+      wpclsQueryIconData: override;
+      wpclsQueryTitle: override;
+      wpclsQueryInstanceFilter: override;
+      wpclsQueryInstanceType: override;
+      wpclsQueryStyle: override;
+   };
+};
+#endif

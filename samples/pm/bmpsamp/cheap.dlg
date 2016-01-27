@@ -1,0 +1,48 @@
+DLGINCLUDE 1 "jigsaw.h"
+
+DLGTEMPLATE IDD_OPEN LOADONCALL MOVEABLE DISCARDABLE
+
+BEGIN
+
+    DIALOG "Open File",
+           IDD_OPEN,
+           9,
+           16,
+           163,
+           40,
+           FS_NOBYTEALIGN | FS_DLGBORDER | WS_VISIBLE | WS_CLIPSIBLINGS |
+                    WS_SAVEBITS | WS_GROUP,
+           FCF_SYSMENU | FCF_TITLEBAR
+
+    BEGIN
+
+        CONTROL "OK",
+                1,
+                10,
+                5,
+                38,
+                13,
+                WC_BUTTON,
+                BS_PUSHBUTTON | WS_TABSTOP | WS_VISIBLE | BS_DEFAULT
+
+        CONTROL "Cancel",
+                2,
+                58,
+                5,
+                38,
+                13,
+                WC_BUTTON,
+                BS_PUSHBUTTON | WS_TABSTOP | WS_VISIBLE
+
+        CONTROL "",
+                EID_NAME,
+                12,
+                25,
+                140,
+                8,
+                WC_ENTRYFIELD,
+                ES_LEFT | ES_MARGIN | WS_TABSTOP | WS_VISIBLE
+
+    END
+
+END

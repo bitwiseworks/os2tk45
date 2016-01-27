@@ -1,0 +1,27 @@
+//
+//   COMPONENT_NAME: somr
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.7 src/somr/somrerrd.idl, somr, som2.1 9/1/94 15:53:22 [7/30/96 14:49:36]
+
+
+
+#ifndef somrerrd_idl
+#define somrerrd_idl
+
+#include <somobj.idl>
+//interface SOMRErrorDefinition : SOMObject
+module SOMRErrorDefinition
+{
+  #include <somrerr.idl>
+};
+
+#endif /* somrerrd_idl */

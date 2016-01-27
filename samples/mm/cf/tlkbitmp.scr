@@ -1,0 +1,16 @@
+
+/*  The TLKBITMP.SCR change file for MMPM2.INI  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPShadow"
+    WPTitle       = "Bitmaps"
+    WPSetupString = "SHADOWID=$(DIR)39;OBJECTID=<MMPM2_TLK_BITMAPS>"
+    WPLocation    = "<MMPMTLK>"
+    WPFlags       = 2L
+    )
+
+/* end of TLKBITMP.SCR */

@@ -1,0 +1,83 @@
+
+//  Module Header
+//
+//  Module Name: WPBITMAP
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpbitmap_idl
+#define wpbitmap_idl
+
+#include "wpimage.idl"                                                          
+#include <somcls.idl>
+
+interface M_WPBitmap;
+
+interface WPBitmap : WPImageFile                                                
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpbmp;
+    local;
+    externalprefix = bmp_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpbitmap;
+    metaclass = M_WPBitmap;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+
+    wpSetupOnce: override;
+    wpFormatDragItem: override;
+    somDefaultInit: override;          
+    somDestruct: override;             
+    wpQueryBitmapHandle: override;     
+    wpQueryBitmapInfoHeader: override; 
+    wpQueryBitmapData: override;       
+    wpSetBitmapData: override;         
+    wpReadImageFile: override;         
+    wpWriteImageFile: override;        
+    wpInitData: override;              
+    wpUnInitData: override;            
+    wpRefresh: override;               
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPBitmap : M_WPImageFile                                            
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpbmp;
+    local;
+    externalprefix = bmpM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpbitmap;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+    wpclsQueryInstanceFilter: override;
+    wpclsQueryInstanceType: override;
+    wpclsInitData: override;
+    wpclsQueryStyle: override;
+    wpclsQueryTitle: override;
+    wpclsQueryDefaultHelp: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpbitmap_idl */

@@ -1,0 +1,74 @@
+
+//  Module Header
+//
+//  Module Name: WPMOUSED
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpmoused_idl
+#define wpmoused_idl
+
+#include "wpdevice.idl"
+
+interface M_WPDevMouse;
+
+interface WPDevMouse : WPDevice
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpmoused;
+    functionprefix = moused_;
+    local;
+//    externalprefix = moused_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpmoused;
+    metaclass = M_WPDevMouse;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+    passthru C_h =  ""
+"";
+
+/* Private instance data area */
+
+     /* Overridden instance methods area */
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDevMouse : M_WPDevice
+{
+  /* New class methods section */
+
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpmoused;
+    functionprefix = mousedM_;
+    local;
+//    externalprefix = mousedM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpmoused;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+
+    /* Overridden class methods section */
+    wpclsInitData:      override;
+    wpclsQueryIconData: override;                                              //bjf152374
+    wpclsQueryTitle:    override;
+    wpclsUnInitData:    override;
+  };
+
+};
+#endif  /* wpkbdd_idl */

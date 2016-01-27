@@ -1,0 +1,96 @@
+/*************************************************************************
+ * File Name    : AVCINST.RC
+ *
+ * Description  : This is the resource file for the AVCINST program.
+ *
+ * Concepts     : See the C source file for this program.
+ *
+ * MMPM/2 API's : See the C source file for this program.
+ *
+ * Required
+ *    Files     : See the C source file for this program.
+ *
+ * Copyright (C) IBM 1991, 1993
+ *************************************************************************/
+
+#define  INCL_WIN
+#define  INCL_PM
+#define  INCL_DOS
+#include <os2.h>
+
+#include "AVCINST.H"
+
+RCINCLUDE AVCINST.DLG
+
+ICON ID_ICON AVCINST.ICO
+
+/*
+ * Help Table Definition.
+ *
+ * The help table definition for the dialog window.
+ */
+
+HELPTABLE ID_AVC_HELPTABLE
+{
+    HELPITEM ID_MAIN_DIALOG_BOX,   0,                   0
+    HELPITEM ID_MESSAGE_BOX,       SUBTABLE_MESSAGEBOX, ID_MESSAGE_BOX
+}
+
+HELPSUBTABLE SUBTABLE_MESSAGEBOX
+{
+}
+
+/*
+ * String Table Definition.
+ */
+STRINGTABLE
+{
+
+   IDS_HELP_WINDOW_TITLE,
+   "AVC I/O Procedure Installation Utility"
+
+   IDS_MESSAGE_BOX_TITLE,
+   "AVC I/O Procedure Installation"
+
+   IDS_MMIO_INSTALLPROC_NAME,
+   "AVCAIOProc"
+
+   IDS_MMIO_INSTALLPROC_DLL_NAME,
+   "AVCAPROC"
+
+   IDS_HELP_LIBRARY_FILE,
+   "AVCINST.HLP"
+
+   IDS_MAIN_WINDOW_TITLE,
+   "AVC I/O Procedure Installation Utility"
+
+
+   IDS_HELP_CREATION_FAILED,
+   "Help Initialization failed.  Help will not be available."
+
+   IDS_INSTALLATION_IS_COMPLETE,
+   "The selected action has successfully completed."
+
+   IDS_MMIOPROC_COULD_NOT_BE_INSTALLED,
+   "The sample MMIO procedure could not be installed."
+
+   IDS_LOADMODULE_FAILED,
+   "The AVCAPROC.DLL file could not be loaded.  Please make sure that this"
+   " file resides in your \\MMOS2\\DLL directory, and retry."
+
+   IDS_QUERY_PROC_ADDR_FAILED,
+   "The AVCAIOProc cannot be found in the AVCAPROC.DLL file. Please make sure"
+   " that the AVCAPROC.DLL file in your \\MMOS2\\DLL is correct, and retry."
+
+   IDS_INSTALL_FIRST,
+   "The AVC I/O Procedure is not currently installed.  Please install the AVC"
+   " I/O Procedure and retry."
+
+   IDS_ALREADY_INSTALLED,
+   "The AVC I/O Procedure is already installed.  Please deinstall the AVC"
+   " I/O Procedure and retry."
+
+   IDS_DEFAULTSIZE,
+   "~Default Size"
+
+}  /* End of String Table. */

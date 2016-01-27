@@ -1,0 +1,79 @@
+//
+//   Module Name: WPURLFDR
+//
+//   OS/2 Work Place Shell - Folder for URL objects
+//
+//   Copyright (C) 1996 IBM Corporation
+//
+
+#ifndef wpurlfdr_idl
+#define wpurlfdr_idl
+
+#include "wpfolder.idl"
+#include <somcls.idl>
+
+interface M_WPUrlFolder;
+
+interface WPUrlFolder : WPFolder
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpurlfdr;
+    local;
+    externalprefix = urlfdr_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpurlfdr;
+    metaclass = M_WPUrlFolder;
+    callstyle = oidl;
+    dllname = "wpinet.dll";
+
+    wpInitData: override;
+
+    somDefaultInit:     override;
+    somDestruct:        override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPUrlFolder
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpurlfdr;
+    local;
+    externalprefix = urlfdrM_;
+    functionprefix = urlfdrM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpurlfdr;
+    callstyle = oidl;
+    dllname = "wpinet.dll";
+
+    wpclsInitData: override;
+
+    wpclsQueryTitle: override;
+
+    wpclsQueryIconData: override;
+
+    wpclsQueryIconDataN: override;
+
+    wpclsQueryDefaultHelp: override;
+
+    wpclsQueryDefaultView: override;
+
+    wpclsQueryStyle: override;
+
+    wpclsCreateDefaultTemplates: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpurlfdr_idl */

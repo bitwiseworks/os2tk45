@@ -1,0 +1,81 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.10 src/somd/stexcep.idl, somd, som2.1 11/4/94 15:56:13 [7/30/96 14:45:51]
+
+
+
+
+// These are the standard CORBA exceptions defined on pg. 80 of the
+// OMG CORBA specification.  In addition, we have added a few of our
+// own standard exceptions for DSOM.
+//
+// Note:  the following IDL enums are found in <somdtype.idl>,
+//        with corresponding C typedefs in <somcorba.h>.
+//
+//        enum exception_type {NO_EXCEPTION, USER_EXCEPTION, SYSTEM_EXCEPTION};
+//        enum completion_status {YES, NO, MAYBE};
+
+
+#ifndef stexcep_idl
+#define stexcep_idl
+
+#include <somdtype.idl>
+
+module StExcep
+{
+    #define ex_body { unsigned long minor;  completion_status completed; }
+
+    // CORBA-defined standard exceptions
+
+    exception UNKNOWN		ex_body;   // the unknown exception
+    exception BAD_PARAM		ex_body;   // an invalid parameter was passed
+    exception NO_MEMORY		ex_body;   // dynamic memory allocation failure
+    exception IMP_LIMIT		ex_body;   // violated implementation limit
+    exception COMM_FAILURE	ex_body;   // communication failure
+    exception INV_OBJREF	ex_body;   // invalid object reference
+    exception NO_PERMISSION	ex_body;   // no permission for attempted op.
+    exception INTERNAL		ex_body;   // ORB internal error
+    exception MARSHAL		ex_body;   // error marshalling param/result
+    exception INITIALIZE	ex_body;   // ORB initialization failure
+    exception NO_IMPLEMENT	ex_body;   // operation implementation unavail.
+    exception BAD_TYPECODE	ex_body;   // bad typecode
+    exception BAD_OPERATION	ex_body;   // invalid operation
+    exception NO_RESOURCES	ex_body;   // insufficient resources for req.
+    exception NO_RESPONSE	ex_body;   // response to req. not yet avail.
+    exception PERSIST_STORE	ex_body;   // persistent storage failure
+    exception BAD_INV_ORDER	ex_body;   // routine invocations out of order
+    exception TRANSIENT		ex_body;   // transient failure - reissue req.
+    exception FREE_MEM		ex_body;   // cannot free memory
+    exception INV_IDENT		ex_body;   // invalid identifier syntax
+    exception INV_FLAG		ex_body;   // invalid flag was specified
+    exception INTF_REPOS	ex_body;   // error accessing interface repos.
+    exception CONTEXT		ex_body;   // error processing context object
+    exception OBJ_ADAPTER	ex_body;   // failure detected by obj. adapter
+    exception DATA_CONVERSION	ex_body;   // data conversion error
+
+    // DSOM standard exceptions
+
+    exception OPSYS             ex_body;   // operating system error
+    exception WMQUIT            ex_body;   // WMQUIT message
+    exception DISPATCH          ex_body;   // no longer raised by DSOM
+
+    // Transaction Service standard exceptions
+
+    exception TransactionRequired   ex_body; // operation requires transaction
+    exception TransactionRolledBack ex_body; // current transaction has rolled back
+    exception InvalidTransaction    ex_body; // transaction invalid/in invalid state
+    exception WrongTransaction      ex_body; // reply received for wrong transaction
+
+};
+
+#endif /* stexcep_idl */

@@ -1,0 +1,162 @@
+
+//  Module Header
+//
+//  Module Name: WPSYSTEM
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpsystem_idl
+#define wpsystem_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface M_WPSystem;
+
+interface WPSystem : WPAbstract
+
+{
+  ULONG wpAddSystemWindowPage(in HWND hwndNotebook);
+
+  ULONG wpAddSystemLogoPage(in HWND hwndNotebook);
+
+  ULONG wpAddSystemPrintScreenPage(in HWND hwndNotebook);
+
+  ULONG wpAddSystemInputPage(in HWND hwndNotebook);
+
+  ULONG wpAddSystemConfirmationPage(in HWND hwndNotebook);
+
+  ULONG wpAddSystemFontSettingPages(in HWND hwndNotebook);
+
+  ULONG wpAddTitleConfirmationPage(in HWND hwndNotebook);
+
+  ULONG wpAddSystemScreenPage(in HWND hwndNotebook);
+
+  ULONG wpAddDMQSDisplayTypePage(in HWND hwndNotebook);
+
+  ULONG wpAddSystem256ColorPage(in HWND hwndNotebook);                          
+
+  ULONG wpAddSysFdrMenuPage (in HWND hwndNotebook);
+
+  ULONG wpAddSysFdrSelfClosePage (in HWND hwndNotebook);
+
+  ULONG wpAddSysFdrDefViewPage (in HWND hwndNotebook);
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddSystemWindowPage,wpAddSystemLogoPage,wpAddSystemPrintScreenPage,
+                  wpAddSystemConfirmationPage,wpAddTitleConfirmationPage,
+                  wpAddSystemScreenPage,wpAddDMQSDisplayTypePage,
+                  wpAddSysFdrSelfClosePage, wpAddSysFdrDefViewPage,                     
+                  wpAddSystemInputPage,
+                  wpAddSysFdrMenuPage,wpAddSystem256ColorPage,          
+                  wpAddSystemFontSettingPages;                          
+
+    externalstem = WPsys;
+    local;
+    externalprefix = sys_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpsystem;
+    metaclass = M_WPSystem;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    passthru C_h = ""
+""
+"/**********************************************************/"
+"/* Defines for wpclsQuerySetting and wpclsSetSetting      */"
+"/**********************************************************/"
+""
+"#define ANIMATION_OFF            0"
+"#define ANIMATION_ON             1"
+"#define ANIMATION_DEFAULT        2"
+""
+"#define PRINTSCREEN_OFF          0"
+"#define PRINTSCREEN_ON           1"
+"#define PRINTSCREEN_DEFAULT      2"
+""
+"#define BUTTON_HIDE              1"
+"#define BUTTON_MINIMIZE          2"
+"#define BUTTON_DEFAULT           3"
+""
+"#define LOGO_DEFAULT            -2"
+"#define LOGO_INDEFINITE         -1"
+"#define LOGO_NONE                0"
+""
+"#ifndef NAMECLASH_DEFS"
+"#define NAMECLASH_DEFS           1"
+"#define NAMECLASH_DEFAULT     0x40"
+"#define NAMECLASH_RENAME      0x02"
+"#define NAMECLASH_REPLACE     0x08"
+"#define NAMECLASH_PROMPT      0x10"
+"#endif"
+""
+"#define CONFIRM_OFF              0"
+"#define CONFIRM_ON               1"
+"#define CONFIRM_DEFAULT          2"
+""
+"#define DISPLAY_OFF              0"
+"#define DISPLAY_ON               1"
+"#define DISPLAY_DEFAULT          2"
+""
+"#define MENUS_SHORT 0"
+"#define MENUS_LONG 1"
+"#define MENUS_DEFAULT 2"
+""
+"#define TITLEBARICONS_ON 1"
+"#define TITLEBARICONS_OFF 0"
+"#define TITLEBARICONS_DEFAULT 2"
+""
+"#define MENUBAR_ON 1"
+"#define MENUBAR_OFF 0"
+"#define MENUBAR_DEFAULT 2"
+""
+"";
+
+    wpAddSettingsPages: override;
+    wpAddObjectWindowPage: override;
+    wpRestoreState: override;
+    wpSaveState: override;
+    wpFilterMenu: override;                                                     
+    somDefaultInit: override;             
+    somDestruct:    override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPSystem : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPsys;
+    local;
+    externalprefix = sysM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpsystem;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpclsQueryTitle: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryStyle: override;
+    wpclsQueryIconData: override;
+    wpclsQuerySettingsPageSize: override;
+    wpclsQuerySetting: override;
+
+    wpclsSetSetting: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpsystem_idl */

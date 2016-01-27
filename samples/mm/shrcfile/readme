@@ -1,0 +1,43 @@
+ /**********************************************************/
+ /*   Copyright (c) IBM Corporation  1992, 1993 	   */
+ /**********************************************************/
+
+ Resource file Sample
+ --------------------
+
+ The following files are used to build the sample stream handler resource
+ file.	The example contains the System Resource file for MMPM/2 stream
+ handlers, and shows the stream protocol control block (SPCB) information
+ that has been tuned to be the most efficient with several types of data.
+
+
+
+ RCSTUB.C     - Stub 'C' source file used to create AUDIORES.DLL.
+
+ SSMRES.RC    - This file contains all SPCB's used by MMPM/2 stream handlers.
+
+ MAKEFILE     - Makefile to build SSMRES.DLL
+
+ SHRCINI.SCR  - Install file used to invoke SpiInstall, which updates the
+		SPI.INI file with the SPCB's contained in the SHRC.DLL
+
+ SHRCLST.SCR  - Install file containing a list of files needed to update
+		SPI.INI.
+
+ CONTROL.SCR  - Install control file containing information about the update
+		of SPI.INI.
+
+ SHRC.DLL     - Resource DLL, built from RCSTUB.C and SSMRES.RC files.
+
+
+ To build the resource DLL, run the makefile. This will build an SHRC.DLL
+ and add the resource file to it.
+
+ Once the resource DLL is built, MINSTALL is used to update SPI.INI profile
+ as follows:
+
+   1. Copy the files CONTROL.SCR, SHRCINI.SCR, SHRCLST.SCR and SHRC.DLL
+      to a diskette and insert in drive 'A'.
+
+   2. Type MINSTALL to update the SPI.INI profile.
+

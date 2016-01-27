@@ -1,0 +1,16 @@
+
+/*  The TLKCLOCK.SCR change file for MMPM2.INI  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPProgram"
+    WPTitle       = "Clock\nSample"
+    WPSetupString = "EXENAME=$(DEST)CLOCK.EXE;PROGTYPE=PM;STARTUPDIR=$(DIR)27;OBJECTID=<MPM2TLK_CLOCK>"
+    WPLocation    = "<MMPMTLK>"
+    WPFlags       = 1L
+    )
+
+/* end of TLKCLOCK.SCR */

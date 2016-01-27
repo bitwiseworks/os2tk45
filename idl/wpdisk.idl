@@ -1,0 +1,128 @@
+
+//  Module Header
+//
+//  Module Name: WPDISK
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpdisk_idl
+#define wpdisk_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface WPRootFolder;
+interface M_WPDisk;
+
+interface WPDisk : WPAbstract
+
+{
+  ULONG wpAddDiskDetailsPage(in HWND hwndNotebook);
+
+  ULONG wpQueryDriveLockStatus(in PULONG pulLockStatus,
+                               in PULONG pulLockCount);
+
+  ULONG wpEjectDisk();
+
+  ULONG wpLockDrive(in BOOL fLock);
+
+  ULONG wpQueryLogicalDrive();
+
+  WPRootFolder wpQueryRootFolder();
+
+
+  BOOL wpSetCorrectDiskIcon();
+
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddDiskDetailsPage,wpSetCorrectDiskIcon,wpQueryLogicalDrive,
+                  wpDiskPrivate1,
+                  wpQueryRootFolder,
+                  wpDiskPrivate2,
+                  wpDiskPrivate3,
+                  wpDiskPrivate4,
+                  wpQueryDriveLockStatus,
+                  wpEjectDisk,wpLockDrive;
+
+    externalstem = wpdsk;
+    local;
+    externalprefix = dsk_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpdisk;
+    metaclass = M_WPDisk;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    passthru C_h =  ""
+"    #ifndef __cplusplus"
+"      #ifndef WPRootFolder"
+"        #define WPRootFolder SOMObject"
+"      #endif"
+"    #else"
+"      class WPRootFolder;"
+"    #endif"
+""
+"    #define OPEN_AUTO            120";
+
+
+
+    wpSetup: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpAddSettingsPages: override;
+    wpMenuItemHelpSelected: override;
+    wpMenuItemSelected: override;
+    wpSetTitle: override;
+    wpOpen: override;
+    wpQueryDefaultHelp: override;
+    wpDragOver: override;
+    wpDrop: override;
+    wpQueryIconData: override;
+    wpSetIconData: override;
+    wpViewObject: override;
+    wpUnInitData: override;
+    wpFilterMenu: override;                                                     
+    wpModifyMenu: override;                                                     
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+    wpAddObjectWindowPage: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDisk : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpdsk;
+    local;
+    externalprefix = dskM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpdisk;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryIconData: override;
+    wpclsQueryStyle: override;
+    wpclsQueryTitle: override;
+    wpclsQueryDefaultView: override;
+    wpclsQuerySettingsPageSize: override; 
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpdisk_idl */

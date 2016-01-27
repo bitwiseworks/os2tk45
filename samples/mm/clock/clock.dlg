@@ -1,0 +1,58 @@
+/*************************************************************************
+ * File Name    : CLOCK.DLG
+ *
+ * Description  : This file contains the dialog box which is used as the
+ *                sample programs main window.
+ *
+ * Concepts     : See this sample program's C source file.
+ *                The WS_ANIMATE frame style allows this window to
+ *                respond to system sounds.
+ *
+ *
+ * MMPM/2 API's : None.
+ *
+ * Required
+ *    Files     : See this sample program's C source file.
+ *
+ *
+ * Copyright (C) IBM 1991, 1992, 1993
+ *************************************************************************/
+
+DLGTEMPLATE ID_CLOCK_DIALOG_BOX LOADONCALL MOVEABLE DISCARDABLE
+{
+
+    DIALOG "", ID_CLOCK_DIALOG_BOX,
+    X_CLOCK_DIALOG_POSTION,
+    Y_CLOCK_DIALOG_POSTION,
+    X_SIZE_FOR_THE_CLOCK_DIALOG,
+    Y_SIZE_FOR_THE_CLOCK_DIALOG,
+    WS_VISIBLE    | WS_SYNCPAINT  | FS_NOBYTEALIGN | WS_ANIMATE,
+    FCF_MINBUTTON | FCF_SYSMENU   | FCF_TITLEBAR | FCF_TASKLIST |
+    FCF_DLGBORDER | FCF_VERTSCROLL | FCF_HORZSCROLL | FCF_ICON
+    {
+       CONTROL "~Play chime", ID_PLAY_CHIME_PB,
+               X_PLAY_CHIME_POSITION,
+               Y_PLAY_CHIME_POSITION,
+               X_SIZE_OF_THE_BUTTONS,
+               Y_SIZE_OF_THE_BUTTONS,
+               WC_BUTTON,
+               BS_DEFAULT | WS_CLIPSIBLINGS | WS_VISIBLE | WS_GROUP |
+               WS_TABSTOP
+
+       CONTROL "Cancel", ID_CANCEL_PB,
+               X_CANCEL_POSITION,
+               Y_CANCEL_POSITION,
+               X_SIZE_OF_THE_BUTTONS,
+               Y_SIZE_OF_THE_BUTTONS,
+               WC_BUTTON,
+               BS_PUSHBUTTON | WS_CLIPSIBLINGS | WS_VISIBLE
+
+       CONTROL "Help", ID_HELP_PB,
+               X_HELP_POSITION,
+               Y_HELP_POSITION,
+               X_SIZE_OF_THE_BUTTONS,
+               Y_SIZE_OF_THE_BUTTONS,
+               WC_BUTTON,
+               BS_HELP | WS_CLIPSIBLINGS | WS_VISIBLE
+    }
+}

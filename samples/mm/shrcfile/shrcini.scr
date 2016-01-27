@@ -1,0 +1,13 @@
+
+    /**********************************************************/
+    /*   Copyright (c) IBM Corporation  1992, 1993            */
+    /*                                                        */
+    /*   Invoke SSM to update the SPI.INI file for the Sample */
+    /*   Handler.                                             */
+    /**********************************************************/
+
+SpiInstall =
+    (
+    SpiDllName = "$(DEST)SHRC.DLL"
+    )
+

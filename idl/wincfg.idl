@@ -1,0 +1,79 @@
+
+//  Module Header
+//
+//  Module Name: WPWinConfig
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wincfg_idl
+#define wincfg_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface M_WPWinConfig;
+
+interface WPWinConfig : WPAbstract
+
+{
+  ULONG wpAddDDEPage(in HWND hwndNotebook);
+
+  ULONG wpAddSessionPage(in HWND hwndNotebook);
+
+  ULONG wpAddSession31Page(in HWND hwndNotebook);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddDDEPage,wpAddSessionPage,wpAddSession31Page;
+
+    externalstem = WPwin;
+    local;
+    externalprefix = win_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wincfg;
+    metaclass = M_WPWinConfig;
+    callstyle = oidl;
+    dllname = "wincfg.dll";
+
+    wpAddSettingsPages: override;
+    wpAddObjectWindowPage: override;
+    wpFilterPopupMenu: override;
+    somDefaultInit: override;             
+    somDestruct:    override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPWinConfig : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPwin;
+    local;
+    externalprefix = winM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wincfg;
+    callstyle = oidl;
+    dllname = "wincfg.dll";
+
+    wpclsQueryTitle: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryStyle: override;
+    wpclsQueryIconData: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wincfg_idl */

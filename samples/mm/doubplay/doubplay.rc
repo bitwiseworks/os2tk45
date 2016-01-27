@@ -1,0 +1,71 @@
+
+/*************************************************************************
+ * File Name    : DOUBPLAY.RC
+ *
+ * Description  : This is the resource file for Double Buffering Playlist
+ *                program.
+ *
+ * Concepts     : See the C source file for this program.
+ *
+ * MMPM/2 API's : See the C source file for this program.
+ *
+ * Required
+ *    Files     : See the C source file for this program.
+ *
+ * Copyright (C) IBM 1993
+ *************************************************************************/
+
+#define  INCL_WIN
+#define  INCL_PM
+#define  INCL_DOS
+
+#include <os2.h>
+
+#include "doubplay.h"
+
+
+RCINCLUDE doubplay.dlg
+
+ICON ID_ICON doubplay.ico
+
+/*
+ * Bitmap's
+ */
+
+BITMAP ID_BMP_PLAY0 LOADONCALL MOVEABLE DISCARDABLE PLAY0.BMP
+BITMAP ID_BMP_PLAY1 LOADONCALL MOVEABLE DISCARDABLE PLAY1.BMP
+BITMAP ID_BMP_PLAY2 LOADONCALL MOVEABLE DISCARDABLE PLAY2.BMP
+BITMAP ID_BMP_PLAY3 LOADONCALL MOVEABLE DISCARDABLE PLAY3.BMP
+BITMAP ID_BMP_PLAY4 LOADONCALL MOVEABLE DISCARDABLE PLAY4.BMP
+
+
+BITMAP ID_BMP_STOP0 LOADONCALL MOVEABLE DISCARDABLE STOP.BMP
+
+STRINGTABLE
+{
+   IDS_MAIN_WINDOW_TITLE,
+   "Double Buffering Playlist Sample"
+
+   IDS_ERROR_TITLE,
+   "Double Buffering Playlist Utility Error"
+
+   IDS_WAVE_FILE,
+   "DOUBPLAY.WAV"
+
+   IDS_CANT_PROCESS_MESSAGE,
+   "The selected action could not be processed at the time it was requested."
+   "  Please retry the action."
+
+   IDS_CANT_CREATE_SEMAPHORE,
+   "Failure to create event semaphore."
+   "  Please retry the action."
+
+   IDS_CANT_OPEN_WAVE,
+   "The wave file could not be opened. Make sure the wave file exists in "
+   "the current directory.  Please retry the action."
+
+   IDS_DEFAULT_SIZE,
+   "~Default Size"
+}
+
+

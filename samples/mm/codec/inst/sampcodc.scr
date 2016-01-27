@@ -1,0 +1,23 @@
+/*    SAMPCODC.SCR   */
+
+mmioCodec2Install =
+   (
+   mmio2Length         = 404L
+   mmio2FourCC         = "AVI "
+   mmio2DllName        = "$(DEST)SAMPCODC.DLL"
+   mmio2DllEntryPoint  = "SampleCodecEntry"
+   mmio2CompTypeFcc    = "SAMP"
+   mmio2CompSubType    = 0L
+   mmio2MediaType      = 0x40L
+   mmio2Flags          = 0L
+   mmio2CapsFlags      = 0x000DCF1FL
+   mmio2HWName         = ""
+   mmio2MaxSrcBuf      = 0L
+   mmio2SyncMethod     = 1L
+   mmio2Reserved1      = 0x59455247L /* This is the fourcc of the color      */
+   mmio2XAlign         = 1L          /* space your codec decompresses to.    */
+   mmio2YAlign         = 1L          /* This spells out "YERG", reverse for  */
+   mmio2SpecInfo       = ""          /* GREY, or greyscale.  See fourcc.h    */
+   )                                 /* for other formats fourccs.           */
+
+/* end of SAMPCODC.SCR */

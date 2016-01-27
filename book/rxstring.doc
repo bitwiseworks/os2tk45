@@ -1,0 +1,105 @@
+              RXSTRING Library of Functions (RXSTRING.LIB)
+
+
+
+The RXSTRING.LIB library provides analogues of many of the standard C library
+functions for the RXSTRING structure (which is used in conjunction with the
+REXX interpreter), as well as a sampling of functions which convert standard
+C strings into RXSTRING's.
+
+The functions provided for OS/2 2.0 are 32-bit only.  They must be called
+from 32-bit code.  For 16-bit RXSTRING functions, use the 1.2 or 1.3 OS/2 Toolkit
+version of RXSTRING.LIB
+
+The following functions are available:
+
+   Group 1: Numeric conversion functions
+
+      INT   rxtoi(RXSTRING);
+      LONG  rxtol(RXSTRING);
+      ULONG rxtoul(RXSTRING);
+
+      - these functions convert RXSTRING's into integer values, similar to the
+        atoi(), atol(), and atoul() functions
+
+   Group 2: File I/O functions
+
+      LONG rxwrite(HFILE, RXSTRING);
+      LONG rxread(HFILE, PRXSTRING);
+      VOID rxprint(RXSTRING)
+
+      - these functions will read and write RXSTRING's, including structure
+        information, to and from a file, as well as writing the data contained
+        in an RXSTRING to stdout
+
+   Group 3: Copy / Conversion functions
+
+      RXSTRING rxstrdup(RXSTRING);
+      RXSTRING rxmemcpy(PRXSTRING, PRXSTRING, ULONG);
+      RXSTRING rxstrcpy(PRXSTRING, PRXSTRING);
+      RXSTRING rxstrncpy(PRXSTRING, PRXSTRING, ULONG);
+      RXSTRING rxstrcat(PRXSTRING, PRXSTRING);
+      RXSTRING rxstrncat(PRXSTRING, PRXSTRING, ULONG);
+      RXSTRING strdup2rx(PUCHAR, ULONG);
+      RXSTRING memcpy2rx(PRXSTRING, PUCHAR, ULONG);
+      RXSTRING strcpy2rx(PRXSTRING, PSZ);
+      RXSTRING strcat2rx(PRXSTRING, PSZ);
+      RXSTRING strncat2rx(PRXSTRING, PSZ, ULONG);
+
+      - these functions will duplicate, copy and/or concatenate RXSTRING's with
+        RXSTRING's and RXSTRING's with standard strings/buffers
+
+        NOTE: Except for the "dup" functions, all of the functions require that
+              the destination string contain sufficient storage for completion
+              of the requested operation.  The concatenation functions begin
+              appending at the current length of the RXSTRING.  Therefore,
+              enough storage should be available for the original length plus
+              the length of the data to be added to the string.
+
+   Group 4: Comparison / Character functions
+
+      LONG  rxstrcmp(PRXSTRING, PRXSTRING);
+      LONG  rxstricmp(PRXSTRING, PRXSTRING);
+      LONG  rxmemcmp(PRXSTRING, PRXSTRING, ULONG);
+      LONG  rxmemicmp(PRXSTRING, PRXSTRING, ULONG);
+      PUCHAR rxstrchr(PRXSTRING, UCHAR);
+      PUCHAR rxstrrchr(PRXSTRING, UCHAR);
+
+      - these functions are analogues of the standard C library comparison
+        functions (strcmp, stricmp, memcmp, and memicmp) and character
+        search functions (strchr and strrchr), and return values similar to
+        those functions
+
+   Group 5: Miscellaneous functions
+
+      RXSTRING rxalloc(ULONG);
+      VOID rxfree(RXSTRING);
+      VOID rxstrnset(RXSTRING, UCHAR, ULONG);
+      ULONG rxstrlen(RXSTRING);
+      RXSTRING rxset_length(PRXSTRING, ULONG);
+      RXSTRING rxset_null(PRXSTRING);
+      RXSTRING rxset_zerolen(PRXSTRING);
+      RXSTRING rxreturn_value(PRXSTRING, PUCHAR, ULONG);
+      PUCHAR _make_hptr(RXSTRING);
+
+      - the first three functions handle allocating, freeing, and overwriting
+        RXSTRING structures.  The rxstrlen and rxset_length functions retrieve
+        and set the length information contained in RXSTRING's without
+        affecting the associated memory for the string. The rxset_null function
+        sets the rxstring to null, similarly rxset_zerolen function sets the
+        rxstring to a zero length rxstring. The _make_hptr function returns a
+        pointer to the data buffer associated with an RXSTRING, if any
+        exists. The rxreturn_value function may be used to replace the logic
+        for figuring out if you should use the preallocated buffer for
+        return values or create your own buffer. The preallocated rxstring
+        return value is used with subcommands, external functions, and
+        variable pool.
+
+
+
+IBM DISCLAIMS ALL WARRANTIES, WHETHER EXPRESSED OR IMPLIED, INCLUDING
+WITHOUT LIMITATION, WARRANTIES OF FITNESS AND MERCHANTABILITY WITH
+RESPECT TO THE INFORMATION IN THIS DOCUMENT.  BY FURNISHING THIS
+DOCUMENT, IBM GRANTS NO LICENSES TO ANY RELATED PATENTS OR COPYRIGHTS.
+
+Copyright IBM Corporation, 1992,1996. All Rights Reserved.

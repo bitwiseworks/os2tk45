@@ -1,0 +1,454 @@
+Modificationa made by Serenity Systems:
+
+* Replaced the Toolkit installer from IBM, so the toolkit can 
+  also be uninstalled. Other improvements also added by making
+  more options optional to install.
+
+* Put emitc.dll in from the Warp 4.0 toolkit. The
+  newer version does not work correctly. 
+
+* Updated RC.EXE
+
+* To report bugs goto www.ecomstation.com and login.
+  Use the bugtracker to report bugs.
+
+_______________________________________________________________________________
+
+README - IBM OS/2 DEVELOPER'S TOOLKIT VERSION 4.5.2.
+_______________________________________________________________________________
+
+Welcome to the IBM OS/2 Developer's Toolkit Version 4.5.2. (hereafter referred to
+as the Toolkit).  In addition to this README, the "Using Your Toolkit" online
+book (located in the "book" subdirectory) is included to help you:
+
+   -  See what is new and what has changed in the Toolkit
+   -  Become familiar with the Toolkit
+   -  Access information about the Toolkit more easily and quickly
+
+This README, a supplement to "Using Your Toolkit," contains the following
+information:
+
+   -  Introduction to the Toolkit
+   -  Installing the Toolkit
+   -  Updates to CONFIG.SYS
+   -  Programming considerations
+
+Use a non-proportional font to view this file.
+
+
+_______________________________________________________________________________
+INTRODUCTION TO THE TOOLKIT
+
+The IBM OS/2 Developer's Toolkit Version 4.5 provides development support
+for new features in the "OS/2 Warp Server for e-business" operating system
+and eComStation.
+
+The Toolkit helps you develop applications for OS/2 by providing you with:
+
+   - Header files
+   - Library files
+   - Online documents
+   - Programming tools
+   - Sample application programs
+
+
+_______________________________________________________________________________
+INSTALLING THE TOOLKIT
+
+This section provides a step-by-step procedure for installing the Toolkit.
+
+This Toolkit is a follow-on to previous releases and should not be considered
+a replacement for any earlier release.  DO NOT install this toolkit "over"
+any previous release.  For a first-time installation of this Toolkit, specify
+an unused target location in the "Destination" field when prompted by the
+Toolkit installation program.  For subsequent (additive) installations of this
+release (for example, to install components that were not requested during the
+original installation), the same destination directory may be respecified.
+
+There may be Corrective Service Distributions (CSD's) available for this
+release of the Toolkit.  Toolkit CSD's provide a mechanism for updating the
+components of an existing Toolkit installation.  The CSD images are designed
+to be installed "over" an existing Toolkit of the appropriate release.
+CSD's for each release are numbered sequentially (from CSD1 to CSDn), and
+the installation instructions for a particular "numbered" CSD can be found
+in the "numbered" README file (eg. README.1) included with the CSD package.
+
+_______________________________________________________________________________
+System Requirements
+
+The following is the prerequisite software required:
+
+   o  One of the following versions of the OS/2 operating system:
+
+      - eComStation 1.0/1.1/1.2.x
+      - OS/2 Warp Server for e-business
+      - OS/2 Warp Version 4
+      - OS/2 Warp Version 3
+      - OS/2 Warp with WIN-OS/2 Version 3
+      - OS/2 Warp Connect
+      - OS/2 Warp Connect with WIN-OS/2
+
+   o  Various components have additional software requirements.  The
+      Toolkit components that you choose to install will function only if
+      the underlying operating system supports the component.  Some of the
+      additional requirements include the following:
+
+      - Open32 samples require the Open32 interfaces (previously known as
+        the IBM Developer API Extensions for OS/2 or DAPIE)
+      - OpenGL samples require OpenGL (also referred to as Enhanced 3D
+        Graphics)
+      - All REXX samples, with the exception of the REXX API samples,
+        require Object REXX
+ 
+        Note: The features listed above are available on OS/2 Warp Server for
+              e-business and OS/2 Warp Version 4.  If you are using version 3
+              of the OS/2 operating system, you will need to obtain support
+              for these components either via FixPak 17 or later (for Open32
+              support), or from the Developer Connection CD (for OpenGL and
+              Object REXX support).
+
+   o   To use the latest level of Universal Language Support, one of the
+       following operating systems is required:
+
+       - OS/2 Warp Server for e-business
+       - OS/2 Warp Version 4
+       - OS/2 Warp Version 3 with FixPak 32 or later 
+
+       If you do not have Universal Language Support, you will receive errors 
+       when using the NMAKE32, RC, and MKTMPF tools.  
+
+   o   The new TCP/IP Toolkit Version 4.21 is also provided, which contains
+       sample programs that take advantage of the new 32-bit TCP/IP interfaces
+       in OS/2 Warp Server for e-business.  If you are using an older version
+       of the operating system, these sample programs may fail with the error
+       "SYS1804: The system cannot find the file TCPIP32" if the target machine
+       is not configured with TCP/IP Version 4.1 or newer.
+
+Before you install the Toolkit, make sure you have:
+
+   -  A personal computer capable of running OS/2 Warp
+
+   -  A CD-ROM drive
+
+   -  A hard disk drive with at least 90 MB of free disk space (to
+      install the entire Toolkit)
+
+We recommend that you use a mouse when installing the Toolkit.
+
+If you will be installing the IBM VisualAge C++ 3.0 compiler, please read the
+following notes:
+
+      Installing your compiler first and the OS/2 Warp Toolkit last
+      prevents unexpected results due to environment variable changes
+      (automatic updates to CONFIG.SYS).  To avoid a downlevel SOM Runtime
+      installed by the VisualAge C++ 3.0 compiler, follow these steps for
+      installation:
+
+      1. Start the installation program for VisualAge C++ 3.0.
+
+      2. Deselect the OS/2 Warp Toolkit entries in the installation screen
+         and proceed with the installation.
+
+      3. After completing the installation of VisualAge C++, but before
+         restarting the system, edit CONFIG.SYS and modify the LIBPATH
+         statement by moving x:\IBMCPP\DLL after y:\OS2\DLL, where x is
+         the drive where the VisualAge C++ compiler is installed and y is
+         the drive where the OS/2 Warp Version 4 operating system files
+         are installed.  This prevents the SOM Runtime installed by
+         VisualAge C++ from overriding the SOM Runtime shipped with OS/2
+         Warp Version 4.
+
+      4. Save the modified CONFIG.SYS and restart your system.
+
+      5. Install the IBM OS/2 Developer's Toolkit Version 4.5 and restart
+         your system.
+
+
+_______________________________________________________________________________
+Installation Program
+
+Install all or part of the Toolkit using the Toolkit Installation program
+(a Presentation Manager/2 (PM) application) on the CD-ROM.  Using the
+Toolkit Installation program, you can install:
+
+     - Header files
+     - Library files
+     - Online documents
+     - Programming tools
+     - Sample application programs
+
+The Toolkit Installation will copy chosen files to your machine and update
+CONFIG.SYS with respect to the locally installed files.
+
+
+_______________________________________________________________________________
+Installation Help
+
+To get online help while using the Toolkit Installation program, do one of
+the following:
+
+   -  Press F1
+   -  Select the Help push button
+   -  Choose one of the help choices from the Help menu
+
+_______________________________________________________________________________
+Installing the Toolkit
+
+To install the Toolkit, do the following:
+
+   1. Start the Toolkit Installation Program:
+    
+      - If you are installing the Toolkit from the images provided on the OS/2
+        Warp Server for e-business installation CD, execute the "tkinstal.exe"
+        program located in the "toolkit" subdirectory.
+
+      - If you are installing the Toolkit from an IBM Developer Toolbox
+        (formerly known as the Developer Connection) CD-ROM and are using the
+        interfaces provide by the Developer Toolbox, follow the instructions
+        provided by that interface.
+
+      - If you are working directly with the "installation image" of the
+        Toolkit (for example, you have downloaded and unpacked on online
+        version of the toolkit, or you are referencing the subdirectory
+        tree of the installation image as it exists on the CD-ROM), then
+        locate and execute the "tkinstal.exe" program.
+
+   2.  The IBM OS/2 Developer's Toolkit Version 4.5 Installation window is
+       displayed.  Select each component you want to install.  Depending on
+       the components you select for installation, additional components might
+       be automatically selected for installation.  A plus (+) sign in a box
+       in front of a component indicates that the component has at least one
+       level of subcomponents from which you can select.  Select the plus
+       sign in front of the component to expand the list of components.
+
+   3.  If desired, change the default destination for the selected
+       components by editing the "Destination" field.  If the entire
+       Toolkit is not required, components may still be deselected in the
+       usual manner.  However, it is important that the paths are not
+       changed from their defaults for all components other than the root,
+       because the directory structure on the CD-ROM cannot be changed.
+
+   4.  Select Options to specify what updates to your system are required.
+       You can choose to:
+
+          - Install the selected files.
+          - Register Workplace Shell classes for the components that
+            utilize them.
+          - Create Workplace Shell objects.
+          - Select the file where any CONFIG.SYS updates are to be made,
+            or deselect the "Write CONFIG.SYS updates to:" check box to
+            prevent the Toolkit Installation program from updating
+            CONFIG.SYS.
+
+   5.  To install all selected components of the Toolkit:
+
+          a. Select Install.
+          b. Follow the prompts in the message boxes to complete the
+             installation.
+
+   6.  A message box is displayed indicating successful completion of the
+       installation.
+
+   7.  To make the changes effective, remove any installation media from the
+       bootable devices, shut down and restart your system.  After the Toolkit
+       is installed, the Toolkit folder appears on the Desktop, represented by
+       a toolbox icon.
+
+
+
+_______________________________________________________________________________
+UPDATES TO CONFIG.SYS
+
+The Toolkit Installation program adds the paths of all needed environment
+variables with the appropriate Toolkit path.  These variables include
+BOOKSHELF, DPATH, HELP, and so on.  If you choose to make these updates
+manually, do the following before installing the Toolkit:
+
+   1. Select Options from the Toolkit Installation program.
+
+   2. Change the file name in the "Write CONFIG.SYS updates to:" field to
+      something other than CONFIG.SYS (for example, CONFIG.001).
+
+   3. This file can be compared to your original CONFIG.SYS once the
+      installation is complete.  You can then make the appropriate
+      modifications to CONFIG.SYS as you choose.
+
+
+
+_______________________________________________________________________________
+PROGRAMMING CONSIDERATIONS
+
+  o The OS/2 C libraries provide all of the functions necessary for C
+    development; however, they do not support C++ development.  Currently,
+    this support must be provided by a compiler vendor.
+
+  o If you are using the C Runtime Headers provided with the Toolkit, be
+    sure to link with the C Runtime libraries provided in the LIB
+    directory to prevent link errors.  If you are not using the C Runtime
+    libraries, you should not use the C Runtime Headers provided in the 
+    Toolkit.
+
+  o MPTS programming information is included in the TCP/IP Programming
+    Reference.
+
+
+_______________________________________________________________________________
+Tools
+
+  o  There are two versions of the Program Maintenance Utility (NMAKE) and
+     of the Resource Compiler (RC).  The default versions of these tools are
+     referenced by the names "NMAKE" and "RC" and the "alternate" versions
+     of these tools are referenced by the names "NMAKE32" and "RC16".  The
+     differences between these tools are as follows:
+
+     NMAKE   - This is the "old" Program Maintenance Utility.  Because of the
+               semantic and syntactic differences between this utility and
+               the "new" version of NMAKE (NMAKE32), the old version has been
+               restored as the default program maintenance utility.  This
+               version of NMAKE is documented in the Tools Reference book.
+
+     NMAKE32 - This is the "Enhanced Program Maintenance Utility".  In the
+               previous release of the Toolkit (IBM Developer's Toolkit for
+               OS/2 Warp Version 4) this was the default NMAKE utility, but
+               it has been renamed to NMAKE32 for this release.  This version
+               of NMAKE is documented in the file "book\nmake32.inf".
+
+     RC16    - This is the old "Legacy Resource Compiler".  It is included for
+               customers who cannot update their resource scripts to compile
+               with the newer version of RC.  This version of RC is documented
+               in the file "book\rc16.inf".
+
+     RC      - This is the "new" Resource Compiler.  Where possible, backward
+               compatibility with RC16 is maintained, but the new RC has
+               stricter syntax checking and may issue errors against some
+               resource scripts.  This version of RC also contains additional
+               features such as true national language support and a full-
+               featured C-language preprocessor.  This version of RC is
+               documented in the Tools Reference book.
+
+
+  o  If you encounter a trap in LIBUNI.DLL when using Make Template File
+     (MKTMPF) or the Resource Compiler (RC) on an OS/2 Warp Version 3
+     system, change the SET LANG=ENUS437 statement in CONFIG.SYS to SET
+     LANG=EN_US.
+
+
+_______________________________________________________________________________
+VoiceType Developer's Toolkit
+
+  o  The VoiceType Developer's Toolkit online documentation is in HTML
+     format.  You need an HTML browser, such as IBM WebExplorer or
+     Netscape Navigator for OS/2 Warp, to view it.
+_______________________________________________________________________________
+
+
+_______________________________________________________________________________
+TCP/IP
+
+  o  Compiling an application with the BSD 4.3 header files:
+
+     The 4.3 BSD header files (for TCP/IP versions prior to 4.1) are also 
+     included with this Toolkit.  To access the header files, define 
+     TCPV40HDRS before including (#include) any of the TCP/IP header
+     files.  Do this on the command line with the /D switch:
+
+         icc /DTCPV40HDRS /c myprog.c
+
+     or in your .c file:
+
+     #define TCPV40HDRS
+     #include <sys\socket.h>
+      ...
+
+     To link an application that was compiled with these header files, 
+     you must specify so32dll.lib and tcp32dll.lib on the link line:
+
+      ilink /NOFREEFORMAT myprog,myprog.exe,NULL, so32dll.lib tcp32dll.lib
+
+  o  Update to "Compiling an RPC API Application"
+
+     Use these steps to compile and link an RPC API application using IBM 
+     VisualAge C++ for OS/2: 
+
+     1. To compile your program, enter: 
+
+      icc /DTCPV40HDRS /C myprog.c
+
+     2. To create an executable program, you can enter (on one line): 
+
+      ilink /NOFREEFORMAT myprog,myprog.exe,NULL, rpc32dll.lib 
+            so32dll.lib tcp32dll.lib
+
+
+     Notes:
+     -  The RPC API is not re-entrant.  If you are creating a multithreaded 
+        program, you must serialize the access to the APIs. 
+
+     -  For more information about the compile and link options, and 
+        dynamic link libraries, see the user's guide provided with your 
+        compiler. 
+
+     -  RPC applications must be compiled using the 4.3 BSD API (pre-TCP/IP 
+        4.1 header files).  Using the 4.4 header files with an RPC application 
+        is not supported.
+_______________________________________________________________________________
+
+
+_______________________________________________________________________________
+SOM
+
+  o  As of 6/97, IBM no longer supports SOM. 
+_______________________________________________________________________________
+
+Thank you for your continued interest in OS/2.
+_______________________________________________________________________________
+
+
+TRADEMARK INFORMATION
+_____________________
+
+The following terms are trademarks of the IBM Corporation in the United
+States or other countries or both:
+
+   -------------------------------------------------------
+   IBM
+   -------------------------------------------------------
+   OS/2
+   -------------------------------------------------------
+   Presentation Manager
+   -------------------------------------------------------
+   SOM
+   -------------------------------------------------------
+   VisualAge
+   -------------------------------------------------------
+   VoiceType
+   -------------------------------------------------------
+   WebExplorer
+   -------------------------------------------------------
+   WIN-OS/2
+   -------------------------------------------------------   
+   Workplace Shell
+   -------------------------------------------------------
+
+   eComStation is a trademark of Serenity Systems International.
+
+
+The following terms are trademarks of other companies:
+
+   ----------------------------------------------------------------
+   Netscape                    Netscape Communications Corporation
+   Netscape Navigator
+   ----------------------------------------------------------------
+
+IBM DISCLAIMS ALL WARRANTIES, WHETHER EXPRESSED OR IMPLIED, INCLUDING
+WITHOUT LIMITATION, WARRANTIES OF FITNESS AND MERCHANTABILITY WITH
+RESPECT TO THE INFORMATION IN THIS DOCUMENT.  BY FURNISHING THIS
+DOCUMENT, IBM GRANTS NO LICENSES TO ANY RELATED PATENTS OR COPYRIGHTS.
+
+Copyright IBM Corporation, 2001, all rights reserved.
+
+_______________________________________________________________________________
+
+END-OF-README-FILE
+_______________________________________________________________________________
+

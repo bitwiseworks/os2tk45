@@ -1,0 +1,40 @@
+/*
+ *  Copyright (c) IBM Corporation  1994 - All Rights Reserved
+ *
+ *  WPDSERV - Workplace Shell DSOM Server Class DLL
+ */
+
+#ifndef wpdserver_idl
+#define wpdserver_idl
+
+#include <somdserv.idl>
+
+interface WPObject;
+
+interface WPDServer : SOMDServer
+{
+
+   #ifdef __SOMIDL__
+   implementation
+   {
+
+      passthru C_h_after =
+      "#define INCL_WIN"
+      "#include <os2.h>"
+      "";
+
+      passthru C_xh_after =
+      "#define INCL_WIN"
+      "#include <os2.h>"
+      "";
+
+      externalstem   = wpdserv;
+      externalprefix = wpdserv_;
+      callstyle      = oidl;
+      dllname        = "wpdserv.dll";
+
+
+   };
+   #endif /* __SOMIDL__ */
+};
+#endif /* wpdserver_idl */

@@ -1,0 +1,471 @@
+_______________________________________________________________________________
+
+ASSEMBLY LANGUAGE PROCESSOR (ALP) VERSION 4.00.008 README FILE
+_______________________________________________________________________________
+
+Welcome to the IBM Assembly Language Processor for OS/2 Warp (hereafter
+referred to as ALP).  Full documentation for ALP is provided in the online 
+manual titled "ALP Programming Guide and Reference".  This README file provides
+supplemental or errata information not documented in the online manual.
+
+The information contained in this README describes a specific version of ALP.
+You should verify that the version number displayed in both the ALP program
+banner and in the heading of this document agree before using the information
+contained herein.  The ALP version number can be displayed by executing the
+command:  "alp +mb".
+
+Use a non-proportional font to view this file.
+
+_______________________________________________________________________________
+
+CONTENTS
+_______________________________________________________________________________
+
+  This document contains the following sections:
+
+  - Changes in Release 4.00.008
+  - Changes in Release 4.00.007
+  - Changes in Release 4.00.006
+  - Changes in Release 4.00.005
+  - Changes in Release 4.00.004
+  - Changes in Release 4.00.003
+  - MASM 5.10 Compatibility
+  - MASM 6.00 Compatibility
+  - Table of Assembler Directives Supported by ALP, MASM 5.10, and MASM 6.00
+  - Known Problems or Incompatibilities
+  - Support Information
+
+
+Changes in Release 4.00.008
+_______________________________________________________________________________
+
+    - If a symbol was declared with a PUBLIC directive then subsequently used
+      in the name field of a segment directive, a trap condition could occur.
+      This has been corrected.
+
+    - The -Fd, -Fdd, and -Fed options have been added to control the creation
+      of "Make" dependency files.
+
+
+Changes in Release 4.00.007
+_______________________________________________________________________________
+
+    - Support for the Pentium III instruction set was added in this release.
+
+    - When the MEDIUM memory model is used, the predefined @DataSize symbol
+      was returning 0 instead of 1.  This behavior has been corrected.
+
+
+Changes in Release 4.00.006
+_______________________________________________________________________________
+
+    - No new programming features have been added in this release.
+
+    - Fixed abnormal termination (access violation) after issuing error
+      messages for certain types of syntax errors.
+
+    - Better recovery of code generator after emitting message ALP3225.
+
+    - Fixed incorrect generation of RET instructions in PROC epilogues.
+
+
+Changes in Release 4.00.005
+_______________________________________________________________________________
+
+    - The assembler no longer emulates MASM 5.10 by default.  If you don't
+      currently use an explicit -Sv:XXX command line option, you may need to
+      make some changes to your code so that it will assemble in the default
+      mode (now -Sv:ALP), or specify an explicit -Sv:M510 to enable the old
+      MASM 5.10 behaviors.
+
+    - Several new MASM 6.00 constructs have been added:
+
+      - The EXTERNDEF, UNION, and OPTION directives are now supported.
+      - The LENGTHOF, SIZEOF, and OPATTR operators are now supported.
+      - The various "language" keywords (BASIC, C, PASCAL, SYSCALL, etc.)
+        are now supported on the COMM, EXTERN, PUBLIC, and PROC directives.
+      - The EXPORT keyword is now supported as an argument to the PROC
+        directive.
+      - Structure and union types may now be imbedded within other structure
+        and union types.
+      - Support for true arrays, a feature not offered by other assemblers.
+        The type declaration syntax has been extended to accept a new array
+        dimension declarator.  This syntax can be used with the ASSUME, EXTERN,
+        LABEL, PROC arg, PROC LOCAL, and TYPEDEF directives to reference
+        single- or multi-dimensional array types.  The TYPEDEF directive can
+        be used to define a named alias for an array type; such alias names
+        can then be used to create and initialize array variables.  Array
+        variables created in this fashion can easily be viewed during program
+        execution from within a source-level debugger.
+
+    - Support for the Pentium Pro instruction set is included in this release.
+
+    - Improvements have been made to the symbolic debugging output, including
+      support for bitfields created with the RECORD directive.
+
+    - Improvements to the online documentation.
+
+    - Numerous other bug fixes and compatibility enhancements.
+
+
+Changes in Release 4.00.004
+_______________________________________________________________________________
+
+    - Fixed a problem where text equate names appearing in the first position
+      were being expanded inside of false conditional blocks.
+
+    - Certain types of pointers were not being correctly represented in the
+      type table of the symbolic debugging information, and therefore could
+      not be interpreted by the debugger.
+
+    - Procedure descriptors were not correctly represented in the symbol table
+      of the symbolic debugging information.  As a result, procedure names
+      would not appear in the debugger control panel.
+    
+
+Changes in Release 4.00.003
+_______________________________________________________________________________
+
+    - No new programming features have been added in this release.
+
+    - Some corrections and additions were made to the ALPREF.INF online
+      reference manual.
+
+    - The handling of text equates during macro expansions has been changed
+      for better compatibility with MASM.  Text equates can now be used in
+      "paste" operations using the ampersand (&) operator, similar to the
+      normal handling of macro replacement arguments.
+
+    - Better handling of identifiers that begin with a period (.) character.
+
+    - Some situations that could cause phase errors during assembly were
+      corrected.
+
+    - ALP no longer emits an object file reference to the reserved group-name
+      "FLAT" unless it is referenced in the assembly source module.
+
+    - Relaxed syntax requirements for EXTRN directive and several IFxxx
+      preprocessor directives to allow for missing operands under MASM 5.10
+      emulation.
+
+    - Fixed some code generation problems in the PROC prologue and epilogue
+      handlers.
+      
+    - Numerous other bug fixes and compatibility enhancements.
+
+
+MASM 5.10 Compatibility
+_______________________________________________________________________________
+
+  In most respects, ALP is a "MASM 5.10 Source Language Compatible" assembler.
+  It is not, however, a direct "drop-in" replacement for MASM.  This section
+  describes some things to be aware of when using ALP as a replacement for MASM.
+
+    ---------------------------------------------------------------------------
+    ALP does not use the same command line syntax as MASM 5.10 (or MASM 6.00).
+    The MASM2ALP utility is provided to allow use of ALP in existing MASM 5.10
+    build environments.  Refer to the online reference manual for details.
+
+    ---------------------------------------------------------------------------
+    Unlike MASM, ALP by default is case-sensitive with respect to user defined
+    identifiers (assembler reserved words are case-insensitive by default).  If
+    case-insensitive assembly is desired, use the -Sc command line switch.
+
+    ---------------------------------------------------------------------------
+    ALP currently supports all MASM 5.10 constructs except:
+
+      - Alphabetic segment ordering (the .ALPHA directive)
+
+      - Symbol cross referencing and the associated listing file directives
+        (.CREF and .XCREF)
+
+    ---------------------------------------------------------------------------
+    Forward-referenced Unconditional Jumps
+
+    On the first pass, both assemblers assume that the target of a forward
+    referenced direct conditional JMP is of NEAR distance, and both reserve
+    space to allow for a 16 bit displacement field.  If on the second pass it
+    is determined that the target can be reached using a distance of SHORT, an
+    8 bit displacement and a single NOP byte are generated to fill in the space
+    allotted on the first pass.  This is normal behavior for both assemblers.
+
+    If however, the same (SHORT) target was specified in the JMP statement
+    using a "NEAR PTR" typecast override, MASM 5.10 ignores the override and
+    generates the same aforementioned code.  ALP however, respects the typecast
+    operation and generates a true 16 bit displacement, which is also the
+    behavior exhibited by MASM 6.0.  In the unlikely event that a program
+    depends upon the MASM 5.10 behavior, it will probably not operate correctly
+    when assembled with ALP.
+
+
+MASM 6.00 Compatibility
+_______________________________________________________________________________
+
+    ALP supports a limited level of compatibility with MASM 6.00.  Use of the
+    -Sv:M600 command line option will enable this support.  The cross-reference
+    table provided below lists the MASM 6.00 directives that are enabled when
+    this option is used.  Additional changes in behavior include:
+
+    -  Stricter error checking.  Many conditions reported as warnings under
+       MASM 5.10 emulation are treated as errors under MASM 6.00 emulation.
+
+    -  Visibility of MASM 6.00 keywords is enabled (see the online reference
+       for details).  Note that visibility of processor related keywords is
+       limited to only those that MASM 6.00 itself recognizes; support for
+       newer processors with the .586, .586P, .686, .686P, and .MMX directives
+       is not enabled unless the -Sv:ALP option is used to turn off MASM
+       emulation.
+
+    While both ML (MASM 6.00) and ALP support assembly of multiple input files
+    with a single command line invocation, ALP does not support the "compile
+    and link" capability of ML.  ALP treats all filenames found on the command
+    line as input source files, and does not look at the filename extension to
+    determine the file "type".
+
+
+Table of Assembler Directives Supported by ALP, MASM 5.10, and MASM 6.00
+_______________________________________________________________________________
+
+    "X" - Supported
+    "-" - Recognized but ignored
+
+      DIRECTIVE         ALP     MASM 5.1  MASM 6.0
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄ¿
+    ³  %BIN          ³    X    ³    X    ³    X    ³
+    ³  %OUT          ³    X    ³    X    ³    X    ³
+    ³  .186          ³    X    ³    X    ³    X    ³
+    ³  .286          ³    X    ³    X    ³    X    ³
+    ³  .286P         ³    X    ³    X    ³    X    ³
+    ³  .287          ³    X    ³    X    ³    X    ³
+    ³  .386          ³    X    ³    X    ³    X    ³
+    ³  .386P         ³    X    ³    X    ³    X    ³
+    ³  .387          ³    X    ³    X    ³    X    ³
+    ³  .486          ³    X    ³         ³    X    ³
+    ³  .486P         ³    X    ³         ³    X    ³
+    ³  .586          ³    X    ³         ³         ³
+    ³  .586P         ³    X    ³         ³         ³
+    ³  .686          ³    X    ³         ³         ³
+    ³  .686P         ³    X    ³         ³         ³
+    ³  .8086         ³    X    ³    X    ³    X    ³
+    ³  .8087         ³    X    ³    X    ³    X    ³
+    ³  .ABORT        ³    X    ³         ³         ³
+    ³  .ALPHA        ³    -    ³    X    ³    X    ³
+    ³  .BREAK        ³         ³         ³    X    ³
+    ³  .CODE         ³    X    ³    X    ³    X    ³
+    ³  .CONST        ³    X    ³    X    ³    X    ³
+    ³  .CONTINUE     ³         ³         ³    X    ³
+    ³  .CREF         ³    -    ³    X    ³    X    ³
+    ³  .DATA         ³    X    ³    X    ³    X    ³
+    ³  .DATA?        ³    X    ³    X    ³    X    ³
+    ³  .DOSSEG       ³    X    ³         ³    X    ³
+    ³  .ELSE         ³         ³         ³    X    ³
+    ³  .ELSEIF       ³         ³         ³    X    ³
+    ³  .ENDIF        ³         ³         ³    X    ³
+    ³  .ENDW         ³         ³         ³    X    ³
+    ³  .ERR          ³    X    ³    X    ³    X    ³
+    ³  .ERR1         ³    X    ³    X    ³    X    ³
+    ³  .ERR2         ³    X    ³    X    ³    X    ³
+    ³  .ERRB         ³    X    ³    X    ³    X    ³
+    ³  .ERRDEF       ³    X    ³    X    ³    X    ³
+    ³  .ERRDIF       ³    X    ³    X    ³    X    ³
+    ³  .ERRDIFI      ³    X    ³    X    ³    X    ³
+    ³  .ERRE         ³    X    ³    X    ³    X    ³
+    ³  .ERRIDN       ³    X    ³    X    ³    X    ³
+    ³  .ERRIDNI      ³    X    ³    X    ³    X    ³
+    ³  .ERRNB        ³    X    ³    X    ³    X    ³
+    ³  .ERRNDEF      ³    X    ³    X    ³    X    ³
+    ³  .ERRNZ        ³    X    ³    X    ³    X    ³
+    ³  .FARDATA      ³    X    ³    X    ³    X    ³
+    ³  .FARDATA?     ³    X    ³    X    ³    X    ³
+    ³  .IF           ³         ³         ³    X    ³
+    ³  .LALL         ³    X    ³    X    ³    X    ³
+    ³  .LFCOND       ³    X    ³    X    ³    X    ³
+    ³  .LIST         ³    X    ³    X    ³    X    ³
+    ³  .LISTALL      ³    X    ³         ³    X    ³
+    ³  .LISTIF       ³    X    ³         ³    X    ³
+    ³  .LISTMACRO    ³    X    ³         ³    X    ³
+    ³  .LISTMACROALL ³    X    ³         ³    X    ³
+    ³  .MODEL        ³    X    ³    X    ³    X    ³
+    ³  .MMX          ³    X    ³         ³         ³
+    ³  .NOLIST       ³    X    ³         ³    X    ³
+    ³  .NOLISTIF     ³    X    ³         ³    X    ³
+    ³  .NOLISTMACRO  ³    X    ³         ³    X    ³
+    ³  .NOMMX        ³    X    ³         ³         ³
+    ³  .NO87         ³         ³         ³    X    ³
+    ³  .POPCONTEXT   ³         ³         ³    X    ³
+    ³  .PUSHCONTEXT  ³         ³         ³    X    ³
+    ³  .RADIX        ³    X    ³    X    ³    X    ³
+    ³  .REPEAT       ³         ³         ³    X    ³
+    ³  .SALL         ³    X    ³    X    ³    X    ³
+    ³  .SEQ          ³    X    ³    X    ³    X    ³
+    ³  .SIMD         ³    X    ³         ³         ³
+    ³  .SFCOND       ³    X    ³    X    ³    X    ³
+    ³  .STACK        ³    X    ³    X    ³    X    ³
+    ³  .STARTUP      ³         ³         ³    X    ³
+    ³  .TFCOND       ³    X    ³    X    ³    X    ³
+    ³  .UNTIL        ³         ³         ³    X    ³
+    ³  .UNTILCXZ     ³         ³         ³    X    ³
+    ³  .WHILE        ³         ³         ³    X    ³
+    ³  .XALL         ³    X    ³    X    ³    X    ³
+    ³  .XCREF        ³    -    ³    X    ³    X    ³
+    ³  .XLIST        ³    X    ³    X    ³    X    ³
+    ³  ALIGN         ³    X    ³    X    ³    X    ³
+    ³  ASSUME        ³    X    ³    X    ³    X    ³
+    ³  BYTE          ³    X    ³         ³    X    ³
+    ³  CATSTR        ³    X    ³    X    ³    X    ³
+    ³  COMM          ³    X    ³    X    ³    X    ³
+    ³  COMMENT       ³    X    ³    X    ³    X    ³
+    ³  DB            ³    X    ³    X    ³    X    ³
+    ³  DD            ³    X    ³    X    ³    X    ³
+    ³  DF            ³    X    ³    X    ³    X    ³
+    ³  DOSSEG        ³    X    ³    X    ³    X    ³
+    ³  DQ            ³    X    ³    X    ³    X    ³
+    ³  DT            ³    X    ³    X    ³    X    ³
+    ³  DW            ³    X    ³    X    ³    X    ³
+    ³  DWORD         ³    X    ³         ³    X    ³
+    ³  ECHO          ³    X    ³         ³    X    ³
+    ³  ELSE          ³    X    ³    X    ³    X    ³
+    ³  ELSEIF        ³    X    ³    X    ³    X    ³
+    ³  ELSEIF1       ³    X    ³    X    ³    X    ³
+    ³  ELSEIF2       ³    X    ³    X    ³    X    ³
+    ³  ELSEIFB       ³    X    ³    X    ³    X    ³
+    ³  ELSEIFDEF     ³    X    ³    X    ³    X    ³
+    ³  ELSEIFDIF     ³    X    ³    X    ³    X    ³
+    ³  ELSEIFDIFI    ³    X    ³    X    ³    X    ³
+    ³  ELSEIFE       ³    X    ³    X    ³    X    ³
+    ³  ELSEIFIDN     ³    X    ³    X    ³    X    ³
+    ³  ELSEIFIDNI    ³    X    ³    X    ³    X    ³
+    ³  ELSEIFNB      ³    X    ³    X    ³    X    ³
+    ³  ELSEIFNDEF    ³    X    ³    X    ³    X    ³
+    ³  END           ³    X    ³    X    ³    X    ³
+    ³  ENDIF         ³    X    ³    X    ³    X    ³
+    ³  ENDM          ³    X    ³    X    ³    X    ³
+    ³  ENDP          ³    X    ³    X    ³    X    ³
+    ³  ENDS          ³    X    ³    X    ³    X    ³
+    ³  =             ³    X    ³    X    ³    X    ³
+    ³  EQU           ³    X    ³    X    ³    X    ³
+    ³  EVEN          ³    X    ³    X    ³    X    ³
+    ³  EXITM         ³    X    ³    X    ³    X    ³
+    ³  EXTERN        ³    X    ³         ³    X    ³
+    ³  EXTERNDEF     ³    X    ³         ³    X    ³
+    ³  EXTRN         ³    X    ³    X    ³    X    ³
+    ³  FOR           ³    X    ³         ³    X    ³
+    ³  FORC          ³    X    ³         ³    X    ³
+    ³  FWORD         ³    X    ³         ³    X    ³
+    ³  GROUP         ³    X    ³    X    ³    X    ³
+    ³  IF            ³    X    ³    X    ³    X    ³
+    ³  IF1           ³    X    ³    X    ³    X    ³
+    ³  IF2           ³    X    ³    X    ³    X    ³
+    ³  IFB           ³    X    ³    X    ³    X    ³
+    ³  IFDEF         ³    X    ³    X    ³    X    ³
+    ³  IFDIF         ³    X    ³    X    ³    X    ³
+    ³  IFDIFI        ³    X    ³    X    ³    X    ³
+    ³  IFE           ³    X    ³    X    ³    X    ³
+    ³  IFIDN         ³    X    ³    X    ³    X    ³
+    ³  IFIDNI        ³    X    ³    X    ³    X    ³
+    ³  IFNB          ³    X    ³    X    ³    X    ³
+    ³  IFNDEF        ³    X    ³    X    ³    X    ³
+    ³  INCLUDE       ³    X    ³    X    ³    X    ³
+    ³  INCLUDELIB    ³    X    ³    X    ³    X    ³
+    ³  INSTR         ³    X    ³    X    ³    X    ³
+    ³  INVOKE        ³         ³         ³    X    ³
+    ³  IRP           ³    X    ³    X    ³    X    ³
+    ³  IRPC          ³    X    ³    X    ³    X    ³
+    ³  LABEL         ³    X    ³    X    ³    X    ³
+    ³  LOCAL (1)     ³    X    ³    X    ³    X    ³
+    ³  LOCAL (2)     ³    X    ³    X    ³    X    ³
+    ³  MACRO         ³    X    ³    X    ³    X    ³
+    ³  NAME  (3)     ³    -    ³    -    ³    -    ³
+    ³  .NOCREF       ³    -    ³         ³    X    ³
+    ³  .NOLIST       ³    X    ³         ³    X    ³
+    ³  .NOLISTIF     ³    X    ³         ³    X    ³
+    ³  .NOLISTMACRO  ³    X    ³         ³    X    ³
+    ³  ORG           ³    X    ³    X    ³    X    ³
+    ³  PAGE          ³    X    ³    X    ³    X    ³
+    ³  PROC          ³    X    ³    X    ³    X    ³
+    ³  PROTO         ³         ³         ³    X    ³
+    ³  PUBLIC        ³    X    ³    X    ³    X    ³
+    ³  PURGE         ³    X    ³    X    ³    X    ³
+    ³  QWORD         ³    X    ³         ³    X    ³
+    ³  REAL10        ³    X    ³         ³    X    ³
+    ³  REAL4         ³    X    ³         ³    X    ³
+    ³  REAL8         ³    X    ³         ³    X    ³
+    ³  RECORD        ³    X    ³    X    ³    X    ³
+    ³  REPEAT        ³    X    ³         ³    X    ³
+    ³  REPT          ³    X    ³    X    ³    X    ³
+    ³  SBYTE         ³    X    ³         ³    X    ³
+    ³  SDWORD        ³    X    ³         ³    X    ³
+    ³  SEGMENT       ³    X    ³    X    ³    X    ³
+    ³  SIZESTR       ³    X    ³    X    ³    X    ³
+    ³  STRUC         ³    X    ³    X    ³    X    ³
+    ³  STRUCT        ³    X    ³         ³    X    ³
+    ³  SUBSTR        ³    X    ³    X    ³    X    ³
+    ³  SUBTITLE      ³    X    ³         ³    X    ³
+    ³  SUBTTL        ³    X    ³    X    ³    X    ³
+    ³  SWORD         ³    X    ³         ³    X    ³
+    ³  TBYTE         ³    X    ³    X    ³    X    ³
+    ³  TEXTEQU       ³         ³         ³    X    ³
+    ³  TITLE         ³    X    ³    X    ³    X    ³
+    ³  TYPEDEF       ³    X    ³         ³    X    ³
+    ³  UNION         ³    X    ³         ³    X    ³
+    ³  WHILE         ³         ³         ³    X    ³
+    ³  WORD          ³    X    ³         ³    X    ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÙ
+
+    Notes:  1. Local macro labels
+            2. Local stack variables
+            3. Obsolete directive
+
+
+Known Problems or Incompatibilities
+_______________________________________________________________________________
+
+    - The assembler does not recognize floating-point literals beginning with
+      a period.  If this affects your code, prefix such literals with 0.
+
+    - The ALIGN, EVEN, and ORG directives cannot be used within a structure
+      type definition.
+
+
+Support Information
+_______________________________________________________________________________
+
+  If you encounter problems or need assistance while using ALP, refer to the
+  "Toolkit Support" procedures in the online document "Using Your Toolkit".
+
+
+_______________________________________________________________________________
+
+TRADEMARK INFORMATION
+_______________________________________________________________________________
+
+The following terms are trademarks of the IBM Corporation in the United
+States or other countries or both:
+
+   -------------------------------------------------------
+   IBM
+   -------------------------------------------------------
+   OS/2
+   -------------------------------------------------------
+
+The following terms are trademarks of other companies:
+
+   -------------------------------------------------------
+   Intel386                    Intel
+   Pentium                     Intel
+   Pentium Pro                 Intel
+   MMX                         Intel
+   -------------------------------------------------------
+
+IBM DISCLAIMS ALL WARRANTIES, WHETHER EXPRESSED OR IMPLIED, INCLUDING
+WITHOUT LIMITATION, WARRANTIES OF FITNESS AND MERCHANTABILITY WITH
+RESPECT TO THE INFORMATION IN THIS DOCUMENT.  BY FURNISHING THIS
+DOCUMENT, IBM GRANTS NO LICENSES TO ANY RELATED PATENTS OR COPYRIGHTS.
+
+Copyright IBM Corporation, 1996-2000.  All rights reserved.
+
+_______________________________________________________________________________
+
+END-OF-FILE README.ALP
+_______________________________________________________________________________
+

@@ -1,0 +1,2 @@
+nmake -f rpcgsamp.mak
+

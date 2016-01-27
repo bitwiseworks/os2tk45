@@ -1,0 +1,21 @@
+;========================================================================
+; CAP.DEF - Caption Sample Application dynamic linking library
+;           definition file
+;
+; Copyright (C) IBM 1993
+;========================================================================
+
+LIBRARY      CAP
+
+DESCRIPTION 'Caption Sample Application Dynamic link library'
+
+PROTMODE
+
+DATA        NONSHARED MULTIPLE READWRITE LOADONCALL
+
+CODE        LOADONCALL
+
+EXPORTS     ccInitialize
+            ccSendCommand
+            ccTerminate
+

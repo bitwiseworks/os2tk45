@@ -1,0 +1,16 @@
+;========================================================================
+; BORLAND.DEF - Intermediate dynamic linking library definition file
+;========================================================================
+LIBRARY     SAMPDLL
+
+DESCRIPTION 'DLL Sample using the Borland Compiler'
+
+PROTMODE
+
+CODE	     LOADONCALL
+
+DATA 	     MULTIPLE READWRITE LOADONCALL
+
+EXPORTS
+	   _S_GETHOSTBYNAME=_s_gethostbyname
+	   _s_gethostbyname                                    @1

@@ -1,0 +1,139 @@
+DLGINCLUDE 1 "eas.h"
+
+DLGTEMPLATE IDD_ADDEA LOADONCALL MOVEABLE DISCARDABLE
+{
+   DIALOG  "ADD", IDD_ADDEA,    39,  47, 333, 118,
+           FS_NOBYTEALIGN | WS_VISIBLE,  FCF_TITLEBAR | FCF_SYSMENU
+   {
+      CTEXT           "Add an EA Name", MAXSHOWSIZE,
+                          15, 104, 300, 8,
+      LTEXT           "EA Name:", FILE_INVALID,
+                          14, 89, 44, 8,
+      ENTRYFIELD      "", IDD_EANAME,
+                          66, 89, 250, 8, ES_MARGIN | WS_TABSTOP
+      AUTORADIOBUTTON "~Length preceded ascii",              EA_LPASCII,
+                          10, 67, 115, 10, WS_GROUP | WS_TABSTOP
+      AUTORADIOBUTTON "Length preceded ~binary",             EA_LPBINARY,
+                          10, 57, 115, 10
+      AUTORADIOBUTTON "~Asciiz",                             EA_ASCIIZ,
+                          10, 47,  44, 10
+      AUTORADIOBUTTON "Length preceded ~metafile",           EA_LPMETAFILE,
+                          10, 37, 127, 10
+      AUTORADIOBUTTON "Asciiz ~file name of associated data",EA_ASCIIZFN,
+                          10, 27, 164, 10
+      AUTORADIOBUTTON "Asciiz ~EA name of associated data",  EA_ASCIIZEA,
+                          10, 17, 160, 10
+      AUTORADIOBUTTON "Multi-~value multi-type field",       EA_MVMT,
+                         187, 67, 140, 10
+      AUTORADIOBUTTON "AS~N.1 field",                        EA_ASN1,
+                         187, 57, 102, 10
+      AUTORADIOBUTTON "Length preceded bitma~p",             EA_LPBITMAP,
+                         187, 47, 115, 10
+      AUTORADIOBUTTON "Length preceded ~icon",               EA_LPICON,
+                         187, 37, 110, 10
+      AUTORADIOBUTTON "Multi-value ~single-type field",      EA_MVST,
+                         187, 27, 143, 10
+
+      DEFPUSHBUTTON   "~OK", ARGFILE,    10, 3, 40, 12, WS_GROUP | WS_TABSTOP
+
+      PUSHBUTTON      "~Cancel", FILE_VALID, 60, 3, 40, 12
+    }
+}
+
+DLGTEMPLATE IDD_ASCIIEDIT LOADONCALL MOVEABLE DISCARDABLE
+{
+   DIALOG  "EDIT", IDD_ASCIIEDIT, 25, 44, 263, 95,
+           FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR | FCF_SYSMENU
+   {
+      CTEXT         "EA Value Entry / Edit", MAXSHOWSIZE, 10, 80, 230, 8,
+      RTEXT         "EA Name:", FILE_INVALID,  10, 68,  45,  8
+      ENTRYFIELD    "", IDD_EANAME,            62, 68, 186,  8,
+                      ES_MARGIN | WS_TABSTOP
+      RTEXT         "EA Type:", FILE_INVALID,  10, 50,  45,  8
+      LTEXT         "", IDD_EATYPE,            60, 50, 178,  8
+      RTEXT         "EA Value:", FILE_INVALID, 10, 33,  45,  8
+      ENTRYFIELD    "", IDD_EAVALUE,           62, 32, 186,  8,
+                      ES_MARGIN | WS_TABSTOP
+      AUTOCHECKBOX  "Need Bit", IDD_NEEDBIT,  170, 10,  60, 10,
+                      WS_GROUP |WS_TABSTOP
+      DEFPUSHBUTTON "~OK", ARGFILE,            10,  5,  40, 12,
+                      WS_GROUP | WS_TABSTOP
+      PUSHBUTTON    "~Cancel", FILE_VALID,     60,  5,  40, 12,
+   }
+}
+
+DLGTEMPLATE IDD_MULTIBOX LOADONCALL MOVEABLE DISCARDABLE
+{
+   DIALOG  "Multi-type EA", IDD_MULTIBOX,         40,  44, 233, 115,
+             FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR | FCF_SYSMENU
+   {
+      LTEXT         "EA Name:", FILE_INVALID,     15, 103,  43,  8
+      LTEXT         "...", IDD_EANAME,            64, 103, 111,  8
+      LISTBOX       IDD_LBOX,                     15,  20, 160, 60,
+                       WS_GROUP | NOT WS_TABSTOP
+      LTEXT         "ea type", IDD_EATYPE,        15,  10, 151,  8
+      LTEXT         "EA CodePage:", FILE_INVALID, 15,  92,  60,  8
+      ENTRYFIELD    "", IDD_CODEPAGE,             82,  92,  28,  8,
+                       ES_MARGIN | WS_GROUP | WS_TABSTOP
+      LTEXT         "EA Values:", FILE_INVALID,   15,  81,  79,  8
+      AUTOCHECKBOX  "~Need Bit", IDD_NEEDBIT,    171,  92,  50, 10,
+                       WS_GROUP | WS_TABSTOP
+      PUSHBUTTON    "~Add", IDD_ADD,             185,  68,  38, 12,
+                       WS_GROUP | WS_TABSTOP
+      PUSHBUTTON    "~Delete", IDD_DELETE,       185,  52,  38, 12,
+                       NOT WS_TABSTOP
+      PUSHBUTTON    "~Edit", IDD_EDIT,           185,  36,  38, 12,
+                       NOT WS_TABSTOP
+      DEFPUSHBUTTON "~Done", DID_DONE,           185,  20,  38, 12,
+                       NOT WS_TABSTOP
+   }
+}
+
+DLGTEMPLATE IDD_OPENBOX LOADONCALL MOVEABLE DISCARDABLE
+{
+   DIALOG  "Open a File", IDD_OPENBOX,      23, -42, 240, 140,
+            NOT  FS_DLGBORDER | FS_BORDER, FCF_TITLEBAR | FCF_SYSMENU
+   {
+      LTEXT         "Directory:", 65535,       5, 126,  45,   8
+      LTEXT         "", FILE_ALL,             50, 126, 174,   8
+      LTEXT         "File Name:", 65535,      16, 110,  50,   8
+      ENTRYFIELD    "", IDD_FILEEDIT,         70, 110, 154,   8,
+                     ES_MARGIN | WS_TABSTOP
+      CTEXT         "Directories", 65535,     16,  96,  92,   8
+      CTEXT         "Files", 65535,          134,  96,  92,   8
+      LISTBOX       IDD_DIRLIST,              16,  32,  92,  64
+      LISTBOX       IDD_FILELIST,            134,  32,  92,  64
+      DEFPUSHBUTTON "~OK", ARGFILE,           16,   8,  64,  16,
+                     WS_GROUP | WS_TABSTOP
+      PUSHBUTTON    "~Cancel", FILE_VALID,    90,   8,  64,  16,
+   }
+}
+
+DLGTEMPLATE IDD_ABOUTBOX LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Bitmap Information", IDD_ABOUTBOX, 79, 3, 184, 120,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    {
+        CTEXT "EAS Application", ID_LOGOTEXT,   5, 70, 174, 9
+        CTEXT "Toolkit sample program",     -1, 5, 55, 174, 9
+        CTEXT "OS2 Version 2.1",            -1, 5, 40, 174, 9
+        DEFPUSHBUTTON "~OK", DID_OK,           62,  8,  60,14, WS_GROUP
+    }
+}
+
+DLGTEMPLATE IDD_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Product Information", IDD_PRODUCTINFO, 8, -43, 276, 137,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    {
+        CONTROL         IDR_BITMAP, IDC_BITMAP,  111, 71,  21, 21,
+                            WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT           "(C) Copyright IBM Corporation 1992. All Rights rese"
+                        "rved.",              256,  7, 54, 255,  8
+        CTEXT           "International Business Machines Corp.",
+                                              257,  7, 34, 255,  8
+        CTEXT           "OS/2 is a registered trademark of",
+                                              258,  7, 44, 255,  8
+        DEFPUSHBUTTON   "~OK", DID_OK,            111,  8,  45, 15
+    }
+}

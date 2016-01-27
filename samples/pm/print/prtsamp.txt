@@ -1,0 +1,27 @@
+Print Sample Application
+------------------------
+
+This is a sample application which shows how to print text and graphics under
+OS/2. It also shows how to handle printer queues, job properties, and fonts.
+The time-consuming parts are handled by separate threads.
+
+Detailed information about this application and the how to print from
+applications can be found in "OS/2 Programming Guide".
+
+
+Things you can do to improve this application
+---------------------------------------------
+
+1. Wrap text when it is outside the user define margins. This is required for
+a word-processor. The text is left clipped to show how a clip path can be used
+to enforce the user-defined margins.
+2. Allow the user to page backward through a multi-page document. This requires
+more extensive formatting on a separate thread but has the advantage that the
+user can tell exactly how large the document is and what is the current page.
+3. Allow the user to do title-bar drag/drop onto a printer.
+4. Allow the user to drag/drop a file associated with this application onto
+a printer. PRTSAMP is then called with the DM_PRINTOBJECT message.
+5. Allow for BMP files that contain an array of bitmaps.
+6. Support ICO and PTR files.
+7. Support device fonts and character positioning of a screen font according
+to the device font characteristics.

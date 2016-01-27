@@ -1,0 +1,185 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.12.1.1 src/somd/somdserv.idl, somd, som2.1 4/1/95 14:52:43 [7/30/96 14:45:48]
+
+
+//   Interface for DSOM Server Objects
+// 
+//   This class defines and implements the behavior of DSOM Server objects
+//   used with the DSOM Object Manager (SOMDObjectMgr).
+//
+//   Each DSOM server process is defined to have a (single instance of a) 
+//   SOMDServer object.  The SOMDServer object performs three kinds of 
+//   functions:
+//
+//       1) creation of SOM objects
+//       2) mapping of application-defined object ids into DSOM object
+//          "references" (SOMDObjects), and back again
+//       3) any application-specific server methods (e.g., for initialization,
+//          server control, etc.)
+//
+//   The SOMDServer class defines methods for the basic creation of SOM 
+//   objects in the server process (somdCreateObj), for deletion of SOM 
+//   objects (somdDeleteObj), and for finding the SOM  class object for a 
+//   specified class (somdGetClassObj).
+//   With somdGetClassObj, a client can get a proxy to a class object on the
+//   server, so that methods introduced in the metaclass (e.g., class-specific
+//   constructors, etc.) may be invoked directly.
+//
+//   This class also defines methods for the mappings to and from SOMDObjects
+//   and back again.  (Note: SOMDObject implements a CORBA "object reference" 
+//   in DSOM.  An object reference is something that is used to describe and 
+//   locate an actual target object.)  These methods are used by the SOM
+//   Object Adapter (SOMOA) when converting messages into method calls 
+//   and results into messages.
+//
+//   Application-specific server methods should be defined in subclasses
+//   of this SOMDServer subclass.
+//
+//   A particular SOMDServer subclass is specified in the ImplementationDef
+//   for each server process.  The SOMOA will instantiate one instance
+//   of the specified SOMDServer subclass during server process initialization
+//   (in SOMOA::impl_is_ready).
+//
+
+
+#ifndef somdserver_idl
+#define somdserver_idl
+
+
+#include <somobj.idl>
+#include <somdtype.idl>
+#include <snglicls.idl>
+
+interface SOMDObject;
+
+interface SOMDServer : SOMObject
+{
+
+  //### -- Methods called locally on server ONLY! -- ###//
+
+  SOMDObject somdRefFromSOMObj(in SOMObject somobj);
+  
+  // This method returns a DSOM object reference for a SOM object
+  // instance in this server process.  SOMOA will call this method
+  // whenever it returns a result from a method call which includes
+  // a pointer to a SOMObject (versus a pointer to a SOMDObject).
+  // Ownership of the returned object reference is given to the
+  // caller EXCEPT when the somdObjReferencesCached method returns TRUE.
+  // When the input (somobj) is already an object reference, the default
+  // implementation simply returns somobj, rather than creating a new reference.
+  // (Subclasses might override this method to duplicate the input reference, however.)
+  // Hence, callers should note when the returned value is the same as
+  // the input (somobj) when determining whether or not to free the result.
+
+  SOMObject  somdSOMObjFromRef(in SOMDObject objref);
+  
+  // This method maps a DSOM object reference into a SOM object.
+  // This can be done in whatever way is appropriate for the application.
+  // This method is called by SOMOA in order to translate any method call
+  // parameters which are object references (created from somdRefFromSOMObj
+  // above) into SOM objects.
+
+  void somdDispatchMethod(in SOMObject somobj, out somToken retValue,
+                          in somId methodId, in va_list ap);
+  
+  // This method is called by SOMOA to dispatch a method on a SOM object.
+  // The intention is to give the Server object an opportunity to intercept
+  // method calls, if desired.  The parameters to this method are the same
+  // as the parameters passed to SOMObject::somDispatch.
+  //
+  // The default implementation invokes SOMObject::somDispatch on the
+  // specified target object, "somobj", with the supplied arguments.
+
+
+  //### -- Methods called remotely from clients -- ###//
+
+  SOMObject somdCreateObj(in Identifier objclass, in string hints);
+  
+  // Creates an object of the specified class.  This method (if overridden)
+  // may optionally define creation "hints" which the client may specify in 
+  // this call. 
+  //
+  // Called indirectly by SOMDObjectMgr::somdNewObject.
+  //
+  // The default implementation calls somdGetClassObj to get the specified
+  // SOMClass object, and invokes "somNew".  The "hints" argument is ignored 
+  // in the default implementation.
+
+  void somdDeleteObj(in SOMObject somobj);
+  
+  // Deletes a SOM object.  By default, simply calls somFree on the object.
+  // Can be overridden by the application.
+  //
+  // Called indirectly by SOMDObjectMgr::somdDestroyObject.
+
+  SOMClass  somdGetClassObj(in Identifier objclass);
+  
+  // Creates/returns a class object for the specified class.
+  // (May result in the loading of a DLL for the class.)
+
+  boolean   somdObjReferencesCached();
+
+  // Whether the server retains ownership of the object references
+  // it creates via the somdRefFromSOMObj method.
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+    releaseorder: somdSOMObjFromRef, somdRefFromSOMObj,
+		  somdCreateObj, somdDeleteObj, somdGetClassObj,
+                  somdDispatchMethod, somdObjReferencesCached;
+  
+    //# Class Modifiers
+    callstyle = idl;
+    metaclass = SOMMSingleInstance;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+
+    //# Passthrus
+    passthru C_h_after  = ""
+      "#ifdef SOM_STRICT_IDL"
+#ifdef _WIN16
+      "#define SOMD_ServerObject (*SOMD_ServerObjectResolve())"
+      "SOMEXTERN SOMDServer  * SOMLINK SOMD_ServerObjectResolve(void);"
+#else
+      "SOMEXTERN SOMDServer  SOMDLINK SOMD_ServerObject;  /* global variable */"
+#endif
+      "#else"
+#ifdef _WIN16
+      "#define SOMD_ServerObject (*SOMD_ServerObjectResolve())"
+      "SOMEXTERN SOMDServer * * SOMLINK SOMD_ServerObjectResolve(void);"
+#else
+      "SOMEXTERN SOMDServer * SOMDLINK SOMD_ServerObject;"
+#endif
+      "#endif /* SOM_STRICT_IDL */"
+      "";
+
+    passthru C_xh_after = ""
+      "class SOMDServer;"
+#ifdef _WIN16
+      "#define SOMD_ServerObject (*SOMD_ServerObjectResolve())"
+      "SOMEXTERN SOMDServer * * SOMLINK SOMD_ServerObjectResolve(void);"
+#else
+      "SOMEXTERN SOMDServer * SOMDLINK SOMD_ServerObject; /* global variable */"
+#endif
+      "";
+
+  };
+
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* somdserver_idl */

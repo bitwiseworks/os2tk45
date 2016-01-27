@@ -1,0 +1,10 @@
+;-------------------------------------
+; HANOI.DEF module definition file
+;-------------------------------------
+
+NAME           HANOI  WINDOWAPI
+DESCRIPTION    'Tower of Hanoi Program'
+PROTMODE
+HEAPSIZE       8192
+STACKSIZE      16384
+

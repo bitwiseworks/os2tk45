@@ -1,0 +1,26 @@
+REM="Greek 813"
+REM="(C) Copyright IBM Corporation 1989, 1991"
+
+NOTE="Σημείωση: "
+CAUTION="Προσοχή ! "
+WARNING="Προειδοποίηση: "
+OLCHARS=abcdefghijklmnopqrstuvwxyz
+OLCLOSE1=)
+OLCLOSE2=.
+ULITEMID1=o
+ULITEMID2=-
+ULITEMID3=--
+CGRAPHICFONTFACENAME="Courier"
+CGRAPHICFONTWIDTH=11
+CGRAPHICFONTHEIGHT=18
+
+REM=" WORDS defines the characters that make words.  This is used for"
+REM=" searching and data compression. This are ofr codepage 813  "
+
+GRAMMER
+WORDS=0 - 9 + A - Z + a - z + α + β + γ + δ + ε + ζ + η + θ + ι + κ + λ + μ + ν + ξ +
+ο + π + ρ + σ + τ + υ + φ + χ + ψ + ω + ς + Α + Β¥+ Γ + Δ + Ε + Ζ + Η + Θ + Ι + Κ + Λ +
+Μ + Ν + Ξ + Ο + Π + Ρ + Σ + Τ + Υ + Φ + Χ + Ψ + Ω + ά + έ + ή + ί + ό + ύ + ώ + ϊ + ϋ +
+¶†+ Έ + Ή + Ί + Ό + Ύ + Ώ+ Ϊ + Ϋ + ΐ + ΰ
+EGRAMMER
+

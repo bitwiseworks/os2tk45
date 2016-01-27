@@ -1,0 +1,138 @@
+/*************************************************************************
+*
+*  File Name   : CAPSAMP.DLG
+*                 The WS_ANIMATE frame style allows this window to
+*                 respond to system sounds.
+*
+*  Copyright (C) IBM 1993
+*************************************************************************/
+#define  INCL_CIRCULARSLIDER  /* need this for the circular slider control */
+#define  INCL_GRAPHICBUTTON   /* need this for the graphic buttons control */
+
+#include <sw.h>
+
+DLGTEMPLATE IDD_MAIN_WINDOW LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   DIALOG  "", IDD_MAIN_WINDOW, 25, 40, 250, 125,
+           FS_NOBYTEALIGN | WS_SYNCPAINT | WS_SAVEBITS | WS_ANIMATE,  FCF_SYSMENU |
+           FCF_TITLEBAR | FCF_MINBUTTON | FCF_MENU | FCF_SIZEBORDER |
+           FCF_VERTSCROLL | FCF_HORZSCROLL | FCF_TASKLIST | FCF_ICON
+   BEGIN
+      CONTROL "", IDC_GPB_PLAY, 145, 103, 50, 20, WC_GRAPHICBUTTON,
+                  GBS_ANIMATION | GBS_3D_TEXTRAISED | WS_GROUP |
+                  WS_TABSTOP | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 5,          /* Number of bitmaps */
+                                           ID_BMP_PLAY0,
+                                           ID_BMP_PLAY1,
+                                           ID_BMP_PLAY2,
+                                           ID_BMP_PLAY3,
+                                           ID_BMP_PLAY4
+
+      CONTROL "", IDC_GPB_REWIND, 55, 103, 25, 20, WC_GRAPHICBUTTON,
+                  GBS_3D_TEXTRAISED | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 1, ID_BMP_REWIND
+
+      CONTROL "", IDC_GPB_STOP, 85, 103, 25, 20, WC_GRAPHICBUTTON,
+                  GBS_3D_TEXTRAISED | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 1, ID_BMP_STOP
+
+      CONTROL "", IDC_GPB_PAUSE, 115, 103, 25, 20, WC_GRAPHICBUTTON,
+                  GBS_3D_TEXTRAISED | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 1, ID_BMP_PAUSE
+
+      CONTROL "Audio position :", IDC_AUDIO_POSITION, 57, 93, 120, 8, WC_STATIC,
+                  SS_TEXT | DT_LEFT | DT_TOP | WS_VISIBLE
+                  PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+      CONTROL "", IDC_AUDIO_SLIDER, 54, 80, 140, 13,
+                  WC_SLIDER, SLS_HORIZONTAL | SLS_TOP | SLS_HOMELEFT |
+                  SLS_PRIMARYSCALE1 | SLS_PRIMARYSCALE2 | WS_GROUP | WS_TABSTOP |
+                  SLS_BUTTONSLEFT | WS_VISIBLE | WS_DISABLED | SLS_RIBBONSTRIP
+                  CTLDATA 12, 0, 10, 0, AUDIO_SLIDER_TICKS, 0
+
+      CONTROL "", IDC_SL_VOLUME, 95, 38, 55, 43, WC_CIRCULARSLIDER,
+                  WS_TABSTOP | WS_VISIBLE | CSS_NOTEXT | WS_GROUP |
+                  CSS_MIDPOINT
+   END
+END
+
+DLGTEMPLATE IDD_SETTINGS_DLG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Caption Sample Settings Fields", IDD_SETTINGS_DLG,
+            120, 4, 185, 110,
+            FS_NOBYTEALIGN | FS_DLGBORDER | WS_VISIBLE | WS_SAVEBITS,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+
+        CONTROL  "Set the following attributes for the caption window :",
+                     IDC_TEXT_COLUMNS, 5, 100, 180, 8,
+                     WC_STATIC, SS_TEXT | DT_LEFT | DT_TOP | WS_VISIBLE
+                     PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+        CONTROL  "Text columns:", IDC_TEXT_COLUMNS, 10, 85, 80, 8,
+                     WC_STATIC, SS_TEXT | DT_LEFT | DT_TOP | WS_VISIBLE
+
+
+        CONTROL  "", IDC_TEXT_COLUMNS_SB, 100, 85, 75, 15, WC_SPINBUTTON,
+                     SPBS_MASTER | SPBS_JUSTLEFT | SPBS_READONLY | WS_TABSTOP |
+                     WS_VISIBLE | WS_GROUP
+
+        CONTROL  "Text rows:", IDC_TEXT_ROWS, 10, 70, 80, 8,
+                     WC_STATIC, SS_TEXT | DT_LEFT | DT_TOP | WS_VISIBLE
+
+
+        CONTROL  "", IDC_TEXT_ROWS_SB, 100, 70, 75, 15, WC_SPINBUTTON,
+                     SPBS_MASTER | SPBS_JUSTLEFT | SPBS_READONLY | WS_VISIBLE |
+                     WS_TABSTOP
+
+        CONTROL  "Background color:", IDC_BACKGROUND_COLOR, 10, 55, 80, 8,
+                     WC_STATIC, SS_TEXT | DT_LEFT | DT_TOP | WS_VISIBLE
+
+
+        CONTROL  "", IDC_BACKGROUND_COLOR_SB, 100, 55, 75, 15, WC_SPINBUTTON,
+                     SPBS_MASTER | SPBS_JUSTLEFT | SPBS_READONLY | WS_VISIBLE |
+                     WS_TABSTOP
+
+        CONTROL  "Text color:", IDC_TEXT_COLOR, 10, 40, 80, 8,
+                     WC_STATIC, SS_TEXT | DT_LEFT | DT_TOP | WS_VISIBLE
+
+
+        CONTROL  "", IDC_TEXT_COLOR_SB, 100, 40, 75, 15, WC_SPINBUTTON,
+                     SPBS_MASTER | SPBS_JUSTLEFT | SPBS_READONLY | WS_VISIBLE |
+                     WS_TABSTOP
+
+        CONTROL  "Window position:", IDC_WINDOW_POSITION, 10, 25, 80, 8,
+                     WC_STATIC, SS_TEXT | DT_LEFT | DT_TOP | WS_VISIBLE
+
+
+        CONTROL  "", IDC_WINDOW_POSITION_SB, 100, 25, 75, 15, WC_SPINBUTTON,
+                     SPBS_MASTER | SPBS_JUSTLEFT | SPBS_READONLY | WS_VISIBLE |
+                     WS_TABSTOP
+
+        CONTROL  "~OK", IDC_OK_PB, 10, 3, 43, 15, WC_BUTTON, BS_DEFAULT |
+                     WS_TABSTOP | WS_VISIBLE | WS_GROUP
+        CONTROL  "Cancel", IDC_CANCEL_PB, 65, 3, 43, 15, WC_BUTTON,
+                     BS_PUSHBUTTON | WS_VISIBLE
+        CONTROL  "Help", IDC_HELP_PB, 115, 3, 43, 15, WC_BUTTON, BS_HELP |
+                     WS_VISIBLE
+    END
+END
+
+
+DLGTEMPLATE IDD_PRODUCTINFO_DLG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Header - Product Information", IDD_PRODUCTINFO_DLG,
+       62, 62, 250, 90,
+       FS_NOBYTEALIGN | FS_SIZEBORDER | WS_VISIBLE | WS_SAVEBITS,
+       FCF_SYSMENU | FCF_TITLEBAR | FCF_MINBUTTON | FCF_VERTSCROLL |
+       FCF_HORZSCROLL
+    BEGIN
+        CTEXT "MMPM/2 Caption sample program"  -1, 5, 72, 235, 8
+        CTEXT "1.10"                                  -1, 5, 64, 235, 8
+        CTEXT "(C) Copyright IBM Corporation 1993."   -1, 5, 56, 235, 8
+        CTEXT "All Rights Reserved."                  -1, 5, 48, 235, 8
+        CTEXT "IBM is a registered Trademark of"      -1, 5, 40, 235, 8
+        CTEXT "International Business Machine Corp."  -1, 5, 32, 235, 8
+        DEFPUSHBUTTON "OK"          DID_OK,            100, 8, 40, 16
+    END
+END

@@ -1,0 +1,235 @@
+/*************************************************************************
+ * File Name    : MCISTRNG.DLG
+ *
+ * Description  : This file holds the dialog box which is the main window
+ *                for the sample program as well the Include and Display
+ *                Messages dialog boxes.
+ *
+ * Concepts     : See this sample program's C source file.
+ *                The WS_ANIMATE frame style allows this window to
+ *                respond to system sounds.
+ *
+ * MMPM/2 API's : None.
+ *
+ * Required
+ *    Files     : See this sample program's C source file.
+ *
+ * Copyright (C) IBM 1991, 1992, 1993
+ *************************************************************************/
+
+#define INCL_NLS                      /* allows use of FCF_DBE_APPSTAT        */
+#include <pmwin.h>                    /* FCF_DBE_APPSTAT gives kbd status     */
+                                      /* field for DBCS countries.            */
+DLGINCLUDE 1 "MCISTRNG.H"
+
+DLGTEMPLATE ID_MAIN_DIALOG_BOX LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "", ID_MAIN_DIALOG_BOX,
+       MAIN_DIALOG_X_POSITION,
+       MAIN_DIALOG_Y_POSITION,
+       MAIN_DIALOG_X_SIZE,
+       MAIN_DIALOG_Y_SIZE,
+       FS_NOBYTEALIGN | FS_SIZEBORDER | WS_CLIPSIBLINGS |
+       WS_SAVEBITS    | WS_SYNCPAINT | WS_ANIMATE,
+       FCF_SYSMENU    | FCF_TITLEBAR | FCF_MINBUTTON | FCF_TASKLIST |
+       FCF_VERTSCROLL | FCF_HORZSCROLL | FCF_DBE_APPSTAT | FCF_ICON
+    BEGIN
+        CONTROL "", ID_STRING_COMBO_BOX,
+           COMBO_BOX_X_POSITION,
+           COMBO_BOX_Y_POSITION,
+           COMBO_BOX_X_SIZE,
+           COMBO_BOX_Y_SIZE,
+           WC_COMBOBOX,
+           CBS_SIMPLE | WS_GROUP | WS_TABSTOP | WS_VISIBLE
+        CONTROL "~Send", ID_MAIN_SEND_PB,
+           MAIN_SEND_PB_X_POSITION,
+           MAIN_PUSHBUTTONS_Y_POSITION,
+           MAIN_SEND_PUSHBUTTON_X_SIZE,
+           MAIN_PUSHBUTTONS_Y_SIZE,
+           WC_BUTTON,
+           BS_DEFAULT | WS_TABSTOP | WS_VISIBLE | WS_GROUP
+        CONTROL "~Display messages...", ID_DISPLAY_MESSAGES_PB,
+           MAIN_DISPLAY_PB_X_POSITION,
+           MAIN_PUSHBUTTONS_Y_POSITION,
+           MAIN_DISPLAY_PUSHBUTTON_X_SIZE,
+           MAIN_PUSHBUTTONS_Y_SIZE,
+           WC_BUTTON,
+           BS_PUSHBUTTON | WS_VISIBLE
+        CONTROL "~Batch file...", ID_BATCH_FILE_PB,
+           MAIN_BATCH_FILE_PB_X_POSITION,
+           MAIN_PUSHBUTTONS_Y_POSITION,
+           MAIN_BATCH_PUSHBUTTON_X_SIZE,
+           MAIN_PUSHBUTTONS_Y_SIZE,
+           WC_BUTTON,
+           BS_PUSHBUTTON | WS_VISIBLE
+
+        CONTROL "Cancel", ID_MAIN_CANCEL_PB,
+           MAIN_CANCEL_PB_X_POSITION ,
+           MAIN_PUSHBUTTONS_Y_POSITION,
+           MAIN_CANCEL_PUSHBUTTON_X_SIZE,
+           MAIN_PUSHBUTTONS_Y_SIZE,
+           WC_BUTTON,
+           BS_PUSHBUTTON | WS_VISIBLE
+        CONTROL "Help", ID_MAIN_HELP_PB,
+           MAIN_HELP_PB_X_POSITION,
+           MAIN_PUSHBUTTONS_Y_POSITION,
+           MAIN_HELP_PUSHBUTTON_X_SIZE,
+           MAIN_PUSHBUTTONS_Y_SIZE,
+           WC_BUTTON,
+           BS_HELP | WS_VISIBLE
+        CONTROL "String command", ID_STRING_TITLE_TEXT,
+           MAIN_STRING_TEXT_X_POSITION,
+           MAIN_STRING_TEXT_Y_POSITION,
+           MAIN_STRING_TEXT_X_SIZE,
+           MAIN_STRING_TEXT_Y_SIZE,
+           WC_STATIC,
+           SS_TEXT | DT_LEFT | DT_TOP | WS_VISIBLE
+    END
+END
+
+
+DLGTEMPLATE ID_INCLUDE_DIALOG_BOX LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "String Test - Include Messages",
+       ID_INCLUDE_DIALOG_BOX,
+       INCLUDE_DIALOG_X_POSITION,
+       INCLUDE_DIALOG_Y_POSITION,
+       INCLUDE_DIALOG_X_SIZE,
+       INCLUDE_DIALOG_Y_SIZE,
+       FS_NOBYTEALIGN | FS_DLGBORDER | WS_VISIBLE |
+       WS_SAVEBITS,
+       FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CONTROL "MM_MCINOTIFY", ID_NOTIFY_CB,
+           CB_FIRST_COLUMN_X_POSITION,
+           CB_COLUMN_Y_POSITION + CB_OFFSET_Y_POSITION + CB_OFFSET_Y_POSITION,
+           CB_X_SIZE,
+           CB_Y_SIZE,
+           WC_BUTTON,
+           BS_AUTOCHECKBOX | WS_TABSTOP | WS_VISIBLE | WS_GROUP
+        CONTROL "MM_MCIPASSDEVICE", ID_PASSDEVICE_CB,
+           CB_FIRST_COLUMN_X_POSITION,
+           CB_COLUMN_Y_POSITION + CB_OFFSET_Y_POSITION,
+           CB_X_SIZE,
+           CB_Y_SIZE,
+           WC_BUTTON,
+           BS_AUTOCHECKBOX | WS_VISIBLE
+        CONTROL "MM_MCIPOSITIONCHANGE", ID_POSITION_CHANGE_PB,
+           CB_FIRST_COLUMN_X_POSITION,
+           CB_COLUMN_Y_POSITION,
+           CB_X_SIZE,
+           CB_Y_SIZE,
+           WC_BUTTON,
+           BS_AUTOCHECKBOX | WS_VISIBLE
+        CONTROL "MM_MCIEVENT", ID_EVENT_CB,
+           CB_SECOND_COLUMN_X_POSITION,
+           CB_COLUMN_Y_POSITION + CB_OFFSET_Y_POSITION + CB_OFFSET_Y_POSITION,
+           CB_RIGHT_COLUMN_X_SIZE,
+           CB_Y_SIZE,
+           WC_BUTTON,
+           BS_AUTOCHECKBOX | WS_VISIBLE
+        CONTROL "MM_MCICUEPOINT", ID_CUEPOINT_CB,
+           CB_SECOND_COLUMN_X_POSITION,
+           CB_COLUMN_Y_POSITION + CB_OFFSET_Y_POSITION,
+           CB_RIGHT_COLUMN_X_SIZE,
+           CB_Y_SIZE,
+           WC_BUTTON,
+           BS_AUTOCHECKBOX | WS_VISIBLE
+        CONTROL "MM_MCIPLAYLISTMESSAGE", ID_PLAYLIST_CB,
+           CB_SECOND_COLUMN_X_POSITION,
+           CB_COLUMN_Y_POSITION,
+           CB_RIGHT_COLUMN_X_SIZE,
+           CB_Y_SIZE,
+           WC_BUTTON,
+           BS_AUTOCHECKBOX | WS_VISIBLE
+        CONTROL "~Include", ID_INCLUDE_PB,
+           INCLUDE_PB_X_POSITION,
+           INCLUDE_PUSHBUTTONS_Y_POSITION,
+           INCLUDE_PUSHBUTTONS_X_SIZE,
+           INCLUDE_PUSHBUTTONS_Y_SIZE,
+           WC_BUTTON,
+           BS_DEFAULT | WS_VISIBLE | WS_GROUP | WS_TABSTOP
+        CONTROL "Cancel", ID_INCLUDE_CANCEL_PB,
+           INCLUDE_CANCEL_PB_X_POSITION,
+           INCLUDE_PUSHBUTTONS_Y_POSITION,
+           INCLUDE_PUSHBUTTONS_X_SIZE,
+           INCLUDE_PUSHBUTTONS_Y_SIZE,
+           WC_BUTTON,
+           BS_PUSHBUTTON | WS_VISIBLE
+        CONTROL "Help", ID_INCLUDE_HELP_PB,
+           INCLUDE_HELP_PB_X_POSITION,
+           INCLUDE_PUSHBUTTONS_Y_POSITION,
+           INCLUDE_PUSHBUTTONS_X_SIZE,
+           INCLUDE_PUSHBUTTONS_Y_SIZE,
+           WC_BUTTON,
+           BS_HELP | WS_VISIBLE
+        CONTROL "Select the type of MCI Notification messages you wish to",
+           ID_INSTRUCTION_TEXT_LINE_1,
+           INCLUDE_TEXT_X_POSITION,
+           INCLUDE_TEXT_1_Y_POSITION,
+           INCLUDE_TEXT_X_SIZE,
+           INCLUDE_TEXT_Y_SIZE,
+           WC_STATIC,
+           SS_TEXT | DT_LEFT | DT_TOP | WS_GROUP | WS_VISIBLE
+        CONTROL "appear in the Display Messages window.",
+           ID_INSTRUCTION_TEXT_LINE_2,
+           INCLUDE_TEXT_X_POSITION,
+           INCLUDE_TEXT_2_Y_POSITION,
+           INCLUDE_TEXT_X_SIZE,
+           INCLUDE_TEXT_Y_SIZE,
+           WC_STATIC,
+           SS_TEXT | DT_LEFT | DT_TOP | WS_GROUP | WS_VISIBLE
+    END
+END
+
+
+DLGTEMPLATE ID_DISPLAY_DIALOG_BOX LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "String Test - Display Messages",
+       ID_DISPLAY_DIALOG_BOX,
+       DISPLAY_DIALOG_X_POSITION,
+       DISPLAY_DIALOG_Y_POSITION,
+       DISPLAY_DIALOG_X_SIZE,
+       DISPLAY_DIALOG_Y_SIZE,
+       FS_NOBYTEALIGN | FS_DLGBORDER |
+       WS_SAVEBITS,
+       FCF_SYSMENU    | FCF_TITLEBAR
+    BEGIN
+        CONTROL "", ID_DISPLAY_CONTROL,
+           DISPLAY_CONTROL_X_POSITION,
+           DISPLAY_CONTROL_Y_POSITION,
+           DISPLAY_CONTROL_X_SIZE,
+           DISPLAY_CONTROL_Y_SIZE,
+           WC_LISTBOX,
+           LS_NOADJUSTPOS | WS_TABSTOP | WS_VISIBLE
+        CONTROL "~Include...", ID_DISPLAY_INCLUDE_PB,
+           DISPLAY_INCLUDE_PB_X_POSITION,
+           DISPLAY_PUSHBUTTONS_Y_POSITION,
+           DISPLAY_PUSHBUTTONS_X_SIZE,
+           DISPLAY_PUSHBUTTONS_Y_SIZE,
+           WC_BUTTON,
+           BS_DEFAULT | WS_TABSTOP | WS_VISIBLE
+        CONTROL "Cancel", ID_DISPLAY_CANCEL_PB,
+           DISPLAY_CANCEL_PB_X_POSITION,
+           DISPLAY_PUSHBUTTONS_Y_POSITION,
+           DISPLAY_PUSHBUTTONS_X_SIZE,
+           DISPLAY_PUSHBUTTONS_Y_SIZE,
+           WC_BUTTON,
+           BS_PUSHBUTTON | WS_VISIBLE
+        CONTROL "Help", ID_DISPLAY_HELP_PB,
+           DISPLAY_HELP_PB_X_POSITION,
+           DISPLAY_PUSHBUTTONS_Y_POSITION,
+           DISPLAY_PUSHBUTTONS_X_SIZE,
+           DISPLAY_PUSHBUTTONS_Y_SIZE,
+           WC_BUTTON,
+           BS_HELP | WS_VISIBLE
+        CONTROL "Notification messages", ID_MESSAGES_TEXT,
+           DISPLAY_TEXT_X_POSITION,
+           DISPLAY_TEXT_Y_POSITION,
+           DISPLAY_TEXT_X_SIZE,
+           DISPLAY_TEXT_Y_SIZE,
+           WC_STATIC,
+           SS_TEXT | DT_LEFT | DT_TOP | WS_VISIBLE
+    END
+END
+

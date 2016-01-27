@@ -1,0 +1,160 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.13 src/somd/somdobj.idl, somd, som2.1 10/7/94 13:37:14 [7/30/96 14:45:47]
+
+
+
+//   Interface for CORBA Object Reference.
+//
+//   This is the class that implements the behavior of CORBA object references,
+//   e.g., get_implementation, get_interface, duplicate, release, etc.
+//
+//   In addition, there are some private methods, which are exposed only to
+//   the ORB classes, to implement the ORB functions related to object
+//   references (e.g., ORB_object_to_string).
+//
+//   In DSOM, there is also another derivation of this class:  SOMDClientProxy.
+//   This subclass inherits the implementation of this class, but extends it
+//   by overriding somDispatch with a "remote dispatch" method, and caches the
+//   binding to the server process.  Whenever a remote object is accessed, it
+//   is represented in the client process by a SOMDClientProxy object.
+//
+//
+
+
+#ifndef somdobj_idl
+#define somdobj_idl
+
+#include <somobj.idl>
+#include <somdtype.idl>
+
+interface ImplementationDef;
+interface InterfaceDef;
+interface NVList;
+interface Context;
+interface Request;
+
+interface SOMDObject : SOMObject
+{
+
+  ImplementationDef get_implementation();
+
+  // Returns the implementation definition for the referenced object.
+
+  InterfaceDef get_interface();
+
+  // Returns the interface definition for the referenced object.
+
+
+  boolean is_nil();
+
+  // Tests to see if the object reference is nil.
+  // This is a procedure method.  Therefore, it can be invoked on OBJECT_NIL
+  // (a null pointer), but it cannot be overridden.
+
+  boolean is_SOM_ref();
+
+  // Returns TRUE if object reference was created by SOMOA::create_SOM_ref
+  // else returns FALSE.
+
+  boolean is_constant();
+
+  // Returns TRUE if object reference was created by SOMOA::create_constant
+  // else returns FALSE.
+
+  boolean is_proxy();
+
+  // Returns TRUE if object reference (self) is a DSOM client proxy object 
+  // (i.e., the target object is remote).  Returns FALSE if the referenced 
+  // object is in the same process as the reference.
+  //
+  // The default implementation returns FALSE.  Proxy classes which are
+  // subclasses of SOMDObject (like SOMDClientProxy) should override this 
+  // method to return TRUE.
+
+  SOMDObject duplicate();
+
+  // Makes a duplicate of the object reference.
+  // OWNERSHIP of returned object is transferred to the caller.
+  // Call release to free the object.
+
+  void release();
+
+  // Releases the memory associated with the object reference.
+
+  ORBStatus create_request(in Context ctx, in Identifier operation, 
+			   in NVList arg_list, inout NamedValue result, 
+			   out Request request,
+                           in Flags req_flags);
+
+  // Creates a request to execute a particular operation on the
+  // referenced object.
+  //
+  // CORBA 1.1 introduces this method in this class, but DSOM actually
+  // implements this method in the SOMDClientProxy subclass.
+
+  ORBStatus create_request_args(in Identifier operation, out NVList arg_list,
+                                out NamedValue result);
+
+  // Creates the appropriate arg_list (NVList) for the specified operation.
+  // Also creates a NamedValue to hold the result.
+  // (Similar in function to ORB_create_operation_list.)
+  //
+  // This method is defined in this class, as a companion to the 
+  // "create_request" method, but DSOM implements this method in the 
+  // SOMDClientProxy subclass.
+
+
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+    releaseorder: get_implementation, get_interface,
+		  set_to_nil, is_nil,
+                  is_SOM_ref, is_constant, is_proxy,
+                  duplicate, release,
+		  create_request, create_request_args, 
+		  _get_somd_tag, _get_somd_flags, _set_somd_flags, 
+		  _get_somd_impl, _set_somd_impl, _get_somd_rid, 
+		  _set_somd_rid, _get_somd_id, _set_somd_id;
+
+    //# Class Modifiers
+    callstyle = idl;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+
+    //# Method Modifiers
+    somDefaultInit: override;
+    somDestruct: override;
+    somDumpSelfInt: override;
+    is_nil : procedure;
+
+
+    //# Passthrus
+    passthru C_h_before = ""
+      "#include <somdtype.h>"
+      "";
+
+    passthru C_xh_before =  ""
+      "#include <somdtype.xh>"
+      "";
+
+
+  };
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* somdobj_idl */

@@ -1,0 +1,109 @@
+DLGINCLUDE 1 "MCISPY.H"
+BITMAP IDR_BITMAP mmmlogo.bmp
+DLGTEMPLATE IDM_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Product information", IDM_PRODUCTINFO, 57, 3, 262, 137,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CONTROL         IDR_BITMAP, IDC_BITMAP, 108, 88, 21, 21, WC_STATIC,
+                        SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT           "(C) Copyright IBM Corporation 1993. All Rights rese"
+                        "rved.", 230, 7, 54, 255, 8
+        CTEXT           "IBM is a registered trademark of", 230, 7, 44, 255,
+                        8
+        CTEXT           "International Business Machines Corp.", 230, 7, 34,
+                        255, 8
+        DEFPUSHBUTTON   "~OK", PB_OK, 111, 8, 45, 15
+        CTEXT           "MCISPY", 107, 107, 70, 38, 8
+    END
+END
+
+DLGTEMPLATE ID_FILTERMSG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Select Filter Messages", ID_FILTERMSG, -13, -72, 395, 209,
+            WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Select Message(s) to exclude", 101, 7, 195, 161, 11
+        LISTBOX         LI_FILTERMSG, 7, 35, 197, 164, LS_MULTIPLESEL |
+                        LS_HORZSCROLL
+        PUSHBUTTON      "Ok", PB_OK, 6, 9, 40, 14
+        PUSHBUTTON      "Cancel", DID_CANCEL, 113, 9, 40, 14
+        PUSHBUTTON      "Help", PB_HELP, 220, 9, 40, 14
+        PUSHBUTTON      "Spy None", PB_ALL, 212, 170, 80, 19
+        PUSHBUTTON      "Spy All", PB_NONE, 304, 170, 80, 19
+        PUSHBUTTON      "Timer On", MAX_SYSINFO_RETURN, 212, 130, 80, 19
+        PUSHBUTTON      "Timer Off", PB_TIMEROFF, 304, 130, 80, 19
+        PUSHBUTTON      "Filter Actions", PB_ACTON, 212, 90, 80, 19
+        PUSHBUTTON      "Spy Actions", PB_ACTOFF, 304, 90, 80, 19
+    END
+END
+
+DLGTEMPLATE ID_FLAGSDLG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "MCISPY: Display  MCI Flag Values", ID_FLAGSDLG, 57, -57, 342,
+            200, WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Input Flag Value in Hex", 101, 9, 175, 161, 11
+        ENTRYFIELD      "", EF_FLAG, 138, 176, 86, 11, ES_MARGIN
+        LTEXT           "Select MCI Message ", 103, 12, 153, 112, 11
+        LISTBOX         LI_MSGS, 10, 51, 150, 102, LS_HORZSCROLL
+        LISTBOX         LI_FLAGS, 177, 51, 150, 101, LS_HORZSCROLL
+        PUSHBUTTON      "Display", PB_OK, 10, 15, 40, 14
+        PUSHBUTTON      "Clear", PB_CLEAR, 100, 15, 40, 14
+        PUSHBUTTON      "Cancel", DID_CANCEL, 190, 16, 40, 14
+        PUSHBUTTON      "Help", PB_HELP, 280, 15, 40, 14
+        LTEXT           "Results", IDC_BITMAP, 203, 154, 54, 8
+    END
+END
+
+DLGTEMPLATE ID_DEVNAMESDLG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "View Installed Devices", ID_DEVNAMESDLG, 61, 8, 298, 128,
+            WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LISTBOX         LI_DEVNAMES, 12, 28, 269, 75, LS_HORZSCROLL
+                        PRESPARAMS PP_FONTHANDLE, 0x532E3031L, 0x65747379L,
+                        0x6F4D206DL, 0x70736F6EL, 0x64656361L, 0x00000000L
+                        PRESPARAMS PP_FONTNAMESIZE, "10.System Monospaced"
+        PUSHBUTTON      "~Ok", DID_CANCEL, 45, 5, 40, 14
+        PUSHBUTTON      "~Help", PB_HELP, 204, 5, 40, 14
+        LTEXT           "Logical Device", 105, 10, 108, 75, 10
+        LTEXT           "Physical Device", IDM_PRODUCTINFO, 94, 108, 80, 10
+        LTEXT           "Product Information", 107, 185, 108, 104, 10
+    END
+END
+
+DLGTEMPLATE ID_FILTERDEVTYP LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Select Filter Devices", ID_FILTERDEVTYP, 120, 1, 186, 170,
+            WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Select Device(s) to exclude", 187, 11, 155, 145, 8
+        LISTBOX         LI_FILTERDEVS, 10, 34, 120, 97, LS_MULTIPLESEL |
+                        LS_HORZSCROLL
+        PUSHBUTTON      "Ok", PB_OK, 4, 4, 40, 14
+        PUSHBUTTON      "Cancel", DID_CANCEL, 60, 4, 40, 14
+        PUSHBUTTON      "Help", PB_HELP, 116, 4, 40, 14
+        LTEXT           "Device", ID_FLAGSDLG, 4, 143, 32, 8
+        LTEXT           "Type", 769, 4, 133, 31, 8
+        LTEXT           "Device", 770, 49, 143, 36, 8
+        LTEXT           "Name", 771, 49, 133, 31, 8
+    END
+END
+
+DLGTEMPLATE ID_FILTERDEVIDS LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Select Filter Device Id(s)", ID_FILTERDEVIDS, 99, -27, 201, 176,
+            WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Select Device Id or alias to exclude", 187, 6, 161,
+                        191, 10
+        LISTBOX         LI_OPENINST, 11, 31, 126, 102, LS_MULTIPLESEL |
+                        LS_HORZSCROLL
+        PUSHBUTTON      "Ok", PB_OK, 4, 6, 40, 14
+        PUSHBUTTON      "Cancel", DID_CANCEL, 73, 6, 40, 14
+        PUSHBUTTON      "Help", PB_HELP, 135, 6, 40, 14
+        LTEXT           "Device Id  or Alias", 769, 56, 132, 100, 8
+        LTEXT           "PID", ID_FLAGSDLG, 15, 132, 17, 8
+    END
+END

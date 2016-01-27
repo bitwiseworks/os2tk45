@@ -1,0 +1,74 @@
+
+//  Module Header
+//
+//  Module Name: WPSERIAL
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpserial_idl
+#define wpserial_idl
+
+#include "wpdevice.idl"
+
+interface M_WPDevSerial;
+
+interface WPDevSerial : WPDevice
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpserial;
+    functionprefix = serial_;
+    local;
+//    externalprefix = serial_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpserial;
+    metaclass = M_WPDevSerial;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+    passthru C_h =  ""
+"";
+
+/* Private instance data area */
+
+     /* Overridden instance methods area */
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDevSerial : M_WPDevice
+{
+  /* New class methods section */
+
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpserial;
+    functionprefix = serialM_;
+    local;
+//    externalprefix = serialM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpserial;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+
+    /* Overridden class methods section */
+    wpclsInitData:      override;
+    wpclsQueryIconData: override;                                              //bjf152374
+    wpclsQueryTitle:    override;
+    wpclsUnInitData:    override;
+  };
+
+};
+#endif  /* wpserial_idl */

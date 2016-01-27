@@ -1,0 +1,67 @@
+
+//  Module Header
+//
+//  Module Name: WPSPNEED
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpspneed_idl
+#define wpspneed_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface M_WPSpecialNeeds;
+
+interface WPSpecialNeeds : WPAbstract
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpspn;
+    local;
+    externalprefix = spn_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpspneed;
+    metaclass = M_WPSpecialNeeds;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpFilterMenu: override;                                                     
+    somDefaultInit: override;             
+    somDestruct:    override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPSpecialNeeds : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpspn;
+    local;
+    externalprefix = spnM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpspneed;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpclsQueryIconData: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryTitle: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpspneed_idl */

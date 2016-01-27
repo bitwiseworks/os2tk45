@@ -1,0 +1,130 @@
+/*==============================================================*\
+ *                                                              *
+ * VMM.RC - Sample PM application resource file                 *
+ *                                                              *
+\*==============================================================*/
+#include "vmm.h"
+
+ICON IDR_RESOURCE "vmm.ico"
+BITMAP IDR_BITMAP "prodinfo.bmp"
+
+MENU IDR_RESOURCE
+{
+    SUBMENU     "~VMM", -1
+    {
+        MENUITEM    "~Allocate...\tAlt+A",   IDM_VMMALLOC,  MIS_TEXT
+        MENUITEM    "~Free...",              IDM_VMMFREE,   MIS_TEXT, MIA_DISABLED
+        MENUITEM    "~Set attributes...",    IDM_VMMSET,    MIS_TEXT, MIA_DISABLED
+        MENUITEM    "~Write...",             IDM_VMMWRITE,  MIS_TEXT, MIA_DISABLED
+        MENUITEM    "~Read...",              IDM_VMMREAD,   MIS_TEXT, MIA_DISABLED
+    }
+    SUBMENU     "~Help", -2
+    {
+         MENUITEM "~Help index",             IDM_HELPINDEX
+         MENUITEM "~General help",           IDM_GENERALHELP
+         MENUITEM "~Keys Help",              IDM_TUTORIAL
+         MENUITEM "~Using help",             IDM_USINGHELP
+         MENUITEM SEPARATOR
+         MENUITEM "~Product information...", IDM_HELPPRODUCTINFO
+    }
+}
+
+ACCELTABLE IDR_RESOURCE
+{
+    "a",        IDM_VMMALLOC,    Alt
+    "A",        IDM_VMMALLOC,    Alt
+}
+
+STRINGTABLE
+{
+    IDS_TITLE,                  "VMM Demonstration"
+    IDS_UNTITLED                "Untitled"
+    IDS_APPNAME                 "VMM"
+    IDS_HELPLIBRARYNAME         "VMM.HLP"
+    IDS_HELPWINDOWTITLE         "VMM Help"
+}
+
+MESSAGETABLE
+{
+ IDMSG_INITFAILED         "Initialization failed."
+ IDMSG_MAINWINCREATEFAILED"Failed to create main window."
+ IDMSG_CANNOTLOADEXITLIST "Cannot load Exit List processor."
+ IDMSG_CANNOTLOADSTRING   "Failed to load string."
+ IDMSG_HELPLOADERROR      "Failed to load help manager."
+ IDMSG_HELPDISPLAYERROR   "Failed to display help panel."
+ IDMSG_ACCESSGUARDPAGE    "Guard Page Accessed.\n   Calling Default Handler."
+ IDMSG_COMMITTTOWRITE     "The memory should be committed before attempting to "
+                          "read/write. Would you like to commit it for reading/"
+                          "writting or terminate program."
+ IDMSG_PROTECTIONERROR    "A non-recoverable General Protection Error has "
+                          "occured.   Program Terminating."
+ IDMSG_SUCCESSFREE        "Memory has freed successfully."
+ IDMSG_UNSETREADERROR     "EXECUTE and READ attributes must be set togather."
+ IDMSG_UNSETREADERROR2    "WRITE and READ attributes must be set togather."
+ IDMSG_ERRORADDRESS       "Address is invalid."
+}
+
+/* include dialog templates created by dialog box editor */
+/*--------------------------------------------------------------*\
+ *  Help table definition                                       *
+\*--------------------------------------------------------------*/
+HELPTABLE   VMM_HELP_TABLE
+{
+    HELPITEM   IDR_RESOURCE,     SUBTABLE_MAIN,           PANEL_MAIN
+    HELPITEM   IDD_PRODUCTINFO,  SUBTABLE_PRODUCTINFODLG, PANEL_PRODUCTINFODLG
+
+    HELPITEM   IDD_ALLOCMEM,     SUBTABLE_ALLOCBOXDLG,    PANEL_ALLOCBOXDLG
+    HELPITEM   IDD_FREEMEM,      SUBTABLE_PRODUCTINFODLG, PANEL_PRODUCTINFODLG
+    HELPITEM   IDD_SETMEM1,      SUBTABLE_SETBOXDLG,      PANEL_SETBOXDLG
+    HELPITEM   IDD_SETMEM2,      SUBTABLE_PRODUCTINFODLG, PANEL_PRODUCTINFODLG
+    HELPITEM   IDD_WRITEMEM,     SUBTABLE_PRODUCTINFODLG, PANEL_PRODUCTINFODLG
+    HELPITEM   IDD_READMEM,      SUBTABLE_PRODUCTINFODLG, PANEL_PRODUCTINFODLG
+}
+
+/*--------------------------------------------------------------*\
+ *  Main window subtable, includes menu item help               *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDM_GENERALHELP,         PANEL_GENERALHELP
+    HELPSUBITEM     IDM_USINGHELP,           PANEL_USINGHELP
+    HELPSUBITEM     IDM_TUTORIAL,            PANEL_TUTORIAL
+    HELPSUBITEM     IDM_HELPINDEX,           PANEL_HELPINDEX
+    HELPSUBITEM     IDM_HELPPRODUCTINFO,     PANEL_HELPPRODUCTINFO
+
+    HELPSUBITEM     IDM_VMMALLOC,            PANEL_HELPALLOC
+    HELPSUBITEM     IDM_VMMFREE,             PANEL_HELPFREE
+    HELPSUBITEM     IDM_VMMSET,              PANEL_HELPSET
+    HELPSUBITEM     IDM_VMMWRITE,            PANEL_HELPWRITE
+    HELPSUBITEM     IDM_VMMREAD,             PANEL_HELPREAD
+}
+/*--------------------------------------------------------------*\
+ *  Enter text dialog help subtable                             *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_PRODUCTINFODLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDD_READ,                PANEL_PRODUCTINFO_OK
+    HELPSUBITEM     IDD_ADDRESS,             PANEL_PRODUCTINFO_OK
+    HELPSUBITEM     IDD_DATA,                PANEL_PRODUCTINFO_OK
+    HELPSUBITEM     DID_OK,                  PANEL_PRODUCTINFO_OK
+
+}
+
+HELPSUBTABLE SUBTABLE_ALLOCBOXDLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDD_EDITSIZE,            PANEL_ALLOCBOX_OK
+    HELPSUBITEM     DID_OK,                  PANEL_ALLOCBOX_OK
+}
+
+HELPSUBTABLE SUBTABLE_SETBOXDLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDD_ADDRESS,             PANEL_SETBOX_OK
+    HELPSUBITEM     IDD_EDITSIZE,            PANEL_SETBOX_OK
+    HELPSUBITEM     DID_OK,                  PANEL_SETBOX_OK
+}
+
+rcinclude vmm.dlg

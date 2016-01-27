@@ -1,0 +1,31 @@
+DLGINCLUDE 1 "sort.h"
+
+DLGTEMPLATE IDD_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Product Information", IDD_PRODUCTINFO, 8, -43, 276, 137,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    {
+        CONTROL         IDC_BITMAP, IDC_BITMAP,   111, 71,  21, 21,
+                            WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT           "(C) Copyright IBM Corporation 1992. All Rights rese"
+                        "rved.",              256,  7, 54, 255,  8
+        CTEXT           "International Business Machines Corp.",
+                                              257,  7, 34, 255,  8
+        CTEXT           "OS/2 is a registered trademark of",
+                                              258,  7, 44, 255,  8
+        DEFPUSHBUTTON   "~OK", DID_OK,            111,  8,  45, 15
+    }
+}
+
+DLGTEMPLATE IDD_SETCOUNT LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Set Size", IDD_SETCOUNT,                  23, 75, 195, 58,
+                        FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR|FCF_SYSMENU
+    {
+        LTEXT           "Enter the new data set size:", 0, 2, 41, 167, 8
+        ENTRYFIELD      "", IDD_ENTRYFLD,             158, 41, 27, 8,
+                        NOT ES_AUTOSCROLL | ES_MARGIN
+        DEFPUSHBUTTON   "~OK", DID_OK,                 15, 10, 38, 12, WS_GROUP
+        PUSHBUTTON      "~Cancel", DID_CANCEL,          65, 10, 38, 12, WS_GROUP
+    }
+}

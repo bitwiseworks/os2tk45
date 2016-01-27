@@ -1,0 +1,8 @@
+NAME TELDIR WINDOWAPI
+
+DESCRIPTION 'Telephone Directory Sample Application'
+
+HEAPSIZE  1024
+
+STACKSIZE 8096
+

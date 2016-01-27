@@ -1,0 +1,12 @@
+;******************************************************************************
+;*                                                                            *
+;* Module definition file for frizffst.EXE sample FFST program                *
+;*                                                                            *
+;******************************************************************************
+;
+NAME frizffst WINDOWCOMPAT
+;NEWFILES
+CODE MOVEABLE PURE PRELOAD
+STACKSIZE 128000
+HEAPSIZE  128000
+

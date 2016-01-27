@@ -1,0 +1,161 @@
+//#  @(#) 2.12 src/somuc/tpq.idl, somuc, som2.1 12/26/95 15:39:37 [7/30/96 14:50:08]
+//
+//   COMPONENT_NAME: somuc
+//
+//   ORIGINS: 82, 81, 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1996,1996  
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//   Copyright © 1988, 1989 Apple Computer, Inc. All rights reserved.
+
+/*
+ * CLASS_NAME: somf_TPriorityQueue
+ *
+ * DESCRIPTION: A TPriorityQueue is a subclass of TCollection which keeps
+ *              the elements of the collection partially ordered based on
+ *              some ordering function.  Priority Queues are often used
+ *              when you must collect a set of records, then process the
+ *              largest, then collect more, the process the largest, etc.
+ *
+ */
+
+#ifndef TPQ_idl
+#define TPQ_idl
+
+#include "tcollect.idl"
+#include "morder.idl"
+
+/* interface somf_MOrderableCollectible; */
+
+interface somf_TPriorityQueue : somf_TCollection
+{
+
+  const   long    kInitialPriorityQueueSize = 20;
+
+  //#  friend class TPriorityQueueIterator;
+
+  //# The following method is handled by the override of somInit.
+  //#  TPriorityQueue();
+
+  somf_TPriorityQueue somfTPriorityQueueInitF(in somf_MOrderableCollectible::somf_MOrderableCompareFn testfn);
+  // Initialize a new TPriorityQueue
+  //#  TPriorityQueue(MOrderableCompareFn testfn);
+
+  somf_TPriorityQueue somfTPriorityQueueInitP(in somf_TPriorityQueue q);
+  // Initialize a new TPriorityQueue
+  //#  TPriorityQueue(const TPriorityQueue&);
+
+  //# The following method is handled by the override of somUninit.
+  //#  virtual ~TPriorityQueue();
+
+  void somfAssign(in somf_TPriorityQueue source);
+  // Assign the instance of this equal to the instance of source.
+  //#  const TPriorityQueue& operator=(const TPriorityQueue&);
+
+  void somfInsert(in somf_MOrderableCollectible obj);
+  // Insert obj in this
+  //#  virtual void Insert(MOrderableCollectible* obj);
+
+  somf_MOrderableCollectible somfPop();
+  // Remove the object with the "highest" priority from the priority queue,
+  // and return it.
+  //#  virtual MOrderableCollectible*        Pop();
+
+  somf_MOrderableCollectible somfPeek();
+  // Determine the object with the "highest" priority from the TPriorityQueue,
+  // but don't remove it.
+  //#  virtual MOrderableCollectible*        Peek() const;
+
+  somf_MOrderableCollectible somfReplace(in somf_MOrderableCollectible obj);
+  // This method removes the object with the highest priority from the
+  // TPriorityQueue, then inserts obj into the TPriorityQueue.
+  //#  virtual MOrderableCollectible* Replace(MOrderableCollectible* obj);
+
+  void somfChange(in somf_MOrderableCollectible obj);
+  // DO NOT USE THIS METHOD, it does nothing.
+  //#  virtual void Change(MOrderableCollectible* obj);
+
+  //# The following methods are overriden below
+  //#  virtual MCollectible* Remove(const MCollectible& obj);
+  //#  virtual MCollectible* Add(MCollectible* obj);
+  //#  virtual void RemoveAll();
+  //#  virtual void DeleteAll();
+  //#  virtual long Count() const;
+  //#  virtual MCollectible* Member(const MCollectible& obj) const;
+  //#  virtual TIterator* CreateIterator() const;
+
+  void somfSetEqualityComparisonFunction(in somf_MCollectible::somf_MCollectibleCompareFn fn);
+  // Set the equality comparison function being used by the priority queue.
+  //#  void SetEqualityComparisonFunction(MCollectibleCompareFn fn);
+
+  somf_MCollectible::somf_MCollectibleCompareFn  somfGetEqualityComparisonFunction();
+  // Return the equality comparison function being used by the priority queue.
+  //#  MCollectibleCompareFn  GetEqualityComparisonFunction() const;
+
+  //# The following streaming operators are not ported until the TStream
+  //# approach is resolved.
+  //#  virtual TStream& operator>>=(TStream& towhere) const;
+  //#  virtual TStream& operator<<=(TStream& towhere);
+  //#  MCollectibleDeclarationsMacro(TPriorityQueue);
+
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+
+    releaseorder: somfInsert, somfPop, somfPeek, somfReplace,
+		  somfChange, somfSetEqualityComparisonFunction,
+		  somfGetEqualityComparisonFunction,
+		  somfDownHeap, somfUpHeap, somfGrowHeap, somfMakeNewTable,
+		  somfCopyIn, somfAssign, somfTPriorityQueueInitF,
+		  somfTPriorityQueueInitP;
+
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = tpq;
+    dllname = "somuc.dll";
+
+
+    passthru C_xh_after =  ""
+"#include <morder.xh>";
+
+    passthru C_h_after =  ""
+"#include <morder.h>";
+
+    //# Internal Instance Variables
+    somf_MOrderableCollectible* fTable;
+    long                      fCount;
+    long                      fCurrentSize;
+    somf_MOrderableCollectible::somf_MOrderableCompareFn    fSequencingFn;
+    somf_MCollectible::somf_MCollectibleCompareFn  fEqualityComparisonFn;
+    unsigned long             fSeed;
+
+    //# Method Modifiers
+    somInit: override;
+    somUninit: override;
+    somfPeek: nomodify;
+    somfRemove: override;
+    somfAdd: override;
+    somfRemoveAll: override;
+    somfDeleteAll: override;
+    somfCount: override;
+    somfMember: override;
+    somfCreateIterator: override;
+    somfGetEqualityComparisonFunction: nomodify;
+    somfTPriorityQueueInitF: nooverride;
+    somfTPriorityQueueInitP: nooverride;
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* TPQ_idl */

@@ -1,0 +1,65 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.9 src/somp/poida.idl, somp, som2.1 12/26/95 16:59:36 [7/30/96 14:46:58]
+
+
+#ifndef poida_idl
+#define poida_idl
+
+#include <somp.idl>
+#include <somobj.idl>
+#include <somperrd.idl>
+
+interface SOMPPersistentId;
+
+interface SOMPIdAssignerAbstract : SOMObject
+
+// This is the abstract contract for an ID Assigner. The ID in
+// this case is an ID for a persistent object. An ID Assigner is
+// used at the time a persistent object is initialized.
+
+{
+   void sompGetSystemAssignedId(inout SOMPPersistentId id) raises(SOMPError::sompException);
+//
+// Assign a system ID.
+// Input: Pointer to persistent ID object
+// Output: Returns nonzero error if ID could not be assigned,
+//         otherwise, returns 0.
+//         This method allocates the ID object.
+//         Freeing the storage space is the
+//         responsibility of the persistent object (po.c) at uninit.
+
+#ifdef __SOMIDL__
+
+implementation
+{
+    callstyle=idl;
+    dllname="somp.dll";
+
+    releaseorder: sompGetSystemAssignedId;
+
+
+// Class Modifiers
+   majorversion = 2;
+   minorversion = 1;
+   filestem = poida;
+
+// Method Modifiers
+
+};
+#endif /* __SOMIDL__ */
+
+};
+
+
+#endif  /* poida_idl */

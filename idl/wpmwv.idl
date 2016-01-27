@@ -1,0 +1,79 @@
+
+#ifndef wpmwv_idl
+#define wpmwv_idl
+
+#include "wpfolder.idl"
+#include <somcls.idl>
+
+interface M_WPMinWinViewer;
+
+interface WPMinWinViewer : WPFolder
+
+{
+  WPObject wpFindMinWindow(in HWND hwndFrame);
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpFindMinWindow;
+
+    externalstem = WPmwv;
+    local;
+    externalprefix = mwv_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpmwv;
+    metaclass = M_WPMinWinViewer;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    passthru C_h =      ""
+"";
+
+    wpOpen: override;
+    wpDragOver: override;
+    wpMenuItemSelected: override;
+    wpAddObjectWindowPage: override;
+    wpAddFolderView2Page: override;
+    wpAddFolderView3Page: override;
+    wpAddFileMenuPage: override;
+    wpAddFolderIncludePage: override;
+    wpFilterMenu: override;                                                     
+    wpModifyMenu: override;                                                     
+    somDefaultInit: override;          
+    somDestruct: override;             
+    wpQueryFldrSortClass: override;
+
+    wpAddFolderSelfClosePage: override;
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPMinWinViewer : M_WPFolder
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPmwv;
+    local;
+    externalprefix = mwvM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpmwv;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryTitle: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryStyle: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryIconData: override;
+    wpclsQueryIconDataN: override;
+    wpclsQuerySettingsPageSize: override; 
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpmwv_idl */

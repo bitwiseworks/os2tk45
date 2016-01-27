@@ -1,0 +1,74 @@
+
+//  Module Header
+//
+//  Module Name: WPTIMER
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wptimer_idl
+#define wptimer_idl
+
+#include "wpdevice.idl"
+
+interface M_WPDevTimer;
+
+interface WPDevTimer : WPDevice
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wptimer;
+    functionprefix = timer_;
+    local;
+//    externalprefix = timer_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wptimer;
+    metaclass = M_WPDevTimer;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+    passthru C_h =  ""
+"";
+
+/* Private instance data area */
+
+     /* Overridden instance methods area */
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDevTimer : M_WPDevice
+{
+  /* New class methods section */
+
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wptimer;
+    functionprefix = timerM_;
+    local;
+//    externalprefix = timerM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wptimer;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+
+    /* Overridden class methods section */
+    wpclsInitData:      override;
+    wpclsQueryIconData: override;                                              //bjf152374
+    wpclsQueryTitle:    override;
+    wpclsUnInitData:    override;
+  };
+
+};
+#endif  /* wptimer_idl */

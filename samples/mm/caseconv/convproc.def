@@ -1,0 +1,11 @@
+LIBRARY CONVPROC                            
+DATA SHARED                                 
+PROTMODE                                    
+HEAPSIZE 0                                  
+EXPORTS                                     
+   CONVProc                        @1       
+   convhlpGetFormatStringLength    @2       
+   convhlpGetFormatString          @3       
+   convhlpGetNLSData               @4       
+   convhlpToUpper                  @5       
+   convhlpToLower                  @6       

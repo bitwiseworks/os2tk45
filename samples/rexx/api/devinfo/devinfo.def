@@ -1,0 +1,8 @@
+LIBRARY DEVINFO INITINSTANCE
+
+DESCRIPTION '@ Copyright IBM Corp. 1991 All Rights Reserved Licensed Materials-Property Of IBM.'
+PROTMODE
+DATA MULTIPLE NONSHARED LOADONCALL
+
+EXPORTS
+       DevInfo  @1

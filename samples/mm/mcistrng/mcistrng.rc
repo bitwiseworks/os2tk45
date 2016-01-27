@@ -1,0 +1,151 @@
+/*************************************************************************
+ * File Name   : MCISTRNG.RC
+ *
+ * Description : This is the resource file for the MCISTRNG program.
+ *
+ * Concepts    : See the C source file for this program.
+ *
+ * MMPM/2 API's: See the C source file for this program.
+ *
+ * Required
+ *    Files    : See the C source file for this program.
+ *
+ * Copyright (C) IBM 1991, 1993
+ *************************************************************************/
+
+#define  INCL_WIN
+#define  INCL_PM
+#define  INCL_DOS
+#include <os2.h>
+
+#include "MCISTRNG.H"
+
+RCINCLUDE MCISTRNG.DLG
+
+ICON ID_ICON MCISTRNG.ICO
+
+/*
+ * Help Table Definitions.
+ *
+ * The help table definition for the dialog windows.
+ * - Main
+ */
+
+HELPTABLE ID_MCI_STRING_HELPTABLE
+{
+    HELPITEM ID_MAIN_DIALOG_BOX,      0,                   0
+    HELPITEM ID_MESSAGE_BOX,          SUBTABLE_MESSAGEBOX, ID_MESSAGE_BOX
+}
+
+HELPSUBTABLE SUBTABLE_MESSAGEBOX
+{
+}
+
+/*
+ * String Table Definition.
+ */
+STRINGTABLE
+{
+   IDS_MAIN_WINDOW_TITLE,
+   "Media Control Interface String Test"
+
+   IDS_MAIN_HELP_WINDOW_TITLE,
+   "String Test Help Window"
+
+   IDS_NORMAL_ERROR_MESSAGE_BOX_TEXT,
+   "String Test Error"
+
+   IDS_MAIN_HELP_CREATION_FAILED,
+   "Help could not be initialized for the Media Control "
+   "Interface String Test window.  Help will not be "
+   "available."
+
+   IDS_MAIN_HELP_LIBRARY_FILE,
+   "MCISTRNG.HLP"
+
+   IDS_MCI_STRING_HAS_NO_SIZE,
+   "The Send String entry field is blank.  Please type a valid string "
+   "command and retry."
+
+   IDS_MCI_GETTING_STRING_ERROR_FAILED,
+   "The specified string command was not a valid command. "
+   "Please type a valid string command and retry."
+
+   IDS_ALL_CHECKBOXES_ARE_FALSE,
+   "No check boxes are selected.  No notification messages will be displayed "
+   "in the Display Messages dialog window."
+
+   IDS_MM_MCINOTIFY,
+   "MM_MCINOTIFY"
+
+   IDS_MM_MCIPASSDEVICE,
+   "MM_MCIPASSDEVICE"
+
+   IDS_MM_MCIPOSITIONCHANGE,
+   "MM_MCIPOSITIONCHANGE"
+
+   IDS_MM_MCIEVENT,
+   "MM_MCIEVENT"
+
+   IDS_MM_MCICUEPOINT,
+   "MM_MCICUEPOINT"
+
+   IDS_MM_MCIPLAYLISTMESSAGE,
+   "MM_MCIPLAYLISTMESSAGE"
+
+   IDS_MCI_NOTIFY_SUCCESSFUL,
+   "   MCI_NOTIFY_SUCCESSFUL"
+
+   IDS_MCI_NOTIFY_SUPERSEDED,
+   "   MCI_NOTIFY_SUPERSEDED"
+
+   IDS_MCI_NOTIFY_ABORTED,
+   "   MCI_NOTIFY_ABORTED"
+
+   IDS_MCI_NOTIFY_ERROR,
+   "   MCI_NOTIFY_ERROR = "
+
+   IDS_DEVICE_ID
+   "   Device ID = "
+
+   IDS_USER_PARM
+   "   User parameter = "
+
+   IDS_GAINING_USE
+   "   Gaining use of device"
+
+   IDS_LOSING_USE
+   "   Losing use of device"
+
+   IDS_TIME
+   "   Time = "
+
+   IDS_CMD_MSG
+   "   Command message was "
+
+   IDS_DEFAULTSIZE
+   "~Default Size"
+
+   IDS_RETURN_STRING
+   "Return string = "
+
+   IDS_UNKNOWN
+   " UNKNOWN"
+
+   IDS_CONTINUE_BATCHFILE
+   "  Select 'Yes' to continue processing the string command batch file, or "
+   "select 'No' to quit processing it."
+
+   IDS_END_OF_BATCH_FILE
+   "Completed processing the string command batch file."
+
+   IDS_CANNOT_FIND_BATCH_FILE
+   "Cannot find string command batch file.  Ensure that the batch file "
+   "exists and retry."
+
+   IDS_OPEN_BATCHFILE_TITLE
+   "String test - Open and execute a batch file"
+
+   IDS_OPEN_BATCHFILE_BUTTON
+   "Execute batch file"
+}

@@ -1,0 +1,32 @@
+DLGTEMPLATE IDD_ABOUTBOX LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Product Information", IDD_ABOUTBOX,                9,  17, 250, 130,
+            FS_NOBYTEALIGN | FS_DLGBORDER | WS_VISIBLE | WS_CLIPSIBLINGS | WS_SAVEBITS, FCF_TITLEBAR
+    BEGIN
+        CONTROL IDR_MAIN, IDC_ICON,                           98,  87,   0,   0,
+                 WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "PM Clock Application", 256,                   0,  75, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "Version 2.0", 258,                            0,  65, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "(C) Copyright 1992, IBM",
+                 257,                                          0,  55, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "Corporation.  All Rights reserved.",
+                 257,                                          0,  45, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "OS/2 is a registered trademark of", 258,      0,  35, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "International Business Machines Corp.", 257,  0,  25, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CONTROL "Ok", IDC_OK,                                105,   6,  38,  13,
+                 WC_BUTTON, BS_PUSHBUTTON | BS_DEFAULT | WS_TABSTOP | WS_VISIBLE
+    END
+END

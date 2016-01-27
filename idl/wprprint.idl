@@ -1,0 +1,111 @@
+
+//  Module Header
+//
+//  Module Name: WPRPRINT
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wprprint_idl
+#define wprprint_idl
+
+#include "wpprint.idl"
+#include <somcls.idl>
+
+interface M_WPRPrinter;
+
+interface WPRPrinter : WPPrinter
+{
+
+  BOOL wpAddNetworkPage(in HWND hwndNotebook);
+  BOOL wpQueryNetworkId(in PSZ pBuf, in PULONG pcbBuf);
+  BOOL wpQueryLocalAlias(in PSZ pBuf, in PULONG pcbBuf);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpSetResNetIdentity,wpQueryResNetIdentity,wpAddNetworkPage,
+                  wpCreateAnotherPrinter,wpNetworkConnect,wpNetworkDisconnect,
+                  wpNetworkLogoff,wpNetworkLogon,wpAuthenticate,wpQueryNetworkName,
+                  wpQueryServerName,wpQueryResourceName,wpParseNetId,
+                  wpAddObjectGeneralPage,
+                  wpQueryNetworkId,wpQueryLocalAlias;
+
+    externalstem = WPrprint;
+    local;
+    externalprefix = rprt_;
+    majorversion = 1;
+    minorversion = 1;
+    filestem = wprprint;
+    metaclass = M_WPRPrinter;
+    callstyle = oidl;
+
+
+    passthru C_h =     " "
+" /* common context menu ids */ "
+"#define WPPOICM_RPRTMENU            9017"
+"#define WPPOIDM_RPRTACCESSANOTHER   9018"
+"#define WPPOIDM_RPRTCONNECT         9019"
+"#define WPPOIDM_RPRTDISCONNECT      9020"
+"#define WPPOIDM_RPRTLOGON           9021"
+"#define WPPOIDM_RPRTLOGOFF          9022"
+"#define WPPOIDM_RPRTREMADMIN        9024"
+"#define WPPOIDM_RPRTREMADMIN_COPY   9025"
+"#define WPPOIDM_RPRTREMADMIN_CREATE 9026"
+"#define WPPOIDM_RPRTREMADMIN_DELETE 9027"
+"#define WPPOIDM_PPRTINSTALL         8001"
+"";
+
+
+    wpInitData: override;
+    wpUnInitData: override;
+    wpSetup: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpAddSettingsPages: override;
+    wpAddObjectGeneralPage: override;
+    wpFilterPopupMenu: override;
+    wpFree: override;
+    wpModifyPopupMenu: override;
+    wpMenuItemSelected: override;
+    wpMenuItemHelpSelected: override;
+    wpDrop: override;
+    wpDragOver: override;
+    wpCopyObject: override;
+    wpCopiedFromTemplate: override;
+    wpCreateFromTemplate: override;
+    wpOpen: override;
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPRPrinter
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPrprint;
+    local;
+    externalprefix = rprtM_;
+    functionprefix = rprtM_;
+    majorversion = 1;
+    minorversion = 1;
+    filestem = wprprint;
+    callstyle = oidl;
+
+    wpclsQueryTitle: override;
+    wpclsQueryIcon: override;
+    wpclsQueryIconData: override;
+    wpclsQueryStyle: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wprprint_idl */

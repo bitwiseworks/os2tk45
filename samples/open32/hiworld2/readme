@@ -1,0 +1,35 @@
+This version of HIWORLD will run without changes on an OS/2 system with
+the DAPIE extensions installed.  For your reference, an executable is included.
+
+It is built from the Win32 version following these steps:
+
+        1) Convert Win32 resource file (HIWORLD.RC) to OS/2 resource file
+           using the SMART tool (Version 2.1B).  Note that SMART will rename
+           your Win32 resource file (.rc) to .rcx and will create an OS/2
+           resource file with the .rc extension.
+        2) Convert cursor file (CURSOR1.CUR) and icon file (ICON2.ICO) to
+           OS/2 format using the SMART tool (Version 2.1B).
+        3) Change includes of <windows.h> to includes of <os2win.h>. This
+           is done in hiworld.c via an #ifdef.
+        4) Create a .DEF file and specify a stack size of at least 64K.  There
+           is a sample .DEF file in this directory.
+        5) Compile and link MAIN.C (found in the toolkit\c directory under your
+           DAPIE directory) with HIWORLD.C to form HIWORLD.EXE.  This is done
+           in the makefile provided with this sample.
+        6) Run HIWORLD.EXE as you would any other OS/2 executable.
+
+This sample was built with IBM C/Set++ Version 2.01 and the OS/2 Developer's
+Toolkit for OS/2 Warp Version 3.
+
+In this directory, you will find these files:
+        cursor1.cur - custom cursor
+        icon2.ico - custom icon
+        hiworld.def - linkage information
+        hiworld.exe - prebuilt executable
+        hiworld.c - source code
+        hiworld.rc - resource file (after conversion)
+        hiworld.h - header file
+        main.c - wrapper function
+        makefile - makefile to build hiworld with IBM C/Set 2.01
+        readme - this file
+

@@ -1,0 +1,11 @@
+;
+;  The module definition file supplies extra information about the program
+;  module to the LINKER.
+;
+
+
+NAME HIWORLD WINDOWAPI
+
+DESCRIPTION 'HIWORLD Sample'
+
+STACKSIZE   65536

@@ -1,0 +1,3 @@
+/* P1 Calculator key processor */
+parse arg left, right
+return left ** right

@@ -1,0 +1,13 @@
+;--------------------------------------------------------------------------
+; DRAGDROP.DEF
+;--------------------------------------------------------------------------
+
+NAME            DRG2TEST WINDOWAPI
+
+DESCRIPTION     'Demonstrates Drag Data Interchange Protocol (c) IBM 1991'
+PROTMODE
+HEAPSIZE        8192
+STACKSIZE       48768
+EXPORTS         ClientWndProc
+                OpenDlgProc
+                ListSubclassProc

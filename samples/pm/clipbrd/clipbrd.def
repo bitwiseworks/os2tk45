@@ -1,0 +1,20 @@
+;******* CLIPBRD   C Sample Program Module Definition File (.DEF) ********
+;
+;  The module definition file supplies extra information about the program
+;  module to the LINKER.
+;  Copyright 1991 IBM Corporation
+;
+;  Different STACKSIZE used.  ( 8192 bytes )
+
+
+NAME    clipbrd  WINDOWAPI
+
+DESCRIPTION 'Clipboard Sample'
+
+DATA    MULTIPLE
+
+STACKSIZE 8192
+HEAPSIZE  4096
+
+PROTMODE
+

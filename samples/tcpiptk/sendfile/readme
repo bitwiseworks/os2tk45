@@ -1,0 +1,46 @@
+SENDFILE
+--------
+The send_file() sends data from the file associated with the open file
+handle, directly from the file system cache over the connection associated
+with the socket.
+
+SAMPLE FOR SENDFILE
+-------------------
+
+There are two exes named
+
+a) recv.exe         - TCP server application
+b) sendfile.exe     - TCP client application
+
+for explaining the send_file. The client sends a file to a server.
+
+The server can be started  as follows -
+
+recv  <ip_addr> <port>
+where:
+a) <ip_addr> - stands for the ip address of the server.
+b) <port> - stands for the port number where  the server is to be bound.
+
+The client can be started as follows -
+
+sendfile  <ip_addr> <port> <filename>
+where:
+a) <ip_addr> - stands for the ip address of the server.
+b) <port> - stands for the port number where  the server is bound.
+c) <filename> - stands for the file to be sent.
+
+
+COMPILATION
+------------
+
+The source code for the server and the client are in the files
+by name -
+
+1) sendfile.c
+2) recv.c
+
+These can be compiled by using the makefile given and running
+the following command
+
+nmake /a
+

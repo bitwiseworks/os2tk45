@@ -1,0 +1,246 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.11 src/somp/po.idl, somp, som2.1 12/26/95 16:59:15 [7/30/96 14:46:57]
+
+
+
+#ifndef po_idl
+#define po_idl
+
+#include <somobj.idl>
+#include <somcls.idl>
+#include <somp.idl>
+#include <somperrd.idl>
+
+
+interface SOMPIdAssigner;
+interface SOMPEncoderDecoderAbstract;
+interface SOMPIOGroup;
+interface SOMPPersistentId;
+interface M_SOMPPersistentObject;
+
+interface SOMPPersistentObject : SOMObject
+{
+   const unsigned short SOMP_STATE_UNDEFINED   = 0x8000;
+   const unsigned short SOMP_STATE_UNSTABLE    = 0x4000;
+   const unsigned short SOMP_STATE_STABLE      = 0x1000;
+   const unsigned short SOMP_STATE_DIRTY       = 0x0800;
+   const unsigned short SOMP_STATE_COMPACT     = 0x0400;
+
+   void sompInitNextAvail(in SOMPIdAssigner thisAssigner) raises(SOMPError::sompException);
+   void sompInitNearObject(in SOMPPersistentObject nearObject) raises(SOMPError::sompException);
+   void sompInitGivenId(in SOMPPersistentId thisId) raises(SOMPError::sompException);
+   SOMPPersistentId sompGetPersistentId();
+
+   string sompGetPersistentIdString(in string outBuff);
+// Get persistent ID. Returns string representation of persistent ID.
+// Puts the fully-qualified persistent object ID in the caller-supplied
+// buffer.  (The caller must allocate the memory for the buffer, and
+// is also responsible for freeing it when appropriate.)
+
+   void sompSetEncoderDecoderName(in string myName);
+// Set the class name of the EncoderDecoder.
+// If this method is not called, the encoder/decoder class name is the
+// one returned by the class object.
+
+   string sompGetEncoderDecoderName();
+// Get the class name of the EncoderDecoder
+
+   boolean sompEquals(in SOMPPersistentId otherId);
+// Checks to see if this object's ID is equivalent to the given ID.
+// Returns TRUE if the ID's are equivalent, FALSE otherwise.
+
+   void sompPassivate();
+// This method is called by the persistence framework just prior
+// to saving a persistent object.  It provides a means for a
+// client to tidy up any data necessary in the persistent object
+// (or its embedded objects) before the save operation is
+// completed.  This method does nothing if not overridden by the
+// client.
+
+   void sompActivated();
+// This method is called by the persistence framework after a
+// persistent object is restored.  It provides a means for a client
+// to perform any initializations prior to the use of the persistent
+// object. That is, make the object useable. If not overridden, this
+// method sets the state of the object to POSTATE_STABLE.
+
+
+   string sompGetRelativeIdString (in SOMObject ifNearThisObject,
+				   in string relativeIdString);
+// if the persistent object is in the same IOGroup as <ifNearThisObject>,
+// places an Id string of the form:
+//
+//            <IOGroupMgrClassName>:$RELATIVE:<offset>
+//
+// in relativeIdString, else places a fully-qualified Id of the form:
+//
+//            <IOGroupMgrClassName>:<path/filename>:<offset>
+//
+// in relativeIdString.  Returns pointer to relativeIdString through the
+// operation name.  Note: the caller must allocate relativeIdString prior
+// to invoking the operation.
+
+   SOMPIOGroup sompInitIOGroup(in SOMObject nearPersistentObj);
+// Initialize the IO group for this object. (Used at InitPersistentID time)
+// Each persistent object is a member of an I/O Group. An I/O Group
+// can consist of one or more persistent objects.
+//
+// The I/O Group in which this persistent object is a member is
+// determined by the "nearPersistentObj" argument.
+// If given nearPersistentObj is NULL, a new IOGroup may be instantiated.
+// Otherwise, nearPersistentObj is expected to be a persistent object with
+// an existing IOGroup. This object is made a member of the
+// nearPersistentObj I/O Group.
+//
+// An I/O Group offset is assigned by this method. This offset may
+// be returned via sompGetPersistentOffset on the ID of this object.
+
+   void sompSetDirty();
+// Sets the state of an object to dirty.  Front method for SetState.
+
+   boolean sompIsDirty();
+// This is used for optimization.  The default always returns TRUE.  Optimized
+// persistent objects can override this to return sompGetDirty(), and then
+// be sure to invoke sompSetDirty() whenever the object is updated.
+
+   boolean sompGetDirty();
+// This returns TRUE if the dirty bit is set, FALSE otherwise.
+
+   void sompMarkForCompaction();
+// Note to the Persistence Framework that the next time this object is
+// saved, the entire IO Group should be compacted, if possible.
+
+   void sompSetState(in unsigned short state);
+// Sets specified state.
+// See po.csc for a description of the possible states.
+
+   boolean sompCheckState(in unsigned short state);
+// Returns TRUE if given state is true for this object.
+// See po.csc for a description of the possible states.
+
+   void sompClearState(in unsigned short state);
+// Clears specified state.
+
+   SOMPEncoderDecoderAbstract sompGetEncoderDecoder();
+// If an Encoder/Decoder has not already been instantiated, one
+// is instantiated. A pointer to the encoder/decoder is
+// returned. NULL is returned if this object's encoder/decoder
+// cannot be instantiated.  This method should only be used by the IO Group
+// Mgr class.
+
+   void sompFreeEncoderDecoder();
+// Free this object's encoder/decoder. This method should only be used
+// by the IO Group Manager class.
+
+   SOMPIOGroup sompGetIOGroup();
+// Get a pointer to the IOGroup collection object for this object.
+// Within the returned collection are this object and any objects
+// initialized near it (with sompInitNearObject). This method is intended
+// to be use by IO Group Mgr implementors.
+
+
+#ifdef __SOMIDL__
+
+implementation
+{
+  callstyle=idl;
+  dllname="somp.dll";
+
+  releaseorder: sompInitNextAvail, sompInitNearObject,
+		sompInitGivenId, sompGetPersistentId,
+		sompGetPersistentIdString, sompSetEncoderDecoderName,
+		sompGetEncoderDecoderName, sompRegisterPersistentPointer,
+		sompUnRegisterPersistentPointer, sompPersistentPointerCount,
+		sompGetNthPersistentPointer, sompEquals,
+		sompPassivate, sompActivated,
+		sompGetRelativeIdString, sompUnInitIOGroup,
+		sompSetDirty, sompMarkForCompaction,
+		sompSetState, sompCheckState,
+		sompClearState, sompInitIOGroup,
+		sompGetEncoderDecoder, sompFreeEncoderDecoder,
+		sompGetIOGroup, sompSetIOGroup,
+		sompGetStoredLength, sompSetStoredLength,
+		sompGetMIOffset, sompSetMIOffset,
+		sompIsDirty, sompGetDirty;
+
+//# Class Modifiers
+   majorversion = 2;
+   minorversion = 1;
+   filestem = po;
+   metaclass = M_SOMPPersistentObject;
+
+
+// Method Modifiers
+   somDumpSelfInt: override;
+   somInit: override;
+   somUninit: override;
+
+};
+
+#endif /* __SOMIDL__ */
+};
+
+// ************************************************************************
+// *                    PERSISTENT OBJECT METACLASS                       *
+// ************************************************************************
+
+interface M_SOMPPersistentObject : SOMClass
+{
+   #ifdef _WIN16
+   #endif /* _WIN16 */
+
+   void sompSetClassLevelEncoderDecoderName(in string myName);
+// Set Encoder/Decoder name at the class level
+
+   string sompGetClassLevelEncoderDecoderName();
+// Get class level Encoder/Decoder name.
+
+#ifdef __SOMIDL__
+
+implementation
+{
+  callstyle=idl;
+  dllname="somp.dll";
+  #ifdef _WIN16
+    releaseorder: reserved1, reserved2, reserved3, reserved4,
+		  sompSetClassLevelEncoderDecoderName,
+		  sompGetClassLevelEncoderDecoderName;
+  #else
+    releaseorder: sompRegisterEDPair, sompGetTotalEDPairs,
+		  sompGetNthEDPair, sompGetNthEDPairObj,
+		  sompSetClassLevelEncoderDecoderName,
+		  sompGetClassLevelEncoderDecoderName;
+  #endif /* _WIN16 */
+
+
+// Class Modifiers
+   majorversion = 2;
+   minorversion = 1;
+   functionprefix = SOMPPersistentMeta_; filestem = po;
+
+// Internal Instance Variables
+
+
+// Method Modifiers
+   somInit: override;
+   #ifdef _WIN16
+     somUninit: override;
+   #endif
+
+};
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* po_idl */

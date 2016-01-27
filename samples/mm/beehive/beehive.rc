@@ -1,0 +1,25 @@
+/**************************************************************************
+ *
+ * File Name        : BEEHIVE.RC
+ *
+ * Description      : Define BEEHIVE.EXE menus
+ *
+ ****************************************************************************/
+
+#include <os2.h>
+#include "beehive.h"
+
+ICON  ID_MAINWND BEEHIVE.ICO
+
+MENU                                    ID_MAINWND      PRELOAD
+   {
+   SUBMENU      "~Options",             ID_OPTIONS,     MIS_TEXT
+      {
+      MENUITEM  "Normal Sprites",       ID_NORMAL,      MIS_TEXT
+      MENUITEM  "Compiled Sprites",     ID_COMPILED,    MIS_TEXT
+      MENUITEM  "~Full Screen",         ID_FULLSCRN,    MIS_TEXT
+      MENUITEM                                          SEPARATOR
+      MENUITEM  "E~xit\tF3",            ID_EXIT,        MIS_TEXT
+      }
+   }
+

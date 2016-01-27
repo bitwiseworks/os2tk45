@@ -1,0 +1,16 @@
+
+/*  The TLKDUT2.SCR change file for MMPM2.INI  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPProgram"
+    WPTitle       = "Duet Player II\nSample"
+    WPSetupString = "EXENAME=$(DEST)DUET2.EXE;PROGTYPE=PM;STARTUPDIR=$(DIR)10;OBJECTID=<MPM2TLK_DUET2>"
+    WPLocation    = "<MMPMTLK>"
+    WPFlags       = 1L
+    )
+
+/* end of TLKDUT2.SCR */

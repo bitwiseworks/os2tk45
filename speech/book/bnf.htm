@@ -1,0 +1,165 @@
+<HTML><HEAD>
+<TITLE>Writing Grammar Files</TITLE><HEAD>
+</HEAD><BODY>
+<IMG SRC="bannerx.gif" ALT=""><BR>
+<H1>Grammar Guide</H1>
+<HR>
+<H1>A guide to writing grammar files</H1>
+<p>
+<H2>The syntax of grammar rules</H2>
+<H3>Symbols</H3>
+<p>A grammar files contain both terminal and nonterminal symbols.
+Terminals are alphabetic strings. Nonterminals are alphanumeric strings
+enclosed in angle brackets. For example, <TT>print</TT>, <TT>move</TT>, and
+<TT>select</TT>
+are all terminals; <TT>&lt;commands&gt;</TT>, <TT>&lt;np&gt;</TT>, and <TT>&lt;vp&gt;</TT> are nonterminals.
+
+<H3>Grammar Rules</H3>
+<p>The grammar file is a set of context-free rewrite rules. Each
+rule contains one nonterminal symbol on the left-hand side of an equals sign
+("=") and one
+or more terminal or nonterminal symbols on the right-hand side.
+Rules must end with a period (".").
+Each rule must have a unique left-hand side nonterminal---no two rules
+can have identical left-hand sides. For example, the following grammar fragment
+is not allowed:
+<PRE>
+&lt;np&gt; = &lt;pronoun&gt; .
+&lt;np&gt; = &lt;determiner&gt; &lt;noun&gt; .
+</PRE>
+<p>
+However, the right-hand side of a rule can contain a list of alternative
+rewrites delimited by the "|" character. For example, the above fragment
+can be rewritten as:
+<PRE>
+&lt;np&gt; = &lt;pronoun&gt; | &lt;determiner&gt; &lt;noun&gt; .
+</PRE>
+(A np can be rewritten either as a pronoun or as a determiner followed by
+a noun)
+<p>The following symbol-final characters have special interpretations: <p>
+<MENU>
+<LI> <strong>?</strong> means that the symbol is optional. For example,
+     in <TT>change the? font</TT> the <TT>the</TT> is optional.
+<A NAME="kleene"><LI> <strong>*</strong>, the Kleene Star,</a> means that there can be zero or more occurrences
+     of the symbol. For example, in <TT>&lt;part-number&gt; = &lt;part&gt; &lt;digits&gt;*</TT> there
+     can be zero or more occurrences of <TT>&lt;digits&gt;</TT> .
+<LI> <strong>+</strong>, the Kleene Plus, means that there can be one or more occurrences of
+     the symbol.
+</MENU>
+<H3>The root nonterminal</H3>
+<p>The left-hand-side of the first rule in your grammar defines the root nonterminal.
+VoiceType or other speech applications will only recognize phrases that are derived
+from this nonterminal. This is illustrated in the following ill-formed grammar fragment:
+<PRE>
+
+&lt;move-command&gt; = move &lt;direction&gt; &lt;count&gt; .
+&lt:select-command&gt; = select the next &lt;count&gt; words .
+
+    ...
+
+</PRE>
+
+A speech application using this grammar will only recognize phrases derived
+from <TT>&lt;move-command&gt;</TT> (<I>move up five, move down six,</I> etc.).
+It will not recognize phrases derived from <TT>&lt;select-command&gt;</TT>.
+In fact, this grammar will generate the warning
+<PRE>
+
+  Non-terminal defined but not referenced
+  BNF symbol "&lt;select-command&gt;"
+
+
+</PRE>
+
+
+ when you attempt compile it. The above grammar can be corrected by adding
+ a grammar initial root nonterminal rule as follows:
+
+ <PRE>
+
+&lt;commands&gt; = &lt;move-command&gt; | &lt;select-command&gt; .
+
+&lt;move-command&gt; = move &lt;direction&gt; &lt;count&gt; .
+&lt:select-command&gt; = select the next &lt;count&gt; words .
+
+</PRE>
+<H3>Including a grammar within your grammar</H3>
+<p> You can include an existing grammar into the grammar file you are writing
+by using the INCLUDE keyword on the last line of the new grammar file. For example,
+the line<p><p>
+<TT>include 'my-numbers.bnf'</TT> <p><p>
+will include the rules in "my-numbers.bnf" in the current grammar.
+<p><p>A set of commonly used integers (<I>one</I> through <I>twenty</I>, <I>thirty</I>,
+<I>forty</I> and <I>fifty</I>) can be made available to your grammar by the special
+command <p><p>
+<TT>EXTERN &lt;Extern_counts&gt; . </TT>
+<p><p>
+This line must be after all the grammar rules but before any include statements.
+The use of the of the non-terminal <TT>&lt;Extern_counts&gt;</TT> is explained
+in <A HREF="annot.htm#counts-annotation">the section on the <TT>@count()</TT> annotation.</A>
+<H3>Comments</H3>
+<p>Comments can be included in grammar files by use of the comment marker <tt>//</tt>.
+All the characters from the comment marker to the end of the line are considered to
+be the comment.
+<A NAME="annotation"><H3>Annotations</H3></a>
+Annotations can be attached to terminal symbols. When an annotated word is recognized
+both that word and its annotation are returned to the application. These annotations
+may assist the application in parsing the recognized phrases.
+Annotations can either be a string or a integer ranging from 0 to 65535. For example,
+<PRE>
+&lt;september&gt; = September:9 .
+&lt;subtract&gt; = subtract:"-" .
+&lt;db-query&gt; = list all employees:"list-employees" |
+             show all employees:"list-employees" .
+</PRE><p>
+If you are writing grammars that will be used by Voice Manager, these
+annotations can be used to define what actions to take when a given phrase
+is recognized.  For information on writing Voice Manager annotations
+see the <A HREF="annot.htm">annotations guide</A>.
+<H4>Note:</H4>
+Annotations that introduce indeterminacy are not allowed. For example,
+<PRE>
+&lt;command&gt; = set:"[alt f]" the font to courier   |
+            set:"[alt c]" the color to blue     .
+</PRE><p>
+is not allowed.   When the speech engine recognizes "set" it doesn't
+know which set is intended: <TT>set:"[alt f]"</TT> or <TT>set:"[alt c]"</TT>.
+Often this problem can be eliminated by moving the annotations rightward.
+Thus, the above example can be rewritten:
+<p>
+<PRE>
+&lt;command&gt; = set the font:"[alt f]" to courier   |
+            set the color:"[alt c]" to blue     .
+</PRE><p>
+However, this is not always possible. For example, consider the following
+problematic grammar:
+
+<p>
+<PRE>
+&lt;print-command&gt; = print:"[ctrl p]"    |
+                  print:"[ctrl p][alt e]" even pages     .
+</PRE><p>
+This is not allowed because when the speech engine recognizes "print" it
+doesn't know which print is intended: <tt>print:"[ctrl p]"</TT> or
+<TT>print:"[ctrl p][alt e]"</tt>. Moving the annotation rightward does
+not eliminate the problem:
+
+<p>
+<PRE>
+&lt;print-command&gt; = print:"[ctrl p]"    |
+                  print even:"[ctrl p][alt e]" pages     .
+</PRE><p>
+<I>Print</I> is still ambiguous between <TT>print:"[ctrl p]"</TT> and <TT>print</TT>.
+
+<HR>
+<H2>Other notes</H2>
+<UL>
+
+<LI> Some comments on <A HREF="style.htm">style</A>
+</UL>
+<p>
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="grammar.htm">Previous Page</A> &#124; <A HREF="vtbnfc.htm">Next Page</A> &#124; <A HREF="grammar.htm">Back to Grammar Guide</A> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+</BODY>
+</HTML>
+

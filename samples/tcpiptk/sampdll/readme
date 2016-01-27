@@ -1,0 +1,17 @@
+Sampdll consists of two C programs: MYPROG.C and SAMPDLL.C
+(located in \TOOLKIT\SAMPLES\TCPIPTK\SAMPDLL).
+SAMPDLL.C demonstrates building a DLL.
+MYPROG.C demonstrates the use of a DLL.  When executed, it
+returns the IP address of a valid hostname.
+
+Following are details on building and executing the RPC Samples:
+
+(1) To Compile and Link the SAMPDLL.DLL and MYPROG.EXE, type:
+
+      nmake -f vacpp.mak         (to build using the VisualAge C/C++ compiler)
+
+(2) To execute the sample, type:
+
+      myprog hostname
+
+

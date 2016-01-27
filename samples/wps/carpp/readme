@@ -1,0 +1,60 @@
+******************************************************************************
+
+*                 OS/2* 3.x WorkPlace Shell* .IDL files                      *
+
+*           (C) Copyright IBM Corp. 1993-1995 All Rights Reserved            *
+
+*                    IBM is a registered trademark of the                    *
+
+*                International Business Machines Corporation                 *
+
+*  U.S. Government Users Restricted Rights - Use, duplication or disclosure  *
+
+*           restricted by GSA ADP Schedule Contract with IBM Corp.           *
+
+******************************************************************************
+
+
+  This README document contains information that describes how the
+  .IDL files for the WorkPlace Shell Car C++ Sample are to be used.
+
+  These files are provided on an as-is basis for evaluation and
+  demonstration.  They are not intended for use with production code.
+
+  The files included in this release have been provided for evaluation
+  by developers who have the SOMobjects Toolkit* and want to write their
+  WorkPlace Shell subclasses using the Interface Definition Language
+  (IDL) described in the SOMobjects Toolkit.
+
+  CAR - WORKPLACE OBJECT SAMPLE
+  _____________________________
+
+  CAR demonstrates how to create a workplace object using basic object oriented
+  programming techniques and the IBM System Object Model (SOM), including:
+
+  o   Initializing an object
+  o   Adding settings pages to an object
+  o   Saving and restoring the state of an object
+  o   Modifying object context menus (adding and deleting menu items)
+  o   Querying of object class data
+  o   Processing context menu items
+  o   Implementing settings page dialog processing.
+
+  The CAR sample is available as a C and C++ sample in the Toolkit.
+
+To build and install the Car C++ Sample in this directory:
+
+1) edit the makefile CARPP.MAK so that it pertains to your environment
+
+   þ  Set the TOOLKIT macro to the drive and path on which you installed
+      the Toolkit.
+   þ  Set the IBMCPP macro to point to the installed C Set++ compiler.
+   þ  Make sure that the WorkPlace Shell idls and headers are in your INCLUDE
+      and SMINCLUDE paths as necessary.
+
+2) nmake -f carpp.mak
+
+3) register the Carpp class and create an instance of Carpp
+   using a REXX script like INSTALL.CMD, or by using Object Utility/2.
+
+

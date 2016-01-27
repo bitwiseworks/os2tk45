@@ -1,0 +1,12 @@
+/* Rexx Calculator Memory Store Key                                  */
+parse arg memory, value                /* get the count of memories  */
+numeric digits CalcPrecision()         /* set current precision      */
+numeric form value CalcForm()          /* set current form           */
+
+if \datatype(memory, 'Whole')          /* must be whole number       */
+  then return 'Error'                  /* return error indicator     */
+
+if memory < 1 | memory >50             /* valid for counter          */
+  then return 'Error'                  /* return error indicator     */
+
+'SET' trunc(memory) value + 0          /* store formatted number     */

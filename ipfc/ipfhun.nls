@@ -1,0 +1,16 @@
+REM="HU Hungarian text"
+REM="(C) Copyright IBM Corporation 1989"
+
+NOTE="MegjegyzÇs:  "
+CAUTION="Vigy†zat: "
+WARNING="FigyelmeztetÇs: "
+OLCHARS=abcdefghijklmnopqrstuvwxyz
+OLCLOSE1=.
+OLCLOSE2=)
+ULITEMID1=o
+ULITEMID2=-
+ULITEMID3=--
+GRAMMAR
+WORDS=0123456789 + AµBCDEêFGHI÷JKLMNOôäPQRSTUÈÅÎVWXYZ + a†bcdeÇfghi°jklmno¢îãpqrstu£Å˚vwxyz
+EGRAMMAR
+

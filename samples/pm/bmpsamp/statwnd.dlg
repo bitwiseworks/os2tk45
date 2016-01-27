@@ -1,0 +1,70 @@
+DLGTEMPLATE IDD_STATUS LOADONCALL MOVEABLE DISCARDABLE
+
+BEGIN
+
+    DIALOG "Jigsaw Zoom Window",
+            IDD_STATUS,
+            37,
+            13,
+            232,
+            43,
+            FS_NOBYTEALIGN | FS_DLGBORDER | WS_VISIBLE | WS_CLIPSIBLINGS |
+                    WS_SAVEBITS,
+            FCF_SYSMENU | FCF_TITLEBAR
+
+    BEGIN
+
+        CONTROL "Cancel",
+                 1,
+                 10,
+                 3,
+                 38,
+                 13,
+                 WC_BUTTON, BS_PUSHBUTTON | WS_TABSTOP | WS_VISIBLE
+
+        CONTROL "Help",
+                 2,
+                 10,
+                 17,
+                 38,
+                 13,
+                 WC_BUTTON, BS_PUSHBUTTON | WS_TABSTOP | WS_VISIBLE | BS_HELP
+
+        CONTROL "",
+                SID_STATUS,
+                10,
+                30,
+                206,
+                8,
+                WC_STATIC,
+                SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CONTROL "Zoom",
+                IDD_NULL,
+                53,
+                5,
+                166,
+                23,
+                WC_STATIC,
+                SS_GROUPBOX | WS_GROUP | WS_VISIBLE
+
+        CONTROL "",
+                HID_ZOOM,
+                57,
+                9,
+                110,
+                8,
+                WC_SCROLLBAR,
+                SBS_HORZ | WS_VISIBLE
+
+        CONTROL "",
+                SID_ZOOMFACT,
+                173,
+                9,
+                35,
+                8,
+                WC_STATIC,
+                SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+    END
+
+END

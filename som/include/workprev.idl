@@ -1,0 +1,53 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.7 src/somem/workprev.idl, somu, som2.1 9/1/94 17:47:51 [7/30/96 14:46:14]
+
+
+#ifndef workprev_idl
+#define workprev_idl
+
+#include <event.idl>
+
+interface SOMEWorkProcEvent : SOMEEvent
+
+// SOMEWorkProcEvent is the class for generic workProc events within the Event Manager.
+// This class should be queried for events of the following type(s):
+//      EMWorkProcEvent
+// An instance of this class is initialized and passed to the callback
+// of a workproc event.
+
+// Although at present this class has no methods, its parent methods can be
+// called to verify that the event type is EMWorkProcEvent.
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = workprev;
+    callstyle = idl;
+
+
+    passthru C_h_after =  "#include <eventmsk.h>";
+    passthru C_xh_after =  "#include <eventmsk.h>";
+
+    //# Method Modifiers
+    somInit: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* workprev_idl */

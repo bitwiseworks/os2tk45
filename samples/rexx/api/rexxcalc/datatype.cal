@@ -1,0 +1,3 @@
+/* Validate a Rexx whole number */
+parse arg string, operation            /* get the number             */
+return datatype(string, operation)     /* return the validation      */

@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<HTML><HEAD>
+<TITLE>API Reference</TITLE>
+<!-- Begin Header Records  ========================================== -->
+</HEAD><BODY>
+<!-- End Header Records  ============================================ -->
+<A NAME=Top_Of_Page>&nbsp;</A>
+<H1>Application Programming Interface (API) Reference</H1>
+<P>
+<H1><A NAME="Header_1" HREF="tkasrun.htm#ToC_201">IBM Speech API (SMAPI)</A></H1>
+<HR>
+<H1><A NAME="HDRFUNFORM" HREF="tkasrun.htm#ToC_202">Overview</A></H1>
+<A NAME=IDX34>&nbsp;</A>
+<P>
+This chapter describes the format of the function calls
+that are presented in
+<A HREF="tkasru04.htm#HDRSERV">"Function Calls to the Engine"</A> and
+<A HREF="tkasru05.htm#HDRGETS">"Data Access Functions"</A>.
+<A HREF="tkasru04.htm#HDRSERV">"Function Calls to the Engine"</A> contains the function calls
+that go directly to the speech engine.
+<A HREF="tkasru05.htm#HDRGETS">"Data Access Functions"</A> contains the function calls that
+do not interact with the engine; they provide local access
+to the logical contents of a message that has already been received.
+<P>
+This chapter also lists the calls by functional group.
+<HR>
+<H2><A NAME="Header_3" HREF="tkasrun.htm#ToC_203">Format of the Function Call Descriptions</A></H2>
+<A NAME=IDX35>&nbsp;</A>
+<A NAME=IDX36>&nbsp;</A>
+<P>The description of each function call contains the following
+information:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P><B>Function Name
+</B></TD><TD><P>The name of the function call.
+</TD></TR><TR VALIGN=TOP><TD><P><B>Purpose
+</B></TD><TD><P>The purpose and description of the function call.
+</TD></TR><TR VALIGN=TOP><TD><P><B>Syntax
+</B></TD><TD><P>The syntax of the function
+as declared in SMAPI.H.
+</TD></TR><TR VALIGN=TOP><TD><P><B>Parameters
+</B></TD><TD><P>Definitions of the parameters.
+</TD></TR><TR VALIGN=TOP><TD><P><B>Return Values
+</B></TD><TD><P>Return values are listed in two groups:
+<UL>
+<P><LI>Return values that
+are set by
+the SMAPI or
+as a result of
+an unsuccessful connection to the speech engine.
+These values are always returned by the called function
+whether it was called synchronously or asynchronously.
+<P><LI>Return values that
+are set from within
+the speech engine.
+These values are returned by the called function only if it was
+called synchronously.
+If it was called asynchronously, the speech-aware application
+must retrieve
+this type of return value from within the appropriate callback by
+using the SmGetRc function.
+</UL>
+For detailed descriptions of SMAPI errors,
+reference
+<A HREF="tkasru09.htm#HDRSMEM">Appendix A. "SMAPI Return Codes and Messages"</A>.
+</TD></TR><TR VALIGN=TOP><TD><P><B>Reply Structure Functions by Message Type
+</B></TD><TD><P>A list of all reply message structures that can be received
+from the speech engine; and for each listed reply message
+structure, the SmGet functions that can extract data from
+it.
+</TD></TR><TR VALIGN=TOP><TD><P><B>Task Related Functions and Callbacks
+</B></TD><TD><P>A list of functions and callbacks broadly related by task to
+this function.
+This is applicable to functions that do not return a reply structure.
+For example, task related groups include:
+<UL COMPACT>
+<LI>Vocabulary Processing
+<LI>User Processing
+<LI>Application Initiation
+<LI>Speech Processing
+<LI>Application Termination
+</UL>
+<P>This section also lists related unsolicited callbacks.
+</TD></TR><TR VALIGN=TOP><TD><P><B>Reply Structure-Related Functions and Callbacks
+</B></TD><TD><P>Clarifies when the SmGet functions can be called.
+If the function prototype SmXxx is listed as related for any
+SmGet function, then that function can be called as follows:
+<UL COMPACT>
+<LI>Immediately after a synchronous SmXxx call
+<LI>From SmNXxxCallback after an asynchronous SmXxx call
+<LI>From the message reply structure after an asynchronous SmXxx call.
+</UL>
+</TD></TR></TABLE>
+<HR>
+<H2><A NAME="Header_4" HREF="tkasrun.htm#ToC_204">Naming Conventions</A></H2>
+<A NAME=IDX37>&nbsp;</A>
+<A NAME=IDX38>&nbsp;</A>
+<A NAME=IDX39>&nbsp;</A>
+<P>
+Use the following conventions when creating
+various IDs and names passed to the speech engine:
+<UL>
+<P><LI>User IDs can consist of only lowercase alphanumeric
+characters plus the underscore and hyphen characters.
+<P><LI>Descriptions cannot contain a new line
+character.
+<P><LI>An ID must contain at least one character.
+<P><LI>The following table, found in the file SMLIMITS.H, shows the
+minimum and maximum lengths of most variables&#58;
+<PRE>
+#define SM_MAX_USERID_LEN                  8
+#define SM_MAX_ENROLLID_LEN                8
+#define SM_MAX_TASKNAME_LEN                8
+#define SM_MAX_SCRIPTNAME_LEN              8
+</PRE>
+</UL>
+<HR>
+<H2><A NAME="Header_5" HREF="tkasrun.htm#ToC_205">SMAPI Function Calls by Group</A></H2>
+<A NAME=IDX40>&nbsp;</A>
+<P>
+The following information lists the SMAPI calls
+by functional group.
+<P>
+<H3><A NAME="Header_6" HREF="tkasrun.htm#ToC_206">Attribute Handling Functions</A></H3>
+<A NAME=IDX41>&nbsp;</A>
+<A NAME=IDX42>&nbsp;</A>
+<P>
+These functions are implemented locally
+within
+the application's
+address space by the SMAPI layer and do not require any
+interaction with the speech engine. Consequently, they can be
+made at any
+time,
+independent of the speech focus.
+<UL COMPACT>
+<LI>SmSetArg
+</UL>
+<P>
+<H3><A NAME="Header_7" HREF="tkasrun.htm#ToC_207">Callback and Dispatching Functions</A></H3>
+<A NAME=IDX44>&nbsp;</A>
+<A NAME=IDX45>&nbsp;</A>
+<A NAME=IDX46>&nbsp;</A>
+<A NAME=IDX47>&nbsp;</A>
+<P>
+These functions are also implemented locally in the
+application's address space by the SMAPI layer.
+<UL COMPACT>
+<LI>SmAddCallback
+<LI>SmDispatch
+<LI>SmReceiveMsg
+<LI>SmRemoveCallback
+</UL>
+<P>
+<A NAME=IDX48>&nbsp;</A>
+<A NAME=IDX49>&nbsp;</A>
+<P>
+<H3><A NAME="Header_8" HREF="tkasrun.htm#ToC_208">Data Access Functions</A></H3>
+<A NAME=IDX50>&nbsp;</A>
+<A NAME=IDX51>&nbsp;</A>
+<P>
+The data access functions manipulate data received by the
+application.
+They are independent of the speech focus.
+<UL COMPACT>
+<LI>SmGetAlphabets
+<LI>SmGetAlternates
+<LI>SmGetApplication
+<LI>SmGetApplications
+<LI>SmGetAudioLevel
+<LI>SmGetDescriptions
+<LI>SmGetEngineState
+<LI>SmGetEnrollId
+<LI>SmGetEnrollIds
+<LI>SmGetEventId
+<LI>SmGetEventOptions
+<LI>SmGetFirmWords
+<LI>SmGetFocusState
+<LI>SmGetInfirmWords
+<LI>SmGetItemValue
+<LI>SmGetLanguages
+<LI>SmGetMicState
+<LI>SmGetMsgName
+<LI>SmGetMsgType
+<LI>SmGetNameValue
+<LI>SmGetNumberWordMsgs
+<LI>SmGetPercentages
+<LI>SmGetPronunciations
+<LI>SmGetRc
+<LI>SmGetRcDescription
+<LI>SmGetRcName
+<LI>SmGetScripts
+<LI>SmGetService
+<LI>SmGetSessionId
+<LI>SmGetSeverity
+<LI>SmGetSpelling
+<LI>SmGetSpellings
+<LI>SmGetStates
+<LI>SmGetStatus
+<LI>SmGetTags
+<LI>SmGetTask
+<LI>SmGetTasks
+<LI>SmGetTimes
+<LI>SmGetUserId
+<LI>SmGetUserIds
+<LI>SmGetUsers
+<LI>SmGetUtteranceNumber
+<LI>SmGetVocabList
+<LI>SmGetVocabName
+<LI>SmGetVocWords
+<LI>SmGetWords
+<LI>SmReturnRc
+<LI>SmReturnRcDescription
+<LI>SmReturnRcName
+</UL>
+<P>
+<H3><A NAME="Header_9" HREF="tkasrun.htm#ToC_209">Connection Functions</A></H3>
+<A NAME=IDX52>&nbsp;</A>
+<A NAME=IDX53>&nbsp;</A>
+<P>
+These functions enable
+an application to connect to, or disconnect
+from, the speech engine.
+They are permitted at any time.
+<UL COMPACT>
+<LI>SmApiVersionCheck
+<LI>SmClose
+<LI>SmConnect
+<LI>SmDisconnect
+<LI>SmOpen
+</UL>
+<P>
+<H3><A NAME="Header_10" HREF="tkasrun.htm#ToC_210">Session Functions</A></H3>
+<A NAME=IDX55>&nbsp;</A>
+<A NAME=IDX56>&nbsp;</A>
+<P>
+The session-sharing related calls are appropriate when
+an application is in a particular state.
+<UL COMPACT>
+<LI>SmDetachSessions
+<LI>SmReleaseFocus
+<LI>SmRequestFocus
+<LI>SmRequestMicOff
+<LI>SmRequestMicOn
+</UL>
+<P>
+<H3><A NAME="Header_11" HREF="tkasrun.htm#ToC_211">Database Functions</A></H3>
+<A NAME=IDX57>&nbsp;</A>
+<A NAME=IDX58>&nbsp;</A>
+<P>
+These functions access database information.
+Although they do divert
+some engine resources, they do not interfere with
+the application&#39;s use of the speech engine.
+Consequently, they are permitted at any time.
+Some returned information pertains to a specific session;
+some pertains to the speech engine as a whole.
+<UL COMPACT>
+<LI>SmQueryAddedWords
+<LI>SmQueryAlternates
+<LI>SmQueryDefaults
+<LI>SmQueryEnabledVocabs
+<LI>SmQueryEnrollIds
+<LI>SmQueryLanguages
+<LI>SmQueryPronunciation
+<LI>SmQueryPronunciations
+<LI>SmQuerySessions
+<LI>SmQueryTasks
+<LI>SmQueryUserInfo
+<LI>SmQueryUsers
+<LI>SmQueryVocabs
+<LI>SmQueryWord
+</UL>
+<P>
+The following functions are administrative.
+They do not change the state of the engine for the application
+with focus&#58;
+<UL COMPACT>
+<LI>SmSetDefault
+<LI>SmSetUserInfo
+</UL>
+<P>
+<H3><A NAME="Header_12" HREF="tkasrun.htm#ToC_212">Speech Engine State Functions</A></H3>
+<A NAME=IDX59>&nbsp;</A>
+<A NAME=IDX60>&nbsp;</A>
+<P>These functions set and query the state of the speech engine.
+<UL COMPACT>
+<LI>SmSet
+<LI>SmQuery
+</UL>
+<P>
+<H3><A NAME="Header_13" HREF="tkasrun.htm#ToC_213">Vocabulary Functions</A></H3>
+<A NAME=IDX62>&nbsp;</A>
+<A NAME=IDX63>&nbsp;</A>
+<P>
+These functions change the state of the active,
+dynamically desired
+vocabularies, and
+they are handled independently
+for each session.
+They are transparent to the application.
+<UL COMPACT>
+<LI>SmAddPronunciation
+<LI>SmAddToVocab
+<LI>SmCorrectText
+<LI>SmCorrectTextCancel
+<LI>SmDefineVocab
+<LI>SmDisableVocab
+<LI>SmDiscardData
+<LI>SmEnableVocab
+<LI>SmEventNotify
+<LI>SmHaltRecognizer
+<LI>SmNewContext
+<LI>SmRecognizeNextWord
+<LI>SmRemoveFromVocab
+<LI>SmRemovePronunciation
+<LI>SmUndefineVocab
+<LI>SmWordCorrection
+</UL>
+<P>
+<H3><A NAME="Header_14" HREF="tkasrun.htm#ToC_214">Audio Functions</A></H3>
+<A NAME=IDX64>&nbsp;</A>
+<A NAME=IDX65>&nbsp;</A>
+<P>
+These functions change the state of the audio system.
+Given a single audio source,
+this changes the engine state
+for the application with focus.
+Therefore, these functions can only
+be called by the application with focus.
+<UL COMPACT>
+<LI>SmCancelPlayback
+<LI>SmMicOn
+<LI>SmMicOff
+<LI>SmPlayMessage
+<LI>SmPlayUtterance
+<LI>SmPlayWords
+</UL>
+<HR>
+<H2><A NAME="Header_15" HREF="tkasrun.htm#ToC_215">Parallel Session API Calls</A></H2>
+<A NAME=IDX66>&nbsp;</A>
+<A NAME=IDX68>&nbsp;</A>
+<A NAME=IDX69>&nbsp;</A>
+<A NAME=IDX70>&nbsp;</A>
+<P>The ability to have more than one connection to the engine
+from a single application is known as parallel sessions.
+If you want more than one connection from your application, you
+must use the parallel session calls.
+The name of a parallel session call is the same as the regular
+function call except for two things:  the name of the call has
+the characters Ses inserted after the Sm, for example the
+parallel session disconnect call is SmSesDisconnect.
+Secondly, each parallel session call takes one additional
+parameter, which is the session ID.
+This is always the first parameter.
+So for the disconnect example, the call is
+SmSesDisconnect(hSession), where hSession is the session ID.
+The session ID is returned in the first parameter of the
+SmSesOpen call.
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="tkasrun.htm">Previous Page</A> &#124; <A HREF="tkasru03.htm">Next Page</A> &#124; <A HREF="tkasrun.htm#ToC">Table of Contents</A> &#124; <A HREF="tkasru11.htm#HDRINDEX_START">Index</A>
+ &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+</BODY></HTML>
+

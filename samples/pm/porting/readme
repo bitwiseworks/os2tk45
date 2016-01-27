@@ -1,0 +1,131 @@
+IMAGE PORTING APPLICATION
+=========================
+
+The purpose of the IMAGE sample is twofold :-
+
+  i) to demonstrate how to port an existing 16-bit application, which
+     can be run on the toolkit supplied with OS/2 1.3, to 32-bit.
+
+  ii) to demonstrate the Image functionality of the GPI, and the standard
+      File Open dialog.
+
+Looking at each of the above statements in more detail...
+
+GPI Image Functions/File Open Dialog
+------------------------------------
+  This program displays an image using the GpiImage() call. The image
+data comes from a file which the user must select using the standard
+File Open dialog which is invoked by selecting 'Open...' on the
+File submenu.
+  If the selected image is larger than the maximum picture area, any
+part of the image lying off the screen can be scrolled by using the
+horizontal and vertical scroll bars.  Alternatively, the entire
+image can be displayed by stretching or compressing it to fit the
+target rectangle. This is the way the image is displayed initially.
+
+  An image-data file comprises a file header (which contains the
+image width and height in pels) and the pel data itself (which
+describes the on and off settings of the pels in the image).
+
+  An image-data file has the following format:
+
+                    IMAGE WIDTH (in BYTES)
+ BYTE    0          1          2          3         4
+   -------------------------------------------------------
+   | <space>   |  <space> | <space>  | <space>  | Comma  |
+   | or ASCII  | or ASCII | or ASCII | or ASCII |   ,    |
+   |  digit    |  digit   |  digit   |  digit   |        |
+   |(Thousands)|(Hundreds)| (Tens)   |  (Ones)  |        |
+   -------------------------------------------------------
+
+
+           IMAGE HEIGHT (in PELS)
+ BYTE    5          6          7          8
+   ----------------------------------------------
+   | <space>   | <space>  | <space>  | <space>  |
+   | or ASCII  | or ASCII | or ASCII | or ASCII |
+   |  digit    |  digit   |  digit   |  digit   |
+   |(Thousands)|(Hundreds)|  (Tens)  |  (Ones)  |
+   ----------------------------------------------
+
+
+                      IMAGE DATA
+ BYTE    10         11                      End of File
+    --------------------------------------------------
+    |          |          |                          |
+    |  Binary  |  Binary  |       . . . . . .        |
+    |  data    |  data    |                          |
+    |          |          |                          |
+    --------------------------------------------------
+
+
+Porting to 32-Bit
+-----------------
+  It details the intermediate stages to achieve the port.  As a result there
+are more than one .MAK/.DEF file in order to illustrate building different
+versions of the IMAGE application.
+You will find these groups of .MAK/.DEF files:
+
+  a) IMAGE16.MAK/.DEF - pure 16-bit application that can be compiled using
+                        the OS/2 1.3 tools/headers/libraries.
+
+  b) IMAGES1.MAK/.DEF - Port to 32-bit : Stage 1 - This involves recompiling
+                        the original source using the OS/2 2.0 headers and
+                        the 32-bit tools/libraries for 32-bit source
+                        files, and 16-bit tools/libraries for the 16-bit
+                        source file.  Note: the 16-bit utility routines are
+                        primarily for demonstration purposes only, and should
+                        not be considered for real applications in their
+                        current form.
+
+  c) IMAGE32.MAK/.DEF - pure 32-bit application that can be compiled using
+                        the OS/2 2.0 tools/headers/libraries.
+
+The IMAGE32.MAK/.DEF files will produce a 32-bit executable file of the same
+name, IMAGE32.EXE.  The IMAGE16.MAK/IMAGES1.MAK and .DEF files are provided
+for comparison purposes.  Together with the source files, they are not
+sufficient to build a 16-bit executable.  They have a dependency on an OS/2 1.3
+toolkit being available locally, since they need 16-bit compilers/linkers.  The
+sample source files contain conditional compilation statements for PORT_16,
+which show some of the changes needed in making the port.
+
+
+ORGANIZATION OF SOURCE FILES
+============================
+
+Here is list of the source files included in the image application
+and their general purpose.
+
+    img_main.h - application constants
+    img_xtrn.h - external variable and function declarations
+    img_help.h - help panel ids
+    img_dlg.h  - dialog box constants and item ids.  This file is designed
+                 to be used with the Dialog Editor.
+
+    img_main.c - main function, main window procedure
+                 and Exit List processing routines
+    img_init.c - initialization
+    img_file.c - routines for processing File menu items
+    img_view.c - routines for processing View menu items
+    img_util.c - utility routines (ie memory allocation/de-allocation)
+    img_size.c - routines for sizing/scrolling
+    img_dlg.c  - application specific dialog boxes
+    img_help.c - help manager functions
+    img_pnt.c  - routines for painting the main window
+    img_menu.c - routines for menu handling
+    img_data.c - global data declarations
+
+    img_main.rc - main resource file containing menus, stringtable, etc.
+    img_help.rc - resource file for help panels
+
+    img_main.ipf - main help text file, contains the link to the others
+    img_file.ipf - help text file for the File menu items
+    img_view.ipf - help text file for the View menu items
+    img_help.ipf - help text file for the Help menu
+
+    image16.mak  - 16-bit Image sample NMAKE file
+    image16.def  - 16-bit module definition file
+    imageS1.mak  - Porting stage 1 NMAKE file
+    imageS1.def  - Porting stage 1 module definition file
+    image32.mak  - 32-bit Image sample NMAKE file
+    image32.def  - 32-bit module definition file

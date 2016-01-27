@@ -1,0 +1,136 @@
+/*==============================================================*\
+ *                                                              *
+ * DLLAPI.RC - Sample PM application resource file              *
+ *                                                              *
+\*==============================================================*/
+#include "dllapi.h"
+
+ICON ID_RESOURCE    dllapi.ico
+BITMAP IDR_BITMAP  "prodinfo.bmp"
+
+MENU ID_RESOURCE
+{
+    SUBMENU     "~File", -1
+    {
+        MENUITEM    "~Search...\tAlt+S",    IDM_SEARCH
+        MENUITEM    "~Open...",             IDM_OPEN
+    }
+    SUBMENU     "~Math", -2
+    {
+        MENUITEM    "~Calculator...",       IDM_CALCUL
+    }
+    SUBMENU     "~Help", -3
+    {
+        MENUITEM "~Help index",             IDM_HELPINDEX
+        MENUITEM "~General help",           IDM_GENERALHELP
+        MENUITEM "~Keys Help",              IDM_TUTORIAL
+        MENUITEM "~Using help",             IDM_USINGHELP
+        MENUITEM SEPARATOR
+        MENUITEM "~Product information...", IDM_HELPPRODUCTINFO
+    }
+}
+
+ACCELTABLE ID_RESOURCE
+{
+    "S",     IDM_SEARCH,          ALT
+    "s",     IDM_SEARCH,          ALT
+}
+
+STRINGTABLE
+{
+    IDS_TITLE,                  "DLLAPI Demonstration"
+    IDS_UNTITLED                "Untitled"
+    IDS_APPNAME                 "DLLAPI"
+    IDS_HELPLIBRARYNAME         "DLLAPI.HLP"
+    IDS_HELPWINDOWTITLE         "DLLAPI Help"
+}
+
+MESSAGETABLE
+{
+ IDMSG_INITFAILED          "Initialization failed."
+ IDMSG_MAINWINCREATEFAILED "Failed to create main window."
+ IDMSG_CANNOTLOADEXITLIST  "Cannot load Exit List processor."
+ IDMSG_CANNOTLOADSTRING    "Failed to load string."
+ IDMSG_HELPLOADERROR       "Failed to load help manager."
+ IDMSG_HELPDISPLAYERROR    "Failed to display help panel."
+
+ IDMSG_ACCESSGUARDPAGE  "The memory is protected to be accessed indirectly. You"
+                        " should select the backup memory!  Select OK to access "
+                        "backup memory, or select Cancel to end the program."
+ IDMSG_ERRORSETPATH        "Path set is fail, please try again."
+ IDMSG_FILENOTFOUND        "No file is matched this pattern,"
+                           "\ncheck pattern or path"
+ IDMSG_DRIVELOCKED         "The specified driver is not availble for searching."
+ IDMSG_PATHNOTFOUND        "Path is not found, please enter again."
+ IDMSG_BUFFEROVERFLOW      "Buffer is overflow."
+ IDMSG_ERRORINVALIDDRIVE   "Invalid driver number."
+ IDMSG_OPENFAILED          "Can not OPEN this file."
+ IDMSG_ACCESSDENIED        "Can not ACCESS this file."
+ IDMSG_RETURNERROR         "Function call is fail."
+ IDMSG_DSPTEXTERROR        "Display function is fail."
+ IDMSG_DIVIDEZERO          "A non-recoverable error occured, Divide-by-zero,"
+                           "\n\rProgram Terminating."
+ IDMSG_ERROROPERAND        "Error operand or operation input."
+ IDMSG_ERRORDIGIT          "Wrong value, the number must be 8 digit or less."
+}
+
+/* include dialog templates created by dialog box editor */
+
+/*--------------------------------------------------------------*\
+ *  Help table definition                                       *
+\*--------------------------------------------------------------*/
+HELPTABLE   DLL_HELP_TABLE
+{
+   HELPITEM   ID_RESOURCE,       SUBTABLE_MAIN,            PANEL_MAIN
+   HELPITEM   IDD_PRODUCTINFO,   SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+
+   HELPITEM   IDD_GETPATTERN,    SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+   HELPITEM   IDD_DSPFILESTRUCT, SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+   HELPITEM   IDD_OPENFILE,      SUBTABLE_OPENBOXDLG,      PANEL_OPENBOXDLG
+   HELPITEM   IDD_DISPLAYTEXT,   SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+   HELPITEM   IDD_GETMATHINFO,   SUBTABLE_CALCULBOXDLG,    PANEL_CALCULBOXDLG
+   HELPITEM   IDD_DISPLAYVALUE,  SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+}
+
+/*--------------------------------------------------------------*\
+ *  Main window subtable, includes menu item help               *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDM_GENERALHELP,         PANEL_GENERALHELP
+    HELPSUBITEM     IDM_USINGHELP,           PANEL_USINGHELP
+    HELPSUBITEM     IDM_TUTORIAL,            PANEL_TUTORIAL
+    HELPSUBITEM     IDM_HELPINDEX,           PANEL_HELPINDEX
+    HELPSUBITEM     IDM_HELPPRODUCTINFO,     PANEL_HELPPRODUCTINFO
+
+    HELPSUBITEM     IDM_SEARCH,              PANEL_SEARCHHELP
+    HELPSUBITEM     IDM_OPEN,                PANEL_OPENHELP
+    HELPSUBITEM     IDM_CALCUL,              PANEL_CALCULHELP
+}
+/*--------------------------------------------------------------*\
+ *  Enter text dialog help subtable                             *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_PRODUCTINFODLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDD_PATH,                PANEL_PRODUCTINFO_OK
+    HELPSUBITEM     IDD_ACCESSBACKUP,        PANEL_PRODUCTINFO_OK
+    HELPSUBITEM     DID_OK,                  PANEL_PRODUCTINFO_OK
+}
+
+HELPSUBTABLE SUBTABLE_OPENBOXDLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDD_PATH,                PANEL_OPENBOX_OK
+    HELPSUBITEM     DID_OK,                  PANEL_OPENBOX_OK
+}
+
+HELPSUBTABLE SUBTABLE_CALCULBOXDLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDD_OPERAND1,            PANEL_CALCULBOX_OK
+    HELPSUBITEM     DID_OK,                  PANEL_CALCULBOX_OK
+}
+
+rcinclude dllapi.dlg

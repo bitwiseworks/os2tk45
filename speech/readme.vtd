@@ -1,0 +1,48 @@
+__________________________________________________________________
+
+IBM VOICETYPE DEVELOPER'S TOOLKIT FOR OS/2 README FILE
+__________________________________________________________________
+
+Welcome to the IBM VoiceType Developer's Toolkit for OS/2
+
+
+INTRODUCTION TO THE TOOLKIT
+__________________________________________________________________
+
+The Toolkit helps you develop speech applications for OS/2 by
+providing you with:
+
+
+   - API's
+       - Header files ( smxxx.h )
+       - Library file ( smapi.lib )
+       - Online documentation ( tkasrun.htm)
+       - DLL file ( smapi.dll )
+   - Programming tools
+       - Grammar Compiler ( vtbnfc.exe )
+       - FSG utilties ( fsgxxx.exe )
+       - Tidygram utility ( tidygram.exe )
+       - Grammar Guide ( grammar.htm )
+
+IBM VoiceType for OS/2 shipped as part of OS/2 Warp 4.0.
+OS/2 Warp 4.0 with VoiceType installed is required to run
+applicatons developed with the VoiceType toolkit.
+
+New features included in this toolkit are: The Grammar compiler, the FSG
+utilties, Tidygram utility and the Grammar Guide.  The API header files,
+lib file and documenation have been updated from the previous version.
+
+A new api included in this release is SmGetAnnotations.  SmGetAnnotations
+allows a developer, who has defined grammars in their application, to
+retrieve the annotations associated to that grammar.
+
+The level of smapi.dll which shipped with VoiceType on OS/2 Warp 4.0 does not
+include the SmGetAnnotations api.  Therefore, we are including an updated
+level of the smapi.dll in this toolkit.  Application developers can
+redistribute the smapi.dll with thier applications.  Please refer to
+the licensing information in the Using Your Toolkit online book.
+
+
+
+Use a non-proportional font to view this file.
+

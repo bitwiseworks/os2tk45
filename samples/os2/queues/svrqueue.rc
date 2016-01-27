@@ -1,0 +1,105 @@
+/*==============================================================*\
+ *                                                              *
+ *  svrqueue.rc - resource definitions                          *
+ *      Copyright 1991, IBM Corp.                               *
+ *                                                              *
+ *--------------------------------------------------------------*
+ *                                                              *
+ *  This file contains the menu and string resources            *
+ *  for the executable.                                         *
+ *                                                              *
+\*==============================================================*/
+#define  INCL_32
+#define  INCL_WIN
+#include <os2.h>
+#include "svrqmain.h"
+#include "svrqhelp.h"
+
+ICON   IDR_MAIN "queue.ico"
+BITMAP IDR_MAIN "prodinfo.bmp"
+
+MENU IDR_MAIN
+{
+    SUBMENU     "~File", IDM_FILE, MIS_TEXT
+    {
+        MENUITEM    "E~xit\tF3",            IDM_FILEEXIT,       MIS_TEXT
+    }
+
+    SUBMENU     "~Options", IDM_OPTION, MIS_TEXT
+    {
+        MENUITEM    "~Purge Queue",     IDM_OPTIONPURGE,    MIS_TEXT
+    }
+
+    SUBMENU     "~Help",    IDM_HELP,   MIS_TEXT
+    {
+        MENUITEM    "~Help for help...",    IDM_HELPHELPFORHELP, MIS_TEXT
+        MENUITEM    "~Extended help...",    IDM_HELPEXTENDED, MIS_TEXT
+        MENUITEM    "~Keys help...",        IDM_HELPKEYS,       MIS_TEXT
+        MENUITEM    "Help ~index...",       IDM_HELPINDEX,      MIS_TEXT
+        MENUITEM SEPARATOR
+        MENUITEM    "~Product Information...",  IDM_HELPABOUT,      MIS_TEXT
+    }
+
+}
+
+ACCELTABLE IDR_MAIN
+{
+    VK_F3,          IDM_FILEEXIT,           VIRTUALKEY
+}
+
+DLGTEMPLATE IDD_ABOUTBOX LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Product Information", IDD_ABOUTBOX,                9,  17, 250, 120,
+            FS_NOBYTEALIGN | FS_DLGBORDER | WS_VISIBLE | WS_CLIPSIBLINGS | WS_SAVEBITS, FCF_TITLEBAR
+    BEGIN
+        CONTROL IDR_MAIN, IDC_ICON,                           98,  77,   0,   0,
+                 WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "OS/2 IPC Queue Server", 256,                  0,  65, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "Version 1.0", 258,                            0,  55, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "(C) Copyright IBM Corporation 1991."
+                " All Rights reserved.", 257,
+                                                               0,  45, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "OS/2 is a registered trademark of", 258,      0,  35, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CTEXT   "International Business Machines Corp.", 257,  0,  25, 250,   8,
+                 SS_TEXT | DT_CENTER | DT_TOP | WS_GROUP | WS_VISIBLE
+
+        CONTROL "Ok", IDC_OK,                                105,   6,  38,  13,
+                 WC_BUTTON, BS_PUSHBUTTON | BS_DEFAULT | WS_TABSTOP | WS_VISIBLE
+    END
+END
+
+STRINGTABLE
+{
+    IDS_APPNAME                 "Queue Server"
+    IDS_HELPLIBRARYNAME         "SVRQUEUE.HLP"
+    IDS_HELPWINDOWTITLE         "Server Q Help"
+}
+
+MESSAGETABLE
+{
+    IDMSG_INITFAILED            "Initialization failed."
+    IDMSG_MAINWINCREATEFAILED   "Failed to create main window."
+    IDMSG_HELPLOADERROR         "Failed to load help manager."
+    IDMSG_CANNOTLOADSTRING      "Failed to load string."
+    IDMSG_HELPDISPLAYERROR      "Failed to display help panel."
+    IDMSG_MEM_ALLOC_FAILED      "Not enough memory."
+    IDMSG_CREATE_Q_FAILED       "Could not create queue."
+    IDMSG_CREATE_SEM_FAILED     "Could not create semaphore."
+    IDMSG_CREATE_THREAD_FAILED  "Could not start thread."
+    IDMSG_CLIENTS_HUNG          "One of the client processes has control of the queue. \
+                                 terminate all clients if you wish to continue."
+    IDMSG_Q_SEMAPHORE_ERROR     "Could not gain access to named shared memory."
+    IDMSG_READ_Q_ERROR          "Error reading queue.  Queue will be closed and this application will terminate."
+    IDMSG_CANNOT_EXEC_CLIENT    "Could not start client process."
+}
+
+rcinclude svrqhelp.rc

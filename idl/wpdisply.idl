@@ -1,0 +1,74 @@
+
+//  Module Header
+//
+//  Module Name: WPDISPLY
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpdisply_idl
+#define wpdisply_idl
+
+#include "wpdevice.idl"
+
+interface M_WPDevDisplay;
+
+interface WPDevDisplay : WPDevice
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpdisply;
+    functionprefix = display_;
+    local;
+//    externalprefix = display_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpdisply;
+    metaclass = M_WPDevDisplay;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+    passthru C_h =  ""
+"";
+
+/* Private instance data area */
+
+     /* Overridden instance methods area */
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDevDisplay : M_WPDevice
+{
+  /* New class methods section */
+
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpdisply;
+    functionprefix = displayM_;
+    local;
+//    externalprefix = displayM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpdisply;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+
+    /* Overridden class methods section */
+    wpclsInitData:      override;
+    wpclsQueryIconData: override;                                              //bjf152374
+    wpclsQueryTitle:    override;
+    wpclsUnInitData:    override;
+  };
+
+};
+#endif  /* wpdisply_idl */

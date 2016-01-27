@@ -1,0 +1,4568 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<HTML><HEAD>
+<TITLE>API Reference</TITLE>
+<!-- Begin Header Records  ========================================== -->
+</HEAD><BODY>
+<!-- End Header Records  ============================================ -->
+<A NAME=Top_Of_Page>&nbsp;</A>
+<H1>Application Programming Interface (API) Reference</H1>
+<HR>
+<H1><A NAME="HDRSERV" HREF="tkasrun.htm#ToC_217">Function Calls to the Engine</A></H1>
+<A NAME=IDX72>&nbsp;</A>
+<P>
+This chapter lists and describes the function calls that go
+directly to the speech engine.
+<A NAME=IDX73>&nbsp;</A>
+<A NAME=IDX75>&nbsp;</A>
+<A NAME=IDX77>&nbsp;</A>
+<P>
+<H2><A NAME="LENADCLBK" HREF="tkasrun.htm#ToC_1">SmAddCallback</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmAddCallback adds a single callback routine for the specified message.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmAddCallback (char      *<VAR>reply_name</VAR>,
+                   SmHandler *<VAR>handler </VAR>,
+                   caddr_t    <VAR>client_data</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply_name</VAR>
+<P><DD>input -  The name of the type of message.
+<P><DT><VAR>handler</VAR>
+<P><DD>input -  The function name of the routine that handles the
+message.
+<P><DT><VAR>client_data</VAR>
+<P><DD>input -  Data passed back to the handler when it is called.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EALLOC
+SM_RC_ENOMEM
+SM_RC_NOT_VALID_REQUEST
+SM_RC_OK
+SM_RC_SM_NOT_OPEN
+</PRE>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmDispatch
+SmRemoveCallback
+</PRE>
+<A NAME=IDX78>&nbsp;</A>
+<A NAME=IDX80>&nbsp;</A>
+<A NAME=IDX82>&nbsp;</A>
+<P>
+<H2><A NAME="LENADPRON" HREF="tkasrun.htm#ToC_2">SmAddPronunciation</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmAddPronunciation adds a new pronunciation.
+<P>
+This function provides the method for associating
+a pronunciation with a spelling.
+<P>
+The following restrictions apply when calling SmAddPronunciation&#58;
+<UL COMPACT>
+<LI>The engine must be halted.
+<LI>The utterance used to build the pronunciation must be complete.
+<LI>If an SmAddPronunciation call fails and the call is immediately
+repeated with exactly the same parameters, the engine will
+automatically apply more lenient threshold parameters the second
+time.
+Refer to
+<A HREF="#LENSET">SmSet</A> for a detailed description of the
+SM_REJECTION_THRESHOLD parameter.
+</UL>
+<P><B>Note&#58;</B> For this call to be valid, the application must first
+enable audio saving through SmSet(SM_SAVE_AUDIO, TRUE).
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmAddPronunciation (char   *<VAR>spelling</VAR>,
+                        char   *<VAR>pronunciation</VAR>,
+                        long    <VAR>uttno</VAR>,
+                        short   <VAR>repetitions</VAR>,
+                        long    <VAR>options</VAR>,
+                        SM_MSG *<VAR>reply</VAR> );
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>spelling</VAR>
+<P><DD>input -  A null-terminated character string containing the
+spelling for the added pronunciation.
+<P><DT><VAR>pronunciation</VAR>
+<P><DD>input -  A null-terminated character string containing the
+pronunciation added and associated with the given spelling.
+This parameter holds the phonetic spelling for the word, which
+indicates how the word is pronounced.
+<P><DT><VAR>uttno</VAR>
+<P><DD>input -  Utterance number.
+<P><DT><VAR>repetitions</VAR>
+<P><DD>input -  Number of repetitions must be set to 1.
+<P><DT><VAR>options</VAR>
+<P><DD>input -The options are&#58;
+<UL>
+<P><LI>SM_ADD_PRONUNCIATION_ADD - Add a pronunciation.
+<P><LI>SM_ADD_PRONUNCIATION_REPLACE - Delete existing
+pronunciations and replace them with this new one.
+<P><LI>SM_ADD_PRONUNCIATION_PHONETIC - Add a phonetic
+pronunciation.
+</UL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  A pointer to a reply structure
+or to SmAsynchronous, indicating that
+the call is made asynchronously.
+</DL>
+<P><P>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_ADDWORD_LIMIT_EXCEEDED
+SM_RC_BAD_ACOUSTICS
+SM_RC_BAD_ADDWORD
+SM_RC_ILLEGAL_SOUNDSLIKE
+SM_RC_ILLEGAL_SPELLING
+SM_RC_MISMATCHED_ACOUSTICS
+SM_RC_NOT_ADDED
+SM_RC_NOT_VALID_REQUEST
+SM_RC_NOT_YET
+SM_RC_SERVER_ERROR
+SM_RC_SERVER_FILE_OPEN_ERROR
+SM_RC_SERVER_FILE_READ_ERROR
+SM_RC_SERVER_FILE_WRITE_ERROR
+SM_RC_SERVER_MALLOC_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_ADD_PRONUNCIATION_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetSpelling
+<LI>SmGetSpellings
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryPronunciation
+SmQueryPronunciations
+SmRemovePronunciation
+SmNaddPronunciationCallback
+SmNqueryPronunciationCallback
+SmNqueryPronunciationsCallback
+SmNremovePronunciationCallback
+</PRE>
+<A NAME=IDX83>&nbsp;</A>
+<A NAME=IDX85>&nbsp;</A>
+<A NAME=IDX87>&nbsp;</A>
+<P>
+<H2><A NAME="LENADTOVOC" HREF="tkasrun.htm#ToC_3">SmAddToVocab</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmAddToVocab adds words to a vocabulary.
+<P>
+This function
+adds words to predefined
+vocabularies or to a vocabulary previously created by
+SmDefineVocab.
+SmAddToVocab
+can be used to dynamically change command
+vocabularies
+within
+an application.
+If any of the specified words do not have an existing
+pronunciation, the call returns the list of words without
+pronunciations.
+Missing pronunciations must be added by using
+the SmAddPronunciation function.
+Pronunciations exist for all words in the predefined
+vocabularies and for words added by the user.
+For a predefined vocabulary the words are added in the
+user&#39;s personal pronunciation area
+of the vocabulary.
+<P>This call is valid only when the speech engine is not
+decoding speech to text.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmAddToVocab (char       *<VAR>vocab</VAR>,
+                  short       <VAR>nvocwords</VAR>,
+                  SM_VOCWORD *<VAR>vocwords&#91;&#93;</VAR>,
+                  SM_MSG     *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>vocab</VAR>
+<P><DD>input -  The name of the vocabulary to which words
+are added.
+<P><DT><VAR>nvocwords</VAR>
+<P><DD>input -  The number of words added to the vocabulary.
+<P><DT><VAR>vocwords</VAR>
+<P><DD>input -  The spellings of the words added to the vocabulary.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that
+the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P><P>
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_VOCAB
+SM_RC_NOT_VALID_REQUEST
+SM_RC_SERVER_FILE_OPEN_ERROR
+SM_RC_SERVER_FILE_WRITE_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_ADD_TO_VOCAB_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetVocabName
+<LI>SmGetVocWords
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmDefineVocab
+SmDisableVocab
+SmEnableVocab
+SmQueryAddedWords
+SmQueryEnabledVocabs
+SmQueryVocabs
+SmQueryWord
+SmRemoveFromVocab
+SmUndefineVocab
+SmNaddToVocabCallback
+SmNdefineVocabCallback
+SmNdisableVocabCallback
+SmNenableVocabCallback
+SmNqueryAddedWordsCallback
+SmNqueryEnabledVocabsCallback
+SmNqueryVocabsCallback
+SmNqueryWordsCallback
+SmNremoveFromVocabCallback
+SmNundefineVocabCallback
+</PRE>
+<A NAME=IDX88>&nbsp;</A>
+<A NAME=IDX90>&nbsp;</A>
+<A NAME=IDX91>&nbsp;</A>
+<P>
+<H2><A NAME="LENAPIVC" HREF="tkasrun.htm#ToC_4">SmApiVersionCheck</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmApiVersionCheck verifies the current version of the SMAPI.
+<P>
+This function
+checks whether the
+version of the SMAPI
+used to compile the speech-aware
+application is compatible with the API currently
+installed on the system.
+The reply message
+contains the return code indicating the current status.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmApiVersionCheck (char  *<VAR>caller_version</VAR>,
+                       char **<VAR>sm_version</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>caller_version</VAR>
+<P><DD>input -  Indicates the version used to compile the
+application.
+The constant SM_API_VERSION_STRING is used for the comparison check.
+<P><DT><VAR>sm_version</VAR>
+<P><DD>output -  The version of the SMAPI currently installed on
+the system.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_WRONG_SM_VERSION
+</PRE>
+<A NAME=IDX92>&nbsp;</A>
+<A NAME=IDX94>&nbsp;</A>
+<A NAME=IDX95>&nbsp;</A>
+<P>
+<H2><A NAME="LENCANPLA" HREF="tkasrun.htm#ToC_5">SmCancelPlayback</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmCancelPlayback cancels the request to play
+back
+a message,
+utterance, or words.
+<P>
+This function
+cancels a play request from the
+SmPlayMessage,
+SmPlayUtterance, and SmPlayWords functions.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmCancelPlayback(SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that
+the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_CANCEL_PLAYBACK_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmPlayMessage
+SmPlayUtterance
+SmPlayWords
+SmNcancelPlaybackCallback
+SmNplayMessageCallback
+SmNplayMessageStatusCallback
+SmNplayUtteranceCallback
+SmNplayUtteranceStatusCallback
+SmNplayWordsCallback
+SmNplayWordsStatusCallback
+</PRE>
+<A NAME=IDX96>&nbsp;</A>
+<A NAME=IDX97>&nbsp;</A>
+<A NAME=IDX98>&nbsp;</A>
+<P>
+<H2><A NAME="LENCLOSE" HREF="tkasrun.htm#ToC_6">SmClose</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmClose closes the SMAPI
+connection.
+<P>
+If the speech-aware application has not
+already
+called the
+SmDisconnect function to terminate the connection
+with the speech engine, the speech
+API does so before executing SmClose.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmClose ();
+</PRE>
+<P><STRONG>Parameters</STRONG>
+None.
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_SM_NOT_OPEN
+</PRE>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmDisconnect
+SmNdisconnectCallback
+</PRE>
+<A NAME=IDX99>&nbsp;</A>
+<A NAME=IDX100>&nbsp;</A>
+<A NAME=IDX101>&nbsp;</A>
+<P>
+<H2><A NAME="LENCONN" HREF="tkasrun.htm#ToC_7">SmConnect</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmConnect connects to the speech engine.
+<P>
+This function establishes
+a session
+with the speech engine.
+The desired type of session and other necessary information are
+provided by setting SMAPI attributes.
+Once a session is established the session type cannot be
+changed.
+To change the session type, call SmDisconnect
+then call SmConnect again.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmConnect (int     <VAR>nargs</VAR>,
+               SmArg  *<VAR>Args</VAR>,
+               SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>nargs</VAR>
+<P><DD>input -  The number of arguments in the accompanying argument
+list.
+<P><DT><VAR>Args</VAR>
+<P><DD>input -  A set of arguments that indicate the parameters used to
+connect to the speech engine.
+Speech API arguments can also be set prior to an SmConnect call
+by using the SmSetArg function,
+which specifies the parameter or attribute name and its value.
+The attributes passed to this function determine the session type.
+For details on the attributes, see
+<A HREF="tkasru08.htm#HDRATTRIB">"SMAPI Attributes"</A>.
+<P><DT><VAR>reply</VAR>
+<P><DD>input -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made
+asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_EUNEXP
+SM_RC_INCOMPATIBLE_ENROLLMENT
+SM_RC_NAVIGATOR_ALREADY_DEFINED
+SM_RC_SM_NOT_OPEN
+SM_RC_ALREADY_CONNECTED
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+</PRE>
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+<PRE>
+SM_RC_BAD_ADDWORD
+SM_RC_BAD_AP
+SM_RC_BAD_AUDIO
+SM_RC_BAD_DECO
+SM_RC_BAD_DESCRIPTION
+SM_RC_BAD_ENROLLID
+SM_RC_BAD_PASSWORD
+SM_RC_BAD_SCRIPT
+SM_RC_BAD_TASKID
+SM_RC_BAD_USERID
+SM_RC_ENROLLID_EXISTS
+SM_RC_ENROLLID_RUNNING
+SM_RC_ENROLLMENT_NOT_COMPLETE
+SM_RC_MISMATCHED_ALPHABET
+SM_RC_MISMATCHED_LANGUAGE
+SM_RC_MISMATCHED_SCRIPT
+SM_RC_NOT_VALID_REQUEST
+SM_RC_SERVER_ERROR
+SM_RC_SEVER_FILE_OPEN_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_CONNECT_REPLY
+<UL COMPACT>
+<LI>SmGetMsgType
+<LI>SmGetRc
+<LI>SmGetService
+<LI>SmGetSessionId
+<LI>SmGetTask
+<LI>SmGetTasks
+<LI>SmGetUserId
+</UL>
+<I>Only recognition sessions&#58;</I>
+<UL COMPACT>
+<LI>SmGetEnrollId
+<LI>SmGetEnrollIds
+<LI>SmGetLanguages
+<LI>SmGetSessionId
+<LI>SmGetUserId
+<LI>SmGetUserIds
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmOpen
+SmSetArg
+SmNconnectCallback
+</PRE>
+<A NAME=IDX102>&nbsp;</A>
+<A NAME=IDX103>&nbsp;</A>
+<A NAME=IDX105>&nbsp;</A>
+<P>
+<H2><A NAME="LENCORTEX" HREF="tkasrun.htm#ToC_8">SmCorrectText</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmCorrectText updates the user&#39;s
+voice
+model
+with a sequence of text the user considers correct.
+<P>
+This function provides the speech engine with a sequence of
+correctly recognized text.
+This text can be used to adapt the user&#39;s
+voice
+model, thereby improving future recognition of dictated
+text.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmCorrectText (short    <VAR>nwords</VAR>,
+                   SM_WORD *<VAR>words&#91;&#93;</VAR>,
+                   SM_MSG  *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>nwords</VAR>
+<P><DD>input -  The number of words in the text sequence.
+<P><DT><VAR>words</VAR>
+<P><DD>input -  An array of pointers to the words of the text.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P> <I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+SM_RC_SERVER_FILE_OPEN_ERROR
+SM_RC_SERVER_FILE_WRITE_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_CORRECT_TEXT_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmCorrectTextCancel
+SmNewContext
+SmRemovePronunciation
+SmWordCorrection
+SmNcorrectTextCallback
+SmNcorrectTextCancelCallback
+SmNnewContextCallback
+SmNremovePronunciationCallback
+SmNwordCorrectionCallback
+</PRE>
+<A NAME=IDX106>&nbsp;</A>
+<A NAME=IDX108>&nbsp;</A>
+<A NAME=IDX110>&nbsp;</A>
+<P>
+<H2><A NAME="LENCTXCNCL" HREF="tkasrun.htm#ToC_9">SmCorrectTextCancel</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmCorrectTextCancel cancels the previous notification of a correct
+sequence of text.
+<P>This function undoes the previous call to SmCorrectText.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmCorrectTextCancel (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made
+asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_CORRECT_TEXT_CANCEL_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmCorrectText
+SmNewContext
+SmRemovePronunciation
+SmWordCorrection
+SmNcorrectTextCallback
+SmNcorrectTextCancelCallback
+SmNnewContextCallback
+SmNremovePronunciationCallback
+SmNwordCorrectionCallback
+</PRE>
+<A NAME=IDX111>&nbsp;</A>
+<A NAME=IDX112>&nbsp;</A>
+<A NAME=IDX113>&nbsp;</A>
+<A NAME=IDX114>&nbsp;</A>
+<P>
+<H2><A NAME="LENDEFGRM" HREF="tkasrun.htm#ToC_10">SmDefineGrammar</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmDefineGrammar defines a grammar-based vocabulary.
+<P>
+This function dynamically defines a new vocabulary that can be enabled
+through the SmEnableVocab function, along with dynamic command
+vocabularies defined through SmDefineVocab.  The vocabulary content
+is specified by a precompiled .fsg file, produced by the grammar compiler.
+Like SmDefineVocab, SmDefineGrammar returns a list of grammar words
+that don't have pronunciations.  Unlike SmDefineVocab, if any pronunciation
+is missing, SmDefineGrammar fails with a return code of SM_RC_NOT_INVOCAB,
+since recognition of a grammar network
+with missing pronunciations is not well defined.  Use SmGetVocWords to retrieve
+the list of missing words.
+<P>If external lists are missing (for example, there was no SmDefineVocab before
+the SmDefineGrammar), SmDefineGrammar will also fail.  This time, the return
+code is
+SM_RC_MISSING_EXTERN.  The names of the external lists are returned as if they
+were words without pronunciations, and can also be obtained with SmGetVocWords.
+<P>Since missing externs is really a program logic error, these are checked and
+returned before determining if any words are missing pronunciations.  So, if
+both externs and words are missing, you first get SM_RC_MISSING_EXTERN.  When
+that is fixed, you get SM_RC_NOT_INVOCAB.
+<P>Note that pronunciations can be found
+in the user's personal pool, application-specific pools or the base domain pool.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmDefineGrammar (char       *<VAR>vocab</VAR>,
+                     char       *<VAR>grammar</VAR>,
+                     long        <VAR>options</VAR>,
+                     SM_MSG     *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>vocab</VAR>
+<P><DD>input -  The name of the new grammar.
+<P><DT><VAR>grammar</VAR>
+<P><DD>input -  The fully qualified pathname of the .FSG file contaning
+the compiled grammar.
+<P><DT><VAR>options</VAR>
+<P><DD>flags include:
+<UL>
+<P><LI>SM_PHRASE_ALLOW_SILENCES - allow inter-word silences within phrase.
+<P><LI>SM_PHRASE_SHOW_SILENCES - silence indicated in returned phrase.
+Silences are returned via the word spelling "<silence>" in the recognized
+phrase message.
+<P><LI>SM_PHRASE_NO_SILENCES - don't allow inter-word silences
+<P><LI>SM_PHRASE_ALLOW_INSERTIONS - allow insertions within phrase
+<P><LI>SM_PHRASE_SHOW_INSERTIONS - insertions indicated in returned phrase.
+Insertions are returned via an empty word spelling "" in the recognized
+phrase message.
+<P><LI>SM_PHRASE_NO_INSERTIONS - don't allow insertions
+</UL>
+<P><B>Note: </B><BLOCKQUOTE>These runtime flags override settings compiled in the .FSG file.
+</BLOCKQUOTE>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made
+asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_MISSING_EXTERN
+SM_RC_NOT_VALID_REQUEST
+SM_RC_NOT_INVOCAB
+SM_RC_BAD_VOCAB
+SM_RC_SERVER_FILE_MALLOC_ERROR
+SM_RC_SERVER_FILE_OPEN_ERROR
+SM_RC_SERVER_FILE_READ_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_DEFINE_GRAMMAR_REPLY
+<UL COMPACT>
+<LI>SmNdefineGrammarCallback
+<LI>SmGetVocabName
+<LI>SmGetGrammarPath
+<LI>SmGetVocWords
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmEnableVocab
+SmGetAnnotations
+SmUndefineGrammar
+SmDisableVocab
+SmNdisableVocabCallback
+SmNdenableVocabCallback
+SmNundefineVocabCallback
+</PRE>
+<A NAME=IDX115>&nbsp;</A>
+<A NAME=IDX116>&nbsp;</A>
+<A NAME=IDX118>&nbsp;</A>
+<A NAME=IDX119>&nbsp;</A>
+<A NAME=IDX120>&nbsp;</A>
+<P>
+<H2><A NAME="LENDEFVOC" HREF="tkasrun.htm#ToC_11">SmDefineVocab</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmDefineVocab defines a new vocabulary.
+<P>
+This function dynamically creates a new vocabulary
+that can later be used by calling the SmEnableVocab function.
+The vocabulary created by SmDefineVocab consists only of the
+words specified in the call with all words receiving an equal
+voice
+model weighting.
+This function can be used to dynamically create command
+vocabularies in an application.
+If any of the specified words do not
+have an existing pronunciation,
+the call returns a list of words without pronunciations.
+Pronunciations can be found in the
+predefined vocabulary and in the user&#39;s personal vocabulary.
+Predefined vocabularies are not dynamic.
+Dynamic vocabularies are intended for
+command vocabulary recognition.
+<P>
+SmDefineVocab takes more time to execute than
+SmEnableVocab and SmDisableVocab;
+therefore, it is more efficient
+to define a vocabulary once and enable/disable frequently
+rather than to define multiple times.
+<P>This call is valid only when the speech engine is not
+decoding speech to text.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmDefineVocab (char       *<VAR>vocab</VAR>,
+                   short       <VAR>nvocwords</VAR>,
+                   SM_VOCWORD *<VAR>vocwords&#91;&#93;</VAR>,
+                   SM_MSG     *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>vocab</VAR>
+<P><DD>input -  The name of the new vocabulary.
+<P><DT><VAR>nvocwords</VAR>
+<P><DD>input -  The number of words in the new vocabulary.
+<P><DT><VAR>vocwords</VAR>
+<P><DD>input -  The spellings of the words in the new
+vocabulary.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made
+asynchronously.
+</DL>
+<P><P>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_VOCAB
+SM_RC_NOT_VALID_REQUEST
+SM_RC_SERVER_FILE_OPEN_ERROR
+SM_RC_SERVER_FILE_WRITE_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_DEFINE_VOCAB_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetVocabName
+<LI>SmGetVocWords
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddToVocab
+SmDisableVocab
+SmEnableVocab
+SmQueryAddedWords
+SmQueryEnabledVocabs
+SmQueryVocabs
+SmQueryWord
+SmRemoveFromVocab
+SmUndefineVocab
+SmNaddToVocabCallback
+SmNdefineVocabCallback
+SmNdisableVocabCallback
+SmNenableVocabCallback
+SmNqueryAddedWordsCallback
+SmNqueryEnabledVocabsCallback
+SmNqueryVocabsCallback
+SmNqueryWordsCallback
+SmNremoveFromVocabCallback
+SmNundefineVocabCallback
+</PRE>
+<A NAME=IDX121>&nbsp;</A>
+<A NAME=IDX123>&nbsp;</A>
+<A NAME=IDX124>&nbsp;</A>
+<P>
+<H2><A NAME="LENDTSESS" HREF="tkasrun.htm#ToC_12">SmDetachSessions</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmDetachSessions requests that one or more sessions detach.
+<P>
+This function requests all applications
+connected to the speech engine to disconnect from it.
+SmQuerySessions can be used to monitor the number of
+attached applications.
+The disconnect request is in the form of the SM_REQUEST_DETACH
+reply message structure.
+The engine does not force a session to disconnect
+and does not wait for a reply to the disconnect request.
+This function can be used for switching users
+(or userid, enrollid, task).
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmDetachSessions (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made
+asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_DETACH_SESSIONS_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmQuerySessions
+SmNdetachRequestedCallback
+SmNdetachSessionsCallback
+SmNquerySessionsCallback
+</PRE>
+<A NAME=IDX125>&nbsp;</A>
+<A NAME=IDX127>&nbsp;</A>
+<A NAME=IDX128>&nbsp;</A>
+<P>
+<H2><A NAME="LENDISVOC" HREF="tkasrun.htm#ToC_13">SmDisableVocab</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmDisableVocab disables a defined vocabulary.
+<P>
+This function disables a vocabulary so it is no longer
+used by the speech engine
+to decode speech to text during a recognition session.
+Only the specified vocabulary is disabled.
+Any other enabled vocabularies remain
+active.
+<P>This function is valid only when the speech engine is not
+decoding speech to text.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmDisableVocab (char   *<VAR>vocab</VAR>,
+                    SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>vocab</VAR>
+<P><DD>input -  The name of the vocabulary to be disabled.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made
+asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_VOCAB
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_DISABLE_VOCAB_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetVocabName
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddToVocab
+SmDefineVocab
+SmEnableVocab
+SmQueryAddedWords
+SmQueryEnabledVocabs
+SmQueryVocabs
+SmQueryWord
+SmRemoveFromVocab
+SmUndefineVocab
+SmNaddToVocabCallback
+SmNdefineVocabCallback
+SmNdisableVocabCallback
+SmNenableVocabCallback
+SmNqueryAddedWordsCallback
+SmNqueryEnabledVocabsCallback
+SmNqueryVocabsCallback
+SmNqueryWordsCallback
+SmNremoveFromVocabCallback
+SmNundefineVocabCallback
+</PRE>
+<A NAME=IDX129>&nbsp;</A>
+<A NAME=IDX130>&nbsp;</A>
+<A NAME=IDX131>&nbsp;</A>
+<A NAME=IDX132>&nbsp;</A>
+<A NAME=IDX133>&nbsp;</A>
+<A NAME=IDX134>&nbsp;</A>
+<P>
+<H2><A NAME="LENDISDAT" HREF="tkasrun.htm#ToC_14">SmDiscardData</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmDiscardData discards audio and error-correction data.
+<P>
+This function discards audio data and
+error-correction
+information for recognized words that are not referenced
+again,
+thus conserving speech engine disk space (refer to the
+SmNdiscardSessionData speech attribute used at
+<A HREF="#LENDISCON">SmDisconnect</A>).
+<P>
+SmDiscardData works on the granularity of utterances
+(between SmMicOn and SmMicOff) and discards utterance files owned
+by the
+application.
+Ownership is established by the application that turned
+the microphone on to create the utterance.
+An application can guarantee ownership of its data
+by toggling the microphone Off and On when it receives focus.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmDiscardData (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made
+asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_DISCARD_DATA_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<A NAME=IDX135>&nbsp;</A>
+<A NAME=IDX136>&nbsp;</A>
+<A NAME=IDX138>&nbsp;</A>
+<A NAME=IDX139>&nbsp;</A>
+<P>
+<H2><A NAME="LENDISCON" HREF="tkasrun.htm#ToC_15">SmDisconnect</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmDisconnect disconnects from the speech engine.
+<P>
+This function closes the communication connection
+with the speech engine.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmDisconnect (int     <VAR>nargs</VAR>,
+                  SmArg  *<VAR>Args</VAR>,
+                  SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>nargs</VAR>
+<P><DD>input -  The number of arguments in the accompanying
+argument list.
+<P><DT><VAR>Args</VAR>
+<P><DD>input -  A set of arguments that indicate default
+parameters for
+disconnecting from the speech engine.
+Different attributes can be specified depending on the type of
+session and the disposition of current data.
+Arguments include:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P><B></B><I>In recognition sessions&#58;</I>
+</TD><TR VALIGN=TOP><TD><P>SmNdiscardSessionAdaptation
+</TD><TD><P>Reset the
+user&#39;s voice model
+to the state it was in
+before the decoding session.
+</TD></TR><TR VALIGN=TOP><TD><P>SmNdiscardSessionData
+</TD><TD><P>Delete any data for this session.
+</TD></TR><TR VALIGN=TOP><TD><P>SmNsaveSessionData
+</TD><TD><P>Keep the session data until the user re-initializes.
+(Default)
+</TD></TR><TR VALIGN=TOP><TD><P>SmNsaveSessionAdaptation
+</TD><TD><P>Keep words added to the word-usage model during this
+session.
+(Default)
+</TD></TR></TABLE>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made
+asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_ENROLLID
+SM_BAD_SCRIPT
+SM_RC_BAD_VALUE
+SM_RC_ENROLLID_EXISTS
+SM_RC_ENROLLID_RUNNING
+SM_RC_NO_SPACE_TERM_ENROLL
+SM_RC_NOT_VALID_REQUEST
+SM_RC_SERVER_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_DISCONNECT_REPLY
+<UL COMPACT>
+<LI>SmGetMsgType
+<LI>SmGetRc
+<LI>SmGetService
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmClose
+SmNdisconnectCallback
+</PRE>
+<A NAME=IDX140>&nbsp;</A>
+<A NAME=IDX141>&nbsp;</A>
+<A NAME=IDX143>&nbsp;</A>
+<P>
+<H2><A NAME="LENDISPTCH" HREF="tkasrun.htm#ToC_16">SmDispatch</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmDispatch receives one message and dispatches the callbacks.
+<P>
+This function provides the method through which
+callback functions are executed by OS/2 applications.
+More specifically, this function receives one message
+from the speech engine and dispatches
+the appropriate callback routines, which were previously
+registered using SmAddCallback, for the default connection.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmDispatch (unsigned long <VAR>ap_val</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>ap_val</VAR>
+<P><DD>input -  OS/2 applications need to specify lParam
+here for ap_val.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_EINVAL
+SM_RC_EMSGSIZE
+SM_RC_ENOCONN
+SM_RC_ENOHANDLES
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_ETIMEOUT
+SM_RC_EUNEXP
+SM_RC_EUNKMSG
+SM_RC_NOT_OPEN
+SM_RC_OK
+</PRE>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddCallback
+SmRemoveCallback
+</PRE>
+<A NAME=IDX144>&nbsp;</A>
+<A NAME=IDX145>&nbsp;</A>
+<A NAME=IDX147>&nbsp;</A>
+<P>
+<H2><A NAME="LENENVOC" HREF="tkasrun.htm#ToC_17">SmEnableVocab</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmEnableVocab enables a defined vocabulary.
+<P>
+This function enables a vocabulary to be used
+by the speech engine to
+decode speech to text during a recognition session.
+Currently enabled vocabularies are not disabled by this function
+but remain enabled along with the newly enabled vocabulary.
+If currently enabled vocabularies are
+to be
+disabled first, then an
+SmDisableVocab call must be made beforehand for each vocabulary
+to be disabled.
+<P>This call is valid only when the speech engine is not
+decoding speech to text.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmEnableVocab (char   *<VAR>vocab</VAR>,
+                   SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>vocab</VAR>
+<P><DD>input -  The name of the vocabulary to be enabled.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made
+asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_VOCAB
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_ENABLE_VOCAB_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetVocabName
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddToVocab
+SmDefineVocab
+SmDisableVocab
+SmQueryAddedWords
+SmQueryEnabledVocabs
+SmQueryVocabs
+SmQueryWord
+SmRemoveFromVocab
+SmUndefineVocab
+SmNaddToVocabCallback
+SmNdefineVocabCallback
+SmNdisableVocabCallback
+SmNenableVocabCallback
+SmNqueryAddedWordsCallback
+SmNqueryEnabledVocabsCallback
+SmNqueryVocabsCallback
+SmNqueryWordsCallback
+SmNremoveFromVocabCallback
+SmNundefineVocabCallback
+</PRE>
+<A NAME=IDX148>&nbsp;</A>
+<A NAME=IDX150>&nbsp;</A>
+<A NAME=IDX152>&nbsp;</A>
+<A NAME=IDX153>&nbsp;</A>
+<P>
+<H2><A NAME="LENEVNOT" HREF="tkasrun.htm#ToC_18">SmEventNotify</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmEventNotify requests notification when the speech engine completes
+decoding all the audio dictated up to the time SmEventNotify was called.
+<P>
+This function causes the callback associated with the
+SmNaudioEventCallback attribute to be called as soon as
+decoding is completed for all the words dictated up to the
+time SmEventNotify was called.
+<P>If a callback is not used,
+the application is notified with the reply message structure
+SM_EVENT_SYNCH sent by the speech engine.
+<P>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmEventNotify (long    <VAR>event_id</VAR>,
+                   long    <VAR>options</VAR>,
+                   SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>event_id</VAR>
+<P><DD>input -  The event ID.
+<P><DT><VAR>options</VAR>
+<P><DD>input -  The options for the event,
+which can be logically OR&#39;ed&#58;
+<UL>
+<P><LI>SM_EVENT_HALT_RECOGNITION -
+halt and switch to command recognition
+when event is encountered
+(Default)
+<P><LI>SM_EVENT_CONTINUE_RECOGNITION -
+notify application that event was encountered and continue with
+recognition
+<P><LI>SM_EVENT_FIRM_UP - process audio following event
+<P><LI>SM_EVENT_DISCARD - discard audio following event
+(Default)
+</UL>
+<P><B>Notes: </B><UL>
+<P><LI>SM_EVENT_HALT_RECOGNITION and SM_EVENT_CONTINUE_RECOGNITION
+cannot be specified together.
+<P><LI>SM_EVENT_FIRM_UP and SM_EVENT_DISCARD
+cannot be specified together.
+</UL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_EVENT_NOTIFY_REPLY
+<UL COMPACT>
+<LI>SmGetEventId
+<LI>SmGetRc
+</UL>
+SM_EVENT_SYNCH
+<UL COMPACT>
+<LI>SmGetEventId
+<LI>SmGetEventOptions
+<LI>SmGetRc
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmNeventNotifyCallback
+SmNeventSynchCallback
+</PRE>
+<A NAME=IDX154>&nbsp;</A>
+<A NAME=IDX155>&nbsp;</A>
+<A NAME=IDX156>&nbsp;</A>
+<A NAME=IDX157>&nbsp;</A>
+<A NAME=IDX158>&nbsp;</A>
+<P>
+<H2><A NAME="LENHALTREC" HREF="tkasrun.htm#ToC_19">SmHaltRecognizer</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmHaltRecognizer temporarily halts recognition.
+<P>
+This function can be called when the speech engine is
+decoding speech to text.
+Halting recognition may be necessary, for example,
+to define and/or enable
+vocabularies to be used by the engine during recognition.
+Recognition can be restarted with SmRecognizeNextWord.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmHaltRecognizer (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to the reply structure
+or to the SmAsynchronous value.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+SM_RC_SERVER_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_HALT_RECOGNIZER_REPLY
+<UL COMPACT>
+<LI>SmGetNumberWordMsgs
+<LI>SmGetRc
+</UL>
+<P><P>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmMicOff
+SmMicOn
+SmQuery
+SmRecognizeNextWord
+SmSet
+SmNhaltRecognizerCallback
+SmNmicOffCallback
+SmNmicOnCallback
+SmNqueryCallback
+SmNrecognizeNextWordCallback
+SmNrecognizedTextCallback
+SmNrecognizedWordCallback
+SmNsetCallback
+SmNutteranceCompletedCallback
+</PRE>
+<A NAME=IDX159>&nbsp;</A>
+<A NAME=IDX160>&nbsp;</A>
+<A NAME=IDX162>&nbsp;</A>
+<P>
+<H2><A NAME="LENMICOFF" HREF="tkasrun.htm#ToC_20">SmMicOff</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmMicOff turns off the microphone.
+<P>
+This function turns off the microphone; however,
+in a recognition session,
+after the microphone is turned off,
+the speech engine continues speech to text decoding of words
+already spoken.
+Depending on the speed and what is said before the microphone
+is turned off, this process can take several seconds to complete.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmMicOff (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_MIC_ALREADY_OFF
+SM_RC_MIC_OFF_PENDING
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_MIC_OFF_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+<P><P>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmHaltRecognizer
+SmMicOn
+SmQuery
+SmRecognizeNextWord
+SmSet
+SmNhaltRecognizerCallback
+SmNmicOffCallback
+SmNmicOnCallback
+SmNqueryCallback
+SmNrecognizeNextWordCallback
+SmNrecognizedTextCallback
+SmNrecognizedWordCallback
+SmNsetCallback
+SmNutteranceCompletedCallback
+</PRE>
+<A NAME=IDX163>&nbsp;</A>
+<A NAME=IDX164>&nbsp;</A>
+<A NAME=IDX166>&nbsp;</A>
+<P>
+<H2><A NAME="LENMICON" HREF="tkasrun.htm#ToC_21">SmMicOn</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmMicOn turns on the microphone.
+<P>
+In a recognition session, this function
+turns on the microphone and starts the audio stream.
+The application must issue an SmRecognizedNextWord to
+start
+the engine decoding.
+<P>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmMicOn (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to the reply structure
+or to the SmAsynchronous value.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_AP
+SM_RC_BAD_DECO
+SM_RC_BUSY_LAST_UTTERANCE
+SM_RC_BUSY_WORD_CORRECTION
+SM_RC_ENROLLMENT_NOT_COMPLETE
+SM_RC_MIC_ALREADY_ON
+SM_RC_MIC_OFF_PENDING
+SM_RC_MIC_ON_PENDING
+SM_RC_NO_SPACE_MIC_ON
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_MIC_ON_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetUtteranceNumber
+</UL>
+<P>
+<I>During a recognition session&#58;</I>
+<BR>
+SM_RECOGNIZED_TEXT
+<UL COMPACT>
+<LI>SmGetFirmWords
+<LI>SmGetInfirmWords
+<LI>SmGetRc
+<LI>SmGetTimes
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmHaltRecognizer
+SmMicOff
+SmQuery
+SmRecognizeNextWord
+SmSet
+SmNhaltRecognizerCallback
+SmNmicOffCallback
+SmNmicOnCallback
+SmNqueryCallback
+SmNrecognizeNextWordCallback
+SmNrecognizedTextCallback
+SmNrecognizedWordCallback
+SmNsetCallback
+SmNutteranceCompletedCallback
+</PRE>
+<A NAME=IDX167>&nbsp;</A>
+<A NAME=IDX168>&nbsp;</A>
+<A NAME=IDX169>&nbsp;</A>
+<A NAME=IDX170>&nbsp;</A>
+<P>
+<H2><A NAME="LENNEWCON" HREF="tkasrun.htm#ToC_22">SmNewContext</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmNewContext sends a new text context.
+<P>
+This function allows a change in text context
+sent to the speech engine.
+This function is usually called
+when text dictation begins at a new
+location in a document
+and can only be called when the speech engine is halted.
+Context refers to previous and following words, which are used to
+decode the current word in a recognition session.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmNewContext (short          <VAR>nwords</VAR>,
+                  SM_WORD       *<VAR>words&#91;&#93;</VAR>,
+                  SM_MSG        *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>nwords</VAR>
+<P><DD>input -  The number of words of context sent.
+Zero means
+no left context.
+<P><DT><VAR>words</VAR>
+<P><DD>input -  An array of pointers to the context words,
+ordered from left to right in the text.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to the reply structure
+or to the SmAsynchronous value
+indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_NEW_CONTEXT_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmCorrectText
+SmCorrectTextCancel
+SmRemovePronunciation
+SmWordCorrection
+SmNcorrectTextCallback
+SmNcorrectTextCancelCallback
+SmNnewContextCallback
+SmNremovePronunciationCallback
+SmNwordCorrectionCallback
+</PRE>
+<A NAME=IDX171>&nbsp;</A>
+<A NAME=IDX172>&nbsp;</A>
+<A NAME=IDX173>&nbsp;</A>
+<A NAME=IDX174>&nbsp;</A>
+<P>
+<H2><A NAME="LENOPEN" HREF="tkasrun.htm#ToC_23">SmOpen</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmOpen opens the SMAPI.
+<P>
+This function establishes a SMAPI connection
+and initializes values in a connection structure.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmOpen (int    <VAR>nargs</VAR>,
+            SmArg *<VAR>Args</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>nargs</VAR>
+<P><DD>input -  The number of arguments in the accompanying argument
+list.
+<P><DT><VAR>Args</VAR>
+<P><DD>input -  A
+set of arguments that indicate default parameters
+for the SMAPI connection.
+They are stored in a connection structure for the
+speech-aware application.
+The values in the structure are used to set up the
+session with the speech engine.
+Speech API attributes can also be set by using the
+SmSetArg function, which specifies the attribute name and
+its value.
+<P>For details on the attributes, see
+<A HREF="tkasru08.htm#HDRATTRIB">"SMAPI Attributes"</A>.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_EALLOC
+SM_RC_ENOMEM
+SM_RC_NAVIGATOR_ALREADY_DEFINED
+SM_RC_OK
+SM_RC_ALREADY_CONNECTED
+SM_RC_ALREADY_OPENED
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_OPEN_SYNCH_QUEUE_FAILED
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmConnect
+SmSetArg
+SmNconnectCallback
+</PRE>
+<A NAME=IDX175>&nbsp;</A>
+<A NAME=IDX177>&nbsp;</A>
+<A NAME=IDX179>&nbsp;</A>
+<A NAME=IDX180>&nbsp;</A>
+<P>
+<H2><A NAME="LENPLAYMES" HREF="tkasrun.htm#ToC_24">SmPlayMessage</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmPlayMessage plays
+back a prerecorded audio file.
+<P>
+This function allows the user to play a
+prerecorded audio
+file.
+After
+the speech-aware application requests a playback,
+it
+can call SmGetStatus to
+retrieve the last
+playback status, which can be one of the following:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD>SM_STAT_BAD_AUDIO
+</TD><TD>The connection to the audio source was lost during
+playback.
+</TD></TR><TR VALIGN=TOP><TD>SM_STAT_PLAY_START
+</TD><TD>The message has started playing.
+</TD></TR><TR VALIGN=TOP><TD>SM_STAT_PLAY_STOP
+</TD><TD>The message has stopped playing.
+</TD></TR></TABLE>
+<P>Possible return values passed to the
+SmNplayMessageStatusCallback are:
+<UL COMPACT>
+<LI>SM_RC_OK
+<LI>SM_RC_BAD_AUDIO
+<LI>SM_RC_PLAY_OPEN_ERROR
+</UL>
+<P>The following restrictions apply when calling SmPlayMessage&#58;
+<UL COMPACT>
+<LI>Microphone must be off.
+<LI>Speech engine must not be decoding speech to text.
+In other words, the application must have received
+SM_UTTERANCE_COMPLETED from the engine.
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmPlayMessage (char   *<VAR>message_name</VAR>,
+                   char   *<VAR>language</VAR>,
+                   SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>message_name</VAR>
+<P><DD>input -
+The fully qualified name of an audio file in
+IBM VoiceType format, which is
+8-bit (mono) u-Law PCM at 11.025kHz.
+These audio files can be created by
+dictating the message and saving to a file in IBM VoiceType Dictation.
+<A NAME="SPTPMESN"><I>(Ref #1.)</I></A>
+<P><DT><VAR>language</VAR>
+<P><DD>input -  The name of the language played.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to the reply structure
+or to the SmAsynchronous value
+indicating that the call is made asynchronously.
+</DL>
+<P><P>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_LANGUAGE
+SM_RC_BAD_MESSAGE
+SM_RC_NOT_VALID_REQUEST
+SM_RC_NOT_WHILE_MIC_ON
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_PLAY_MESSAGE_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+SM_PLAY_MESSAGE_STATUS
+<UL COMPACT>
+<LI>SmGetMsgName
+<LI>SmGetRc
+<LI>SmGetStatus
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmCancelPlayback
+SmPlayUtterance
+SmPlayWords
+SmNcancelPlaybackCallback
+SmNplayMessageCallback
+SmNplayMessageStatusCallback
+SmNplayUtteranceCallback
+SmNplayUtteranceStatusCallback
+SmNplayWordsCallback
+SmNplayWordsStatusCallback
+</PRE>
+<A NAME=IDX181>&nbsp;</A>
+<A NAME=IDX183>&nbsp;</A>
+<A NAME=IDX185>&nbsp;</A>
+<P>
+<H2><A NAME="LENPLAYUTT" HREF="tkasrun.htm#ToC_25">SmPlayUtterance</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmPlayUtterance plays back a spoken utterance.
+<P>
+This function allows an utterance or a portion of
+an utterance previously spoken during dictation or enrollment to be
+played back to the user as an
+error-correction aid.
+For a monitored enrollment session,
+an utterance corresponds to a sentence of an enrollment script
+and, for a recognition session,
+it corresponds to
+any word
+spoken between SmMicOn and subsequent SmMicOff.
+<P>After the speech-aware application requests a playback it
+can call SmGetStatus
+to retrieve the last
+playback status, which can be one of the following:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD>SM_STAT_BAD_AUDIO
+</TD><TD>The connection to the audio source was lost during
+playback.
+</TD></TR><TR VALIGN=TOP><TD>SM_STAT_PLAY_START
+</TD><TD>The utterance has started playing.
+</TD></TR><TR VALIGN=TOP><TD>SM_STAT_PLAY_STOP
+</TD><TD>The utterance has stopped playing.
+</TD></TR></TABLE>
+<P>Possible return values passed to the
+SmNplayUtteranceStatusCallback are:
+<UL COMPACT>
+<LI>SM_RC_OK
+<LI>SM_RC_BAD_AUDIO
+<LI>SM_RC_PLAY_OPEN_ERROR
+</UL>
+<P>The following restrictions apply when calling
+SmPlayUtterance &#58;
+<UL COMPACT>
+<LI>Microphone must be off.
+<LI>Speech engine must not be decoding speech to text.
+In other words, the application must have received
+SM_UTTERANCE_COMPLETED from the engine.
+</UL>
+<P><B>Note&#58;</B> For this call to be valid, the application must first
+enable audio saving through SmSet(SM_SAVE_AUDIO, TRUE).
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmPlayUtterance (long    <VAR>uttno</VAR>,
+                     long    <VAR>begtime</VAR>,
+                     long    <VAR>endtime</VAR>,
+                     SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>uttno</VAR>
+<P><DD>input -  The utterance number to play back.
+The current utterance number can be extracted from
+SM_MIC_ON_REPLY with SmGetUtteranceNumber.
+<P><DT><VAR>begtime</VAR>
+<P><DD>input -  Reserved.       Must be set to 0.
+<P><DT><VAR>endtime</VAR>
+<P><DD>input -  Reserved.
+Must be set to 0.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made asynchronously.
+</DL>
+<P><P>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+SM_RC_NOT_WHILE_MIC_ON
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_PLAY_UTTERANCE_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+SM_PLAY_UTTERANCE_STATUS
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetStatus
+<LI>SmGetUtteranceNumber
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmCancelPlayback
+SmPlayMessage
+SmPlayWords
+SmNcancelPlaybackCallback
+SmNplayMessageCallback
+SmNplayMessageStatusCallback
+SmNplayUtteranceCallback
+SmNplayUtteranceStatusCallback
+SmNplayWordsCallback
+SmNplayWordsStatusCallback
+</PRE>
+<A NAME=IDX186>&nbsp;</A>
+<A NAME=IDX188>&nbsp;</A>
+<A NAME=IDX190>&nbsp;</A>
+<P>
+<H2><A NAME="LENPLAWRD" HREF="tkasrun.htm#ToC_26">SmPlayWords</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmPlayWords plays back spoken words.
+<P>
+This function allows a previously spoken word or
+collection of words to be played back to the user
+as an error correction aid.
+<P>After
+the speech-aware application
+requests a playback,
+it can
+then call SmGetStatus to retrieve the last
+playback status, which can be one of the following:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD>SM_STAT_BAD_AUDIO
+</TD><TD>The connection to the audio source was lost during
+playback.
+</TD></TR><TR VALIGN=TOP><TD>SM_STAT_BAD_TAG
+</TD><TD>An invalid
+word (tag)
+was specified for the played word.
+</TD></TR><TR VALIGN=TOP><TD>SM_STAT_PLAY_START
+</TD><TD>The word has started playing.
+</TD></TR><TR VALIGN=TOP><TD>SM_STAT_PLAY_STOP
+</TD><TD>The word has stopped playing.
+</TD></TR></TABLE>
+<P>Possible return values passed to the
+SmNplayWordsStatusCallback are:
+<UL COMPACT>
+<LI>SM_RC_OK
+<LI>SM_RC_BAD_TAG
+<LI>SM_RC_PLAY_OPEN_ERROR
+</UL>
+<P>During
+a monitored enrollment session,
+the words that can be played back are those
+belonging to the example recording of an enrollment script.
+These words are retrieved by using the SmRequestScriptText call.
+During
+a recognition session,
+the words that can be played back are those
+found in the reply message structures,
+SM_RECOGNIZED_TEXT and SM_RECOGNIZED_WORD,
+sent by the speech engine.
+<P>The following restrictions apply when calling SmPlayWords&#58;
+<UL COMPACT>
+<LI>Microphone must be off.
+<LI>Speech engine must not be decoding speech to text.
+In other words, the application must have received
+SM_UTTERANCE_COMPLETED from the engine.
+</UL>
+<P><B>Note&#58;</B> For this call to be valid, the application must first
+enable audio saving through SmSet(SM_SAVE_AUDIO, TRUE).
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmPlayWords (short   <VAR>ntags</VAR>,
+                 long    <VAR>tags&#91;&#93;</VAR>,
+                 long    <VAR>options</VAR>,
+                 SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>ntags</VAR>
+<P><DD>input -  The number of words (tags) to play back.
+<P><DT><VAR>tags</VAR>
+<P><DD>input -  The array of word tags.
+<P><DT><VAR>options</VAR>
+<P><DD>input -
+One of the following:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P>SM_PLAY_WORDS_CONTIGUOUS
+</TD><TD><P>When playing multiple words, return a single
+SM_PLAY_WORDS_STATUS
+message after all words are played.  This is the default.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_PLAY_WORDS_SEPARATE
+</TD><TD><P>Reserved, not supported.
+</TD></TR></TABLE>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous, indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_TAG
+SM_RC_NOT_VALID_REQUEST
+SM_RC_NOT_WHILE_MIC_ON
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+SM_PLAY_WORDS_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+SM_PLAY_WORDS_STATUS
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetStatus
+<LI>SmGetTags
+</UL>
+<P><P>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmCancelPlayback
+SmPlayMessage
+SmPlayUtterance
+SmQueryWord
+SmWordCorrection
+SmNcancelPlaybackCallback
+SmNplayMessageCallback
+SmNplayMessageStatusCallback
+SmNplayUtteranceCallback
+SmNplayUtteranceStatusCallback
+SmNplayWordsCallback
+SmNplayWordsStatusCallback
+SmNqueryAddedWordsCallback
+</PRE>
+<A NAME=IDX191>&nbsp;</A>
+<A NAME=IDX192>&nbsp;</A>
+<A NAME=IDX194>&nbsp;</A>
+<A NAME=IDX195>&nbsp;</A>
+<P>
+<H2><A NAME="LENQUERY" HREF="tkasrun.htm#ToC_27">SmQuery</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQuery queries a speech engine parameter.
+<P>
+This function queries the value of the specified
+speech engine parameter.
+Call the SmGetItemValue function to extract the queried value.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQuery (short   <VAR>item</VAR>,
+             SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>item</VAR>
+<P><DD>input -  The parameter queried, which can be
+one
+of the following:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P>SM_API_DEBUG
+</TD><TD><P>Values include the following: 0 is debugging off,
+1 to 5 provide progressively more debug information.
+A value of 1 or 2 provides flow of control information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_API_DISPLAY - Reserved
+</TD><TD><P>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_API_LOG - Reserved
+</TD><TD><P>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_API_TIMING - Reserved
+</TD><TD><P>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_CONFIGURATION
+</TD><TD><P>Query the input source of the audio hardware
+where audio data is collected.
+The returned value is bit mapped
+and can be any combination of the following values:
+<UL COMPACT>
+<LI>SM_AUDIO_INPUT_MIC_HI_GAIN
+<LI>SM_AUDIO_INPUT_MIC_LO_GAIN
+<LI>SM_AUDIO_INPUT_LINE_LEFT
+<LI>SM_AUDIO_INPUT_LINE_RIGHT
+<LI>SM_AUDIO_INPUT_VARIABLE_GAIN
+<LI>SM_AUDIO_OUTPUT_LINE_LEFT
+<LI>SM_AUDIO_OUTPUT_LINE_RIGHT
+<LI>SM_AUDIO_OUTPUT_INTERNAL_SPEAKER
+<LI>SM_AUDIO_OUTPUT_VARIABLE_GAIN
+</UL>
+Refer to the SMLIMITS.H file for bounds on input and output values.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_DEVICE
+</TD><TD><P>Query the type of audio hardware.  Return values include the
+following:
+<UL COMPACT>
+<LI>SM_ACPA_AUDIO - Reserved
+<LI>SM_PERSONAL_DICTATION_AUDIO
+<LI>SM_SYSTEM_AUDIO - native audio system for hardware/operating
+systems.
+</UL>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_INPUT_LEVEL
+</TD><TD><P>Query the returning of audio-level data during recognition
+or enrollment.
+The value is either TRUE (1) or FALSE (0).
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_INPUT_MODE
+</TD><TD><P>Query the input source of the audio hardware
+where audio data is collected.  The returned value is bit mapped
+and can be any one of the following values:
+<UL COMPACT>
+<LI>SM_AUDIO_INPUT_LINE_LEFT
+<LI>SM_AUDIO_INPUT_LINE_RIGHT
+<LI>SM_AUDIO_INPUT_MIC_HI_GAIN
+<LI>SM_AUDIO_INPUT_MIC_LO_GAIN
+</UL>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_INPUT_GAIN
+</TD><TD><P>If supported by underlying audio, this parameter
+allows you to query current gain setting.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_OUTPUT_GAIN
+</TD><TD><P>If supported by underlying audio, this parameter
+allows you to query current gain setting.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_OUTPUT_MODE
+</TD><TD><P>If supported by underlying audio, this bit value
+indicates the current output destination.
+The returned value can be any one of the following values:
+<UL COMPACT>
+<LI>SM_AUDIO_OUTPUT_LINE_LEFT
+<LI>SM_AUDIO_OUTPUT_LINE_RIGHT
+<LI>SM_AUDIO_OUTPUT_LINE_INTERNAL_SPEAKER
+</UL>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENABLE_EXCLUSIVE_VOCABS
+</TD><TD><P>Query the calling application&#39;s vocabularies.
+The value is either TRUE (1) for enabled, or FALSE (0)
+for disabled.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENGINE_DEBUG
+</TD><TD><P>Reserved.
+Values include the following: 0 is disabled,
+greater than 0 provides progressively more information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENGINE_DISPLAY
+</TD><TD><P>Reserved.
+Values include the following: 0 is disabled,
+greater than 0 provides progressively more information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_REJECTION_THRESHOLD
+</TD><TD><P>Returns value from SM_MIN_REJECTION_THRESHOLD to
+SM_MAX_REJECTION_THRESHOLD
+(refer to
+<A HREF="#LENSET">SmSet</A> for a detailed description of the
+SM_REJECTION_THRESHOLD parameter).
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENGINE_LOG
+</TD><TD><P>Reserved.
+Values include the following: 0 is disabled,
+greater than 0 provides progressively more information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_NOTIFY_AUDIO_LEVEL
+</TD><TD><P>Query the returning of audio-level data during recognition
+or enrollment.
+The value is either TRUE (1) or FALSE (0).
+</TD></TR><TR VALIGN=TOP><TD><P>SM_NOTIFY_COMMAND_WORD
+</TD><TD><P>Query whether the application is notified
+when a command word is recognized
+by having the engine send a SM_COMMAND_WORD reply message.
+The value is either TRUE (1) or FALSE (0).
+</TD></TR><TR VALIGN=TOP><TD><P>SM_NOTIFY_ENGINE_STATE
+</TD><TD><P>Query whether the application is notified of
+a speech engine state change.
+The value is either TRUE (1) or FALSE (0).
+</TD></TR><TR VALIGN=TOP><TD><P>SM_NOTIFY_FOCUS_STATE
+</TD><TD><P>Query whether the application is notified of
+a speech focus state change.
+The value is either TRUE (1) or FALSE (0).
+</TD></TR><TR VALIGN=TOP><TD><P>SM_NOTIFY_MIC_STATE
+</TD><TD><P>Query whether the application is notified of
+a microphone state change.
+The value is either TRUE (1) or FALSE (0).
+<P><P>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_REDUCED_CPU_MODE
+</TD><TD><P>Query the CPU mode of the speech engine.
+The value is either
+TRUE (1) for reduced CPU mode,
+or FALSE (0) for normal CPU mode.
+See
+<A HREF="tkasru05.htm#LENGTENST">SmGetEngineState</A> for more information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_SAVE_AUDIO
+</TD><TD><P>Query whether recorded audio is being saved
+during recognition.
+The value is either TRUE (1) or FALSE (0).
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENGINE_TIMING
+</TD><TD><P>Reserved.
+Values include the following: 0 is disabled,
+greater than 0 provides progressively more information.
+</TD></TR></TABLE>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_BAD_MODE
+SM_RC_NOT_YET
+SM_RC_EXISTS_IN_NOTIFY
+SM_RC_NOT_IN_NOTIFY
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_REPLY
+<UL COMPACT>
+<LI>SmGetItemValue
+<LI>SmGetRc
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmHaltRecognizer
+SmMicOff
+SmMicOn
+SmRecognizeNextWord
+SmSet
+SmNhaltRecognizerCallback
+SmNmicOffCallback
+SmNmicOnCallback
+SmNqueryCallback
+SmNrecognizeNextWordCallback
+SmNrecognizedTextCallback
+SmNrecognizedWordCallback
+SmNsetCallback
+SmNutteranceCompletedCallback
+</PRE>
+<A NAME=IDX196>&nbsp;</A>
+<A NAME=IDX198>&nbsp;</A>
+<A NAME=IDX200>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYADWD" HREF="tkasrun.htm#ToC_28">SmQueryAddedWords</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryAddedWords queries added words.
+<P>
+This function requests a list of all words that have
+been added to vocabularies of the currently active
+session.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryAddedWords (char   *<VAR>vocab</VAR>,
+                       SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>vocab</VAR>
+<P><DD>input -  The name of the vocabulary to query.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_VOCAB
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_ADDED_WORDS_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetWords
+</UL>
+<P><P>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddToVocab
+SmDefineVocab
+SmDisableVocab
+SmEnableVocab
+SmNaddToVocabCallback
+SmNdefineVocabCallback
+SmNdisableVocabCallback
+SmNenableVocabCallback
+SmNplayWordsCallback
+SmNplayWordsStatusCallback
+SmNqueryAddedWordsCallback
+SmNqueryEnabledVocabsCallback
+SmNqueryVocabsCallback
+SmNqueryWordsCallback
+SmNremoveFromVocabCallback
+SmNundefineVocabCallback
+SmNwordCorrectionCallback
+SmPlayWords
+SmQueryAddedWords
+SmQueryEnabledVocabs
+SmQueryVocabs
+SmQueryWord
+SmRemoveFromVocab
+SmUndefineVocab
+SmWordCorrection
+</PRE>
+<A NAME=IDX201>&nbsp;</A>
+<A NAME=IDX203>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYALT" HREF="tkasrun.htm#ToC_29">SmQueryAlternates</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryAlternates requests a list of alternative words.
+<P>
+This function requests a list of alternative
+choices for
+a firm word or a group of firm words that has been
+incorrectly recognized.
+Errors are usually one-for-one substitutions, in which case only
+one word
+needs to be specified on the call to SmGetAlternates.
+A word may, however, be recognized incorrectly as two or more
+words.
+In that case, two or more
+words
+might need to be specified in
+order to get
+an alternative list containing the correct word.
+<P>
+The following restrictions apply when calling
+SmQueryAlternates &#58;
+<UL COMPACT>
+<LI>Microphone must be off
+<LI>Speech engine must not be decoding speech to text.
+In other words, the application must have received
+SM_UTTERANCE_COMPLETED from the engine.
+<LI>SM_SAVE_AUDIO must be enabled with SmSet.
+</UL>
+<P><B>Note&#58;</B> For this call to be valid, the application
+must first enable audio saving through SmSet(SM_SAVE_AUDIO, TRUE).
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryAlternates (short   <VAR>ntags</VAR>,
+                       long    <VAR>tags&#91;&#93;</VAR>,
+                       SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>ntags</VAR>
+<P><DD>input -  The number of
+words (tags)
+for which alternatives are
+requested.
+<P><DT><VAR>tags</VAR>
+<P><DD>input -  The tags of the word for which alternatives are
+requested.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_ALTERNATES_REPLY
+<UL COMPACT>
+<LI>SmGetAlternates
+<LI>SmGetRc
+<LI>SmGetTags
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmNqueryAlternatesCallback
+</PRE>
+<A NAME=IDX204>&nbsp;</A>
+<A NAME=IDX206>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYDFLT" HREF="tkasrun.htm#ToC_30">SmQueryDefault</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryDefault queries the default value for a user, enrollment,
+or task ID speech attribute.
+<P>
+This function queries the value of
+SmNuserId, SmNenrollId, or SmNtask speech attributes.
+These attributes can be specified with SmOpen and SmConnect.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryDefault (long    <VAR>item</VAR>,
+                    SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>item</VAR>
+<P><DD>input -  Type of default ID speech attribute.
+Valid values include the following:
+<UL COMPACT>
+<LI>SM_DEFAULT_USERID
+<LI>SM_DEFAULT_ENROLLID
+<LI>SM_DEFAULT_TASK
+</UL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is
+made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_DEFAULT_REPLY
+<UL COMPACT>
+<LI>SmGetEnrollId
+<LI>SmGetEnrollIds
+<LI>SmGetRc
+<LI>SmGetScripts
+<LI>SmGetTask
+<LI>SmGetTasks
+<LI>SmGetUserId
+<LI>SmGetUserIds
+</UL>
+<P><P>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmConnect
+SmOpen
+SmSetDefault
+</PRE>
+<A NAME=IDX207>&nbsp;</A>
+<A NAME=IDX208>&nbsp;</A>
+<A NAME=IDX210>&nbsp;</A>
+<A NAME=IDX212>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYENVC" HREF="tkasrun.htm#ToC_31">SmQueryEnabledVocabs</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryEnabledVocabs queries currently enabled
+vocabularies.
+<P>
+This function obtains a list of all currently
+enabled vocabularies.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryEnabledVocabs (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_ENABLED_VOCABS_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetVocabList
+</UL>
+<P><P>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddToVocab
+SmDefineVocab
+SmDisableVocab
+SmEnableVocab
+SmQueryAddedWords
+SmQueryVocabs
+SmQueryWord
+SmRemoveFromVocab
+SmUndefineVocab
+SmNaddToVocabCallback
+SmNdefineVocabCallback
+SmNdisableVocabCallback
+SmNenableVocabCallback
+SmNqueryAddedWordsCallback
+SmNqueryEnabledVocabsCallback
+SmNqueryVocabsCallback
+SmNqueryWordsCallback
+SmNremoveFromVocabCallback
+SmNundefineVocabCallback
+</PRE>
+<A NAME=IDX213>&nbsp;</A>
+<A NAME=IDX214>&nbsp;</A>
+<A NAME=IDX216>&nbsp;</A>
+<A NAME=IDX217>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYENID" HREF="tkasrun.htm#ToC_32">SmQueryEnrollIds</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryEnrollIds queries user enrollment IDs.
+<P>
+This function returns a list of the enrollment
+IDs previously generated for a user by an enrollment
+procedure.
+Each time a user enrolls for the recognition system
+a new enrollment ID is generated for that user.
+When speech recognition is performed, one of the
+enrollment IDs from the user&#39;s enrollment ID list must be
+specified for the SmConnect function.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryEnrollIds (char   *<VAR>user_id</VAR>,
+                      char   *<VAR>enroll_id</VAR>,
+                      char   *<VAR>language</VAR>,
+                      SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>user_id</VAR>
+<P><DD>input -   The name of the user whose enrollment ID list is to
+be returned.
+<P><DT><VAR>enroll_id</VAR>
+<P><DD>input -   The enrollment ID queried, or NULL if all
+enrollments are queried.
+<P><DT><VAR>language</VAR>
+<P><DD>input -   The language for the enrollment ID, or NULL if all
+languages are queried.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_ENROLLID
+SM_RC_BAD_USERID
+SM_RC_SERVER_MALLOC_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_ENROLLIDS_REPLY
+<UL COMPACT>
+<LI>SmGetAlphabets
+<LI>SmGetDescriptions
+<LI>SmGetEnrollIds
+<LI>SmGetLanguages
+<LI>SmGetPercentages
+<LI>SmGetRc
+<LI>SmGetScripts
+<LI>SmGetStates
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmNrequestNewEnrollIdCallback
+</PRE>
+<A NAME=IDX218>&nbsp;</A>
+<A NAME=IDX220>&nbsp;</A>
+<A NAME=IDX222>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYLANG" HREF="tkasrun.htm#ToC_33">SmQueryLanguages</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryLanguages queries the available languages.
+<P>
+This function returns a list of available
+languages that can be used to initialize the speech engine.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryLanguages (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_SERVER_MALLOC_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_LANGUAGES_REPLY
+<UL COMPACT>
+<LI>SmGetDescriptions
+<LI>SmGetLanguages
+<LI>SmGetRc
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmNqueryLanguagesCallback
+</PRE>
+<A NAME=IDX223>&nbsp;</A>
+<A NAME=IDX225>&nbsp;</A>
+<A NAME=IDX227>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYPRON" HREF="tkasrun.htm#ToC_34">SmQueryPronunciation</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryPronunciation queries a pronunciation.
+<P>
+This function provides a method for a requesting application to
+determine whether an associated pronunciation exists for a given
+spelling.
+This query is applied to the pronunciations that have been
+added to the user&#39;s
+personal
+pronunciation pool for the current
+session.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryPronunciation (char   *<VAR>spelling</VAR>,
+                          SM_MSG *<VAR>reply</VAR> );
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>spelling</VAR>
+<P><DD>input -  A spelling for which a pronunciation is sought.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  A pointer to a reply structure
+or to SmAsynchronous indicating that the call
+is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_INVOCAB
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_PRONUNCIATION_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetSpelling
+<LI>SmGetSpellings
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddPronunciation
+SmQueryPronunciations
+SmRemovePronunciation
+SmNaddPronunciationCallback
+SmNqueryPronunciationCallback
+SmNqueryPronunciationsCallback
+SmNremovePronunciationCallback
+</PRE>
+<A NAME=IDX228>&nbsp;</A>
+<A NAME=IDX230>&nbsp;</A>
+<A NAME=IDX232>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYPRNS" HREF="tkasrun.htm#ToC_35">SmQueryPronunciations</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryPronunciations queries added pronunciations.
+<P>
+This function requests a list of word pronunciations
+that have been added to the
+user&#39;s pronunciation pool for the current session.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryPronunciations (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+SM_RC_SERVER_ERROR
+SM_RC_SERVER_FILE_OPEN_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_PRONUNCIATIONS_REPLY
+<UL COMPACT>
+<LI>SmGetPronunciations
+<LI>SmGetRc
+<LI>SmGetSpellings
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddPronunciation
+SmQueryPronunciation
+SmRemovePronunciation
+SmNaddPronunciationCallback
+SmNqueryPronunciationCallback
+SmNqueryPronunciationsCallback
+SmNremovePronunciationCallback
+</PRE>
+<A NAME=IDX233>&nbsp;</A>
+<A NAME=IDX235>&nbsp;</A>
+<A NAME=IDX236>&nbsp;</A>
+<A NAME=IDX238>&nbsp;</A>
+<A NAME=IDX239>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRSESS" HREF="tkasrun.htm#ToC_36">SmQuerySessions</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQuerySessions queries sessions and returns
+a list of connected recognition sessions.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQuerySessions (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_SESSIONS_REPLY
+<UL COMPACT>
+<LI>SmGetApplications
+<LI>SmGetEnrollIds
+<LI>SmGetRc
+<LI>SmGetTasks
+<LI>SmGetUserIds
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmDetachSessions
+SmNdetachSessionsCallback
+SmNquerySessionsCallback
+</PRE>
+<A NAME=IDX240>&nbsp;</A>
+<A NAME=IDX242>&nbsp;</A>
+<A NAME=IDX244>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRSPDA" HREF="tkasrun.htm#ToC_37">SmQuerySpeechData</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQuerySpeechData queries speech data.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQuerySpeechData (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_SPEECH_DATA_REPLY
+<UL COMPACT>
+<LI>SmGetSpeechDataSize
+</UL>
+<A NAME=IDX245>&nbsp;</A>
+<A NAME=IDX247>&nbsp;</A>
+<A NAME=IDX249>&nbsp;</A>
+<A NAME=IDX250>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYTASK" HREF="tkasrun.htm#ToC_38">SmQueryTasks</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryTasks queries a speech engine domain list.
+<P>
+This function returns a list of the domains
+that can be used for dictation and enrollment.
+A domain consists of a set of vocabularies,
+word-usage models, and other associated parameters
+used during a recognition session.
+A domain name must be specified when the speech
+engine is initialized for a user.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryTasks (char   *<VAR>language</VAR>,
+                  SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>language</VAR>
+<P><DD>input -  The language used for the domain.
+If specified as NULL, all domains are returned, regardless of
+language.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_SERVER_MALLOC_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_TASKS_REPLY
+<UL COMPACT>
+<LI>SmGetAlphabets
+<LI>SmGetDescriptions
+<LI>SmGetLanguages
+<LI>SmGetRc
+<LI>SmGetTasks
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmNqueryTasksCallback
+</PRE>
+<A NAME=IDX251>&nbsp;</A>
+<A NAME=IDX254>&nbsp;</A>
+<A NAME=IDX256>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYUSIN" HREF="tkasrun.htm#ToC_39">SmQueryUserInfo</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryUserInfo queries user ID or enrollment ID information.
+<P>
+This function retrieves all
+information associated with a user ID or an enrollment ID.
+Only one value can be queried at a time.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryUserInfo (char   *<VAR>user_id</VAR>,
+                     char   *<VAR>enroll_id</VAR>,
+                     char   *<VAR>itemname</VAR>,
+                     SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>user_id</VAR>
+<P><DD>input -  The name of the user whose information is retrieved.
+<P><DT><VAR>enroll_id</VAR>
+<P><DD>input -  The enrollment ID of the user whose information
+is retrieved.
+This parameter is NULL if information on the user ID is
+retrieved.
+<P><DT><VAR>itemname</VAR>
+<P><DD>input -  The
+queried
+item name.
+The special predefined
+<I>itemname</I> parameter, SM_USER_DIRECTORY,
+returns the full path
+of
+the location
+where user files are stored.
+An application can store its
+files in the same location.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_ENROLLID
+SM_RC_BAD_ITEM
+SM_RC_BAD_USERID
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_USER_INFO_REPLY
+<UL COMPACT>
+<LI>SmGetEnrollId
+<LI>SmGetEnrollIds
+<LI>SmGetNameValue
+<LI>SmGetRc
+<LI>SmGetUserId
+<LI>SmGetUserIds
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryUsers
+SmSetUserInfo
+SmNqueryUsersCallback
+SmNqueryUserInfoCallback
+SmNsetUserInfoCallback
+</PRE>
+<A NAME=IDX257>&nbsp;</A>
+<A NAME=IDX259>&nbsp;</A>
+<A NAME=IDX261>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYUSER" HREF="tkasrun.htm#ToC_40">SmQueryUsers</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryUsers queries a user list.
+<P>
+This function returns a list of
+users allowed to use the speech engine.
+To establish a speech session, a user from this list
+must be supplied in the SmNuserId speech attribute.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryUsers (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_SERVER_MALLOC_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_USERS_REPLY
+<UL COMPACT>
+<LI>SmGetAlphabets
+<LI>SmGetDescriptions
+<LI>SmGetRc
+<LI>SmGetUserIds
+<LI>SmGetUsers
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryUserInfo
+SmSetUserInfo
+SmNqueryUsersCallback
+SmNqueryUserInfoCallback
+SmNsetUserInfoCallback
+</PRE>
+<A NAME=IDX262>&nbsp;</A>
+<A NAME=IDX264>&nbsp;</A>
+<A NAME=IDX266>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYVOC" HREF="tkasrun.htm#ToC_41">SmQueryVocabs</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryVocabs queries currently defined vocabularies.
+<P>
+This function obtains the list of all defined
+speech engine vocabularies that belong to
+the current session.
+This includes predefined vocabularies and those
+defined after initialization with the SmDefineVocab function.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryVocabs (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_VOCABS_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetVocabList
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddToVocab
+SmDefineVocab
+SmDisableVocab
+SmEnableVocab
+SmQueryAddedWords
+SmQueryEnabledVocabs
+SmQueryWord
+SmRemoveFromVocab
+SmUndefineVocab
+SmNaddToVocabCallback
+SmNdefineVocabCallback
+SmNdisableVocabCallback
+SmNenableVocabCallback
+SmNqueryAddedWordsCallback
+SmNqueryEnabledVocabsCallback
+SmNqueryVocabsCallback
+SmNqueryWordsCallback
+SmNremoveFromVocabCallback
+SmNundefineVocabCallback
+</PRE>
+<A NAME=IDX267>&nbsp;</A>
+<A NAME=IDX269>&nbsp;</A>
+<A NAME=IDX271>&nbsp;</A>
+<P>
+<H2><A NAME="LENQRYWORD" HREF="tkasrun.htm#ToC_42">SmQueryWord</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmQueryWord checks for a specified word in
+all active vocabularies.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmQueryWord (SM_WORD *<VAR>word</VAR>,
+                 SM_MSG  *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>word</VAR>
+<P><DD>input -  The queried word.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the
+call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_INVOCAB
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_QUERY_WORD_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetVocabList
+<LI>SmGetWords
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddToVocab
+SmDefineVocab
+SmDisableVocab
+SmEnableVocab
+SmPlayWords
+SmQueryAddedWords
+SmQueryEnabledVocabs
+SmQueryVocabs
+SmRemoveFromVocab
+SmUndefineVocab
+SmWordCorrection
+SmNaddToVocabCallback
+SmNdefineVocabCallback
+SmNdisableVocabCallback
+SmNenableVocabCallback
+SmNplayWordsCallback
+SmNplayWordsStatusCallback
+SmNqueryAddedWordsCallback
+SmNqueryEnabledVocabsCallback
+SmNqueryVocabsCallback
+SmNqueryWordsCallback
+SmNremoveFromVocabCallback
+SmNundefineVocabCallback
+SmNwordCorrectionCallback
+</PRE>
+<A NAME=IDX272>&nbsp;</A>
+<A NAME=IDX273>&nbsp;</A>
+<A NAME=IDX275>&nbsp;</A>
+<P>
+<H2><A NAME="LENRECMSG" HREF="tkasrun.htm#ToC_43">SmReceiveMsg</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmReceiveMsg receives a message from the speech engine.
+<P>
+This function provides the method through which
+speech-aware OS/2 applications receive asynchronous
+messages, including unsolicited asynchronous messages
+such as SM_RECOGNIZED_TEXT, from the speech engine.
+This function receives one complete message from the
+speech engine.
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmReceiveMsg (unsigned long <VAR>ap_val</VAR>,
+                  SM_MSG       *<VAR>msg</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>ap_val</VAR>
+<P><DD>input -  For OS/2 applications, pass lParam here.
+<P><DT><VAR>msg</VAR>
+<P><DD>output -  The pointer to the reply structure.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+SM_RC_REPLY_NULL
+SM_RC_SM_NOT_OPEN
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetRcName
+</UL>
+<A NAME=IDX276>&nbsp;</A>
+<A NAME=IDX277>&nbsp;</A>
+<A NAME=IDX279>&nbsp;</A>
+<A NAME=IDX280>&nbsp;</A>
+<P>
+<H2><A NAME="LENRECNXWD" HREF="tkasrun.htm#ToC_44">SmRecognizeNextWord</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmRecognizeNextWord enables the recognition of the next word.
+<P>
+This function searches for the next word to decode.
+When running, the engine searches the currently enabled
+vocabularies to find a word that matches the incoming speech.
+The vocabulary that contains the best match determines what
+happens next:
+<UL>
+<P><LI>If the matching word comes from a dictation vocabulary,
+the engine sends the firm and infirm words to the application
+in an SM_RECOGNIZED_TEXT message and continues decoding.
+<P><LI>If the matching word comes from a command vocabulary,
+the engine sends the word and some alternative choices
+to the application in an SM_RECOGNIZED WORD message.
+The engine then halts and waits for the application to
+request another word.
+</UL>
+<P>
+If a recognized word occurs in two or more vocabularies enabled
+at the same time, the engine selects the word from the more
+recently enabled command vocabulary.
+Command vocabularies always override dictation vocabularies;
+when a recognized word occurs in both a command and dictation
+vocabulary enabled at the same time, the engine selects the
+command-vocabulary word.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmRecognizeNextWord (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to the reply structure
+or to the SmAsynchronous value indicating that the call is made
+asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_RECOGNIZED_WORD
+<UL COMPACT>
+<LI>SmGetAlternates
+<LI>SmGetFirmWords
+<LI>SmGetRc
+<LI>SmGetTimes
+</UL>
+SM_RECOGNIZE_NEXT_WORD_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+<I>For
+command vocabularies
+with microphone off and audio input stream
+processed&#58;</I>
+<BR>
+SM_UTTERANCE_COMPLETED
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetUtteranceNumber
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmHaltRecognizer
+SmMicOff
+SmMicOn
+SmQuery
+SmSet
+SmNhaltRecognizerCallback
+SmNmicOffCallback
+SmNmicOnCallback
+SmNqueryCallback
+SmNrecognizeNextWordCallback
+SmNrecognizedTextCallback
+SmNrecognizedWordCallback
+SmNsetCallback
+SmNutteranceCompletedCallback
+</PRE>
+<A NAME=IDX281>&nbsp;</A>
+<A NAME=IDX283>&nbsp;</A>
+<A NAME=IDX284>&nbsp;</A>
+<P>
+<H2><A NAME="LENRELFOC" HREF="tkasrun.htm#ToC_45">SmReleaseFocus</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmReleaseFocus releases speech focus.
+<P>
+This function releases speech focus for the
+application calling this API.
+If the application does not have the
+speech focus, this function returns SM_RC_NOT_VALID_REQUEST;
+otherwise it returns SM_RC_OK.
+<P>
+If the call is made asynchronously the reply
+can be dispatched through either of the following:
+<UL COMPACT>
+<LI>SM_RELEASE_FOCUS
+<LI>SmNreleaseFocusCallback
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmReleaseFocus (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_NOT_VALID_REQUEST
+SM_RC_OK
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_RELEASE_FOCUS
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+SM_FOCUS_LOST
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmRequestFocus
+SmNfocusGrantedCallback
+SmNfocusRequestedCallback
+SmNreleaseFocusCallback
+SmNrequestFocusCallback
+</PRE>
+<A NAME=IDX285>&nbsp;</A>
+<A NAME=IDX287>&nbsp;</A>
+<A NAME=IDX289>&nbsp;</A>
+<P>
+<H2><A NAME="LENRMCLBK" HREF="tkasrun.htm#ToC_46">SmRemoveCallback</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmRemoveCallback removes a single callback
+routine for a specific callback.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmRemoveCallback (char      *<VAR>reply_name</VAR>,
+                      SmHandler *<VAR>handler</VAR>,
+                      caddr_t    <VAR>client_data</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply_name</VAR>
+<P><DD>input -  The name of the type of message.
+<P><DT><VAR>(handler)</VAR>
+<P><DD>input -  The function name of the routine that handles the
+message. <P><DT><VAR>client_data</VAR>
+<P><DD>input -  The data passed back to the handler
+when it is called.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_ENOMEM
+SM_RC_NOT_VALID_REQUEST
+SM_RC_OK
+SM_RC_SM_NOT_OPEN
+</PRE>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddCallback
+SmDispatch
+</PRE>
+<A NAME=IDX290>&nbsp;</A>
+<A NAME=IDX292>&nbsp;</A>
+<A NAME=IDX294>&nbsp;</A>
+<P>
+<H2><A NAME="LENRMFRVOC" HREF="tkasrun.htm#ToC_47">SmRemoveFromVocab</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmRemoveFromVocab removes words from a dynamic vocabulary.
+<P>
+This function removes words previously added,
+using SmAddToVocab,
+to either dynamic vocabularies created by SmDefineVocab or
+added to predefined vocabularies.
+This function can be used to dynamically
+change command vocabularies in an application.
+Pronunciations for the specified words are not
+removed by this call and
+can be reused later by words added to this or any other
+vocabulary.
+<P>This call is valid only when the speech engine is not
+accepting dictation.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmRemoveFromVocab (char       *<VAR>vocab</VAR>,
+                       short       <VAR>nvocwords</VAR>,
+                       SM_VOCWORD *<VAR>vocwords&#91;&#93;</VAR>,
+                       SM_MSG     *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>vocab</VAR>
+<P><DD>input -  The name of the vocabulary from which words are
+removed.
+<P><DT><VAR>nvocwords</VAR>
+<P><DD>input -  The number of words removed from the vocabulary.
+<P><DT><VAR>vocwords</VAR>
+<P><DD>input -  The spellings of the words removed from the vocabulary.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_VOCAB
+SM_RC_NOT_VALID_REQUEST
+SM_RC_SERVER_FILE_OPEN_ERROR
+SM_RC_SERVER_FILE_WRITE_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_REMOVE_FROM_VOCAB_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetVocabName
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddToVocab
+SmDefineVocab
+SmDisableVocab
+SmEnableVocab
+SmQueryAddedWords
+SmQueryEnabledVocabs
+SmQueryVocabs
+SmQueryWord
+SmUndefineVocab
+SmNaddToVocabCallback
+SmNdefineVocabCallback
+SmNdisableVocabCallback
+SmNenableVocabCallback
+SmNqueryAddedWordsCallback
+SmNqueryEnabledVocabsCallback
+SmNqueryVocabsCallback
+SmNqueryWordsCallback
+SmNremoveFromVocabCallback
+SmNundefineVocabCallback
+</PRE>
+<A NAME=IDX295>&nbsp;</A>
+<A NAME=IDX297>&nbsp;</A>
+<A NAME=IDX299>&nbsp;</A>
+<P>
+<H2><A NAME="LENREMPRON" HREF="tkasrun.htm#ToC_48">SmRemovePronunciation</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmRemovePronunciation removes a pronunciation
+from the user&#39;s personal pronunciation pool.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmRemovePronunciation (char   *<VAR>spelling</VAR>,
+                           char   *<VAR>pronunciation</VAR>,
+                           SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>spelling</VAR>
+<P><DD>input -  The word spelling which references the
+pronunciation.
+<P><DT><VAR>pronunciation</VAR>
+<P><DD>input -  NULL (reserved).
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+SM_RC_NOT_YET
+SM_RC_SERVER_ERROR
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_REMOVE_PRONUNCIATION_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetSpelling
+<LI>SmGetSpellings
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddPronunciation
+SmCorrectText
+SmCorrectTextCancel
+SmNewContext
+SmQueryPronunciation
+SmQueryPronunciations
+SmWordCorrection
+SmNaddPronunciationCallback
+SmNcorrectTextCallback
+SmNcorrectTextCancelCallback
+SmNnewContextCallback
+SmNqueryPronunciationCallback
+SmNqueryPronunciationsCallback
+SmNremovePronunciationCallback
+SmNwordCorrectionCallback
+</PRE>
+<A NAME=IDX300>&nbsp;</A>
+<A NAME=IDX302>&nbsp;</A>
+<A NAME=IDX303>&nbsp;</A>
+<P>
+<H2><A NAME="LENREQFOC" HREF="tkasrun.htm#ToC_49">SmRequestFocus</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmRequestFocus requests speech focus.
+<P>
+An application requests speech focus with a SmRequestFocus
+function call.
+If the call is made asynchronously, the reply
+can be dispatched through either of the following:
+<UL COMPACT>
+<LI>SM_REQUEST_FOCUS
+<LI>SmNrequestFocusCallback
+</UL>
+If the request is
+accepted, an asynchronous message is sent after the engine grants
+focus. This event can be dispatched through either of the
+following:
+<UL COMPACT>
+<LI>SM_FOCUS_GRANTED
+<LI>SmNfocusGrantedCallback
+</UL>
+<P>
+Important notes on return code values include the
+following:
+<UL COMPACT>
+<LI>SM_RC_FOCUS_DENIED means the application with speech focus
+has grabbed the focus and changes are blocked by the engine.
+<LI>SM_RC_FOCUS_GRANTED means the requesting application had
+previously been granted speech focus and no asynchronous
+notification message is generated by the engine.
+</UL>
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmRequestFocus (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_FOCUS_DENIED
+SM_RC_FOCUS_GRANTED
+SM_RC_OK
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_REQUEST_FOCUS
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+SM_FOCUS_GRANTED
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmReleaseFocus
+SmNfocusGrantedCallback
+SmNfocusRequestedCallback
+SmNreleaseFocusCallback
+SmNrequestFocusCallback
+</PRE>
+<A NAME=IDX304>&nbsp;</A>
+<A NAME=IDX306>&nbsp;</A>
+<A NAME=IDX308>&nbsp;</A>
+<P>
+<H2><A NAME="LENRMICOFF" HREF="tkasrun.htm#ToC_50">SmRequestMicOff</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmRequestMicOff requests that the microphone be turned off.
+<P>
+This function requests the speech engine to
+request the application with speech focus to turn off the microphone.
+If no application has speech focus, then SM_RC_NO_FOCUS_APP is
+returned.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmRequestMicOff (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_NO_FOCUS_APP
+SM_RC_OK
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_REQUEST_MIC_OFF_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+SM_REQUEST_MIC_OFF
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmRequestMicOn
+SmNrequestMicOffCallback
+SmNrequestMicOnCallback
+</PRE>
+<A NAME=IDX309>&nbsp;</A>
+<A NAME=IDX311>&nbsp;</A>
+<A NAME=IDX313>&nbsp;</A>
+<P>
+<H2><A NAME="LENRMICON" HREF="tkasrun.htm#ToC_51">SmRequestMicOn</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmRequestMicOn requests that the microphone be turned on.
+<P>
+This function requests the speech engine to
+request the application with speech focus to turn on the microphone.
+If no application has speech focus, then SM_RC_NO_FOCUS_APP is
+returned.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmRequestMicOn (SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_NO_FOCUS_APP
+SM_RC_OK
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_REQUEST_MIC_ON_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+SM_REQUEST_MIC_ON
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmRequestMicOff
+SmNrequestMicOffCallback
+SmNrequestMicOnCallback
+</PRE>
+<A NAME=IDX314>&nbsp;</A>
+<A NAME=IDX316>&nbsp;</A>
+<A NAME=IDX317>&nbsp;</A>
+<A NAME=IDX319>&nbsp;</A>
+<P>
+<H2><A NAME="LENRESPDA" HREF="tkasrun.htm#ToC_52">SmRestoreSpeechData</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmRestoreSpeechData overwrites the current session files and resets
+the running utterance number.
+Only valid in recognition mode.
+<P><B>Note&#58;</B> For this call to be valid, the application
+must first enable audio saving through SmSet(SM_SAVE_AUDIO, TRUE).
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmRestoreSpeechData (char      *<VAR>archive</VAR>,
+                         long       <VAR>version</VAR>,
+                         SM_MSG    *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>archive</VAR>
+<P><DD>input - Filename specified on SmSaveSpeechData.
+<P><DT><VAR>version</VAR>
+<P><DD>input - Value defined by the application at save time and
+checked by the engine when the session is restored.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output - The pointer to a reply structure or to
+ SmAsynchronous indicating that the call is made
+asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_RESTORE_SPEECH_DATA_REPLY
+<UL COMPACT>
+<LI>SmGetSpeechDataArchive
+<LI>SmGetSpeechDataSize
+<LI>SmGetSpeechDataVersion
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmSaveSpeechData
+</PRE>
+<A NAME=IDX320>&nbsp;</A>
+<A NAME=IDX322>&nbsp;</A>
+<A NAME=IDX323>&nbsp;</A>
+<P>
+<H2><A NAME="LENSASPDA" HREF="tkasrun.htm#ToC_53">SmSaveSpeechData</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmSaveSpeechData saves current session speech data to a file.
+<P><B>Note&#58;</B> For this call to be valid, the application
+must first enable audio saving through SmSet(SM_SAVE_AUDIO, TRUE).
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmSaveSpeechData (char      *<VAR>archive</VAR>,
+                         long    <VAR>version</VAR>,
+                         long    <VAR>flags</VAR>,
+                         SM_MSG    *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>archive</VAR>
+<P><DD>input - Filename where data will be stored.
+<P><DT><VAR>version</VAR>
+<P><DD>input - Identifies the data file.
+<P><DT><VAR>flags</VAR>
+<P><DD>input - Identifies how the data should be saved, using one of the
+following values&#58;
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P>SM_NORMAL_FILE
+</TD><TD><P>The speech data is written to the file specified by the file name.  This
+file will contain only engine data.
+<BR>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_COMPOUND_FILE
+</TD><TD><P>The speech data is written to the OS/2 compound file specified by the
+file name, using IStorage/IStream.  The data is saved in a section
+named "VTDSessionArchive."
+This allows an application to save both engine state and application state
+data in the same file.
+<BR>
+</TD></TR></TABLE>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output - The pointer to a reply structure or to
+ SmAsynchronous indicating that the call is made
+asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_SAVE_SPEECH_DATA_REPLY
+<UL COMPACT>
+<LI>SmGetSpeechDataArchive
+<LI>SmGetSpeechDataOptions
+<LI>SmGetSpeechDataSize
+<LI>SmGetSpeechDataVersion
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmRestoreSpeechData
+</PRE>
+<A NAME=IDX324>&nbsp;</A>
+<A NAME=IDX326>&nbsp;</A>
+<A NAME=IDX327>&nbsp;</A>
+<A NAME=IDX328>&nbsp;</A>
+<P>
+<H2><A NAME="LENSET" HREF="tkasrun.htm#ToC_54">SmSet</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmSet sets the value of a specified speech engine parameter.
+<P><STRONG>Syntax</STRONG>
+<P>
+<PRE>
+int SmSet (short   <VAR>item</VAR>,
+           long    <VAR>value</VAR>,
+           SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>item</VAR>
+<P><DD>input -  The parameter set, which can be any one of
+the following:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P>SM_API_DEBUG
+</TD><TD><P>Values that can be set include the following:
+0 is debugging off,
+1 to 5 provide progressively more debug information.
+A value of 1 or 2 provides flow of control information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_API_DISPLAY
+</TD><TD><P>Reserved.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_API_LOG
+</TD><TD><P>The values are:
+<UL COMPACT>
+<LI>0=Off
+<LI>1=Message headers
+<LI>2=Message headers + content
+<LI>3=Message headers + content + internal engine messages
+<LI>Values above 3 are reserved.
+</UL>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_API_TIMING
+</TD><TD><P>Reserved.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_DEVICE
+</TD><TD><P>Selects the type of audio hardware.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AVAILABLE_AUDIO_DEVICES
+</TD><TD><P>&nbsp;
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_CONFIGURATION
+</TD><TD><P>&nbsp;
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_INPUT_LEVEL
+</TD><TD><P>Sets the returning of audio-level data during recognition
+or enrollment.
+The value is either TRUE (1) or FALSE (0).
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_INPUT_MODE
+</TD><TD><P>Sets the input source of the audio hardware
+where audio data is collected.
+Only one value can be specified per call and
+values include the following:
+<UL COMPACT>
+<LI>SM_AUDIO_INPUT_LINE_LEFT
+<LI>SM_AUDIO_INPUT_LINE_RIGHT
+<LI>SM_AUDIO_INPUT_MIC_HI_GAIN
+<LI>SM_AUDIO_INPUT_MIC_LO_GAIN
+</UL>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_OUTPUT_MODE
+</TD><TD><P>If supported by the underlying audio, this
+parameter indicates the current output destination.
+Only one value can be specified per call and
+values include the following:
+<UL COMPACT>
+<LI>SM_AUDIO_OUTPUT_LINE_LEFT
+<LI>SM_AUDIO_OUTPUT_LINE_RIGHT
+<LI>SM_AUDIO_OUTPUT_INTERNAL_SPEAKER
+</UL>
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_INPUT_GAIN
+</TD><TD><P>If suported by underlying audio, this parameter
+allows you to set current gain setting.
+Refer to the SMLIMITS.H file for bounds on
+intput and output values.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_AUDIO_OUTPUT_GAIN
+</TD><TD><P>If suported by underlying audio, this parameter
+allows you to set current gain setting.
+Refer to the SMLIMITS.H file for bounds on
+intput and output values.
+The IBM VoiceType Dictation adapter does not support the value,
+SM_AUDIO_INPUT_LINE_RIGHT.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_CONNECTION_ID
+</TD><TD><P>&nbsp;
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENABLE_EXCLUSIVE_VOCABS
+</TD><TD><P>Sets the calling application&#39;s vocabularies.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENGINE_DEBUG
+</TD><TD><P>Reserved.
+Values that can be set include the following:
+0 is disabled,
+greater than 0 provides progressively more information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENGINE_DISPLAY
+</TD><TD><P>Reserved.
+Values that can be set include the following:
+0 is disabled,
+greater than 0 provides progressively more information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_PM_ENABLE
+</TD><TD><P>&nbsp;
+</TD></TR><TR VALIGN=TOP><TD><P>SM_REJECTION_THRESHOLD
+</TD><TD><P>The speech engine rejects out-of-vocabulary words or
+background
+noise during monitored enrollment or command recognition.
+However,
+there is a trade-off between correctly rejecting these
+words/noises, and incorrectly rejecting properly spoken words.
+<BR>
+SM_REJECTION_THRESHOLD
+allows an application to adjust this trade-off.
+The limits for the value
+of this parameter are SM_MIN_REJECTION_THRESHOLD and
+SM_MAX_REJECTION_THRESHOLD,
+which are defined in SMLIMITS.H.
+At low settings of SM_REJECTION_THRESHOLD, the engine allows more
+matches through with fewer rejections.
+This causes more
+background noises or incorrect word matches to be recognized as
+speech.
+Fewer correct words are rejected.
+At high rejection threshold values, the engine is biased
+toward requiring a closer match, resulting in more rejections,
+and
+potentially more rejections of correct words.
+This parameter also
+determines how close the match must be between spoken acoustics and
+pronunciations in the SmAddPronunciation and SmWordCorrection calls.
+See SMLIMITS.H for minimum and maximum limits.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENGINE_LOG
+</TD><TD><P>Reserved.
+Values that can be set include the following:
+0 is disabled,
+greater than 0 provides progressively more information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_NOTIFY_AUDIO_LEVEL
+</TD><TD><P>Sets the returning of audio-level data during recognition
+or enrollment.
+The value is either TRUE (1) or FALSE (0).  See
+<A HREF="tkasru05.htm#LENGTAUDLV">SmGetAudioLevel</A> for more information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_NOTIFY_COMMAND_WORD
+</TD><TD><P>Sets whether the application is notified
+when a command word is recognized
+by having the engine send a SM_COMMAND_WORD reply message.  The
+value is either TRUE (1) or FALSE (0).
+</TD></TR><TR VALIGN=TOP><TD><P>SM_NOTIFY_ENGINE_STATE
+</TD><TD><P>Sets whether the application is notified of
+a speech engine state change.  The value is either TRUE (1)
+or FALSE (0).
+See
+<A HREF="tkasru05.htm#LENGTENST">SmGetEngineState</A> for more information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_NOTIFY_FOCUS_STATE
+</TD><TD><P>Sets whether the application is notified of
+a speech focus state change.  The value is either TRUE (1) or
+FALSE (0).
+See
+<A HREF="tkasru05.htm#LENGETFOST">SmGetFocusState</A> for more information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_NOTIFY_MIC_STATE
+</TD><TD><P>Sets whether the application is notified of
+a microphone state change.  The value is either TRUE (1) or FALSE
+(0).
+See
+<A HREF="tkasru05.htm#LENGETMIC">SmGetMicState</A> for more information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_REDUCED_CPU_MODE
+</TD><TD><P>Sets the CPU mode of the speech engine.
+The value is either
+TRUE (1) for reduced CPU mode,
+or FALSE (0) for normal CPU mode.
+See
+<A HREF="tkasru05.htm#LENGTENST">SmGetEngineState</A> for more information.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_SAVE_AUDIO
+</TD><TD><P>Enables or disables the saving of recorded audio during
+recognition.
+The value is either TRUE (1) or FALSE (0).  For a monitored
+enrollment
+session, the default is TRUE, and for a recognition session, the
+default
+is FALSE.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_ENGINE_TIMING - Reserved
+</TD><TD><P>Values that can be set include the following:
+0 is disabled,
+greater than 0 provides progressively more information.
+</TD></TR></TABLE>
+<P><DT><VAR>value</VAR>
+<P><DD>input -  The value to set the parameter to.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><P>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_BAD_MODE
+SM_RC_BAD_VALUE
+SM_RC_NOT_YET
+SM_RC_SERVER_FILE_OPEN_ERROR
+SM_RC_SERVER_ERROR
+&nbsp;
+SM_RC_EXISTS_IN_NOTIFY
+SM_RC_NOT_IN_NOTIFY
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_SET_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetItemValue
+</UL>
+<P>
+For SM_NOTIFY_MIC_STATE parameter equal TRUE&#58;
+<BR>
+SM_MIC_STATE
+<UL COMPACT>
+<LI>SmGetMicState
+<LI>SmGetRc
+</UL>
+<P>
+For SM_NOTIFY_FOCUS_STATE parameter equal TRUE&#58;
+<BR>
+SM_FOCUS_STATE
+<UL COMPACT>
+<LI>SmGetApplication
+<LI>SmGetFocusState
+<LI>SmGetRc
+</UL>
+<P>
+For SM_NOTIFY_ENGINE_STATE parameter equal TRUE&#58;
+<BR>
+SM_ENGINE_STATE
+<UL COMPACT>
+<LI>SmGetEngineState
+<LI>SmGetRc
+</UL>
+<P>
+For SM_NOTIFY_COMMAND_WORD parameter equal TRUE&#58;
+<BR>
+SM_COMMAND_WORD
+<UL COMPACT>
+<LI>SmGetApplication
+<LI>SmGetFirmWords
+<LI>SmGetRc
+</UL>
+<P>
+For SM_NOTIFY_AUDIO_LEVEL parameter equal TRUE&#58;
+<BR>
+SM_AUDIO_LEVEL
+<UL COMPACT>
+<LI>SmGetAudioLevel
+<LI>SmGetRc
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmHaltRecognizer
+SmMicOff
+SmMicOn
+SmQuery
+SmRecognizeNextWord
+SmNhaltRecognizerCallback
+SmNmicOffCallback
+SmNmicOnCallback
+SmNqueryCallback
+SmNrecognizeNextWordCallback
+SmNrecognizedTextCallback
+SmNrecognizedWordCallback
+SmNsetCallback
+SmNutteranceCompletedCallback
+</PRE>
+<A NAME=IDX329>&nbsp;</A>
+<A NAME=IDX331>&nbsp;</A>
+<A NAME=IDX332>&nbsp;</A>
+<P>
+<H2><A NAME="LENSETARG" HREF="tkasrun.htm#ToC_55">SmSetArg</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmSetArg is a macro that fills an SmArg structure when given its
+components.
+<P>
+This function sets the components of the
+<VAR>arg</VAR> parameter.
+The pointer to <VAR>arg</VAR> or to a list of similarly created
+arguments
+can then be passed to a number of functions, such as SmOpen,
+and SmConnect.
+<P>
+For further information on attributes,
+see
+<A HREF="tkasru08.htm#HDRATTRIB">"SMAPI Attributes"</A>.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+void SmSetArg (SmArg  <VAR>arg</VAR>,
+               char  *<VAR>name</VAR>,
+               long   <VAR>value</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>arg</VAR>
+<P><DD>input -  The argument.
+<P><DT><VAR>name</VAR>
+<P><DD>input -  The name of the attribute.
+<P><DT><VAR>value</VAR>
+<P><DD>input -  The value of the attribute.
+</DL>
+<P><STRONG>Return Values</STRONG>
+None
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmConnect
+SmOpen
+SmNconnectCallback
+</PRE>
+<A NAME=IDX333>&nbsp;</A>
+<A NAME=IDX335>&nbsp;</A>
+<A NAME=IDX336>&nbsp;</A>
+<P>
+<H2><A NAME="LENSETDFLT" HREF="tkasrun.htm#ToC_56">SmSetDefault</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmSetDefault sets a default value for a user, enrollment,
+or task ID speech attribute.
+This default value is used by the speech
+engine when SM_USE_DEFAULT is specified for the speech
+attribute
+or when the speech attribute is specified.  These
+attributes
+can be specified with SmOpen and SmConnect.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmSetDefault (long    <VAR>item</VAR>,
+                  char   *<VAR>item_value</VAR>,
+                  SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>item</VAR>
+<P><DD>input -  Type of default ID speech attribute.
+Valid values include the following:
+<UL COMPACT>
+<LI>SM_DEFAULT_USERID
+<LI>SM_DEFAULT_ENROLLID
+<LI>SM_DEFAULT_TASK
+</UL>
+<P><DT><VAR>item_value</VAR>
+<P><DD>input - Value for default ID speech attribute.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_OK
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_SET_DEFAULT_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmConnect
+SmOpen
+SmQueryDefault
+</PRE>
+<A NAME=IDX337>&nbsp;</A>
+<A NAME=IDX340>&nbsp;</A>
+<A NAME=IDX342>&nbsp;</A>
+<P>
+<H2><A NAME="LENSTUSRIN" HREF="tkasrun.htm#ToC_57">SmSetUserInfo</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmSetUserInfo sets user information.
+<P>
+This function stores any information that pertains
+to a user ID or an enrollment ID.
+It is the responsibility of the speech-aware application to
+select a proper
+item name (tag) that uniquely identifies stored information.
+This item is used later by the SmQueryUserInfo function
+for retrieving the stored information.
+This function allows an application to associate
+string information with a particular user ID or enrollment ID.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmSetUserInfo (char   *<VAR>user_id</VAR>,
+                   char   *<VAR>enroll_id</VAR>,
+                   char   *<VAR>itemname</VAR>,
+                   char   *<VAR>itemvalue</VAR>,
+                   SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>user_id</VAR>
+<P><DD>input -  The name of the user whose information is stored.
+<P><DT><VAR>enroll_id</VAR>
+<P><DD>input -  The enrollment ID of the user whose information is
+to be stored.
+This parameter is NULL if the information stored is
+related to the user ID.
+<P><DT><VAR>itemname</VAR>
+<P><DD>input -  The name of the information item to be stored.
+<P><DT><VAR>itemvalue</VAR>
+<P><DD>input -  The value of the information item to be stored.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_BAD_ENROLLID
+SM_RC_BAD_ITEM
+SM_RC_BAD_USERID
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_SET_USER_INFO_REPLY
+<UL COMPACT>
+<LI>SmGetEnrollId
+<LI>SmGetEnrollIds
+<LI>SmGetRc
+<LI>SmGetUserId
+<LI>SmGetUserIds
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmQueryUserInfo
+SmQueryUsers
+SmNqueryUsersCallback
+SmNqueryUserInfoCallback
+SmNsetUserInfoCallback
+</PRE>
+<P>
+<A NAME=IDX343>&nbsp;</A>
+<A NAME=IDX345>&nbsp;</A>
+<A NAME=IDX346>&nbsp;</A>
+<A NAME=IDX347>&nbsp;</A>
+<A NAME=IDX348>&nbsp;</A>
+<P>
+<H2><A NAME="LENUNDVOC" HREF="tkasrun.htm#ToC_58">SmUndefineVocab</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmUndefineVocab deletes a dynamic vocabulary.
+<P>
+This function deletes a vocabulary defined by a
+SmDefineVocab call.
+After
+the vocabulary is deleted, no calls to SmEnableVocab,
+SmDisableVocab, SmAddToVocab, or SmRemoveFromVocab
+can be made for the specified vocabulary.
+The specified vocabulary must be disabled to be deleted.
+<P>SmUndefineVocab release the image of the private area of the
+FSG file.
+<P>SmUndefineVocab is valid only when the speech engine is not
+decoding speech to text.
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmUndefineVocab (char   *<VAR>vocab</VAR>,
+                     SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>vocab</VAR>
+<P><DD>input -  The name of the vocabulary undefined.
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_BAD_VOCAB
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_UNDEFINE_VOCAB_REPLY
+<UL COMPACT>
+<LI>SmGetRc
+<LI>SmGetVocabName
+</UL>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmAddToVocab
+SmDefineVocab
+SmDisableVocab
+SmEnableVocab
+SmGetAnnotations
+SmQueryAddedWords
+SmQueryEnabledVocabs
+SmQueryVocabs
+SmQueryWord
+SmRemoveFromVocab
+SmNaddToVocabCallback
+SmNdefineVocabCallback
+SmNdisableVocabCallback
+SmNenableVocabCallback
+SmNqueryAddedWordsCallback
+SmNqueryEnabledVocabsCallback
+SmNqueryVocabsCallback
+SmNqueryWordsCallback
+SmNremoveFromVocabCallback
+SmNundefineVocabCallback
+</PRE>
+<A NAME=IDX349>&nbsp;</A>
+<A NAME=IDX351>&nbsp;</A>
+<A NAME=IDX353>&nbsp;</A>
+<A NAME=IDX354>&nbsp;</A>
+<P>
+<H2><A NAME="LENWORDCOR" HREF="tkasrun.htm#ToC_59">SmWordCorrection</A></H2>
+<P><STRONG>Purpose</STRONG>
+<P>
+SmWordCorrection corrects a misrecognized word.
+<P>
+This function notifies the speech engine
+that an incorrectly
+recognized word or sequence of words was corrected by the
+user.
+<P>
+The user corrects the word by providing the correct spelling.
+This call
+specifies
+whether the pronunciation for this word
+is to be
+added to the user&#39;s personal pronunciation pool and whether
+the corrected spelling
+is to be
+added to the user&#39;s personal text vocabulary extension.
+The speech engine uses this information
+to assist future recognition.
+<P>
+If an SmWordCorrection call fails and the call is immediately
+repeated with exactly the same parameters, the engine will
+automatically apply more lenient threshold parameters the second time
+(refer to
+<A HREF="#LENSET">SmSet</A> for a detailed description of the
+SM_REJECTION_THRESHOLD parameter).
+<P>This call is valid only when the speech
+engine is not decoding speech to text.
+<P><B>Note&#58;</B> For this call to be valid, the application
+must first enable audio saving through SmSet(SM_SAVE_AUDIO, TRUE).
+<P>
+<P><STRONG>Syntax</STRONG>
+<PRE>
+int SmWordCorrection (short   <VAR>ntags</VAR>,
+                      long    <VAR>tags&#91;&#93;</VAR>,
+                      short   <VAR>nspells</VAR>,
+                      char   *<VAR>spellings&#91;&#93;</VAR>,
+                      char   *<VAR>pronunciations&#91;&#93;</VAR>,
+                      short   <VAR>new_pronunciation</VAR>,
+                      SM_MSG *<VAR>reply</VAR>);
+</PRE>
+<P><STRONG>Parameters</STRONG>
+<DL>
+<P><DT><VAR>ntags</VAR>
+<P><DD>input -  The number of tagged words corrected.
+<P><DT><VAR>tags</VAR>
+<P><DD>input -  An array of tags for the words corrected.
+<P><DT><VAR>nspells</VAR>
+<P><DD>input -  The number of new words to replace the words in
+error.
+<P><DT><VAR>spellings</VAR>
+<P><DD>input -  An array of new spellings for the words corrected.
+<P><DT><VAR>pronunciations</VAR>
+<P><DD>input -  An array of spoken-like spellings for the words that
+were
+corrected if their pronunciation is different than the spellings
+would suggest.
+Specify NULL if the spoken-like spelling is the same
+as the true spelling.
+<P><DT><VAR>new_pronunciation</VAR>
+<P><DD>input -  A flag to indicate whether the corrected word is a
+new pronunciation
+for a word already in the recognition vocabulary.
+The following flag values are valid:
+<TABLE CELLPADDING=3>
+<TR VALIGN=TOP><TD><P>SM_CHECK_SPELLING
+</TD><TD><P>Check the spelling of the new word before adding it to the
+recognition vocabulary as a new word.
+SM_CHECK_SPELLING is valid only with SM_DEFAULT_ADDWORD.
+SM_FORCE_ADDWORD and SM_REPLACE_ADDWORD override the
+spelling check.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_FORCE_ADDWORD
+</TD><TD><P>The corrected word is a new pronunciation and needs to be
+added as a new word
+even if the word already exists in the vocabulary.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_NO_ADDWORD
+</TD><TD><P>The corrected word need not be added to the recognition
+vocabulary
+as a new word.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_DEFAULT_ADDWORD
+</TD><TD><P>The user needs to decide whether to add the corrected
+word to the recognition vocabulary.
+The speech engine produces a pronunciation if
+one does not already exist.
+</TD></TR><TR VALIGN=TOP><TD><P>SM_REPLACE_ADDWORD
+</TD><TD><P>The new pronunciation needs to replace any existing
+pronunciations of the corrected word.
+</TD></TR></TABLE>
+<P><DT><VAR>reply</VAR>
+<P><DD>input/output -  The pointer to a reply structure
+or to SmAsynchronous indicating that the call is made asynchronously.
+</DL>
+<P><STRONG>Return Values</STRONG>
+<PRE>
+SM_RC_DEALLOCATING_SH_MEM
+SM_RC_EALLOC
+SM_RC_EBADHANDLE
+SM_RC_ENOCONN
+SM_RC_ENOMEM
+SM_RC_ENOMSG
+SM_RC_ENOSERVER
+SM_RC_EUNEXP
+SM_RC_SM_NOT_OPEN
+SM_RC_OK
+SM_RC_INVALID_PARM_MAX_LEN
+<P>
+<I>For synchronous call and callbacks&#58;</I>
+SM_RC_MULTIPLE_SPELLINGS
+SM_RC_NOT_VALID_REQUEST
+</PRE>
+<P><STRONG>Reply Structure Functions by Message Type</STRONG>
+<P>
+SM_WORD_CORRECTION_REPLY
+<UL COMPACT>
+<LI>SmGetPronunciations
+<LI>SmGetRc
+<LI>SmGetSpellings
+<LI>SmGetStatus
+<LI>SmGetTags
+</UL>
+<P><P>
+<P><STRONG>Task Related Functions and Callbacks</STRONG>
+<PRE>
+SmCorrectText
+SmCorrectTextCancel
+SmNewContext
+SmNcorrectTextCallback
+SmNcorrectTextCancelCallback
+SmNnewContextCallback
+SmNplayWordsCallback
+SmNplayWordsStatusCallback
+SmNqueryAddedWordsCallback
+SmNqueryWordsCallback
+SmNremovePronunciationCallback
+SmNwordCorrectionCallback
+SmPlayWords
+SmQueryAddedWords
+SmQueryWord
+SmRemovePronunciation
+</PRE>
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="tkasru03.htm">Previous Page</A> &#124; <A HREF="tkasru05.htm">Next Page</A> &#124; <A HREF="tkasrun.htm#ToC">Table of Contents</A> &#124; <A HREF="tkasru11.htm#HDRINDEX_START">Index</A
+> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+</BODY></HTML>
+

@@ -1,0 +1,103 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.7 src/somd/boa.idl, somd, som2.1 9/1/94 16:56:50 [7/30/96 14:45:22]
+
+
+
+//   IDL interface spec for CORBA Basic Object Adapter.
+//
+//   This is an abstract class which defines the CORBA-defined interface
+//   for a Basic Object Adapter.
+//
+//   The SOM Object Adapter interface is derived from this one.
+//   SOMOA provides the actual implementation in DSOM.
+
+
+
+#ifndef boa_idl
+#define boa_idl
+
+#include <somobj.idl>
+#include <somdtype.idl>
+#include <snglicls.idl>
+
+interface SOMDObject;
+interface Principal;
+interface ImplementationDef;
+interface InterfaceDef;
+interface Context;
+
+
+interface BOA : SOMObject
+{
+  SOMDObject create(in ReferenceData id, in InterfaceDef intf,
+		    in ImplementationDef impl);
+  // Create an object reference.
+
+  void dispose(in SOMDObject obj);
+  // Destroy an object reference.
+
+  ReferenceData get_id(in SOMDObject obj);
+  // Return ReferenceData associated with referenced object.
+
+  Principal get_principal(in SOMDObject obj, in Environment req_ev);
+  // Return a Principal object, which describes who issued a request on
+  // the specified object.  The "req_ev" parameter is the Environment
+  // which was passed as part of the request.
+
+  void set_exception(in exception_type major, in string userid, in void *param);
+  // Return an exception to the client.
+
+  void impl_is_ready(in ImplementationDef impl);
+  // Indicate that the implementation is now ready to process requests.
+
+  void deactivate_impl(in ImplementationDef impl);
+  // Indicate that the implementation is no longer ready to process reqs.
+
+  void change_implementation(in SOMDObject obj, in ImplementationDef impl);
+  // Change the implementation associated with the referenced object.
+  // (NOTE: Null implementation in this release of DSOM.)
+
+  void obj_is_ready(in SOMDObject obj, in ImplementationDef impl);
+  // Indicate that the object is ready to process requests.
+  // (NOTE: Null implementation in this release of DSOM.)
+
+  void deactivate_obj(in SOMDObject obj);
+  // Indicate that the object is no longer ready to process requests.
+  // (NOTE: Null implementation in this release of DSOM.)
+
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+    releaseorder: create, dispose, get_id,
+                  change_implementation,
+		  get_principal, set_exception,
+		  impl_is_ready, deactivate_impl,
+		  obj_is_ready, deactivate_obj,
+		  activate_impl, activate_obj;
+
+    //# Class Modifiers
+    callstyle = idl;
+    metaclass = SOMMSingleInstance;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* boa_idl */

@@ -1,0 +1,18 @@
+CC_FILE
+00000000 Welcome to MMPM/2's sample captioning system.
+00005712 We call it our sample captioning system because
+00015618 we've provided it, source code and all, as an
+00024303 example of one way to implement captioning with
+00030855 MMPM/2.  The sample can be used as it's provided,
+00045714 or it can be modified to suit your specific needs.
+00053331 This sample captioning system is made up of three
+00062856 parts.  The first part of the system is the Caption
+00071238 Creation Utility.  This allows you to synchronize
+00077940 an audio file with a text file.  The second part
+00089979 of the system is the Caption DLL.  This DLL provides
+00098133 three api's that allow an application to display,
+00109104 manage, and hide a caption window.  The third part
+00119238 of the system is the Caption Sample Application that
+00129369 shows programmers how to use the three api's provided
+00137142 by the DLL in order to display a caption
+00146055 window in their application.

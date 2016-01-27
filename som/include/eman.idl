@@ -1,0 +1,192 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.10.1.1 src/somem/eman.idl, somu, som2.1 7/11/96 14:32:28 [7/30/96 14:46:08]
+
+
+#ifndef eman_idl
+#define eman_idl
+
+#include <somobj.idl>
+#include <snglicls.idl>
+
+interface SOMEEvent;
+interface SOMEClientEvent;
+interface SOMEEMRegisterData;
+
+typedef somToken EMRegProc;
+typedef somToken EMMethodProc;
+typedef somToken EMMethodProcEv;
+//# typedef somToken Environment;
+/*
+ * Signatures of callback routines are FIXED. A callback MUST HAVE one of the
+ * following signatures.
+ *
+ * typedef for void EMRegProc(SOMEEvent *, void *);
+ * (Procedure registration callback interface. Uses "system" linkage on OS/2).
+ *
+ * typedef for void SOMLINK EMMethodProc(SOMObject *, SOMEEvent *, void *);
+ * (Method registration callback interface. Uses "system" linkage on OS/2.)
+ *
+ * typedef void SOMLINK EMMethodProcEv(SOMObject *, Environment *, SOMEEvent *, void *);
+ * (Method registration callback interface(with Ev). Uses "system" linkage on OS/2.)
+ */
+
+
+
+interface SOMEEMan : SOMObject
+
+// The Event Manager class (EMan for short) is used to handle several input
+// events. The main purpose of this class is to provide a service that can do
+// a blocked (or timed) wait on several event sources concurrently.  Typically,
+// in a main program,  one registers an interest in an event type with EMan and 
+// specifies a callback (a procedure or a method) to be invoked when the event
+// of interest occurs. After all the necessary registrations are done, the main
+// program is ended by a call to process events in EMan. This call is non-returning.
+// Eman then waits on multiple registered sources of events. The application is then
+// completely event driven. I.E., it does something only when an event occurs.
+// The control returns to EMan after processing each event. Further registrations
+// can be done inside of callback routines. So also unregistrations.
+//
+// AIX Specifics: 
+// On AIX this event manager supports Timer, Sink (any file, pipe,
+// socket and Message Queue), Client and WorkProc events.
+//
+// OS/2 Specifics:
+// On OS/2 this event manager supports Timer, Sink(sockets only). Client and
+// WorkProc events.
+// To cope with multi-threaded applications on OS/2, the event manager
+// methods are mutually exclusive (i.e., at any time only one thread can be
+// executing inside of EMan).
+// If an application thread needs to stop EMan from running (i.e., achieve
+// mutual exclusion with EMan), it can use the two methods someGetEmanSem 
+// and someReleaseEManSem to acquire and release EMan semaphore(s).
+// On AIX, at present, since AIX does not support threads calling these two methods
+// has no effect.
+
+{
+
+    void someGetEManSem();
+
+    // Gets a semaphore to achieve mutual exclusion with EMan's activity.
+    // Callers should not hold this semaphore for too long since it essentially
+    // stops EMan activity for that duration.
+
+    void someReleaseEManSem();
+    // Release the semaphore obtained by someGetEManSem.
+
+  void someChangeRegData(in long registrationId,
+                          in SOMEEMRegisterData registerData);
+
+  // Change the registration data associated with the specified id.
+  // This id must have been returned by EMan in a previous Register call.
+
+  void someProcessEvent(in unsigned long mask);
+
+  // Process one event. This call is non-blocking. If there are no events to
+  // process it returns immediately. The mask specifies what events to process.
+  // The mask is formed by ORing the bit constants specified in eventmsk.h
+  // For example, to processs Timer and Sink events only one would specify
+  // the mask as:  EMProcessTimerEvent | EMProcessSinkEvent
+   
+#ifdef _WIN16
+  void someProcessEventInterval(in unsigned long mask, 
+           in unsigned long interval, in unsigned long inst);
+
+  // Process one event. This call is non-blocking. If there are no events to
+  // process it returns immediately. The mask specifies what events to process.
+  // The mask is formed by ORing the bit constants specified in eventmsk.h
+  // For example, to processs Timer and Sink events only one would specify
+  // the mask as:  EMProcessTimerEvent | EMProcessSinkEvent
+#endif   
+
+  void someProcessEvents();
+
+  // Process infinite events. Does not return. Loops forever waiting for events
+  // and dispatching events. The only way this can be broken is by calling 
+  // someShutdown in a callback.
+
+  void someQueueEvent(in SOMEClientEvent event);
+  /* Used to be: void someQueueEvent(inout SOMEClientEvent event);*/
+
+  // Enqueue the specified client event
+
+  long someRegister(in SOMEEMRegisterData registerData,
+                    in SOMObject targetObject,
+                    in string targetMethod,
+                    in void *targetData);
+
+  // Register the object/method pair with EMan given the specified 'registerData'.
+
+  long someRegisterEv(in SOMEEMRegisterData registerData,
+                    in SOMObject targetObject,
+                    inout Environment callbackEv,
+                    in string targetMethod,
+                    in void *targetData);
+
+  // Register the object/method pair together with the callback Environment parameter
+  // with EMan given the specified 'registerData'.
+
+  long someRegisterProc(in SOMEEMRegisterData registerData,
+                        in EMRegProc *targetProcedure,
+                        in void *targetData);
+
+  // Register the procedure with EMan given the specified 'registerData'.
+
+  void someShutdown();
+
+  // Shutdown EMan event loop. (i.e., makes the someProcessEvents return!)
+
+  void someUnRegister(in long registrationId);
+
+  // Unregister the data associated with the specified 'registrationId' within EMan
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: someGetEManSem, someReleaseEManSem,
+                  someChangeRegData,
+                  someProcessEvent,someProcessEvents,
+                  someQueueEvent,
+                  someRegister,someRegisterEv, someRegisterProc,
+                  someShutdown,someUnRegister
+#ifdef _WIN16
+		  ,
+		  someProcessEventInterval
+#endif
+                  ;
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = eman;
+    metaclass = SOMMSingleInstance;
+    callstyle = idl;
+
+    passthru C_h_after =   "#include <emtypes.h>";
+    passthru C_xh_after =   "extern \"C\" {"
+"#include <emtypes.h>"
+"}";
+
+    //# Method Modifiers
+    somInit: override;
+    somUninit: override;
+
+    //# Data Modifiers
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* eman_idl */
+

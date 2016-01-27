@@ -1,0 +1,146 @@
+
+//  Module Header
+//
+//  Module Name: WPDESK
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpdesk_idl
+#define wpdesk_idl
+
+#include "wpfolder.idl"
+#include <somcls.idl>
+
+interface M_WPDesktop;
+
+interface WPDesktop : WPFolder
+
+{
+  BOOL wpIsCurrentDesktop();
+
+  ULONG wpAddDesktopLockup1Page(in HWND hwndNotebook);
+
+  ULONG wpAddDesktopLockup2Page(in HWND hwndNotebook);
+
+  ULONG wpAddDesktopLockup3Page(in HWND hwndNotebook);
+
+  ULONG wpAddDesktopArcRest1Page(in HWND hwndNotebook);
+
+  ULONG wpAddDesktopDefDT1Page(in HWND hwndNotebook);
+
+  ULONG wpQueryDefaultDropOp();
+
+  BOOL wpSetDefaultDropOp(in ULONG ulDefaultDropOp);
+
+  BOOL wpQueryAutoLockup ();
+
+  VOID wpSetAutoLockup (in BOOL bAutoLockup);
+
+  ULONG wpQueryLockupTimeout ();
+
+  VOID wpSetLockupTimeout (in ULONG ulLockupTimeout);
+
+  BOOL wpQueryLockupOnStartup ();
+
+  VOID wpSetLockupOnStartup (in BOOL bLockupOnStartup);
+
+  BOOL wpQueryLockupFullScreen ();
+
+  VOID wpSetLockupFullScreen (in BOOL bLockupFullScreen);
+
+  BOOL wpQueryLockupAutoDim ();
+
+  VOID wpSetLockupAutoDim (in BOOL bLockupAutoDim);
+
+  VOID wpQueryLockupBackground (inout PSZ ppszImageFileName,
+                                inout ULONG pulImageMode,
+                                inout ULONG pulScaleFactor,
+                                inout ULONG pulBackgroundType,
+                                inout LONG plBackgroundColor);
+
+  VOID wpSetLockupBackground (in PSZ pszImageFileName,
+                              in ULONG ulImageMode,
+                              in ULONG ulScaleFactor,
+                              in ULONG ulBackgroundType,
+                              in LONG lBackgroundColor);
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpIsCurrentDesktop,wpAddDesktopLockup1Page,wpAddDesktopLockup2Page,
+                  wpAddDesktopLockup3Page,wpAddDesktopArcRest1Page,
+                  wpAddDesktopDefDT1Page, wpQueryDefaultDropOp,
+                  wpSetDefaultDropOp,
+                  wpQueryAutoLockup,wpSetAutoLockup,                            
+                  wpQueryLockupTimeout,wpSetLockupTimeout,                      
+                  wpQueryLockupOnStartup,wpSetLockupOnStartup,                  
+                  wpQueryLockupFullScreen,wpSetLockupFullScreen,                
+                  wpQueryLockupAutoDim,wpSetLockupAutoDim,                      
+                  wpQueryLockupBackground,wpSetLockupBackground;                
+
+    externalstem = WPDesktop;
+    local;
+    externalprefix = desk_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpdesk;
+    metaclass = M_WPDesktop;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+    wpInitData: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpMenuItemSelected: override;
+    wpAddSettingsPages: override;
+    wpFilterMenu: override;                                                     
+    wpModifyMenu: override;                                                     
+    wpSetup: override;                                                          //ihs151618
+    somDefaultInit: override;          
+    somDestruct: override;             
+    wpPopulate:  override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDesktop : M_WPFolder
+{
+   WPObject wpclsQueryObjectFromFrame(in HWND hwndFrame);
+
+   HWND wpclsQueryActiveDesktopHWND();
+
+   WPObject wpclsQueryActiveDesktop();
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpclsQueryObjectFromFrame,
+                  wpclsQueryActiveDesktop, wpclsQueryActiveDesktopHWND;
+
+    externalstem = WPDesktop;
+    local;
+    externalprefix = deskM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpdesk;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryDefaultView: override;
+    wpclsQueryTitle: override;
+    wpclsQueryIconData: override;
+    wpclsQueryIconDataN: override;
+    wpclsQueryStyle: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQuerySettingsPageSize: override; 
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpdesk_idl */

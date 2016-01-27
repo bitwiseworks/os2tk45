@@ -1,0 +1,71 @@
+
+//  Module Header
+//
+//  Module Name: WPPIF
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wppif_idl
+#define wppif_idl
+
+#include "wpdataf.idl"
+#include <somcls.idl>
+
+interface M_WPPif;
+
+interface WPPif : WPDataFile
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wppif;
+    local;
+    externalprefix = pif_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wppif;
+    metaclass = M_WPPif;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+    wpSetupOnce: override;
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPPif : M_WPDataFile
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wppif;
+    local;
+    externalprefix = pifM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wppif;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+    wpclsQueryInstanceFilter: override;
+    wpclsQueryInstanceType: override;
+    wpclsInitData: override;
+    wpclsQueryTitle: override;
+    wpclsQueryDefaultHelp: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wppif_idl */

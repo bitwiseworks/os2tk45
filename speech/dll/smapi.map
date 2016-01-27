@@ -1,0 +1,1688 @@
+
+ SMAPI
+
+ Start         Length     Name                   Class
+ 0001:00000000 00000D9EDH CODE32                 CODE 32-bit
+	at offset 00000000 0006EH bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000070 00799H bytes from F:\ce1.medrad11\build\smcomm.obj (f:\ce1.medrad11\src\api\smcomm.c)
+	at offset 00000810 0120AH bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 00001a20 004BDH bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+	at offset 00001ee0 0005EH bytes from F:\ce1.medrad11\build\smtimer.obj (f:\ce1.medrad11\src\api\smtimer.c)
+	at offset 00001f40 008F8H bytes from F:\ce1.medrad11\build\smannot.obj (f:\ce1.medrad11\src\api\smannot.c)
+	at offset 00002840 03D09H bytes from F:\ce1.medrad11\build\spchqapi.obj (f:\ce1.medrad11\src\api\spchqapi.c)
+	at offset 00006550 04D25H bytes from F:\ce1.medrad11\build\spchqlog.obj (f:\ce1.medrad11\src\api\spchqlog.c)
+	at offset 0000b280 01D72H bytes from F:\ce1.medrad11\build\spchacom.obj (f:\ce1.medrad11\src\api\spchacom.c)
+	at offset 0000d000 00005H bytes from F:\ce1.medrad11\build\getreg.obj (f:\ce1.medrad11\src\api\getreg.c)
+	at offset 0000d010 009DDH bytes from F:\ce1.medrad11\build\spchqcom.obj (f:\ce1.medrad11\src\api\spchqcom.c)
+
+ 0001:0000D9F0 0000002C0H SEG1                   CODE 32-bit
+	at offset 00000000 00015H bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000020 0006FH bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 00000090 00230H bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+
+ 0001:0000DCB0 000000334H SEG2                   CODE 32-bit
+	at offset 00000000 00033H bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000040 000F9H bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 00000140 001F2H bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+
+ 0001:0000DFF0 000000358H SEG3                   CODE 32-bit
+	at offset 00000000 00055H bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000060 0008BH bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 000000f0 00265H bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+
+ 0001:0000E350 000000320H SEG4                   CODE 32-bit
+	at offset 00000000 00053H bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000060 002C0H bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+
+ 0001:0000E670 0000002B0H SEG5                   CODE 32-bit
+	at offset 00000000 00033H bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000040 0012DH bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 00000170 00140H bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+
+ 0001:0000E920 000000230H SEG6                   CODE 32-bit
+	at offset 00000000 00037H bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000040 0009FH bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 000000e0 00150H bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+
+ 0001:0000EB50 000000224H SEG7                   CODE 32-bit
+	at offset 00000000 00040H bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000040 0011FH bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 00000160 000C4H bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+
+ 0001:0000ED80 000004410H SEG8                   CODE 32-bit
+	at offset 00000000 0293CH bytes from F:\ce1.medrad11\build\smargs.obj (f:\ce1.medrad11\src\api\smargs.c)
+	at offset 00002940 00521H bytes from F:\ce1.medrad11\build\smcallb.obj (f:\ce1.medrad11\src\api\smcallb.c)
+	at offset 00002e70 0139AH bytes from F:\ce1.medrad11\build\smcomm.obj (f:\ce1.medrad11\src\api\smcomm.c)
+	at offset 00004210 001FEH bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+
+ 0001:00013190 000000000H SEG9                   CODE 32-bit
+
+ 0001:00013190 00000060CH SEG10                  CODE 32-bit
+	at offset 00000000 00013H bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000020 00431H bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 00000460 001ACH bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+
+ 0001:000137A0 000000588H SEG11                  CODE 32-bit
+	at offset 00000000 0001AH bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000020 00455H bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 00000480 00108H bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+
+ 0001:00013D30 00000031CH SEG12                  CODE 32-bit
+	at offset 00000000 00035H bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000040 000A5H bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 000000f0 00229H bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+
+ 0001:00014050 000000720H SEG13                  CODE 32-bit
+	at offset 00000000 00043H bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000050 00446H bytes from F:\ce1.medrad11\build\smcomm.obj (f:\ce1.medrad11\src\api\smcomm.c)
+	at offset 000004a0 00061H bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 00000510 00210H bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+
+ 0001:00014770 000009D8CH SEG14                  CODE 32-bit
+	at offset 00000000 00496H bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 000004a0 0038EH bytes from F:\ce1.medrad11\build\smalloc.obj (f:\ce1.medrad11\src\api\smalloc.c)
+	at offset 00000830 0505DH bytes from F:\ce1.medrad11\build\smargs.obj (f:\ce1.medrad11\src\api\smargs.c)
+	at offset 00005890 00692H bytes from F:\ce1.medrad11\build\smcallb.obj (f:\ce1.medrad11\src\api\smcallb.c)
+	at offset 00005f30 00599H bytes from F:\ce1.medrad11\build\smcomm.obj (f:\ce1.medrad11\src\api\smcomm.c)
+	at offset 000064d0 001A3H bytes from F:\ce1.medrad11\build\smlogger.obj (f:\ce1.medrad11\src\api\smlogger.c)
+	at offset 00006680 01106H bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 00007790 0226CH bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+	at offset 00009a00 0038CH bytes from F:\ce1.medrad11\build\smtimer.obj (f:\ce1.medrad11\src\api\smtimer.c)
+
+ 0002:00000000 000000004H CONST32_RO             CONST 32-bit
+	at offset 00000000 00004H bytes from F:\ce1.medrad11\build\spchqcom.obj (f:\ce1.medrad11\src\api\spchqcom.c)
+
+ 0003:00000000 0000077DCH DATA32                 DATA 32-bit
+	at offset 00000000 01F94H bytes from F:\ce1.medrad11\build\smargs.obj (f:\ce1.medrad11\src\api\smargs.c)
+	at offset 00001f94 01160H bytes from F:\ce1.medrad11\build\smcomm.obj (f:\ce1.medrad11\src\api\smcomm.c)
+	at offset 000030f4 01FE4H bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 000050d8 001E0H bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+	at offset 000052b8 001B0H bytes from F:\ce1.medrad11\build\smtimer.obj (f:\ce1.medrad11\src\api\smtimer.c)
+	at offset 00005468 0001CH bytes from F:\ce1.medrad11\build\smannot.obj (f:\ce1.medrad11\src\api\smannot.c)
+	at offset 00005484 00004H bytes from F:\ce1.medrad11\build\spchqapi.obj (f:\ce1.medrad11\src\api\spchqapi.c)
+	at offset 00005488 012C8H bytes from F:\ce1.medrad11\build\spchqlog.obj (f:\ce1.medrad11\src\api\spchqlog.c)
+	at offset 00006750 00FD8H bytes from F:\ce1.medrad11\build\spchacom.obj (f:\ce1.medrad11\src\api\spchacom.c)
+	at offset 00007728 000B4H bytes from F:\ce1.medrad11\build\spchqcom.obj (f:\ce1.medrad11\src\api\spchqcom.c)
+
+ 0003:000077DC 000000D44H BSS32                  BSS 32-bit
+	at offset 00000000 00004H bytes from F:\ce1.medrad11\build\smapi.obj (f:\ce1.medrad11\src\api\smapi.c)
+	at offset 00000004 0041CH bytes from F:\ce1.medrad11\build\smcomm.obj (f:\ce1.medrad11\src\api\smcomm.c)
+	at offset 00000420 008D0H bytes from F:\ce1.medrad11\build\smmsg.obj (f:\ce1.medrad11\src\api\smmsg.c)
+	at offset 00000cf0 0003CH bytes from F:\ce1.medrad11\build\smsapi.obj (f:\ce1.medrad11\src\api\smsapi.c)
+	at offset 00000d2c 00010H bytes from F:\ce1.medrad11\build\smtimer.obj (f:\ce1.medrad11\src\api\smtimer.c)
+	at offset 00000d3c 00004H bytes from F:\ce1.medrad11\build\spchacom.obj (f:\ce1.medrad11\src\api\spchacom.c)
+	at offset 00000d40 00004H bytes from F:\ce1.medrad11\build\spchqcom.obj (f:\ce1.medrad11\src\api\spchqcom.c)
+
+ 0003:00008520 000001BC8H c_common               BSS 32-bit
+
+
+ Origin   Group
+ 0000:0   FLAT
+ 0003:0   DGROUP
+
+ Address       Export                  Alias
+
+ 0003:000077E8 client_connection       client_connection
+ 0001:0001A66A SmAddCallback           SmAddCallback
+ 0001:0001A62C SmAddCallbacks          SmAddCallbacks
+ 0001:00000050 SmAddEnrollId           SmAddEnrollId
+ 0001:0000EB50 SmAddPronunciation      SmAddPronunciation
+ 0001:00014A10 SmAddToVocab            SmAddToVocab
+ 0001:00014BBA SmAddUser               SmAddUser
+ 0001:0001AB0C SmApiVersionCheck       SmApiVersionCheck
+ 0001:00014B20 SmCancelPlayback        SmCancelPlayback
+ 0001:00014BA0 SmChangePassword        SmChangePassword
+ 0001:000144C0 SmClose                 SmClose
+ 0001:00011A30 SmConcateCallbackList   SmConcateCallbackList
+ 0001:00012860 SmConnect               SmConnect
+ 0001:00011B40 SmCopyCallbackList      SmCopyCallbackList
+ 0001:00014F26 SmCopyString            SmCopyString
+ 0001:00014C10 SmCopyVocWords          SmCopyVocWords
+ 0001:00014D60 SmCopyWords             SmCopyWords
+ 0001:00013D30 SmCorrectText           SmCorrectText
+ 0001:00014A80 SmCorrectTextCancel     SmCorrectTextCancel
+ 0001:0001AC40 SmDefaultLogger         SmDefaultLogger
+ 0001:00014810 SmDefineGrammar         SmDefineGrammar
+ 0001:0000DCB0 SmDefineVocab           SmDefineVocab
+ 0001:00014066 SmDetachSessions        SmDetachSessions
+ 0001:0000E370 SmDisableVocab          SmDisableVocab
+ 0001:00014906 SmDiscardData           SmDiscardData
+ 0001:00014840 SmDiscardUtterance      SmDiscardUtterance
+ 0001:000144D0 SmDisconnect            SmDisconnect
+ 0001:0001482A SmDispatch              SmDispatch
+ 0001:0000E030 SmEnableVocab           SmEnableVocab
+ 0001:0001AD94 SmError                 SmError
+ 0001:00014AF0 SmEventNotify           SmEventNotify
+ 0001:000137C0 SmGetAlphabets          SmGetAlphabets
+ 0001:0001B980 SmGetAlternates         SmGetAlternates
+ 0001:000019A0 SmGetAnnotations        SmGetAnnotations
+ 0001:0000E960 SmGetApplication        SmGetApplication
+ 0001:000144F0 SmGetApplications       SmGetApplications
+ 0001:0000DCF0 SmGetAudioLevel         SmGetAudioLevel
+ 0001:0001B930 SmGetComment            SmGetComment
+ 0001:00013A60 SmGetDescriptions       SmGetDescriptions
+ 0001:0000E6B0 SmGetEngineState        SmGetEngineState
+ 0001:000131B0 SmGetEnrollId           SmGetEnrollId
+ 0001:000138B0 SmGetEnrollIds          SmGetEnrollIds
+ 0001:00000B20 SmGetEnrollPath         SmGetEnrollPath
+ 0001:0001AF60 SmGetErrors             SmGetErrors
+ 0001:0001B4B0 SmGetEventId            SmGetEventId
+ 0001:0001B3B0 SmGetEventOptions       SmGetEventOptions
+ 0001:0001AF10 SmGetExpectedRecordingSpace  SmGetExpectedRecordingSpace
+ 0001:0001AEC0 SmGetExpectedTrainingSpace  SmGetExpectedTrainingSpace
+ 0001:0000E700 SmGetFirmWords          SmGetFirmWords
+ 0001:00000AA0 SmGetFocusChangeReason  SmGetFocusChangeReason
+ 0001:0001B450 SmGetFocusState         SmGetFocusState
+ 0001:0001AE10 SmGetFreeSpace          SmGetFreeSpace
+ 0001:00000B70 SmGetGrammarPath        SmGetGrammarPath
+ 0001:0001B0E0 SmGetHost               SmGetHost
+ 0001:00013580 SmGetInfirmWords        SmGetInfirmWords
+ 0001:0001B510 SmGetItemValue          SmGetItemValue
+ 0001:00013B30 SmGetLanguages          SmGetLanguages
+ 0001:0000E050 SmGetMicState           SmGetMicState
+ 0001:0001AFD0 SmGetMsgName            SmGetMsgName
+ 0001:0000DA10 SmGetMsgType            SmGetMsgType
+ 0001:0001B590 SmGetNameValue          SmGetNameValue
+ 0001:00000A00 SmGetNumberProcessed    SmGetNumberProcessed
+ 0001:000009B0 SmGetNumberRequired     SmGetNumberRequired
+ 0001:0001B330 SmGetNumberUtterances   SmGetNumberUtterances
+ 0001:0001B2E0 SmGetNumberWordMsgs     SmGetNumberWordMsgs
+ 0001:0001B1F0 SmGetPercentages        SmGetPercentages
+ 0001:00000A50 SmGetPhraseState        SmGetPhraseState
+ 0001:0001B660 SmGetPronunciations     SmGetPronunciations
+ 0001:00013160 SmGetRc                 SmGetRc
+ 0001:0001BCF0 SmGetRcDescription      SmGetRcDescription
+ 0001:0001BDFA SmGetRcName             SmGetRcName
+ 0001:0001AE70 SmGetRequiredTrainingSpace  SmGetRequiredTrainingSpace
+ 0001:0001B8E0 SmGetScript             SmGetScript
+ 0001:0001B860 SmGetScripts            SmGetScripts
+ 0001:0001B020 SmGetService            SmGetService
+ 0001:0001B5F0 SmGetSessionId          SmGetSessionId
+ 0001:0001B400 SmGetSeverity           SmGetSeverity
+ 0001:00000940 SmGetSpeechDataArchive  SmGetSpeechDataArchive
+ 0001:000008F0 SmGetSpeechDataOptions  SmGetSpeechDataOptions
+ 0001:00000880 SmGetSpeechDataSize     SmGetSpeechDataSize
+ 0001:00000810 SmGetSpeechDataVersion  SmGetSpeechDataVersion
+ 0001:0001B7D0 SmGetSpelling           SmGetSpelling
+ 0001:0001B6E0 SmGetSpellings          SmGetSpellings
+ 0001:00013840 SmGetStates             SmGetStates
+ 0001:0000EB90 SmGetStatus             SmGetStatus
+ 0001:0001B160 SmGetTags               SmGetTags
+ 0001:00013500 SmGetTask               SmGetTask
+ 0001:00013D70 SmGetTasks              SmGetTasks
+ 0001:0001BA00 SmGetTimes              SmGetTimes
+ 0001:00012F90 SmGetUserId             SmGetUserId
+ 0001:00013330 SmGetUserIds            SmGetUserIds
+ 0001:000132B0 SmGetUsers              SmGetUsers
+ 0001:0001B260 SmGetUtteranceList      SmGetUtteranceList
+ 0001:0000EC40 SmGetUtteranceNumber    SmGetUtteranceNumber
+ 0001:0001BB20 SmGetVocabList          SmGetVocabList
+ 0001:0001BC00 SmGetVocabName          SmGetVocabName
+ 0001:0000DD3E SmGetVocWords           SmGetVocWords
+ 0001:0001BA80 SmGetWords              SmGetWords
+ 0001:0000DFF0 SmHaltRecognizer        SmHaltRecognizer
+ 0001:0000E690 SmMicOff                SmMicOff
+ 0001:0000E390 SmMicOn                 SmMicOn
+ 0001:0001A6A0 SmNativeApiVersion      SmNativeApiVersion
+ 0001:00014B06 SmNewContext            SmNewContext
+ 0001:00012F16 SmOpen                  SmOpen
+ 0001:00014B40 SmPlayMessage           SmPlayMessage
+ 0001:0000EB76 SmPlayUtterance         SmPlayUtterance
+ 0001:00014B56 SmPlayWords             SmPlayWords
+ 0001:00014BF0 SmQuery                 SmQuery
+ 0001:000149B0 SmQueryAddedWords       SmQueryAddedWords
+ 0001:00014AD0 SmQueryAlternates       SmQueryAlternates
+ 0001:00017850 SmQueryAttribute        SmQueryAttribute
+ 0001:00017810 SmQueryAttributes       SmQueryAttributes
+ 0001:00014790 SmQueryDefault          SmQueryDefault
+ 0001:00014958 SmQueryEnabledVocabs    SmQueryEnabledVocabs
+ 0001:000137A0 SmQueryEnrollIds        SmQueryEnrollIds
+ 0001:00014BD8 SmQueryLanguages        SmQueryLanguages
+ 0001:000147F0 SmQueryPronunciation    SmQueryPronunciation
+ 0001:00014A30 SmQueryPronunciations   SmQueryPronunciations
+ 0001:000148D6 SmQueryScripts          SmQueryScripts
+ 0001:00014080 SmQuerySessions         SmQuerySessions
+ 0001:00000030 SmQuerySpeechData       SmQuerySpeechData
+ 0001:000147D0 SmQuerySpelling         SmQuerySpelling
+ 0001:00013D50 SmQueryTasks            SmQueryTasks
+ 0001:00014920 SmQueryUserInfo         SmQueryUserInfo
+ 0001:00013190 SmQueryUsers            SmQueryUsers
+ 0001:00014860 SmQueryUtterances       SmQueryUtterances
+ 0001:00014970 SmQueryVocabs           SmQueryVocabs
+ 0001:000149D0 SmQueryVocabWords       SmQueryVocabWords
+ 0001:00014A66 SmQueryWord             SmQueryWord
+ 0001:0000D9F0 SmReceiveMsg            SmReceiveMsg
+ 0001:0000DCD0 SmRecognizeNextWord     SmRecognizeNextWord
+ 0001:0000E920 SmReleaseFocus          SmReleaseFocus
+ 0001:00015030 SmRemoveAttribute       SmRemoveAttribute
+ 0001:00014FF0 SmRemoveAttributes      SmRemoveAttributes
+ 0001:0001A59A SmRemoveCallback        SmRemoveCallback
+ 0001:0001A55C SmRemoveCallbacks       SmRemoveCallbacks
+ 0001:000149F0 SmRemoveFromVocab       SmRemoveFromVocab
+ 0001:00014A50 SmRemovePronunciation   SmRemovePronunciation
+ 0001:0000E350 SmRequestFocus          SmRequestFocus
+ 0001:0000E670 SmRequestMicOff         SmRequestMicOff
+ 0001:00014B80 SmRequestMicOn          SmRequestMicOn
+ 0001:000148F0 SmRequestNewEnrollId    SmRequestNewEnrollId
+ 0001:000147B0 SmRequestNewUserid      SmRequestNewUserid
+ 0001:000148A0 SmRequestScriptText     SmRequestScriptText
+ 0001:00000000 SmRestoreSpeechData     SmRestoreSpeechData
+ 0001:0001ADF0 SmReturnRc              SmReturnRc
+ 0001:0001BD40 SmReturnRcDescription   SmReturnRcDescription
+ 0001:0001BE50 SmReturnRcName          SmReturnRcName
+ 0001:00000016 SmSaveSpeechData        SmSaveSpeechData
+ 0001:000148C0 SmSelectScript          SmSelectScript
+ 0001:0001A600 SmSesAddCallback        SmSesAddCallback
+ 0001:0001A5C2 SmSesAddCallbacks       SmSesAddCallbacks
+ 0001:00001C34 SmSesAddEnrollId        SmSesAddEnrollId
+ 0001:000135F0 SmSesAddPronunciation   SmSesAddPronunciation
+ 0001:0001D2A2 SmSesAddToVocab         SmSesAddToVocab
+ 0001:0001DEF8 SmSesAddUser            SmSesAddUser
+ 0001:0001DB82 SmSesCancelPlayback     SmSesCancelPlayback
+ 0001:0001DDF0 SmSesChangePassword     SmSesChangePassword
+ 0001:000141E0 SmSesClose              SmSesClose
+ 0001:00012774 SmSesConnect            SmSesConnect
+ 0001:00013E20 SmSesCorrectText        SmSesCorrectText
+ 0001:0001D67E SmSesCorrectTextCancel  SmSesCorrectTextCancel
+ 0001:0001C300 SmSesDefineGrammar      SmSesDefineGrammar
+ 0001:0000DDF0 SmSesDefineVocab        SmSesDefineVocab
+ 0001:00014630 SmSesDetachSessions     SmSesDetachSessions
+ 0001:0000E450 SmSesDisableVocab       SmSesDisableVocab
+ 0001:0001CA40 SmSesDiscardData        SmSesDiscardData
+ 0001:0001C4EA SmSesDiscardUtterance   SmSesDiscardUtterance
+ 0001:000140A0 SmSesDisconnect         SmSesDisconnect
+ 0001:0001C41E SmSesDispatch           SmSesDispatch
+ 0001:0000E270 SmSesEnableVocab        SmSesEnableVocab
+ 0001:0001AD20 SmSesError              SmSesError
+ 0001:0001D95C SmSesEventNotify        SmSesEventNotify
+ 0001:0000E0E0 SmSesHaltRecognizer     SmSesHaltRecognizer
+ 0001:0000E880 SmSesMicOff             SmSesMicOff
+ 0001:0000E5D0 SmSesMicOn              SmSesMicOn
+ 0001:0001DA30 SmSesNewContext         SmSesNewContext
+ 0001:00012DBE SmSesOpen               SmSesOpen
+ 0001:0001DC22 SmSesPlayMessage        SmSesPlayMessage
+ 0001:0000ECB0 SmSesPlayUtterance      SmSesPlayUtterance
+ 0001:0001DD00 SmSesPlayWords          SmSesPlayWords
+ 0001:0001E0C0 SmSesQuery              SmSesQuery
+ 0001:0001CF8E SmSesQueryAddedWords    SmSesQueryAddedWords
+ 0001:0001D890 SmSesQueryAlternates    SmSesQueryAlternates
+ 0001:000177F0 SmSesQueryAttribute     SmSesQueryAttribute
+ 0001:000177BC SmSesQueryAttributes    SmSesQueryAttributes
+ 0001:0001BFB0 SmSesQueryDefault       SmSesQueryDefault
+ 0001:0001CD10 SmSesQueryEnabledVocabs  SmSesQueryEnabledVocabs
+ 0001:00013C20 SmSesQueryEnrollIds     SmSesQueryEnrollIds
+ 0001:0001E020 SmSesQueryLanguages     SmSesQueryLanguages
+ 0001:0001C220 SmSesQueryPronunciation  SmSesQueryPronunciation
+ 0001:0001D3F2 SmSesQueryPronunciations  SmSesQueryPronunciations
+ 0001:0001C880 SmSesQueryScripts       SmSesQueryScripts
+ 0001:000146D0 SmSesQuerySessions      SmSesQuerySessions
+ 0001:00001B94 SmSesQuerySpeechData    SmSesQuerySpeechData
+ 0001:0001C140 SmSesQuerySpelling      SmSesQuerySpelling
+ 0001:00013F72 SmSesQueryTasks         SmSesQueryTasks
+ 0001:0001CAE0 SmSesQueryUserInfo      SmSesQueryUserInfo
+ 0001:000136FC SmSesQueryUsers         SmSesQueryUsers
+ 0001:0001C5A0 SmSesQueryUtterances    SmSesQueryUtterances
+ 0001:0001CDB0 SmSesQueryVocabs        SmSesQueryVocabs
+ 0001:0001D070 SmSesQueryVocabWords    SmSesQueryVocabWords
+ 0001:0001D570 SmSesQueryWord          SmSesQueryWord
+ 0001:0000DA80 SmSesReceiveMsg         SmSesReceiveMsg
+ 0001:0000DF42 SmSesRecognizeNextWord  SmSesRecognizeNextWord
+ 0001:0000EA00 SmSesReleaseFocus       SmSesReleaseFocus
+ 0001:00014FD0 SmSesRemoveAttribute    SmSesRemoveAttribute
+ 0001:00014FA0 SmSesRemoveAttributes   SmSesRemoveAttributes
+ 0001:0001A530 SmSesRemoveCallback     SmSesRemoveCallback
+ 0001:0001A4F0 SmSesRemoveCallbacks    SmSesRemoveCallbacks
+ 0001:0001D150 SmSesRemoveFromVocab    SmSesRemoveFromVocab
+ 0001:0001D492 SmSesRemovePronunciation  SmSesRemovePronunciation
+ 0001:0000E3B0 SmSesRequestFocus       SmSesRequestFocus
+ 0001:0000E7E0 SmSesRequestMicOff      SmSesRequestMicOff
+ 0001:0000E530 SmSesRequestMicOn       SmSesRequestMicOn
+ 0001:0001C960 SmSesRequestNewEnrollId  SmSesRequestNewEnrollId
+ 0001:0001C060 SmSesRequestNewUserid   SmSesRequestNewUserid
+ 0001:0001C6F0 SmSesRequestScriptText  SmSesRequestScriptText
+ 0001:00001A20 SmSesRestoreSpeechData  SmSesRestoreSpeechData
+ 0001:00001AD0 SmSesSaveSpeechData     SmSesSaveSpeechData
+ 0001:0001C7A0 SmSesSelectScript       SmSesSelectScript
+ 0001:0000EAA0 SmSesSet                SmSesSet
+ 0001:00019F80 SmSesSetAttribute       SmSesSetAttribute
+ 0001:00019F50 SmSesSetAttributes      SmSesSetAttributes
+ 0001:00014560 SmSesSetDefault         SmSesSetDefault
+ 0001:0001BF00 SmSesSetDirectory       SmSesSetDirectory
+ 0001:0001CBE8 SmSesSetUserInfo        SmSesSetUserInfo
+ 0001:0001C640 SmSesSetUtteranceNumber  SmSesSetUtteranceNumber
+ 0001:0001CE50 SmSesSetVocabs          SmSesSetVocabs
+ 0001:0000E180 SmSesUndefineVocab      SmSesUndefineVocab
+ 0001:0001AC50 SmSesWarning            SmSesWarning
+ 0001:0001D71E SmSesWordCorrection     SmSesWordCorrection
+ 0001:0000E940 SmSet                   SmSet
+ 0001:00019FE0 SmSetAttribute          SmSetAttribute
+ 0001:00019FA0 SmSetAttributes         SmSetAttributes
+ 0001:00014050 SmSetDefault            SmSetDefault
+ 0001:00014770 SmSetDirectory          SmSetDirectory
+ 0001:0001493A SmSetUserInfo           SmSetUserInfo
+ 0001:00014880 SmSetUtteranceNumber    SmSetUtteranceNumber
+ 0001:00014990 SmSetVocabs             SmSetVocabs
+ 0001:0000E010 SmUndefineVocab         SmUndefineVocab
+ 0001:0001ACC4 SmWarning               SmWarning
+ 0001:00014AA0 SmWordCorrection        SmWordCorrection
+
+  Address         Publics by Name
+
+ 0000:00000000  Imp  abs                  (os2om30.abs)
+ 0001:0000D010       allocate_q_info
+ 0003:0000851C       api_init
+ 0000:00000000  Imp  asctime              (os2om30.asctime)
+ 0000:00000000  Imp  atoi                 (os2om30.atoi)
+ 0001:0000B2C0       build_spch_msg_hdr
+ 0001:0000B296       build_spch_msg_hdr_with_rc
+ 0003:000077E8       client_connection
+ 0003:000077E0       client_connections
+ 0001:0000C5F0       copy_array_of_strings_into_data_area
+ 0001:0000C550       copy_long_array_into_data_area
+ 0001:0000B300       copy_name_into_data_area
+ 0001:0000C502       copy_short_array_into_data_area
+ 0001:0000C5A0       copy_string_into_data_area
+ 0001:0000C460       copy_vocword_array_into_data_area
+ 0001:0000C3D0       copy_vocword_into_data_area
+ 0001:0000C3E2       copy_vocword_p_array_into_data_area
+ 0001:0000C2E0       copy_word_array_into_data_area
+ 0001:0000C230       copy_word_into_data_area
+ 0001:0000C242       copy_word_p_array_into_data_area
+ 0000:00000000  Imp  DosAllocSharedMem    (DOSCALLS.300)
+ 0000:00000000  Imp  DosCloseEventSem     (DOSCALLS.326)
+ 0000:00000000  Imp  DosCloseMutexSem     (DOSCALLS.333)
+ 0000:00000000  Imp  DosCloseQueue        (QUECALLS.11)
+ 0000:00000000  Imp  DosCreateEventSem    (DOSCALLS.324)
+ 0000:00000000  Imp  DosCreateMutexSem    (DOSCALLS.331)
+ 0000:00000000  Imp  DosCreateQueue       (QUECALLS.16)
+ 0000:00000000  Imp  DosExitList          (DOSCALLS.296)
+ 0000:00000000  Imp  DosFreeMem           (DOSCALLS.304)
+ 0000:00000000  Imp  DosGetDateTime       (DOSCALLS.230)
+ 0000:00000000  Imp  DosGetNamedSharedMem (DOSCALLS.301)
+ 0000:00000000  Imp  DosOpenEventSem      (DOSCALLS.325)
+ 0000:00000000  Imp  DosOpenMutexSem      (DOSCALLS.332)
+ 0000:00000000  Imp  DosOpenQueue         (QUECALLS.15)
+ 0000:00000000  Imp  DosPeekQueue         (QUECALLS.13)
+ 0000:00000000  Imp  DosPostEventSem      (DOSCALLS.328)
+ 0000:00000000  Imp  DosQueryQueue        (QUECALLS.12)
+ 0000:00000000  Imp  DosQuerySysInfo      (DOSCALLS.348)
+ 0000:00000000  Imp  DosReadQueue         (QUECALLS.9)
+ 0000:00000000  Imp  DosReleaseMutexSem   (DOSCALLS.335)
+ 0000:00000000  Imp  DosRequestMutexSem   (DOSCALLS.334)
+ 0000:00000000  Imp  DosResetEventSem     (DOSCALLS.327)
+ 0000:00000000  Imp  DosSearchPath        (DOSCALLS.228)
+ 0000:00000000  Imp  DosSleep             (DOSCALLS.229)
+ 0000:00000000  Imp  DosStartSession      (SESMGR.37)
+ 0000:00000000  Imp  DosSubAllocMem       (DOSCALLS.345)
+ 0000:00000000  Imp  DosSubFreeMem        (DOSCALLS.346)
+ 0000:00000000  Imp  DosSubSetMem         (DOSCALLS.344)
+ 0000:00000000  Imp  DosSubUnsetMem       (DOSCALLS.347)
+ 0000:00000000  Imp  DosWaitEventSem      (DOSCALLS.329)
+ 0000:00000000  Imp  DosWriteQueue        (QUECALLS.14)
+ 0000:00000000  Imp  fflush               (os2om30.fflush)
+ 0000:00000000  Imp  free                 (os2om30.free)
+ 0001:0000D9B0       free_q_info
+ 0000:00000000  Imp  getenv               (os2om30.getenv)
+ 0001:0000D000       getreg
+ 0001:0001E170       gettimeofday
+ 0001:0000C180       get_synch_reply
+ 0001:0000B3B0       get_tconn_ptr
+ 0001:0000B2E0       initialize_data_area_registers
+ 0000:00000000  Imp  localtime            (os2om30.localtime)
+ 0001:0000993E       log_add_enrollid_reply
+ 0001:00008C58       log_add_pronunciation_reply
+ 0001:0000892A       log_add_to_vocab_reply
+ 0001:0000999C       log_add_user_reply
+ 0001:00009CE0       log_all_reply
+ 0001:0000B0FC       log_api_message
+ 0001:00006B22       log_audio_level
+ 0001:00009200       log_cancel_playback_reply
+ 0001:000098E0       log_change_password_reply
+ 0001:00009D3A       log_client_reply
+ 0001:00006898       log_command_word
+ 0001:00008DE0       log_correct_text_cancel_reply
+ 0001:00008E3E       log_correct_text_reply
+ 0001:000077F8       log_define_grammar_reply
+ 0001:00008A1E       log_define_vocab_reply
+ 0001:00007302       log_detach_sessions_reply
+ 0001:0000861C       log_disable_vocab_reply
+ 0001:0000819E       log_discard_data_reply
+ 0001:00007AFC       log_discard_utterance_reply
+ 0001:0000868E       log_enable_vocab_reply
+ 0001:00006708       log_engine_state
+ 0001:00009130       log_event_notify_reply
+ 0001:00006A9C       log_event_synch
+ 0001:00006946       log_focus_granted
+ 0001:000069B8       log_focus_lost
+ 0001:0000677A       log_focus_state
+ 0001:0000812C       log_halt_recognizer_reply
+ 0001:00007A18       log_init_admin_reply
+ 0001:0000795C       log_init_database_reply
+ 0001:00007F7E       log_init_enrollment_reply
+ 0001:0000961E       log_init_recognizer_reply
+ 0001:00009492       log_mic_off_reply
+ 0001:000093D6       log_mic_off_request
+ 0001:000095AC       log_mic_on_reply
+ 0001:000094F0       log_mic_on_request
+ 0001:00006826       log_mic_state
+ 0001:000091A2       log_new_context_reply
+ 0001:0000925E       log_play_message_reply
+ 0001:00006C20       log_play_message_status
+ 0001:000092BC       log_play_utterance_reply
+ 0001:00006CA8       log_play_utterance_status
+ 0001:0000931A       log_play_words_reply
+ 0001:00006D30       log_play_words_status
+ 0001:00008700       log_query_added_words_reply
+ 0001:00008FE8       log_query_alternates_reply
+ 0001:000071C0       log_query_default_reply
+ 0001:0000832E       log_query_enabled_vocabs_reply
+ 0001:000097D6       log_query_enrollids_reply
+ 0001:00009AE0       log_query_languages_reply
+ 0001:00008B0E       log_query_pronunciations_reply
+ 0001:00007700       log_query_pronunciation_reply
+ 0001:00009BB8       log_query_reply
+ 0001:00007E12       log_query_scripts_reply
+ 0001:00007360       log_query_sessions_reply
+ 0001:00006696       log_query_speech_data_reply
+ 0001:0000760C       log_query_spelling_reply
+ 0001:000096F0       log_query_tasks_reply
+ 0001:000099FA       log_query_users_reply
+ 0001:000081FC       log_query_user_info_reply
+ 0001:00007B5A       log_query_utterances_reply
+ 0001:00008400       log_query_vocabs_reply
+ 0001:000087E0       log_query_vocab_words_reply
+ 0001:00008CCA       log_query_word_reply
+ 0001:00006E2A       log_recognized_phrase
+ 0001:00007050       log_recognized_text
+ 0001:00006F30       log_recognized_word
+ 0001:00009378       log_recognize_next_word_reply
+ 0001:00007550       log_release_focus_reply
+ 0001:000088B8       log_remove_from_vocab_reply
+ 0001:00008BE6       log_remove_pronunciation_reply
+ 0001:00006A16       log_report_engine_error
+ 0001:000072A4       log_request_detach
+ 0001:000075AE       log_request_focus_reply
+ 0001:00009434       log_request_mic_off_reply
+ 0001:0000954E       log_request_mic_on_reply
+ 0001:00007EF8       log_request_new_enrollid_reply
+ 0001:00007772       log_request_new_userid_reply
+ 0001:00007C9E       log_request_script_text_reply
+ 0001:00006564       log_restore_speech_data_reply
+ 0001:000065EA       log_save_speech_data_reply
+ 0001:00007DA0       log_select_script_reply
+ 0001:00006BA0       log_server_status
+ 0001:00007246       log_set_default_reply
+ 0001:000080CE       log_set_directory_reply
+ 0001:00009C50       log_set_reply
+ 0001:000082A8       log_set_user_info_reply
+ 0001:00007C40       log_set_utterance_number_reply
+ 0001:00008542       log_set_vocabs_reply
+ 0001:000079BA       log_terminate_admin_reply
+ 0001:000078FE       log_terminate_database_reply
+ 0001:00007A76       log_terminate_enrollment_reply
+ 0001:00008070       log_terminate_recognizer_reply
+ 0001:000084D0       log_undefine_vocab_reply
+ 0001:00006DB8       log_utterance_completed
+ 0001:00008E9C       log_word_correction_reply
+ 0001:0000C0B0       make_spch_msg_with_data_area
+ 0000:00000000  Imp  malloc               (os2om30.malloc)
+ 0002:00000000       maximum_queue_size
+ 0003:00008520       message_names
+ 0003:000077E4       nclient_connections
+ 0003:0000850C       ntime_out
+ 0003:000087E8       qconn_info
+ 0001:0001A66A       SmAddCallback
+ 0001:0001A62C       SmAddCallbacks
+ 0001:00000050       SmAddEnrollId
+ 0001:0000EB50       SmAddPronunciation
+ 0001:0001E3D0       SmAddTimeOut
+ 0001:00014A10       SmAddToVocab
+ 0001:00014BBA       SmAddUser
+ 0001:00001F40       SmAddVocabToChain
+ 0001:0001AB0C       SmApiVersionCheck
+ 0001:00014B20       SmCancelPlayback
+ 0001:00014BA0       SmChangePassword
+ 0001:000144C0       SmClose
+ 0001:00011A30       SmConcateCallbackList
+ 0001:00012860       SmConnect
+ 0001:00011B40       SmCopyCallbackList
+ 0001:00014F26       SmCopyString
+ 0001:00014C10       SmCopyVocWords
+ 0001:00014D60       SmCopyWords
+ 0001:00013D30       SmCorrectText
+ 0001:00014A80       SmCorrectTextCancel
+ 0001:0001AC40       SmDefaultLogger
+ 0001:00014810       SmDefineGrammar
+ 0001:0000DCB0       SmDefineVocab
+ 0001:0001433C       SmDeleteConnectionStructure
+ 0001:00014066       SmDetachSessions
+ 0001:0000E370       SmDisableVocab
+ 0001:00014906       SmDiscardData
+ 0001:00014840       SmDiscardUtterance
+ 0001:000144D0       SmDisconnect
+ 0001:0001482A       SmDispatch
+ 0001:0001A840       SmDispatchReply
+ 0001:0000E030       SmEnableVocab
+ 0001:0001AD94       SmError
+ 0001:00014AF0       SmEventNotify
+ 0001:00002540       SmExpandAnnotations
+ 0001:000137C0       SmGetAlphabets
+ 0001:0001B980       SmGetAlternates
+ 0001:000019A0       SmGetAnnotations
+ 0001:0000E960       SmGetApplication
+ 0001:000144F0       SmGetApplications
+ 0001:0000DCF0       SmGetAudioLevel
+ 0001:0001B930       SmGetComment
+ 0001:00013A60       SmGetDescriptions
+ 0001:0000E6B0       SmGetEngineState
+ 0001:000131B0       SmGetEnrollId
+ 0001:000138B0       SmGetEnrollIds
+ 0001:00000B20       SmGetEnrollPath
+ 0001:0001AF60       SmGetErrors
+ 0001:0001B4B0       SmGetEventId
+ 0001:0001B3B0       SmGetEventOptions
+ 0001:0001AF10       SmGetExpectedRecordingSpace
+ 0001:0001AEC0       SmGetExpectedTrainingSpace
+ 0001:0000E700       SmGetFirmWords
+ 0001:00000AA0       SmGetFocusChangeReason
+ 0001:0001B450       SmGetFocusState
+ 0001:0001AE10       SmGetFreeSpace
+ 0001:00000B70       SmGetGrammarPath
+ 0001:0001B0E0       SmGetHost
+ 0001:00013580       SmGetInfirmWords
+ 0001:0001B510       SmGetItemValue
+ 0001:00013B30       SmGetLanguages
+ 0001:0000E050       SmGetMicState
+ 0001:0001AFD0       SmGetMsgName
+ 0001:0000DA10       SmGetMsgType
+ 0001:0001B590       SmGetNameValue
+ 0001:00000A00       SmGetNumberProcessed
+ 0001:000009B0       SmGetNumberRequired
+ 0001:0001B330       SmGetNumberUtterances
+ 0001:0001B2E0       SmGetNumberWordMsgs
+ 0001:0001B1F0       SmGetPercentages
+ 0001:00000A50       SmGetPhraseState
+ 0001:0001B660       SmGetPronunciations
+ 0001:00013160       SmGetRc
+ 0001:0001BCF0       SmGetRcDescription
+ 0001:0001BDFA       SmGetRcName
+ 0001:0001AE70       SmGetRequiredTrainingSpace
+ 0001:0001B8E0       SmGetScript
+ 0001:0001B860       SmGetScripts
+ 0001:0001B020       SmGetService
+ 0001:0001B5F0       SmGetSessionId
+ 0001:0001B400       SmGetSeverity
+ 0001:00000940       SmGetSpeechDataArchive
+ 0001:000008F0       SmGetSpeechDataOptions
+ 0001:00000880       SmGetSpeechDataSize
+ 0001:00000810       SmGetSpeechDataVersion
+ 0001:0001B7D0       SmGetSpelling
+ 0001:0001B6E0       SmGetSpellings
+ 0001:00013840       SmGetStates
+ 0001:0000EB90       SmGetStatus
+ 0001:0001B160       SmGetTags
+ 0001:00013500       SmGetTask
+ 0001:00013D70       SmGetTasks
+ 0001:0001BA00       SmGetTimes
+ 0001:00012F90       SmGetUserId
+ 0001:00013330       SmGetUserIds
+ 0001:000132B0       SmGetUsers
+ 0001:0001B260       SmGetUtteranceList
+ 0001:0000EC40       SmGetUtteranceNumber
+ 0001:0001BB20       SmGetVocabList
+ 0001:0001BC00       SmGetVocabName
+ 0001:0000DD3E       SmGetVocWords
+ 0001:0001BA80       SmGetWords
+ 0001:0000DFF0       SmHaltRecognizer
+ 0001:00012B20       SmInitConnectionStructure
+ 0001:00011C84       SmInitialise
+ 0001:00011CC0       SmInitialiseSession
+ 0001:0001A7C8       SmInitialiseSessionHandler
+ 0001:0001A830       SmMapMessageType
+ 0001:0000E690       SmMicOff
+ 0001:0000E390       SmMicOn
+ 0001:0001A6A0       SmNativeApiVersion
+ 0001:00014B06       SmNewContext
+ 0001:00012F16       SmOpen
+ 0001:00014B40       SmPlayMessage
+ 0001:0000EB76       SmPlayUtterance
+ 0001:00014B56       SmPlayWords
+ 0001:00014BF0       SmQuery
+ 0001:000149B0       SmQueryAddedWords
+ 0001:00014AD0       SmQueryAlternates
+ 0001:00017870       SmQueryArguments
+ 0001:00017850       SmQueryAttribute
+ 0001:00017810       SmQueryAttributes
+ 0001:00014790       SmQueryDefault
+ 0001:00014958       SmQueryEnabledVocabs
+ 0001:000137A0       SmQueryEnrollIds
+ 0001:00014BD8       SmQueryLanguages
+ 0001:000147F0       SmQueryPronunciation
+ 0001:00014A30       SmQueryPronunciations
+ 0001:000148D6       SmQueryScripts
+ 0001:00014080       SmQuerySessions
+ 0001:00000030       SmQuerySpeechData
+ 0001:000147D0       SmQuerySpelling
+ 0001:00013D50       SmQueryTasks
+ 0001:0001E260       SmQueryTimeOut
+ 0001:0001E310       SmQueryTimeOuts
+ 0001:00014920       SmQueryUserInfo
+ 0001:00013190       SmQueryUsers
+ 0001:00014860       SmQueryUtterances
+ 0001:00014970       SmQueryVocabs
+ 0001:000149D0       SmQueryVocabWords
+ 0001:00014A66       SmQueryWord
+ 0001:0000D9F0       SmReceiveMsg
+ 0001:0000DCD0       SmRecognizeNextWord
+ 0001:0001AA70       SmRecv
+ 0001:0000E920       SmReleaseFocus
+ 0001:00015050       SmRemoveArguments
+ 0001:00015030       SmRemoveAttribute
+ 0001:00014FF0       SmRemoveAttributes
+ 0001:0001A59A       SmRemoveCallback
+ 0001:0001A55C       SmRemoveCallbacks
+ 0001:000149F0       SmRemoveFromVocab
+ 0001:00014A50       SmRemovePronunciation
+ 0001:0001E32E       SmRemoveTimeOut
+ 0001:000027A0       SmRemoveVocabFromChain
+ 0001:0000E350       SmRequestFocus
+ 0001:0000E670       SmRequestMicOff
+ 0001:00014B80       SmRequestMicOn
+ 0001:000148F0       SmRequestNewEnrollId
+ 0001:000147B0       SmRequestNewUserid
+ 0001:000148A0       SmRequestScriptText
+ 0001:00014180       SmResetConnectionState
+ 0001:00000000       SmRestoreSpeechData
+ 0001:0001ADF0       SmReturnRc
+ 0001:0001BD40       SmReturnRcDescription
+ 0001:0001BE50       SmReturnRcName
+ 0001:0001A6C0       SmRouterMessageHandler
+ 0001:00000016       SmSaveSpeechData
+ 0001:000148C0       SmSelectScript
+ 0001:0001A600       SmSesAddCallback
+ 0001:0001A5C2       SmSesAddCallbacks
+ 0001:00001C34       SmSesAddEnrollId
+ 0001:000135F0       SmSesAddPronunciation
+ 0001:0001D2A2       SmSesAddToVocab
+ 0001:0001DEF8       SmSesAddUser
+ 0001:0001DB82       SmSesCancelPlayback
+ 0001:0001DDF0       SmSesChangePassword
+ 0001:000141E0       SmSesClose
+ 0001:00012774       SmSesConnect
+ 0001:00013E20       SmSesCorrectText
+ 0001:0001D67E       SmSesCorrectTextCancel
+ 0001:0001C300       SmSesDefineGrammar
+ 0001:0000DDF0       SmSesDefineVocab
+ 0001:00014630       SmSesDetachSessions
+ 0001:0000E450       SmSesDisableVocab
+ 0001:0001CA40       SmSesDiscardData
+ 0001:0001C4EA       SmSesDiscardUtterance
+ 0001:000140A0       SmSesDisconnect
+ 0001:0001C41E       SmSesDispatch
+ 0001:0000E270       SmSesEnableVocab
+ 0001:0001AD20       SmSesError
+ 0001:0001D95C       SmSesEventNotify
+ 0001:0000E0E0       SmSesHaltRecognizer
+ 0001:0000E880       SmSesMicOff
+ 0001:0000E5D0       SmSesMicOn
+ 0001:0001DA30       SmSesNewContext
+ 0001:00012DBE       SmSesOpen
+ 0001:0001DC22       SmSesPlayMessage
+ 0001:0000ECB0       SmSesPlayUtterance
+ 0001:0001DD00       SmSesPlayWords
+ 0001:0001E0C0       SmSesQuery
+ 0001:0001CF8E       SmSesQueryAddedWords
+ 0001:0001D890       SmSesQueryAlternates
+ 0001:000177F0       SmSesQueryAttribute
+ 0001:000177BC       SmSesQueryAttributes
+ 0001:0001BFB0       SmSesQueryDefault
+ 0001:0001CD10       SmSesQueryEnabledVocabs
+ 0001:00013C20       SmSesQueryEnrollIds
+ 0001:0001E020       SmSesQueryLanguages
+ 0001:0001C220       SmSesQueryPronunciation
+ 0001:0001D3F2       SmSesQueryPronunciations
+ 0001:0001C880       SmSesQueryScripts
+ 0001:000146D0       SmSesQuerySessions
+ 0001:00001B94       SmSesQuerySpeechData
+ 0001:0001C140       SmSesQuerySpelling
+ 0001:00013F72       SmSesQueryTasks
+ 0001:0001CAE0       SmSesQueryUserInfo
+ 0001:000136FC       SmSesQueryUsers
+ 0001:0001C5A0       SmSesQueryUtterances
+ 0001:0001CDB0       SmSesQueryVocabs
+ 0001:0001D070       SmSesQueryVocabWords
+ 0001:0001D570       SmSesQueryWord
+ 0001:0000DA80       SmSesReceiveMsg
+ 0001:0000DF42       SmSesRecognizeNextWord
+ 0001:0000EA00       SmSesReleaseFocus
+ 0001:00014FD0       SmSesRemoveAttribute
+ 0001:00014FA0       SmSesRemoveAttributes
+ 0001:0001A530       SmSesRemoveCallback
+ 0001:0001A4F0       SmSesRemoveCallbacks
+ 0001:0001D150       SmSesRemoveFromVocab
+ 0001:0001D492       SmSesRemovePronunciation
+ 0001:0000E3B0       SmSesRequestFocus
+ 0001:0000E7E0       SmSesRequestMicOff
+ 0001:0000E530       SmSesRequestMicOn
+ 0001:0001C960       SmSesRequestNewEnrollId
+ 0001:0001C060       SmSesRequestNewUserid
+ 0001:0001C6F0       SmSesRequestScriptText
+ 0001:00001A20       SmSesRestoreSpeechData
+ 0001:00001AD0       SmSesSaveSpeechData
+ 0001:0001C7A0       SmSesSelectScript
+ 0001:0000EAA0       SmSesSet
+ 0001:00019F80       SmSesSetAttribute
+ 0001:00019F50       SmSesSetAttributes
+ 0001:00014560       SmSesSetDefault
+ 0001:0001BF00       SmSesSetDirectory
+ 0001:0001CBE8       SmSesSetUserInfo
+ 0001:0001C640       SmSesSetUtteranceNumber
+ 0001:0001CE50       SmSesSetVocabs
+ 0001:0000E180       SmSesUndefineVocab
+ 0001:0001AC50       SmSesWarning
+ 0001:0001D71E       SmSesWordCorrection
+ 0001:0000E940       SmSet
+ 0001:0000ED80       SmSetArguments
+ 0001:00019FE0       SmSetAttribute
+ 0001:00019FA0       SmSetAttributes
+ 0001:00011BF0       SmSetConnectionState
+ 0001:00014050       SmSetDefault
+ 0001:00014770       SmSetDirectory
+ 0001:0001493A       SmSetUserInfo
+ 0001:00014880       SmSetUtteranceNumber
+ 0001:00014990       SmSetVocabs
+ 0001:00012876       SmTerminateSession
+ 0001:0001A770       SmTerminateSessionHandler
+ 0001:0000E010       SmUndefineVocab
+ 0001:0001ACC4       SmWarning
+ 0001:00014AA0       SmWordCorrection
+ 0001:0001E174       Sm_CallTimeOutHandler
+ 0001:0001A440       Sm_DeleteCallbackListEntries
+ 0003:000077DC       sm_errno
+ 0001:0001A000       Sm_ExecuteCbList
+ 0003:000077EC       sm_message_directory
+ 0001:0001A3D0       Sm_RemoveCallbackList
+ 0001:0001A250       Sm_RemoveConnectionCbList
+ 0001:0001A0C6       Sm_RemoveDisconnectionCbList
+ 0001:000119C0       Sm_StoreCallbackList
+ 0001:00011840       Sm_StoreConnectionCbList
+ 0001:000116C0       Sm_StoreDisconnectionCbList
+ 0001:0000C91E       spchapi_init
+ 0001:0000B292       spch_accept
+ 0001:0000BFBE       spch_accept_listen
+ 0001:00003780       spch_add_enrollid
+ 0001:0000333C       spch_add_pronunciation
+ 0001:00003280       spch_add_to_vocab
+ 0001:000037C0       spch_add_user
+ 0001:0000BF86       spch_attach_client
+ 0001:0000D320       spch_attach_mbox
+ 0001:0000B2DA       spch_attach_segment
+ 0001:000034EC       spch_cancel_playback
+ 0001:00003750       spch_change_password
+ 0001:0000BE70       spch_client_reply
+ 0001:0000BD40       spch_connect
+ 0001:000033F0       spch_correct_text
+ 0001:000033C0       spch_correct_text_cancel
+ 0001:0000BC90       spch_create_client
+ 0001:0000D500       spch_create_mbox
+ 0001:00002C60       spch_define_grammar
+ 0001:000032B0       spch_define_vocab
+ 0001:0000BC50       spch_detach_client
+ 0001:0000BC18       spch_detach_from_engine
+ 0001:0000D060       spch_detach_mbox
+ 0001:0000B2B8       spch_detach_segment
+ 0001:00002AEC       spch_detach_sessions
+ 0001:00003150       spch_disable_vocab
+ 0001:0000BBA0       spch_discard_connection
+ 0001:00002FDC       spch_discard_data
+ 0001:00002D80       spch_discard_utterance
+ 0001:0000BB20       spch_disconnect
+ 0001:00003190       spch_enable_vocab
+ 0001:0000348C       spch_event_notify
+ 0001:0000B8C8       spch_find_server
+ 0001:0000B740       spch_free_msg
+ 0001:0000D150       spch_get_mbox
+ 0001:00002FAC       spch_halt_recognizer
+ 0001:00002D20       spch_init_admin
+ 0001:00002CC0       spch_init_database
+ 0001:00002EFC       spch_init_enrollment
+ 0001:000036A0       spch_init_recognizer
+ 0001:0000B71A       spch_listen
+ 0001:00003610       spch_mic_off
+ 0001:00003670       spch_mic_on
+ 0001:0000B6F2       spch_navigator_flag
+ 0001:000034C0       spch_new_context
+ 0001:0000D120       spch_pending_mbox
+ 0001:0000351C       spch_play_message
+ 0001:00003548       spch_play_utterance
+ 0001:00003580       spch_play_words
+ 0001:0000C670       spch_put_mbox
+ 0001:00003860       spch_query
+ 0001:000031D0       spch_query_added_words
+ 0001:00003460       spch_query_alternates
+ 0001:0000B6C4       spch_query_api_logging
+ 0001:0000B696       spch_query_application
+ 0001:0000B28C       spch_query_comm
+ 0001:0000B668       spch_query_comm_handle
+ 0001:0000B63A       spch_query_comm_sem
+ 0001:0000B612       spch_query_connection_id
+ 0001:00002A80       spch_query_default
+ 0001:00003080       spch_query_enabled_vocabs
+ 0001:0000C6A0       spch_query_engine
+ 0001:00003720       spch_query_enrollids
+ 0001:0000B604       spch_query_hostname
+ 0001:00003830       spch_query_languages
+ 0001:0000C6BE       spch_query_listen_sem
+ 0001:0000D2A0       spch_query_mbox
+ 0001:00002BE0       spch_query_pronunciation
+ 0001:000032E0       spch_query_pronunciations
+ 0001:0000B370       spch_query_queue_sem
+ 0001:00002E9C       spch_query_scripts
+ 0001:0000B5A4       spch_query_server_application
+ 0001:0000B540       spch_query_server_host
+ 0001:00002B1C       spch_query_sessions
+ 0001:00002A50       spch_query_speech_data
+ 0001:00002BAC       spch_query_spelling
+ 0001:000036E0       spch_query_tasks
+ 0001:00003800       spch_query_users
+ 0001:0000300C       spch_query_user_info
+ 0001:00002DC0       spch_query_utterances
+ 0001:000030B0       spch_query_vocabs
+ 0001:00003210       spch_query_vocab_words
+ 0001:0000C6D0       spch_query_WindowSystemEnable
+ 0001:00003380       spch_query_word
+ 0001:000035B0       spch_recognize_next_word
+ 0001:0000C6FE       spch_recv
+ 0001:0000B288       spch_recv_only
+ 0001:0000B284       spch_register_server
+ 0001:00002B4C       spch_release_focus
+ 0001:0000B4FE       spch_remove_client
+ 0001:00003250       spch_remove_from_vocab
+ 0001:0000C7E0       spch_remove_mbox
+ 0001:00003310       spch_remove_pronunciation
+ 0001:00002B7C       spch_request_focus
+ 0001:000035E0       spch_request_mic_off
+ 0001:00003640       spch_request_mic_on
+ 0001:00002ED0       spch_request_new_enrollid
+ 0001:00002C20       spch_request_new_userid
+ 0001:00002E30       spch_request_script_text
+ 0001:000028DE       spch_restore_speech_data
+ 0001:000029C0       spch_save_speech_data
+ 0001:00002E70       spch_select_script
+ 0001:00006190       spch_send_add_enrollid
+ 0001:000052D0       spch_send_add_pronunciation
+ 0001:00004FB0       spch_send_add_to_vocab
+ 0001:00006290       spch_send_add_user
+ 0001:000059D0       spch_send_cancel_playback
+ 0001:000060B0       spch_send_change_password
+ 0001:0000B7EA       spch_send_client
+ 0001:0000BAC0       spch_send_client_detach
+ 0001:00005540       spch_send_correct_text
+ 0001:000054DE       spch_send_correct_text_cancel
+ 0001:00003D40       spch_send_define_grammar
+ 0001:000050B0       spch_send_define_vocab
+ 0001:000039DE       spch_send_detach_sessions
+ 0001:00004C38       spch_send_disable_vocab
+ 0001:00004780       spch_send_discard_data
+ 0001:000040C0       spch_send_discard_utterance
+ 0001:00004CD0       spch_send_enable_vocab
+ 0001:00005840       spch_send_event_notify
+ 0001:00004720       spch_send_halt_recognizer
+ 0001:00003F70       spch_send_init_admin
+ 0001:00003EA0       spch_send_init_database
+ 0001:00004490       spch_send_init_enrollment
+ 0001:00005E00       spch_send_init_recognizer
+ 0001:00005CE0       spch_send_mic_off
+ 0001:00005DA0       spch_send_mic_on
+ 0001:000058C0       spch_send_new_context
+ 0001:00005A30       spch_send_play_message
+ 0001:00005AF0       spch_send_play_utterance
+ 0001:00005B70       spch_send_play_words
+ 0001:00006450       spch_send_query
+ 0001:00004D70       spch_send_query_added_words
+ 0001:00005796       spch_send_query_alternates
+ 0001:000038CC       spch_send_query_default
+ 0001:000049C0       spch_send_query_enabled_vocabs
+ 0001:00005FD0       spch_send_query_enrollids
+ 0001:000063F0       spch_send_query_languages
+ 0001:00003C00       spch_send_query_pronunciation
+ 0001:000051B0       spch_send_query_pronunciations
+ 0001:00004330       spch_send_query_scripts
+ 0001:00003A40       spch_send_query_sessions
+ 0001:000029F0       spch_send_query_speech_data
+ 0001:00003B60       spch_send_query_spelling
+ 0001:00005F36       spch_send_query_tasks
+ 0001:00006390       spch_send_query_users
+ 0001:000047E0       spch_send_query_user_info
+ 0001:00004130       spch_send_query_utterances
+ 0001:00004A20       spch_send_query_vocabs
+ 0001:00004E10       spch_send_query_vocab_words
+ 0001:000053A6       spch_send_query_word
+ 0001:00005C1A       spch_send_recognize_next_word
+ 0001:00003AA0       spch_send_release_focus
+ 0001:00004EB0       spch_send_remove_from_vocab
+ 0001:00005210       spch_send_remove_pronunciation
+ 0001:00003B00       spch_send_request_focus
+ 0001:00005C80       spch_send_request_mic_off
+ 0001:00005D40       spch_send_request_mic_on
+ 0001:000043D0       spch_send_request_new_enrollid
+ 0001:00003CA0       spch_send_request_new_userid
+ 0001:00004200       spch_send_request_script_text
+ 0001:00002840       spch_send_restore_speech_data
+ 0001:00002910       spch_send_save_speech_data
+ 0001:00004270       spch_send_select_script
+ 0001:000064BA       spch_send_set
+ 0001:00003940       spch_send_set_default
+ 0001:00004670       spch_send_set_directory
+ 0001:000048C0       spch_send_set_user_info
+ 0001:00004190       spch_send_set_utterance_number
+ 0001:00004B20       spch_send_set_vocabs
+ 0001:00003F10       spch_send_terminate_admin
+ 0001:00003E34       spch_send_terminate_database
+ 0001:00004050       spch_send_terminate_enrollment
+ 0001:00004600       spch_send_terminate_recognizer
+ 0001:00004A80       spch_send_undefine_vocab
+ 0001:00005650       spch_send_word_correction
+ 0001:000038A0       spch_set
+ 0001:0000B280       spch_set_alloc
+ 0001:0000B492       spch_set_api_logging
+ 0001:0000B46C       spch_set_application
+ 0001:0000B446       spch_set_connection_id
+ 0001:00002AC0       spch_set_default
+ 0001:00002F80       spch_set_directory
+ 0001:0000B420       spch_set_navigator_flag
+ 0001:0000B3F0       spch_set_synchronous
+ 0001:00003040       spch_set_user_info
+ 0001:00002DF0       spch_set_utterance_number
+ 0001:00003120       spch_set_vocabs
+ 0001:0000C8F8       spch_set_WindowSystemEnable
+ 0001:0000CFDE       spch_stop_listen
+ 0001:00002CF0       spch_terminate_admin
+ 0001:00002C90       spch_terminate_database
+ 0001:00002D4C       spch_terminate_enrollment
+ 0001:00002F40       spch_terminate_recognizer
+ 0001:000030E0       spch_undefine_vocab
+ 0001:0000341C       spch_word_correction
+ 0001:0000B3C4       strcpyrl
+ 0001:0000C2C0       strlenb
+ 0000:00000000  Imp  strtok               (os2om30.strtok)
+ 0003:00009FE8       tconn_info
+ 0000:00000000  Imp  time                 (os2om30.time)
+ 0003:00008508       time_out
+ 0000:00000000  Imp  WinIsWindow          (PMWIN.772)
+ 0000:00000000  Imp  WinQueryAnchorBlock  (PMWIN.800)
+ 0000:00000000  Imp  WinRequestMutexSem   (PMWIN.979)
+ 0000:00000000  Imp  WinWaitEventSem      (PMWIN.978)
+ 0000:00000000  Imp  _ctype               (os2om30._ctype)
+ 0003:000077DC       _edata
+ 0003:0000A0E8       _end
+ 0000:00000000  Imp  _errno               (os2om30._errno)
+ 0000:00000000  Imp  _fprintfieee         (os2om30._fprintfieee)
+ 0000:00000000  Imp  _getpid              (os2om30._getpid)
+ 0000:00000000  Imp  _lseek               (os2om30._lseek)
+ 0000:00000000  Imp  _open                (os2om30._open)
+ 0000:00000000  Imp  _printfieee          (os2om30._printfieee)
+ 0000:00000000  Imp  _read                (os2om30._read)
+ 0000:00000000  Imp  _sprintfieee         (os2om30._sprintfieee)
+ 0000:00000000  Imp  _sscanfieee          (os2om30._sscanfieee)
+
+  Address         Publics by Value
+
+ 0000:00000000  Imp  DosSubFreeMem        (DOSCALLS.346)
+ 0000:00000000  Imp  DosSearchPath        (DOSCALLS.228)
+ 0000:00000000  Imp  DosGetNamedSharedMem (DOSCALLS.301)
+ 0000:00000000  Imp  DosCloseQueue        (QUECALLS.11)
+ 0000:00000000  Imp  time                 (os2om30.time)
+ 0000:00000000  Imp  DosWriteQueue        (QUECALLS.14)
+ 0000:00000000  Imp  DosQueryQueue        (QUECALLS.12)
+ 0000:00000000  Imp  DosSubAllocMem       (DOSCALLS.345)
+ 0000:00000000  Imp  DosCreateQueue       (QUECALLS.16)
+ 0000:00000000  Imp  DosGetDateTime       (DOSCALLS.230)
+ 0000:00000000  Imp  abs                  (os2om30.abs)
+ 0000:00000000  Imp  free                 (os2om30.free)
+ 0000:00000000  Imp  DosSubUnsetMem       (DOSCALLS.347)
+ 0000:00000000  Imp  DosReadQueue         (QUECALLS.9)
+ 0000:00000000  Imp  _printfieee          (os2om30._printfieee)
+ 0000:00000000  Imp  DosFreeMem           (DOSCALLS.304)
+ 0000:00000000  Imp  _sscanfieee          (os2om30._sscanfieee)
+ 0000:00000000  Imp  DosOpenQueue         (QUECALLS.15)
+ 0000:00000000  Imp  WinIsWindow          (PMWIN.772)
+ 0000:00000000  Imp  WinRequestMutexSem   (PMWIN.979)
+ 0000:00000000  Imp  _fprintfieee         (os2om30._fprintfieee)
+ 0000:00000000  Imp  DosSubSetMem         (DOSCALLS.344)
+ 0000:00000000  Imp  DosPeekQueue         (QUECALLS.13)
+ 0000:00000000  Imp  _sprintfieee         (os2om30._sprintfieee)
+ 0000:00000000  Imp  WinQueryAnchorBlock  (PMWIN.800)
+ 0000:00000000  Imp  DosExitList          (DOSCALLS.296)
+ 0000:00000000  Imp  DosCreateMutexSem    (DOSCALLS.331)
+ 0000:00000000  Imp  DosReleaseMutexSem   (DOSCALLS.335)
+ 0000:00000000  Imp  DosResetEventSem     (DOSCALLS.327)
+ 0000:00000000  Imp  DosPostEventSem      (DOSCALLS.328)
+ 0000:00000000  Imp  DosStartSession      (SESMGR.37)
+ 0000:00000000  Imp  DosCloseEventSem     (DOSCALLS.326)
+ 0000:00000000  Imp  asctime              (os2om30.asctime)
+ 0000:00000000  Imp  DosQuerySysInfo      (DOSCALLS.348)
+ 0000:00000000  Imp  DosAllocSharedMem    (DOSCALLS.300)
+ 0000:00000000  Imp  atoi                 (os2om30.atoi)
+ 0000:00000000  Imp  DosCreateEventSem    (DOSCALLS.324)
+ 0000:00000000  Imp  DosSleep             (DOSCALLS.229)
+ 0000:00000000  Imp  _getpid              (os2om30._getpid)
+ 0000:00000000  Imp  localtime            (os2om30.localtime)
+ 0000:00000000  Imp  DosCloseMutexSem     (DOSCALLS.333)
+ 0000:00000000  Imp  _read                (os2om30._read)
+ 0000:00000000  Imp  _open                (os2om30._open)
+ 0000:00000000  Imp  strtok               (os2om30.strtok)
+ 0000:00000000  Imp  fflush               (os2om30.fflush)
+ 0000:00000000  Imp  _ctype               (os2om30._ctype)
+ 0000:00000000  Imp  getenv               (os2om30.getenv)
+ 0000:00000000  Imp  malloc               (os2om30.malloc)
+ 0000:00000000  Imp  DosOpenMutexSem      (DOSCALLS.332)
+ 0000:00000000  Imp  _lseek               (os2om30._lseek)
+ 0000:00000000  Imp  DosOpenEventSem      (DOSCALLS.325)
+ 0000:00000000  Imp  _errno               (os2om30._errno)
+ 0000:00000000  Imp  WinWaitEventSem      (PMWIN.978)
+ 0000:00000000  Imp  DosWaitEventSem      (DOSCALLS.329)
+ 0000:00000000  Imp  DosRequestMutexSem   (DOSCALLS.334)
+ 0001:00000000       SmRestoreSpeechData
+ 0001:00000016       SmSaveSpeechData
+ 0001:00000030       SmQuerySpeechData
+ 0001:00000050       SmAddEnrollId
+ 0001:00000810       SmGetSpeechDataVersion
+ 0001:00000880       SmGetSpeechDataSize
+ 0001:000008F0       SmGetSpeechDataOptions
+ 0001:00000940       SmGetSpeechDataArchive
+ 0001:000009B0       SmGetNumberRequired
+ 0001:00000A00       SmGetNumberProcessed
+ 0001:00000A50       SmGetPhraseState
+ 0001:00000AA0       SmGetFocusChangeReason
+ 0001:00000B20       SmGetEnrollPath
+ 0001:00000B70       SmGetGrammarPath
+ 0001:000019A0       SmGetAnnotations
+ 0001:00001A20       SmSesRestoreSpeechData
+ 0001:00001AD0       SmSesSaveSpeechData
+ 0001:00001B94       SmSesQuerySpeechData
+ 0001:00001C34       SmSesAddEnrollId
+ 0001:00001F40       SmAddVocabToChain
+ 0001:00002540       SmExpandAnnotations
+ 0001:000027A0       SmRemoveVocabFromChain
+ 0001:00002840       spch_send_restore_speech_data
+ 0001:000028DE       spch_restore_speech_data
+ 0001:00002910       spch_send_save_speech_data
+ 0001:000029C0       spch_save_speech_data
+ 0001:000029F0       spch_send_query_speech_data
+ 0001:00002A50       spch_query_speech_data
+ 0001:00002A80       spch_query_default
+ 0001:00002AC0       spch_set_default
+ 0001:00002AEC       spch_detach_sessions
+ 0001:00002B1C       spch_query_sessions
+ 0001:00002B4C       spch_release_focus
+ 0001:00002B7C       spch_request_focus
+ 0001:00002BAC       spch_query_spelling
+ 0001:00002BE0       spch_query_pronunciation
+ 0001:00002C20       spch_request_new_userid
+ 0001:00002C60       spch_define_grammar
+ 0001:00002C90       spch_terminate_database
+ 0001:00002CC0       spch_init_database
+ 0001:00002CF0       spch_terminate_admin
+ 0001:00002D20       spch_init_admin
+ 0001:00002D4C       spch_terminate_enrollment
+ 0001:00002D80       spch_discard_utterance
+ 0001:00002DC0       spch_query_utterances
+ 0001:00002DF0       spch_set_utterance_number
+ 0001:00002E30       spch_request_script_text
+ 0001:00002E70       spch_select_script
+ 0001:00002E9C       spch_query_scripts
+ 0001:00002ED0       spch_request_new_enrollid
+ 0001:00002EFC       spch_init_enrollment
+ 0001:00002F40       spch_terminate_recognizer
+ 0001:00002F80       spch_set_directory
+ 0001:00002FAC       spch_halt_recognizer
+ 0001:00002FDC       spch_discard_data
+ 0001:0000300C       spch_query_user_info
+ 0001:00003040       spch_set_user_info
+ 0001:00003080       spch_query_enabled_vocabs
+ 0001:000030B0       spch_query_vocabs
+ 0001:000030E0       spch_undefine_vocab
+ 0001:00003120       spch_set_vocabs
+ 0001:00003150       spch_disable_vocab
+ 0001:00003190       spch_enable_vocab
+ 0001:000031D0       spch_query_added_words
+ 0001:00003210       spch_query_vocab_words
+ 0001:00003250       spch_remove_from_vocab
+ 0001:00003280       spch_add_to_vocab
+ 0001:000032B0       spch_define_vocab
+ 0001:000032E0       spch_query_pronunciations
+ 0001:00003310       spch_remove_pronunciation
+ 0001:0000333C       spch_add_pronunciation
+ 0001:00003380       spch_query_word
+ 0001:000033C0       spch_correct_text_cancel
+ 0001:000033F0       spch_correct_text
+ 0001:0000341C       spch_word_correction
+ 0001:00003460       spch_query_alternates
+ 0001:0000348C       spch_event_notify
+ 0001:000034C0       spch_new_context
+ 0001:000034EC       spch_cancel_playback
+ 0001:0000351C       spch_play_message
+ 0001:00003548       spch_play_utterance
+ 0001:00003580       spch_play_words
+ 0001:000035B0       spch_recognize_next_word
+ 0001:000035E0       spch_request_mic_off
+ 0001:00003610       spch_mic_off
+ 0001:00003640       spch_request_mic_on
+ 0001:00003670       spch_mic_on
+ 0001:000036A0       spch_init_recognizer
+ 0001:000036E0       spch_query_tasks
+ 0001:00003720       spch_query_enrollids
+ 0001:00003750       spch_change_password
+ 0001:00003780       spch_add_enrollid
+ 0001:000037C0       spch_add_user
+ 0001:00003800       spch_query_users
+ 0001:00003830       spch_query_languages
+ 0001:00003860       spch_query
+ 0001:000038A0       spch_set
+ 0001:000038CC       spch_send_query_default
+ 0001:00003940       spch_send_set_default
+ 0001:000039DE       spch_send_detach_sessions
+ 0001:00003A40       spch_send_query_sessions
+ 0001:00003AA0       spch_send_release_focus
+ 0001:00003B00       spch_send_request_focus
+ 0001:00003B60       spch_send_query_spelling
+ 0001:00003C00       spch_send_query_pronunciation
+ 0001:00003CA0       spch_send_request_new_userid
+ 0001:00003D40       spch_send_define_grammar
+ 0001:00003E34       spch_send_terminate_database
+ 0001:00003EA0       spch_send_init_database
+ 0001:00003F10       spch_send_terminate_admin
+ 0001:00003F70       spch_send_init_admin
+ 0001:00004050       spch_send_terminate_enrollment
+ 0001:000040C0       spch_send_discard_utterance
+ 0001:00004130       spch_send_query_utterances
+ 0001:00004190       spch_send_set_utterance_number
+ 0001:00004200       spch_send_request_script_text
+ 0001:00004270       spch_send_select_script
+ 0001:00004330       spch_send_query_scripts
+ 0001:000043D0       spch_send_request_new_enrollid
+ 0001:00004490       spch_send_init_enrollment
+ 0001:00004600       spch_send_terminate_recognizer
+ 0001:00004670       spch_send_set_directory
+ 0001:00004720       spch_send_halt_recognizer
+ 0001:00004780       spch_send_discard_data
+ 0001:000047E0       spch_send_query_user_info
+ 0001:000048C0       spch_send_set_user_info
+ 0001:000049C0       spch_send_query_enabled_vocabs
+ 0001:00004A20       spch_send_query_vocabs
+ 0001:00004A80       spch_send_undefine_vocab
+ 0001:00004B20       spch_send_set_vocabs
+ 0001:00004C38       spch_send_disable_vocab
+ 0001:00004CD0       spch_send_enable_vocab
+ 0001:00004D70       spch_send_query_added_words
+ 0001:00004E10       spch_send_query_vocab_words
+ 0001:00004EB0       spch_send_remove_from_vocab
+ 0001:00004FB0       spch_send_add_to_vocab
+ 0001:000050B0       spch_send_define_vocab
+ 0001:000051B0       spch_send_query_pronunciations
+ 0001:00005210       spch_send_remove_pronunciation
+ 0001:000052D0       spch_send_add_pronunciation
+ 0001:000053A6       spch_send_query_word
+ 0001:000054DE       spch_send_correct_text_cancel
+ 0001:00005540       spch_send_correct_text
+ 0001:00005650       spch_send_word_correction
+ 0001:00005796       spch_send_query_alternates
+ 0001:00005840       spch_send_event_notify
+ 0001:000058C0       spch_send_new_context
+ 0001:000059D0       spch_send_cancel_playback
+ 0001:00005A30       spch_send_play_message
+ 0001:00005AF0       spch_send_play_utterance
+ 0001:00005B70       spch_send_play_words
+ 0001:00005C1A       spch_send_recognize_next_word
+ 0001:00005C80       spch_send_request_mic_off
+ 0001:00005CE0       spch_send_mic_off
+ 0001:00005D40       spch_send_request_mic_on
+ 0001:00005DA0       spch_send_mic_on
+ 0001:00005E00       spch_send_init_recognizer
+ 0001:00005F36       spch_send_query_tasks
+ 0001:00005FD0       spch_send_query_enrollids
+ 0001:000060B0       spch_send_change_password
+ 0001:00006190       spch_send_add_enrollid
+ 0001:00006290       spch_send_add_user
+ 0001:00006390       spch_send_query_users
+ 0001:000063F0       spch_send_query_languages
+ 0001:00006450       spch_send_query
+ 0001:000064BA       spch_send_set
+ 0001:00006564       log_restore_speech_data_reply
+ 0001:000065EA       log_save_speech_data_reply
+ 0001:00006696       log_query_speech_data_reply
+ 0001:00006708       log_engine_state
+ 0001:0000677A       log_focus_state
+ 0001:00006826       log_mic_state
+ 0001:00006898       log_command_word
+ 0001:00006946       log_focus_granted
+ 0001:000069B8       log_focus_lost
+ 0001:00006A16       log_report_engine_error
+ 0001:00006A9C       log_event_synch
+ 0001:00006B22       log_audio_level
+ 0001:00006BA0       log_server_status
+ 0001:00006C20       log_play_message_status
+ 0001:00006CA8       log_play_utterance_status
+ 0001:00006D30       log_play_words_status
+ 0001:00006DB8       log_utterance_completed
+ 0001:00006E2A       log_recognized_phrase
+ 0001:00006F30       log_recognized_word
+ 0001:00007050       log_recognized_text
+ 0001:000071C0       log_query_default_reply
+ 0001:00007246       log_set_default_reply
+ 0001:000072A4       log_request_detach
+ 0001:00007302       log_detach_sessions_reply
+ 0001:00007360       log_query_sessions_reply
+ 0001:00007550       log_release_focus_reply
+ 0001:000075AE       log_request_focus_reply
+ 0001:0000760C       log_query_spelling_reply
+ 0001:00007700       log_query_pronunciation_reply
+ 0001:00007772       log_request_new_userid_reply
+ 0001:000077F8       log_define_grammar_reply
+ 0001:000078FE       log_terminate_database_reply
+ 0001:0000795C       log_init_database_reply
+ 0001:000079BA       log_terminate_admin_reply
+ 0001:00007A18       log_init_admin_reply
+ 0001:00007A76       log_terminate_enrollment_reply
+ 0001:00007AFC       log_discard_utterance_reply
+ 0001:00007B5A       log_query_utterances_reply
+ 0001:00007C40       log_set_utterance_number_reply
+ 0001:00007C9E       log_request_script_text_reply
+ 0001:00007DA0       log_select_script_reply
+ 0001:00007E12       log_query_scripts_reply
+ 0001:00007EF8       log_request_new_enrollid_reply
+ 0001:00007F7E       log_init_enrollment_reply
+ 0001:00008070       log_terminate_recognizer_reply
+ 0001:000080CE       log_set_directory_reply
+ 0001:0000812C       log_halt_recognizer_reply
+ 0001:0000819E       log_discard_data_reply
+ 0001:000081FC       log_query_user_info_reply
+ 0001:000082A8       log_set_user_info_reply
+ 0001:0000832E       log_query_enabled_vocabs_reply
+ 0001:00008400       log_query_vocabs_reply
+ 0001:000084D0       log_undefine_vocab_reply
+ 0001:00008542       log_set_vocabs_reply
+ 0001:0000861C       log_disable_vocab_reply
+ 0001:0000868E       log_enable_vocab_reply
+ 0001:00008700       log_query_added_words_reply
+ 0001:000087E0       log_query_vocab_words_reply
+ 0001:000088B8       log_remove_from_vocab_reply
+ 0001:0000892A       log_add_to_vocab_reply
+ 0001:00008A1E       log_define_vocab_reply
+ 0001:00008B0E       log_query_pronunciations_reply
+ 0001:00008BE6       log_remove_pronunciation_reply
+ 0001:00008C58       log_add_pronunciation_reply
+ 0001:00008CCA       log_query_word_reply
+ 0001:00008DE0       log_correct_text_cancel_reply
+ 0001:00008E3E       log_correct_text_reply
+ 0001:00008E9C       log_word_correction_reply
+ 0001:00008FE8       log_query_alternates_reply
+ 0001:00009130       log_event_notify_reply
+ 0001:000091A2       log_new_context_reply
+ 0001:00009200       log_cancel_playback_reply
+ 0001:0000925E       log_play_message_reply
+ 0001:000092BC       log_play_utterance_reply
+ 0001:0000931A       log_play_words_reply
+ 0001:00009378       log_recognize_next_word_reply
+ 0001:000093D6       log_mic_off_request
+ 0001:00009434       log_request_mic_off_reply
+ 0001:00009492       log_mic_off_reply
+ 0001:000094F0       log_mic_on_request
+ 0001:0000954E       log_request_mic_on_reply
+ 0001:000095AC       log_mic_on_reply
+ 0001:0000961E       log_init_recognizer_reply
+ 0001:000096F0       log_query_tasks_reply
+ 0001:000097D6       log_query_enrollids_reply
+ 0001:000098E0       log_change_password_reply
+ 0001:0000993E       log_add_enrollid_reply
+ 0001:0000999C       log_add_user_reply
+ 0001:000099FA       log_query_users_reply
+ 0001:00009AE0       log_query_languages_reply
+ 0001:00009BB8       log_query_reply
+ 0001:00009C50       log_set_reply
+ 0001:00009CE0       log_all_reply
+ 0001:00009D3A       log_client_reply
+ 0001:0000B0FC       log_api_message
+ 0001:0000B280       spch_set_alloc
+ 0001:0000B284       spch_register_server
+ 0001:0000B288       spch_recv_only
+ 0001:0000B28C       spch_query_comm
+ 0001:0000B292       spch_accept
+ 0001:0000B296       build_spch_msg_hdr_with_rc
+ 0001:0000B2B8       spch_detach_segment
+ 0001:0000B2C0       build_spch_msg_hdr
+ 0001:0000B2DA       spch_attach_segment
+ 0001:0000B2E0       initialize_data_area_registers
+ 0001:0000B300       copy_name_into_data_area
+ 0001:0000B370       spch_query_queue_sem
+ 0001:0000B3B0       get_tconn_ptr
+ 0001:0000B3C4       strcpyrl
+ 0001:0000B3F0       spch_set_synchronous
+ 0001:0000B420       spch_set_navigator_flag
+ 0001:0000B446       spch_set_connection_id
+ 0001:0000B46C       spch_set_application
+ 0001:0000B492       spch_set_api_logging
+ 0001:0000B4FE       spch_remove_client
+ 0001:0000B540       spch_query_server_host
+ 0001:0000B5A4       spch_query_server_application
+ 0001:0000B604       spch_query_hostname
+ 0001:0000B612       spch_query_connection_id
+ 0001:0000B63A       spch_query_comm_sem
+ 0001:0000B668       spch_query_comm_handle
+ 0001:0000B696       spch_query_application
+ 0001:0000B6C4       spch_query_api_logging
+ 0001:0000B6F2       spch_navigator_flag
+ 0001:0000B71A       spch_listen
+ 0001:0000B740       spch_free_msg
+ 0001:0000B7EA       spch_send_client
+ 0001:0000B8C8       spch_find_server
+ 0001:0000BAC0       spch_send_client_detach
+ 0001:0000BB20       spch_disconnect
+ 0001:0000BBA0       spch_discard_connection
+ 0001:0000BC18       spch_detach_from_engine
+ 0001:0000BC50       spch_detach_client
+ 0001:0000BC90       spch_create_client
+ 0001:0000BD40       spch_connect
+ 0001:0000BE70       spch_client_reply
+ 0001:0000BF86       spch_attach_client
+ 0001:0000BFBE       spch_accept_listen
+ 0001:0000C0B0       make_spch_msg_with_data_area
+ 0001:0000C180       get_synch_reply
+ 0001:0000C230       copy_word_into_data_area
+ 0001:0000C242       copy_word_p_array_into_data_area
+ 0001:0000C2C0       strlenb
+ 0001:0000C2E0       copy_word_array_into_data_area
+ 0001:0000C3D0       copy_vocword_into_data_area
+ 0001:0000C3E2       copy_vocword_p_array_into_data_area
+ 0001:0000C460       copy_vocword_array_into_data_area
+ 0001:0000C502       copy_short_array_into_data_area
+ 0001:0000C550       copy_long_array_into_data_area
+ 0001:0000C5A0       copy_string_into_data_area
+ 0001:0000C5F0       copy_array_of_strings_into_data_area
+ 0001:0000C670       spch_put_mbox
+ 0001:0000C6A0       spch_query_engine
+ 0001:0000C6BE       spch_query_listen_sem
+ 0001:0000C6D0       spch_query_WindowSystemEnable
+ 0001:0000C6FE       spch_recv
+ 0001:0000C7E0       spch_remove_mbox
+ 0001:0000C8F8       spch_set_WindowSystemEnable
+ 0001:0000C91E       spchapi_init
+ 0001:0000CFDE       spch_stop_listen
+ 0001:0000D000       getreg
+ 0001:0000D010       allocate_q_info
+ 0001:0000D060       spch_detach_mbox
+ 0001:0000D120       spch_pending_mbox
+ 0001:0000D150       spch_get_mbox
+ 0001:0000D2A0       spch_query_mbox
+ 0001:0000D320       spch_attach_mbox
+ 0001:0000D500       spch_create_mbox
+ 0001:0000D9B0       free_q_info
+ 0001:0000D9F0       SmReceiveMsg
+ 0001:0000DA10       SmGetMsgType
+ 0001:0000DA80       SmSesReceiveMsg
+ 0001:0000DCB0       SmDefineVocab
+ 0001:0000DCD0       SmRecognizeNextWord
+ 0001:0000DCF0       SmGetAudioLevel
+ 0001:0000DD3E       SmGetVocWords
+ 0001:0000DDF0       SmSesDefineVocab
+ 0001:0000DF42       SmSesRecognizeNextWord
+ 0001:0000DFF0       SmHaltRecognizer
+ 0001:0000E010       SmUndefineVocab
+ 0001:0000E030       SmEnableVocab
+ 0001:0000E050       SmGetMicState
+ 0001:0000E0E0       SmSesHaltRecognizer
+ 0001:0000E180       SmSesUndefineVocab
+ 0001:0000E270       SmSesEnableVocab
+ 0001:0000E350       SmRequestFocus
+ 0001:0000E370       SmDisableVocab
+ 0001:0000E390       SmMicOn
+ 0001:0000E3B0       SmSesRequestFocus
+ 0001:0000E450       SmSesDisableVocab
+ 0001:0000E530       SmSesRequestMicOn
+ 0001:0000E5D0       SmSesMicOn
+ 0001:0000E670       SmRequestMicOff
+ 0001:0000E690       SmMicOff
+ 0001:0000E6B0       SmGetEngineState
+ 0001:0000E700       SmGetFirmWords
+ 0001:0000E7E0       SmSesRequestMicOff
+ 0001:0000E880       SmSesMicOff
+ 0001:0000E920       SmReleaseFocus
+ 0001:0000E940       SmSet
+ 0001:0000E960       SmGetApplication
+ 0001:0000EA00       SmSesReleaseFocus
+ 0001:0000EAA0       SmSesSet
+ 0001:0000EB50       SmAddPronunciation
+ 0001:0000EB76       SmPlayUtterance
+ 0001:0000EB90       SmGetStatus
+ 0001:0000EC40       SmGetUtteranceNumber
+ 0001:0000ECB0       SmSesPlayUtterance
+ 0001:0000ED80       SmSetArguments
+ 0001:000116C0       Sm_StoreDisconnectionCbList
+ 0001:00011840       Sm_StoreConnectionCbList
+ 0001:000119C0       Sm_StoreCallbackList
+ 0001:00011A30       SmConcateCallbackList
+ 0001:00011B40       SmCopyCallbackList
+ 0001:00011BF0       SmSetConnectionState
+ 0001:00011C84       SmInitialise
+ 0001:00011CC0       SmInitialiseSession
+ 0001:00012774       SmSesConnect
+ 0001:00012860       SmConnect
+ 0001:00012876       SmTerminateSession
+ 0001:00012B20       SmInitConnectionStructure
+ 0001:00012DBE       SmSesOpen
+ 0001:00012F16       SmOpen
+ 0001:00012F90       SmGetUserId
+ 0001:00013160       SmGetRc
+ 0001:00013190       SmQueryUsers
+ 0001:000131B0       SmGetEnrollId
+ 0001:000132B0       SmGetUsers
+ 0001:00013330       SmGetUserIds
+ 0001:00013500       SmGetTask
+ 0001:00013580       SmGetInfirmWords
+ 0001:000135F0       SmSesAddPronunciation
+ 0001:000136FC       SmSesQueryUsers
+ 0001:000137A0       SmQueryEnrollIds
+ 0001:000137C0       SmGetAlphabets
+ 0001:00013840       SmGetStates
+ 0001:000138B0       SmGetEnrollIds
+ 0001:00013A60       SmGetDescriptions
+ 0001:00013B30       SmGetLanguages
+ 0001:00013C20       SmSesQueryEnrollIds
+ 0001:00013D30       SmCorrectText
+ 0001:00013D50       SmQueryTasks
+ 0001:00013D70       SmGetTasks
+ 0001:00013E20       SmSesCorrectText
+ 0001:00013F72       SmSesQueryTasks
+ 0001:00014050       SmSetDefault
+ 0001:00014066       SmDetachSessions
+ 0001:00014080       SmQuerySessions
+ 0001:000140A0       SmSesDisconnect
+ 0001:00014180       SmResetConnectionState
+ 0001:000141E0       SmSesClose
+ 0001:0001433C       SmDeleteConnectionStructure
+ 0001:000144C0       SmClose
+ 0001:000144D0       SmDisconnect
+ 0001:000144F0       SmGetApplications
+ 0001:00014560       SmSesSetDefault
+ 0001:00014630       SmSesDetachSessions
+ 0001:000146D0       SmSesQuerySessions
+ 0001:00014770       SmSetDirectory
+ 0001:00014790       SmQueryDefault
+ 0001:000147B0       SmRequestNewUserid
+ 0001:000147D0       SmQuerySpelling
+ 0001:000147F0       SmQueryPronunciation
+ 0001:00014810       SmDefineGrammar
+ 0001:0001482A       SmDispatch
+ 0001:00014840       SmDiscardUtterance
+ 0001:00014860       SmQueryUtterances
+ 0001:00014880       SmSetUtteranceNumber
+ 0001:000148A0       SmRequestScriptText
+ 0001:000148C0       SmSelectScript
+ 0001:000148D6       SmQueryScripts
+ 0001:000148F0       SmRequestNewEnrollId
+ 0001:00014906       SmDiscardData
+ 0001:00014920       SmQueryUserInfo
+ 0001:0001493A       SmSetUserInfo
+ 0001:00014958       SmQueryEnabledVocabs
+ 0001:00014970       SmQueryVocabs
+ 0001:00014990       SmSetVocabs
+ 0001:000149B0       SmQueryAddedWords
+ 0001:000149D0       SmQueryVocabWords
+ 0001:000149F0       SmRemoveFromVocab
+ 0001:00014A10       SmAddToVocab
+ 0001:00014A30       SmQueryPronunciations
+ 0001:00014A50       SmRemovePronunciation
+ 0001:00014A66       SmQueryWord
+ 0001:00014A80       SmCorrectTextCancel
+ 0001:00014AA0       SmWordCorrection
+ 0001:00014AD0       SmQueryAlternates
+ 0001:00014AF0       SmEventNotify
+ 0001:00014B06       SmNewContext
+ 0001:00014B20       SmCancelPlayback
+ 0001:00014B40       SmPlayMessage
+ 0001:00014B56       SmPlayWords
+ 0001:00014B80       SmRequestMicOn
+ 0001:00014BA0       SmChangePassword
+ 0001:00014BBA       SmAddUser
+ 0001:00014BD8       SmQueryLanguages
+ 0001:00014BF0       SmQuery
+ 0001:00014C10       SmCopyVocWords
+ 0001:00014D60       SmCopyWords
+ 0001:00014F26       SmCopyString
+ 0001:00014FA0       SmSesRemoveAttributes
+ 0001:00014FD0       SmSesRemoveAttribute
+ 0001:00014FF0       SmRemoveAttributes
+ 0001:00015030       SmRemoveAttribute
+ 0001:00015050       SmRemoveArguments
+ 0001:000177BC       SmSesQueryAttributes
+ 0001:000177F0       SmSesQueryAttribute
+ 0001:00017810       SmQueryAttributes
+ 0001:00017850       SmQueryAttribute
+ 0001:00017870       SmQueryArguments
+ 0001:00019F50       SmSesSetAttributes
+ 0001:00019F80       SmSesSetAttribute
+ 0001:00019FA0       SmSetAttributes
+ 0001:00019FE0       SmSetAttribute
+ 0001:0001A000       Sm_ExecuteCbList
+ 0001:0001A0C6       Sm_RemoveDisconnectionCbList
+ 0001:0001A250       Sm_RemoveConnectionCbList
+ 0001:0001A3D0       Sm_RemoveCallbackList
+ 0001:0001A440       Sm_DeleteCallbackListEntries
+ 0001:0001A4F0       SmSesRemoveCallbacks
+ 0001:0001A530       SmSesRemoveCallback
+ 0001:0001A55C       SmRemoveCallbacks
+ 0001:0001A59A       SmRemoveCallback
+ 0001:0001A5C2       SmSesAddCallbacks
+ 0001:0001A600       SmSesAddCallback
+ 0001:0001A62C       SmAddCallbacks
+ 0001:0001A66A       SmAddCallback
+ 0001:0001A6A0       SmNativeApiVersion
+ 0001:0001A6C0       SmRouterMessageHandler
+ 0001:0001A770       SmTerminateSessionHandler
+ 0001:0001A7C8       SmInitialiseSessionHandler
+ 0001:0001A830       SmMapMessageType
+ 0001:0001A840       SmDispatchReply
+ 0001:0001AA70       SmRecv
+ 0001:0001AB0C       SmApiVersionCheck
+ 0001:0001AC40       SmDefaultLogger
+ 0001:0001AC50       SmSesWarning
+ 0001:0001ACC4       SmWarning
+ 0001:0001AD20       SmSesError
+ 0001:0001AD94       SmError
+ 0001:0001ADF0       SmReturnRc
+ 0001:0001AE10       SmGetFreeSpace
+ 0001:0001AE70       SmGetRequiredTrainingSpace
+ 0001:0001AEC0       SmGetExpectedTrainingSpace
+ 0001:0001AF10       SmGetExpectedRecordingSpace
+ 0001:0001AF60       SmGetErrors
+ 0001:0001AFD0       SmGetMsgName
+ 0001:0001B020       SmGetService
+ 0001:0001B0E0       SmGetHost
+ 0001:0001B160       SmGetTags
+ 0001:0001B1F0       SmGetPercentages
+ 0001:0001B260       SmGetUtteranceList
+ 0001:0001B2E0       SmGetNumberWordMsgs
+ 0001:0001B330       SmGetNumberUtterances
+ 0001:0001B3B0       SmGetEventOptions
+ 0001:0001B400       SmGetSeverity
+ 0001:0001B450       SmGetFocusState
+ 0001:0001B4B0       SmGetEventId
+ 0001:0001B510       SmGetItemValue
+ 0001:0001B590       SmGetNameValue
+ 0001:0001B5F0       SmGetSessionId
+ 0001:0001B660       SmGetPronunciations
+ 0001:0001B6E0       SmGetSpellings
+ 0001:0001B7D0       SmGetSpelling
+ 0001:0001B860       SmGetScripts
+ 0001:0001B8E0       SmGetScript
+ 0001:0001B930       SmGetComment
+ 0001:0001B980       SmGetAlternates
+ 0001:0001BA00       SmGetTimes
+ 0001:0001BA80       SmGetWords
+ 0001:0001BB20       SmGetVocabList
+ 0001:0001BC00       SmGetVocabName
+ 0001:0001BCF0       SmGetRcDescription
+ 0001:0001BD40       SmReturnRcDescription
+ 0001:0001BDFA       SmGetRcName
+ 0001:0001BE50       SmReturnRcName
+ 0001:0001BF00       SmSesSetDirectory
+ 0001:0001BFB0       SmSesQueryDefault
+ 0001:0001C060       SmSesRequestNewUserid
+ 0001:0001C140       SmSesQuerySpelling
+ 0001:0001C220       SmSesQueryPronunciation
+ 0001:0001C300       SmSesDefineGrammar
+ 0001:0001C41E       SmSesDispatch
+ 0001:0001C4EA       SmSesDiscardUtterance
+ 0001:0001C5A0       SmSesQueryUtterances
+ 0001:0001C640       SmSesSetUtteranceNumber
+ 0001:0001C6F0       SmSesRequestScriptText
+ 0001:0001C7A0       SmSesSelectScript
+ 0001:0001C880       SmSesQueryScripts
+ 0001:0001C960       SmSesRequestNewEnrollId
+ 0001:0001CA40       SmSesDiscardData
+ 0001:0001CAE0       SmSesQueryUserInfo
+ 0001:0001CBE8       SmSesSetUserInfo
+ 0001:0001CD10       SmSesQueryEnabledVocabs
+ 0001:0001CDB0       SmSesQueryVocabs
+ 0001:0001CE50       SmSesSetVocabs
+ 0001:0001CF8E       SmSesQueryAddedWords
+ 0001:0001D070       SmSesQueryVocabWords
+ 0001:0001D150       SmSesRemoveFromVocab
+ 0001:0001D2A2       SmSesAddToVocab
+ 0001:0001D3F2       SmSesQueryPronunciations
+ 0001:0001D492       SmSesRemovePronunciation
+ 0001:0001D570       SmSesQueryWord
+ 0001:0001D67E       SmSesCorrectTextCancel
+ 0001:0001D71E       SmSesWordCorrection
+ 0001:0001D890       SmSesQueryAlternates
+ 0001:0001D95C       SmSesEventNotify
+ 0001:0001DA30       SmSesNewContext
+ 0001:0001DB82       SmSesCancelPlayback
+ 0001:0001DC22       SmSesPlayMessage
+ 0001:0001DD00       SmSesPlayWords
+ 0001:0001DDF0       SmSesChangePassword
+ 0001:0001DEF8       SmSesAddUser
+ 0001:0001E020       SmSesQueryLanguages
+ 0001:0001E0C0       SmSesQuery
+ 0001:0001E170       gettimeofday
+ 0001:0001E174       Sm_CallTimeOutHandler
+ 0001:0001E260       SmQueryTimeOut
+ 0001:0001E310       SmQueryTimeOuts
+ 0001:0001E32E       SmRemoveTimeOut
+ 0001:0001E3D0       SmAddTimeOut
+ 0002:00000000       maximum_queue_size
+ 0003:000077DC       sm_errno
+ 0003:000077DC       _edata
+ 0003:000077E0       client_connections
+ 0003:000077E4       nclient_connections
+ 0003:000077E8       client_connection
+ 0003:000077EC       sm_message_directory
+ 0003:00008508       time_out
+ 0003:0000850C       ntime_out
+ 0003:0000851C       api_init
+ 0003:00008520       message_names
+ 0003:000087E8       qconn_info
+ 0003:00009FE8       tconn_info
+ 0003:0000A0E8       _end
+

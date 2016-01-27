@@ -1,0 +1,62 @@
+/******************************************************************************
+*
+*  File Name   : JIGHELP.RC
+*
+*  Description : Jigsaw application's help .rc file
+*
+*  Concepts    : Help tables
+*
+*     Notes    :
+*                This resource file contains the Help tables and subtables
+*                resources used by the help manager.
+*
+* Copyright (C) IBM March 1992
+******************************************************************************/
+
+#include "jighelp.h"
+
+/*
+ *  Help table definition
+ */
+
+HELPTABLE   JIGSAW_HELP_TABLE
+{
+    HELPITEM   IDR_MAIN,   SUBTABLE_MAIN,   PANEL_MAIN
+}
+
+/*
+ *  Main window subtable, includes menu item help
+ */
+
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+{
+   /*
+    *   FILE OPEN SUBMENU
+    */
+
+   HELPSUBITEM     IDM_FILE,                   PANEL_FILE
+   HELPSUBITEM     IDM_LOAD,                   PANEL_FILELOAD
+
+   /*
+    *   OPTIONS SUBMENU (SIZE/JUMBLE)
+    */
+
+   HELPSUBITEM     IDM_OPTIONS,                PANEL_OPTIONS
+   HELPSUBITEM     IDM_SIZE_MENU,              PANEL_OPTIONSHOW
+   HELPSUBITEM     IDM_SIZE_SMALL,             PANEL_SIZE_SMALL
+   HELPSUBITEM     IDM_SIZE_MEDIUM,            PANEL_SIZE_MEDIUM
+   HELPSUBITEM     IDM_SIZE_LARGE,             PANEL_SIZE_LARGE
+   HELPSUBITEM     IDM_SIZE_FULL,              PANEL_SIZE_FULL
+   HELPSUBITEM     IDM_JUMBLE,                 PANEL_OPTIONJUMBLE
+
+   /*
+    *   HELP SUBMENU
+    */
+
+   HELPSUBITEM     IDM_HELP,                   PANEL_HELP
+   HELPSUBITEM     IDM_HELPINDEX,              PANEL_HELPINDEX
+   HELPSUBITEM     IDM_HELPEXTENDED,           PANEL_HELPEXTENDED
+   HELPSUBITEM     IDM_HELPHELPFORHELP,        PANEL_HELPHELPFORHELP
+   HELPSUBITEM     IDM_HELPABOUT,              PANEL_HELPABOUT
+}

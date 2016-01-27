@@ -1,0 +1,125 @@
+/*==============================================================*\
+ *                                                              *
+ *  SEMAPH.RC - Semaph Application resource file                *
+ *                                                              *
+\*==============================================================*/
+#include <os2.h>
+#include "semaph.h"
+
+ICON   IDR_RESOURCE "semaph.ico"
+BITMAP IDR_RESOURCE "prodinfo.bmp"
+
+MENU IDR_RESOURCE
+{
+    SUBMENU   "~Options", -1
+    {
+        SUBMENU  "~Number of threads",        IDM_OPTIONS_NTHRDS
+        {
+            MENUITEM    "~2",           IDM_OPTIONS_NTHRDS_2
+            MENUITEM    "~4",           IDM_OPTIONS_NTHRDS_4
+            MENUITEM    "~8",           IDM_OPTIONS_NTHRDS_8,,MIA_CHECKED
+            MENUITEM    "~16",          IDM_OPTIONS_NTHRDS_16
+        }
+        MENUITEM "~Change timer...\tAlt+T",    IDM_OPTIONS_TIMEOUT
+    }
+    SUBMENU     "~View", -2
+    {
+        SUBMENU   "~Start",                   IDM_SEMSTART
+        {
+            MENUITEM  "~AutoMode",               IDM_SEMSTART_AUTO
+            MENUITEM  "~Manual",                 IDM_SEMSTART_MANUAL
+        }
+        MENUITEM  "Sto~p",                    IDM_SEMSTOP, MIA_DISABLED
+        MENUITEM  "~Resume AutoMode",         IDM_SEM_RESUMEAUTO, MIA_DISABLED
+        MENUITEM  SEPARATOR
+        MENUITEM  "~Post\tAlt+P",             IDM_POST, MIA_DISABLED
+    }
+    SUBMENU     "~Help", -3
+    {
+        MENUITEM  "~Help index",              IDM_HELPINDEX
+        MENUITEM  "~General help",            IDM_GENERALHELP
+        MENUITEM  "~Keys Help",               IDM_TUTORIAL
+        MENUITEM  "~Using help",              IDM_USINGHELP
+        MENUITEM  SEPARATOR
+        MENUITEM  "~Product information...",  IDM_HELPPRODUCTINFO
+    }
+
+}
+
+ACCELTABLE IDR_RESOURCE
+{
+    "T",    IDM_OPTIONS_TIMEOUT,   Alt
+    "t",    IDM_OPTIONS_TIMEOUT,   Alt
+    "P",    IDM_POST,              Alt
+    "p",    IDM_POST,              Alt
+}
+
+STRINGTABLE
+{
+    IDS_TITLE                   "SEMAPH Demonstration"
+    IDS_UNTITLED                "Untitled"
+    IDS_APPNAME                 "Semaph"
+    IDS_HELPLIBRARYNAME         "SEMAPH.HLP"
+    IDS_HELPWINDOWTITLE         "SEMAPH Help"
+}
+
+MESSAGETABLE
+{
+ IDMSG_INITFAILED         "Initialization failed."
+ IDMSG_MAINWINCREATEFAILED"Failed to create main window."
+ IDMSG_CANNOTLOADEXITLIST "Cannot load Exit List processor."
+ IDMSG_CANNOTLOADSTRING   "Failed to load string."
+ IDMSG_HELPLOADERROR      "Failed to load help manager."
+ IDMSG_HELPDISPLAYERROR   "Failed to display help panel."
+ IDMSG_CANNOTSTART        "Cannot start semaphore sample, exiting."
+}
+
+/* include dialog templates created by dialog box editor */
+/*--------------------------------------------------------------*\
+ *  Help table definition                                       *
+\*--------------------------------------------------------------*/
+HELPTABLE   SEMAPH_HELP_TABLE
+{
+    HELPITEM  IDR_RESOURCE,    SUBTABLE_MAIN,            PANEL_MAIN
+    HELPITEM  IDD_PRODUCTINFO, SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+    HELPITEM  TIMERBOX,        SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+}
+
+/*--------------------------------------------------------------*\
+ *  Main window subtable, includes menu item help               *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDM_GENERALHELP,         PANEL_GENERALHELP
+    HELPSUBITEM     IDM_USINGHELP,           PANEL_USINGHELP
+    HELPSUBITEM     IDM_TUTORIAL,            PANEL_TUTORIAL
+    HELPSUBITEM     IDM_HELPINDEX,           PANEL_HELPINDEX
+    HELPSUBITEM     IDM_HELPPRODUCTINFO,     PANEL_HELPPRODUCTINFO
+
+    HELPSUBITEM     IDM_OPTIONS_NTHRDS,      PANEL_NTHRDSHELP
+    HELPSUBITEM     IDM_OPTIONS_NTHRDS_2,    PANEL_THRDS2HELP
+    HELPSUBITEM     IDM_OPTIONS_NTHRDS_4,    PANEL_THRDS4HELP
+    HELPSUBITEM     IDM_OPTIONS_NTHRDS_8,    PANEL_THRDS8HELP
+    HELPSUBITEM     IDM_OPTIONS_NTHRDS_16,   PANEL_THRDS16HELP
+
+    HELPSUBITEM     IDM_SEMSTART,            PANEL_STARTHELP
+    HELPSUBITEM     IDM_SEMSTART_AUTO,       PANEL_AUTOHELP
+    HELPSUBITEM     IDM_SEMSTART_MANUAL,     PANEL_MANUALHELP
+
+    HELPSUBITEM     IDM_OPTIONS_TIMEOUT,     PANEL_TIMEOUTHELP
+    HELPSUBITEM     IDM_SEMSTOP,             PANEL_STOPHELP
+    HELPSUBITEM     IDM_SEM_RESUMEAUTO,      PANEL_RESUMEHELP
+    HELPSUBITEM     IDM_POST,                PANEL_POSTHELP
+}
+/*--------------------------------------------------------------*\
+ *  Enter text dialog help subtable                             *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_PRODUCTINFODLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDD_ENTRY,          PANEL_PRODUCTINFO_OK
+    HELPSUBITEM     DID_OK,             PANEL_PRODUCTINFO_OK
+}
+
+rcinclude semaph.dlg

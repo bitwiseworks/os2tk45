@@ -1,0 +1,51 @@
+/*************************************************************************
+ * File Name    :  doubplay.dlg
+ *
+ * Description  :  This file holds the dialog window used by the Double
+ *                 Buffering of the Playlist sample program.
+ *
+ * Concepts     :  See this sample program's C source file.
+ *                 The WS_ANIMATE frame style allows this window to
+ *                 respond to system sounds.
+ *
+ * MMPM/2 API's :  None.
+ *
+ * Required
+ *    Files     :  See this sample program's C source file.
+ *
+ * Copyright (C) IBM 1993
+ *************************************************************************/
+#define INCL_GRAPHICBUTTON    /* need this for the graphic buttons control */
+
+#include <sw.h>
+
+DLGTEMPLATE ID_SAMPLE LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "",
+           ID_SAMPLE,
+           12, 18,
+           200,45,
+          FS_NOBYTEALIGN | FS_SIZEBORDER | WS_VISIBLE |
+          WS_SAVEBITS | WS_ANIMATE,
+          FCF_SYSMENU | FCF_TITLEBAR | FCF_MINBUTTON | FCF_NOBYTEALIGN |
+          FCF_TASKLIST | FCF_VERTSCROLL | FCF_HORZSCROLL
+
+    BEGIN
+
+      CONTROL "", ID_PLAY, 40, 15, 40,15, WC_GRAPHICBUTTON,
+                  GBS_ANIMATION | GBS_3D_TEXTRAISED | WS_GROUP |
+                  WS_TABSTOP | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 5,          /* Number of bitmaps */
+                                           ID_BMP_PLAY0,
+                                           ID_BMP_PLAY1,
+                                           ID_BMP_PLAY2,
+                                           ID_BMP_PLAY3,
+                                           ID_BMP_PLAY4
+
+      CONTROL "", ID_END, 120, 15, 40,15, WC_GRAPHICBUTTON,
+                  GBS_3D_TEXTRAISED | WS_TABSTOP | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 1, ID_BMP_STOP0
+    END
+END
+
+

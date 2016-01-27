@@ -1,0 +1,67 @@
+<htm><HEAD>
+<TITLE>Grammar Guide</TITLE>
+</HEAD><BODY>
+<IMG SRC="bannerx.gif" ALT=""><BR>
+<A NAME=Top_Of_Page>&nbsp;</A>
+<H1>Grammar Guide</H1>
+<HR>
+<H1>Notes on grammar rule style.</H1>
+
+<p>
+While the format of a grammar file may vary depending
+both on the phrases to be recognized and the preferences
+of the grammar writer, we would like to illustrate two
+common approaches to grammar writing.
+<H2>The string of terminals approach</H2>
+In this approach, the right hand sides of rules consist
+almost exclusively of terminals. For example,
+<PRE>
+&lt;commands&gt; = show smart icons                    |
+             hide smart icons                    |
+             show ruler                          |
+             hide ruler                          |
+             show headers                        |
+             hide headers                        |
+             span margin to margin               |
+             go to the beginning of the document .
+</PRE><p>
+<H2>The lexicon approach</H2>
+In this approach grammar writers follow the additional constraint
+that the right hand sides of rules can consist of a sequence of
+nonterminals or a single terminal. (Thus, the grammar above would
+not be allowed.)   In this scheme the terminal rules are typically
+grouped in a "lexicon" section of the grammar file. For example:
+
+<PRE>
+&lt;show-hide-command&gt; = &lt;show-hide&gt; &lt;show-object&gt;  .
+
+&lt;show-hide&gt; = &lt;show&gt; | &lt;hide&gt; .
+
+&lt;show-object&gt; = &lt;smart&gt; &lt;icons&gt;       |
+                &lt;ruler&gt;               |
+                &lt;headers&gt;             |
+                &lt;outline&gt; &lt;tools&gt;     |
+                &lt;misspelled&gt; &lt;words&gt;  .
+
+// lexicon
+
+&lt;headers&gt; = headers .
+&lt;hide&gt; = hide .
+&lt;icons&gt; = icons .
+&lt;misspelled&gt; = misspelled .
+&lt;outline&gt; = outline .
+&lt;ruler&gt; = ruler .
+&lt;show&gt; = show .
+&lt;smart&gt; = smart .
+&lt;tools&gt; = tools .
+&lt;words&gt; = words .
+</PRE>
+<p>
+
+<p>
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="bnf.htm">Previous Page</A> &#124; <A HREF="grammar.htm">Back to Grammar Guide</A> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+ </BODY>
+ </HTML>
+
+

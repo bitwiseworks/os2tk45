@@ -1,0 +1,345 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<HTML><HEAD>
+<TITLE>Grammar Guide</TITLE>
+</HEAD>
+<BODY>
+<IMG SRC="bannerx.gif" ALT=""><BR>
+<A NAME=Top_Of_Page>&nbsp;</A>
+<H1>Grammar Guide</H1>
+<HR>
+<H1>Testing Speech Grammars</H1>
+<P>
+
+There are several utility programs that will assist you
+in evaluating grammars that you write:
+<UL>
+<LI> fsgenum.exe: enumerates strings accepted by the grammar
+<LI> fsgtest.exe: determines whether input strings are accepted by the grammar
+<LI> fsgprint.exe: displays the graph that defines the grammar
+</UL>
+
+This document provides a brief description of these tools.
+<p><hr>
+<p><h2>FSGENUM.EXE</h2>
+The program fsgenum.exe  generates strings that will be
+accepted by a specific grammar. This tool is especially
+useful in determining whether a grammar overgenerates---
+that is, whether the grammar accepts strings that it should not.
+
+For example, suppose we want  a
+grammar that will parse (or accept) the following sentences:<p>
+<PRE>
+   The boy saw the dog.
+   The dog saw the boy.
+   The cat saw the dog.
+   He saw the dog.
+</PRE><p>
+
+and we write the following simple grammar (see <A HREF="bnf.htm">writing grammar files</A>):
+
+<PRE>
+
+;; saw.bnf
+;;
+&lt;s&gt;  = &lt;np&gt; &lt;vp&gt; .
+&lt;vp&gt; = &lt;v&gt; &lt;np&gt;  .
+&lt;np&gt; = &lt;det&gt; &lt;n&gt; |
+       &lt;pro&gt;     .
+
+; lexicon
+&lt;det&gt; = the .
+&lt;n&gt;  = dog |
+       boy |
+       cat .
+&lt;pro&gt; = he .
+&lt;v&gt;   = saw .
+</PRE> <p>
+
+After <A HREF="vtbnfc.htm">compiling this grammar using vtbnfc.exe</a> we want to
+examine what strings the grammar accepts.
+Using fsgenum.exe (the details will be explained shortly) we
+see that it generates the following:
+
+<p>
+<MENU>
+<i>
+<LI>the boy saw the dog
+<LI>the cat saw the dog
+<LI>the dog saw the boy
+<LI>he saw the cat
+<LI>the dog saw the dog
+<LI>the dog saw he  </I>
+</MENU><p>
+As we can now see, the grammar overgenerates---
+it accepts a string that is not in the language---
+<i>the dog saw he</i>.  We can now rewrite the
+grammar to prevent this string from being accepted.
+To give a more practical example, rules that allow for the
+acceptance of <i>twelve hundred dollars</i> might also
+contribute to the acceptance of the ill-formed <i>four thousand twelve
+hundred dollars</i>.
+
+Overgeneration is a common error in writing complex
+grammars and this tool is a useful debugging aid.
+<p>
+<h3> Syntax of fsgenum.exe</h3>
+The syntax of this tool is:
+<pre>
+fsgenum [options] fsg-filename
+</pre>
+
+The available options are:
+<DL>
+<DT><strong>-r<I> num</I></strong>
+<DD>This option generates a set of <i>num</i> strings described by the fsg file.
+For example, <tt>fsgenum -r 10 saw.fsg</tt> will display 10 strings that
+saw.fsg will accept.
+<DT><strong>-R<I> num</I></strong>
+<DD>This option generates a random set of <i>num</i> strings described by the fsg
+file. That is, a different set of strings will be generated each
+time the <tt>fsgenum -R <i>num</i></tt> command is issued. (Whereas repeated uses
+of the <tt>fsgenum -r <i>num</i></tt> command will generate the same set of strings
+as output.)
+<DT><strong>-f </strong>
+<DD>This option generates the full set of strings produced by the fsg file.
+<DT><strong>-a</strong>
+<DD>This option shows the <A HREF="bnf.htm#annotation">annotations</a> associated with each generated string.
+<DT><strong>-p</strong>
+<DD>This option displays the probability associated with each string.
+<DT><strong>-l <i>num</i></strong>
+<DD>This option defines the maximum number of times a <A HREF="bnf.htm#kleene">Kleene star or plus</a> is  iterated.
+</DL>
+<p>
+<h3>Example</h3>
+We compile the following BNF file to produce np.fsg
+
+<PRE>
+
+;; np.bnf
+;;
+&lt;np&gt;  = &lt;det&gt; &lt;adj&gt;* &lt;n&gt;.
+
+; lexicon
+
+&lt;adj&gt; = old .
+&lt;det&gt; = the .
+&lt;n&gt;   = dog .
+</PRE> <p>
+
+
+<tt>fsgenum np.fsg</tt>  and <tt>fsgenum -f np.fsg</tt> both produce
+the following output:
+<pre>
+
+the dog
+the old dog
+
+</pre>
+
+<tt>fsgenum -f -l 5 np.fsg</tt> produces the output:
+<pre>
+
+the dog
+the old dog
+the old old dog
+the old old old dog
+the old old old old dog
+
+</pre>
+<p><hr>
+<h2>FSGTEST.EXE</h2>
+This tool determines whether a given string (received from standard
+input) is accepted by the specified grammar.  For example, using the
+np.fsg file described immediately above, we start this tool by
+issuing the command:
+
+<pre>
+
+fsgtest np.fsg
+
+</pre>
+
+After issuing this command a user can type in a string followed by the
+enter key. (However, it should be noted that the program does not produce
+a prompt.) If the entered string is accepted by np.fsg the string will be
+echoed. If it is rejected the string is echoed with a preceding asterisk.
+This is illustrated in the following example (where the user input is in
+bold).
+
+<pre>
+<strong>
+fsgtest np.fsg
+the dog</strong>
+  the dog
+<strong>the old</strong>
+* the old
+<strong>the old dog</strong>
+  the old dog
+<strong>[ctrl-c]</strong>
+The external process was cancelled by a Ctrl+Break or another process.
+
+</pre>
+
+A set of test strings can be input to this program by using file redirection.
+For example, suppose we have a currency grammar (compiled as currency.fsg) that we would like to test. We
+have a file, <tt>good-set</tt>, containing strings we would like the grammar
+to accept:
+
+
+<pre>
+twelve hundred dollars
+four thousand two hundred and eleven dollars
+a dollar fifty
+a dollar and a half
+one and a half dollars
+</pre>
+
+We also have a file, <tt>bad-set</tt>, of ill-formed strings that we want the grammar to
+reject:
+
+<pre>
+four thousand twelve hundred dollars
+four dollars fifty
+one dollar and a half
+</pre>
+
+We can test <tt>good-set</tt> by using the command:
+<pre>
+fsgtest currency.fsg &lt; good-set
+</pre>
+which results in the following output:
+<pre>
+  twelve hundred dollars
+  four thousand two hundred and eleven dollars
+  a dollar fifty
+  a dollar and a half
+  one and a half dollars
+</pre>
+
+ We can test <tt>bad-set</tt> by using
+ <pre>
+fsgtest currency.fsg &lt; bad-set
+</pre>
+which results in the following output:
+
+<pre>
+* four thousand twelve hundred dollars
+* four dollars fifty
+* one dollar and a half
+</pre>
+<h3> Syntax of fsgtest.exe</h3>
+The syntax of this tool is:<p>
+<pre>
+fsgtest [options] fsg-filename
+</pre>
+
+The available options are:
+<p><DL>
+<DT><strong>-a</strong>
+<DD>This option shows the annotations associated with the accepted input string.
+<DT><strong>-p</strong>
+<DD>This option displays the probability associated with each string.
+</DL>
+
+<h3>Example</h3>
+(Once again, user input is shown in bold)
+
+
+<pre>
+<strong>
+fsgtest -p np.fsg
+the dog</strong>
+0.50029 the dog
+<strong>the old</strong>
+******* the old
+<strong>the old dog</strong>
+0.25029 the old dog
+<strong>[ctrl-c]</strong>
+The external process was cancelled by a Ctrl+Break or another process.
+
+</pre>
+
+To illustrate the use of annotations we compile the following bnf file
+to produce np2.fsg:
+
+
+<PRE>
+
+;; np.bnf
+;;
+&lt;np&gt;  = &lt;det&gt; &lt;adj&gt;* &lt;n&gt;.
+
+; lexicon
+
+&lt;adj&gt; = old:"adjective" .
+&lt;det&gt; = the:"determiner" .
+&lt;n&gt;   = dog:"noun" .
+</PRE> <p>
+
+Now we use fsgtest with the -a option:
+
+<pre>
+<strong>
+fsgtest -a np2.fsg
+the dog</strong>
+  the:"determiner" dog:"noun"
+<strong>the old</strong>
+  the:"determiner" old:"adjective"
+<strong>the old dog</strong>
+  the:"determiner" old:"adjective" dog:"noun"
+<strong>[ctrl-c]</strong>
+The external process was cancelled by a Ctrl+Break or another process.
+
+ </pre>
+<p><hr>
+<h2>FSGPRINT.EXE</h2>
+This tool displays the fsg file as a graph. For each state in the
+graph it displays the transitions from that state. For each transition
+it displays both the terminal word associated with the transition and
+the local probability of that transition. For example, using the np.fsg
+listed above:
+
+<pre>
+<strong>fsgtest np.fsg</strong>
+
+ --- fsg np.fsg ---
+
+state 0
+         the  -> state 1    p=1.00
+state 1
+         dog  -> state *    p=0.50
+         old  -> state 1    p=0.50
+state *
+
+
+</pre>
+
+This shows that the grammar has three states (state 0, state 1, and state *).
+There is only one transition from state 0. It accepts the word "the" and
+goes to state 1. If you are in state 0 the probability of taking this transition
+is 1.00 since it is the only transition. State 1 has two transitions. The first
+transition accepts the word "dog" and goes to the final state, state *.
+The second transition accepts the word "old" and loops back to state 1. Since there
+are two transition out of state 1, the local probability of both of these
+transitions is 0.50.
+
+<h3> Syntax of fsgprint.exe</h3>
+The syntax of this tool is:<p>
+<pre>
+fsgprint [options] fsg-filename
+</pre>
+
+The available options are:
+<p><DL>
+<DT><strong>-v</strong>
+<DD>This option displays more detailed information about the fsg file such as
+the values of certain engine parameters and a more explicit description of the
+graph .
+</DL>
+
+
+
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="sgl.htm">Previous Page</A> &#124; <A HREF="gram-faq.htm">Next Page</A> &#124; <A HREF="grammar.htm">Back to Grammar Guide</A> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+</BODY></HTML>
+

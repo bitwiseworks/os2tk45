@@ -1,0 +1,67 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//# @(#) 1.6.1.1 src/somd/servmgr.idl, somd, som2.1 1/13/95 09:59:15 [7/30/96 15:25:04]
+
+
+
+
+
+#ifndef servmgr_idl
+#define servmgr_idl
+
+#include <somobj.idl>
+#include <somdtype.idl>
+ 
+interface ImplementationDef;
+
+interface SOMDServerMgr : SOMObject
+{
+ 
+  ORBStatus somdShutdownServer(in string server_alias);
+
+  ORBStatus somdStartServer(in string server_alias);
+
+  ORBStatus somdRestartServer(in string server_alias);
+
+  ORBStatus somdListServer(in string server_alias);
+
+  ORBStatus somdDisableServer(in string server_alias);
+
+  ORBStatus somdEnableServer(in string server_alias);
+
+  boolean  somdIsServerEnabled(in ImplementationDef impldef);
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+    releaseorder: somdShutdownServer, somdStartServer, somdRestartServer,
+		  somdListServer, somdDisableServer, somdEnableServer, 
+	          somdIsServerEnabled;
+
+    //# Class Modifiers
+    callstyle = idl;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+  
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* servmgr_idl */
+
+
+

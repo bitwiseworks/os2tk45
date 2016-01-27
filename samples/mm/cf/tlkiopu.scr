@@ -1,0 +1,16 @@
+
+/*  The TLKIOPU.SCR change file  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPProgram"
+    WPTitle       = "AVC IO Procedure\nInstallation Sample"
+    WPSetupString = "EXENAME=$(DEST)AVCINST.EXE;PROGTYPE=PM;STARTUPDIR=$(DIR)18;OBJECTID=<MPM2TLK_AVCIOP>"
+    WPLocation    = "<MMPMTLK>"
+    WPFlags       = 1L
+    )
+
+/* end of TLKIOPU.SCR */

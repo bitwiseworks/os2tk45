@@ -1,0 +1,3519 @@
+%!PS-Adobe-3.0
+%%Creator: (Interleaf, Inc.)
+%%Copyright: (Copyright(c) 1991 Interleaf, Inc.)
+%%Version: 5.3 1
+%%BoundingBox: (atend)
+%%For: (chas)
+%%CreationDate: (Mon, Sep 19, 1994 17:26:05)
+%%Title: (Document:)
+%%Pages: (atend)
+%%DocumentFonts: (atend)
+%%EndComments
+%%BeginProlog
+userdict /Ileaf_5.3.1 400 dict dup begin put
+/MAJOR 5 def/MINOR 3 def/SUB 1 def
+/bdf{bind def}bind def
+/ldf{load def}bdf
+/xdf{exch def}bdf
+/msg{ print(\n)print flush}bdf
+/imatrix[1 0 0 -1 0 0]def
+/MAXCHARS 128 def
+/VMHEAD 1000 def
+/BOGUSWIDTH -1 def
+/mesg 64 string def
+/charstr 12 string def
+/istr 3 string def
+/ILEncoding 256 array def
+/ILSymBEnc 256 array def
+/ILDingbats 256 array def
+/trashheap 1024 string def
+/emsg1 256 string def
+/emsg2 256 string def
+/inch{72 mul}bdf
+/pgstate 0 def/DPIx 0 def/DPIy 0 def
+/PSfontobj 1024 dict def
+/BinaryMode false def
+/rl /rlineto ldf
+/rm /rmoveto ldf
+/rc /rcurveto ldf
+/L /lineto ldf
+/M /moveto ldf
+/sw /setlinewidth ldf
+% User definable macros for custom prologues
+/BOJ {} def
+/EOJ {} def
+/BOS {} def
+/EOS {} def
+%
+/initialize {Ileaf_5.3.1 begin} bdf
+/terminate {end} bdf
+/hline 0 def
+/headerpage{
+ 	0 begin
+	/nl {} def
+	/y 11 def/nl{/y y .33 sub def 1 inch y inch M}bdf
+	/#copies 1 def
+	/Helvetica-Bold/ILhelvb ILEncoding ReEncode
+	/ILhelvb findfont 18 scalefont setfont
+	nl nl nl
+
+        hline length dup dup
+	25 gt{26 sub dup hline exch((  ...))put} {pop 0}ifelse
+	exch 1 sub -1 3 -1 roll{hline exch get show nl}for
+
+	/Helvetica findfont 8 scalefont setfont
+	1 inch 1 inch M
+	emsg1 0 get 0 ne{1 inch .75 inch M emsg1 show}if
+	emsg2 0 get 0 ne{1 inch .5 inch M emsg2 show}if
+	end
+}bdf
+/headerpage load 0 6 dict put
+%
+/vp{
+	10 mesg cvrs print(.)print
+	10 mesg cvrs print(.)print
+	10 mesg cvrs print(\n)print
+}bdf
+/vs{
+	10 mesg cvrs show(.)show
+	10 mesg cvrs show(.)show
+	10 mesg cvrs show
+} bdf
+/lline 0 def
+/logme{
+	(\tInterleaf::pl2ps )print
+	SUB MINOR MAJOR vp
+	lline length dup dup 
+	5 gt{5 sub}{pop 0}ifelse
+	exch 1 sub -1 3 -1 roll{(\tInterleaf::)print lline exch get print(\n)print}for
+	flush
+}bdf
+%
+/vck{	% stack => major minor sub
+	3 copy
+	MAJOR ne exch MINOR ne or exch SUB ne or
+	{
+	 (\tInterleaf:: FATAL ERROR: pspro.ps and pl2ps versions do not agree.)msg
+	 (\tInterleaf:: pspro.ps version: \t)print
+	 SUB MINOR MAJOR vp
+	 (\tInterleaf:: pl2ps version: \t)print
+	 3 copy vp flush
+	 userdict /lline known
+	  {headerpage} {/Helvetica findfont 8 scalefont setfont} ifelse
+	 (FATAL ERROR: pspro version )show
+	 SUB MINOR MAJOR vs
+	 ( does not agree with pl2ps version)show
+	 vs showpage
+	 quit 
+	} {3 {pop} repeat} ifelse
+}bdf
+%
+/vpos 0 def/hpos 0 def
+/m {/vpos xdf/hpos xdf} def
+/v {/vpos xdf} def
+/h {/hpos xdf} def
+/el{
+ matrix currentmatrix 8 1 roll
+ translate rotate scale 0 0 1 5 -2 roll arc setmatrix
+}bdf
+/addconic{
+ matrix currentmatrix 9 1 roll
+ translate rotate scale
+ 0 0 1 6 -3 roll 1 eq{arc}{arcn}ifelse
+ setmatrix
+}bdf
+/dp{1 setlinejoin 1 setlinecap stroke}bdf
+/ALIGN_NONE 0 def/ALIGN_OPEN 1 def/ALIGN_CLOSE 2 def
+/PPWADJ [0 0 4 8 12 16 20]def
+/MINSCALE .1 def
+%
+/plen{
+	0 begin
+	flattenpath
+	/dist 0 def/yfirst 0 def/xfirst 0 def/ymoveto 0 def
+	/xmoveto 0 def/ynext 0 def/xnext 0 def
+	{/yfirst xdf/xfirst xdf
+	/ymoveto yfirst def/xmoveto xfirst def}
+	{/ynext xdf/xnext xdf
+	/dist dist ynext yfirst sub dup mul
+	xnext xfirst sub dup mul add sqrt add def
+	/yfirst ynext def/xfirst xnext def}
+	{}
+	{/ynext ymoveto def/xnext xmoveto def
+	/dist dist ynext yfirst sub dup mul
+	xnext xfirst sub dup mul add sqrt add def
+	/yfirst ynext def/xfirst xnext def}
+	pathforall dist
+	end
+}bdf
+/plen load 0 7 dict put
+%
+/setpenpat {0 begin
+ /style 0 def/width 0 def/pattern 0 def
+ /style xdf/width xdf/pattern xdf/scaleup 0 def
+ /indx 0 def/adj 0 def/val 0 def/iszero 0 def
+ /scaleup DPIx 300 div def
+ /indx width 1 add scaleup div 4 div cvi def
+ indx 1 gt indx 7 lt and{
+ /adj PPWADJ indx get scaleup mul def
+ /indx 0 def
+ pattern{/iszero indx 2 mod def iszero
+  0 ne{adj add/val xdf}{/val xdf}ifelse
+  pattern indx val put /indx indx 1 add def
+  }forall
+ }if
+ %
+ /offset 0 def/patternlen 0 def/pathlen plen def
+ pattern{patternlen add/patternlen xdf}forall
+ style ALIGN_NONE eq{}if
+ %
+ /n 0 def/extralen 0 def/halfpatlen 0 def
+ /scale1 0 def/offset 0 def
+ style ALIGN_CLOSE eq{
+  /n pathlen patternlen div cvi def
+  /extralen pathlen cvi patternlen cvi mod def
+  /halfpatlen patternlen 2 div def
+  extralen halfpatlen gt{/n n 1 add def}if
+  n 0 eq{/n 1 def}if
+  /scale1 pathlen n patternlen mul div def
+  scale1 MINSCALE gt{
+   /indx 0 def
+   pattern{
+    scale1 mul/val xdf
+    val 0 eq{/val 1 def}if
+    pattern indx val cvi put
+    /indx indx 1 add def
+   }forall
+  }if
+  /offset pattern 0 get 2 div round def
+ }if
+ %
+ /firstdash 0 def/dashpct 0 def/scale2 0 def/x 0 def/y 0 def
+ style ALIGN_OPEN eq{
+  /firstdash pattern 0 get def
+  /dashpct firstdash patternlen div def
+  /n pathlen patternlen div dashpct sub cvi def
+  /scale1 pathlen n dashpct add patternlen mul div def
+  /scale2 pathlen n dashpct add 1 add patternlen mul div def
+  /x scale2 1 sub abs def
+  /y scale1 1 sub abs def
+  x y lt{/scale1 scale2 def}if
+  scale1 MINSCALE gt{
+   /indx 0 def
+   pattern{
+    scale1 mul/val xdf
+    val 0 eq{/val 1 def}if
+    pattern indx val cvi put
+    /indx indx 1 add def
+   }forall
+   /offset 0 def
+  }if
+ }if
+ pattern offset setdash
+ end
+}bdf
+/setpenpat load 0 50 dict put
+%
+/msp 0 def/stEnd 0 def/nsp 0 def/fstr 0 def
+/s{
+	/msp xdf/stEnd xdf/nsp xdf/fstr xdf
+	hpos vpos M
+	msp -1 ne
+	{stEnd hpos sub fstr stringwidth pop sub nsp div 0 msp fstr widthshow}
+	{fstr show}
+	ifelse
+	/hpos stEnd def
+}bdf
+%
+%%%%%%%%% Hack for error character %%%%%%%%%%%%%%%%%%%%%%%%
+/eu 1000 def
+/ew 632 def
+/ptsz 0 def
+/ec{
+ /ptsz xdf
+ gsave
+ newpath hpos vpos M
+ ptsz DPIx 72 div mul eu div dup neg scale
+ 30 -110 rm 573 0 rl 0 873 rl -573 0 rl 0 -873 rl
+ 40 833 rm 493 0 rl 0 -793 rl -493 0 rl 0 793 rl
+ 194 -137 rm 94 0 rl 0 94 rl -94 0 rl 0 -94 rl
+ 10 -176 rm 0 -83 -162 -95 -162 -257 rc
+ 0 -119 109 -174 208 -174 rc 116 0 201 69 201 172 rc
+ 0 34 rl -83 0 rl 4 -63 -6 -148 -119 -148 rc
+ -74 0 -128 48 -128 121 rc 0 133 158 136 158 252 rc
+ 0 45 0 95 0 95 rc -75 0 rl 0 0 0 -52 0 -95 rc
+ closepath fill
+ grestore
+ /hpos hpos ptsz DPIx 72 div mul eu div ew mul add def
+ hpos vpos M
+}bdf
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+/ilr{BinaryMode{readstring}{readhexstring}ifelse}bdf
+/s1 1 string def
+/ccd[
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}{14}{15}
+ {16}{17}{18}{19}{20}{21}{22}{23}{24}{25}{26}{27}{28}{29}{30}{31}
+ {32}{33}{34}{35}{36}{37}{38}{39}{40}{41}{42}{43}{44}{45}{46}{47}
+ {48}{49}{50}{51}{52}{53}{54}{55}{56}{57}{58}{59}{60}{61}{62}{63}
+ {t1_1}{t1_2}{3 t1}{4 t1}{5 t1}{6 t1}{7 t1}{8 t1}
+ {9 t1}{10 t1}{11 t1}{12 t1}{13 t1}{14 t1}{15 t1}{16 t1}
+ {t2_1}{t2_2}{3 t2}{4 t2}{5 t2}{6 t2}{7 t2}{8 t2}
+ {9 t2}{10 t2}{11 t2}{12 t2}{ditto}{rn}{raw}
+]def
+/t1tab[
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 16#00 16#01 16#02 16#04 16#08 16#10 16#20 16#40
+ 16#80 16#03 16#06 16#0c 16#18 16#30 16#60 16#c0
+ 16#07 16#0e 16#1c 16#38 16#70 16#e0 16#0f 16#1e
+ 16#3c 16#78 16#f0 16#1f 16#3e 16#7c 16#f8 16#3f
+ 16#7e 16#fc 16#7f 16#fe 16#ff 16#a0 16#90 16#88
+ 16#84 16#82 16#81 16#50 16#48 16#44 16#42 16#41
+ 16#28 16#24 16#22 16#21 16#14 16#12 16#11 16#0a
+ 16#09 16#05 16#00 16#00 16#00 16#00 16#00 16#00 
+]def
+/str 0 def/sl 0 def/val 0 def
+/cls{
+ 	/sl xdf/val xdf
+ 	/str sl string def
+ 	0 1 sl 1 sub {str exch val put}for
+ 	str def
+}bdf
+/rn{
+ cf read pop 32 sub 6 bitshift cf read pop 32 sub or
+}bdf
+/t1_1{
+ 2 copy 2 copy
+  get cf read pop t1tab exch get xor put 1
+}bdf
+/t1_2{
+ 2 copy 2 copy
+ get cf read pop t1tab exch get xor put 1 add
+ 2 copy 2 copy
+ get cf read pop t1tab exch get xor put 1
+}bdf
+/t1{
+ {2 copy 2 copy get cf read pop t1tab exch get xor put 1 add}repeat
+ 0
+}bdf
+/t2_1{
+ 2 copy 2 copy
+ get cf s1 readhexstring pop 0 get xor put 1
+}bdf
+/t2_2{
+ 2 copy 2 copy
+ get cf s1 readhexstring pop 0 get xor put 1 add
+ 2 copy 2 copy
+ get cf s1 readhexstring pop 0 get xor put 1
+}bdf
+/t2{
+ {2 copy 2 copy get cf s1 readhexstring pop 0 get xor put 1 add}repeat
+ 0
+}bdf
+/ditto{
+ dbsize
+}bdf
+/raw{
+ 2 copy pop
+ cf exch readhexstring pop pop
+ dbsize
+}bdf
+/dl{
+ dline
+ 0 
+ cf es readline pop
+ {ccd exch get exec add}forall pop
+ 0 dbsizetrue getinterval
+}bdf
+/shiftline{
+ 0 1 cws 2 sub{
+  2 copy 2 copy
+  get
+  lsh bitshift 16#ff and
+  3 1 roll
+  1 add get
+  rsh bitshift 16#ff and
+  or
+  crpstr 3 1 roll
+  put
+ }for
+ pop crpstr
+}bdf
+%
+/PL_image{0 begin
+ gsave
+ % init
+ /cw 0 def/ct 0 def/cb 0 def/cl 0 def/cpr 0 def
+ /ho 0 def/vo 0 def/hh 0 def/vh 0 def/hv 0 def
+ /vv 0 def/nbits 0 def/vpix 0 def/hpix 0 def
+ /scfrq 0 def/scang 0 def/ms 0 def/map 0 def
+ /ms 0 def/dbsize 0 def
+ %
+ /cw xdf/ct xdf/cb xdf/cl xdf
+ /cpr xdf
+ /ho xdf/vo xdf/hh xdf/vh xdf/hv xdf/vv xdf/nbits xdf/vpix xdf/hpix xdf
+ /scfrq xdf/scang xdf/ms xdf/map xdf
+ /transp true def
+ ms 0 ne{
+  /ms ms 1 sub def
+  {map exch ms mul round cvi get}settransfer
+  map ms get 1.0 ne{/transp false def}if
+ }if
+ scfrq 0 ne{
+  scang 0 eq{/scang 45 def}if
+  scfrq scang currentscreen 3 1 roll pop pop setscreen
+ }if
+ %
+ /dbsize 0 def/dbsizetrue 0 def/cf 0 def/cli 0 def/cwb 0 def
+ /ch 0 def/crpstr 0 def/lsh 0 def/rsh 0 def/cws 0 def/dline 0 def/es 0 def
+
+ /dbsize hpix nbits mul 7 add 8 idiv def
+
+ /dbsizetrue hpix nbits mul 7 add 8 idiv def
+ /dline 255 dbsize cls
+ /es 0 dbsize cls
+ /cf currentfile def
+ /cli cl 8 idiv def
+ /cwb cw 7 add 8 idiv def
+ /ch vpix ct cb add sub def
+
+ ho vo translate
+ [hh vh hv vv 0 0]concat
+ nbits 1 eq transp and
+  {cpr 1 eq	
+   {cw ct add cb add cl add 0 ne
+    {/crpstr cwb string def
+     /lsh cl 8 mod def
+     /rsh lsh 8 sub def
+     /cws cw lsh add 7 add 8 idiv def
+     ct{dl pop}repeat
+     cw ch false[cw 0 0 ch 0 0]
+     {dl cli cws getinterval lsh 0 ne{shiftline}if}imagemask
+     cb{dl pop}repeat
+    }
+    {hpix vpix false[hpix 0 0 vpix 0 0]{dl}imagemask}
+    ifelse
+   }
+   {hpix vpix false[hpix 0 0 vpix 0 0]{cf dline ilr pop}imagemask}
+   ifelse
+  }
+  {cpr 1 eq
+   {cw ct add cb add cl add 0 ne
+    {/crpstr cwb string def
+     /lsh cl 8 mod def
+     /rsh lsh 8 sub def
+     /cws cw lsh add 7 add 8 idiv def
+     ct{dl pop}repeat
+     cw ch nbits[cw 0 0 ch 0 0]
+     {dl cli cws getinterval lsh 0 ne{shiftline}if}image
+     cb{dl pop}repeat
+    }
+    {hpix vpix nbits[hpix 0 0 vpix 0 0]{dl}image}
+    ifelse
+   }
+   {hpix vpix nbits[hpix 0 0 vpix 0 0]{cf dline ilr pop}image}
+   ifelse
+ }  
+ ifelse
+ grestore
+ end
+}bdf
+/PL_image load 0 35 dict put
+/blank_PL_image{
+	0 begin gsave
+	/ho 0 def/vo 0 def/hh 0 def/vh 0 def/hv 0 def
+	/vv 0 def/nbits 0 def/vpix 0 def/hpix 0 def
+	/scanlinesize 0 def/scanline 0 def
+
+	pop pop pop pop pop	% => /cw xdf/ct xdf/cb xdf/cl xdf/cpr xdf
+	/ho xdf/vo xdf/hh xdf/vh xdf/hv xdf/vv xdf/nbits xdf/vpix xdf/hpix xdf
+	pop pop pop pop		% => /scfrq xdf/scang xdf/ms xdf/map xdf
+
+	/scanlinesize hpix nbits mul 15 add 16 idiv 2 mul def
+	/scanline 255 scanlinesize cls
+
+	ho vo translate
+	[hh vh hv vv 0 0]concat
+	hpix vpix nbits[hpix 0 0 vpix 0 0]{scanline}image
+	grestore end
+}bdf
+/blank_PL_image load 0 14 dict put
+/reencodesubdict 12 dict def
+/ReEncode{
+	reencodesubdict begin
+	/newencoding 0 def/newfontname 0 def/basefontname 0 def
+	/basefontdict 0 def/newfont 0 def
+	%
+	/newencoding xdf/newfontname xdf/basefontname xdf
+	/basefontdict basefontname findfont def
+	/newfont basefontdict maxlength 2 add dict def
+	basefontdict{exch dup/FID ne{exch newfont 3 1 roll put}{pop pop}ifelse}forall
+	newfont/FontName newfontname put
+	newencoding -1 ne{newfont/Encoding newencoding put}if
+	newfontname newfont definefont pop
+	end
+}bdf
+/insertcharnum{
+	0 begin
+	/encoding 0 def/i 0 def
+	%
+	/encoding xdf/i xdf
+	(char)charstr copy pop
+	i istr cvs pop
+	charstr 4 istr putinterval
+	encoding i charstr cvn put
+	end
+}bdf
+/insertcharnum load 0 2 dict put
+ILEncoding 0[
+/Aacute/Acircumflex/Adieresis/Agrave/Aring/Atilde/Ccedilla/Eacute
+/Ecircumflex/Edieresis/Egrave/Iacute/Icircumflex/Idieresis/Igrave/Ntilde
+/Oacute/Ocircumflex/Odieresis/Ograve/Otilde/Scaron/Uacute/Ucircumflex
+/Udieresis/Ugrave/Ydieresis/Zcaron/char28/char29/char30/char31
+/space/exclam/quotedbl/numbersign/dollar/percent/ampersand/quoteright
+/parenleft/parenright/asterisk/plus/comma/hyphen/period/slash
+/zero/one/two/three/four/five/six/seven
+/eight/nine/colon/semicolon/less/equal/greater/question
+/at/A/B/C/D/E/F/G
+/H/I/J/K/L/M/N/O
+/P/Q/R/S/T/U/V/W
+/X/Y/Z/bracketleft/backslash/bracketright/asciicircum/underscore
+/quoteleft/a/b/c/d/e/f/g
+/h/i/j/k/l/m/n/o
+/p/q/r/s/t/u/v/w
+/x/y/z/braceleft/bar/braceright/asciitilde/quotedblleft
+/aacute/acircumflex/adieresis/agrave/aring/atilde/ccedilla/eacute
+/ecircumflex/edieresis/egrave/iacute/icircumflex/idieresis/igrave/ntilde
+/oacute/ocircumflex/odieresis/ograve/otilde/scaron/uacute/ucircumflex
+/udieresis/ugrave/ydieresis/zcaron/char156/char157/char158/char159
+/char160/exclamdown/cent/sterling/fraction/yen/florin/section
+/currency/quotesingle/quotedblleft/guillemotleft/guilsinglleft/guilsinglright/fi/fl
+/char176/endash/dagger/daggerdbl/periodcentered/char181/paragraph/bullet
+/quotesinglbase/quotedblbase/quotedblright/guillemotright/ellipsis/perthousand/char190/questiondown
+/char192/grave/acute/circumflex/tilde/macron/breve/dotaccent
+/dieresis/char201/ring/cedilla/char204/hungarumlaut/ogonek/caron
+/emdash/char209/char210/char211/char212/char213/char214/char215
+/char216/char217/char218/char219/char220/char221/char222/char223
+/char224/AE/char226/ordfeminine/char228/char229/char230/char231
+/Lslash/Oslash/OE/ordmasculine/char236/char237/char238/char239
+/char240/ae/char242/char243/char244/dotlessi/char246/char247
+/lslash/oslash/oe/germandbls/char252/char253/char254/char255
+]putinterval
+ILSymBEnc 32[
+/space/logicalor/arrowright/arrowdblleft/arrowdblup
+/arrowdblright/lozenge/arrowhorizex/angleleft/registersans
+/Upsilon1/plusminus/second/angle/greaterequal
+/radical/ellipsis/Ifraktur/spade/lessequal
+/minute/degree/fraction/florin/infinity
+/approxequal/integral/propersuperset/parenrightbt/arrowup
+/bracketrighttp/aleph/arrowdblboth/bracerightbt/integralbt
+/notsubset/bracketleftbt/trademarksans/bracelefttp/braceleftmid
+/braceleftbt/bracketlefttp/braceex/apple/angleright
+/parenrightex/parenrighttp/arrowdown/divide/element
+/summation/bracketleftex/parenlefttp/parenleftbt/dotmath
+/copyrightsans/integralex/parenleftex/integraltp/registerserif
+/intersection/trademarkserif/arrowdbldown/gradient/logicalnot
+/reflexsubset/equivalence/propersubset/partialdiff/arrowboth
+/circlemultiply/heart/bracketrightex/bracerightmid/emptyset
+/bracketrightbt/Rfraktur/proportional/reflexsuperset/carriagereturn
+/notequal/notelement/diamond/club/bracerighttp
+/arrowleft/weierstrass/bullet/circleplus/multiply
+/arrowvertex/copyrightserif/union/product/logicaland
+]putinterval
+0 1 32{ILSymBEnc insertcharnum}for
+127 1 255{ILSymBEnc insertcharnum}for
+ILDingbats 0[
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/space/a1/a2/a202/a3/a4/a5/a119
+/a118/a117/a11/a12/a13/a14/a15/a16
+/a105/a17/a18/a19/a20/a21/a22/a23
+/a24/a25/a26/a27/a28/a6/a7/a8
+/a9/a10/a29/a30/a31/a32/a33/a34
+/a35/a36/a37/a38/a39/a40/a41/a42
+/a43/a44/a45/a46/a47/a48/a49/a50
+/a51/a52/a53/a54/a55/a56/a57/a58
+/a59/a60/a61/a62/a63/a64/a65/a66
+/a67/a68/a69/a70/a71/a72/a73/a74
+/a203/a75/a204/a76/a77/a78/a79/a81
+/a82/a83/a84/a97/a98/a99/a100/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/a205/a206/a85/a86/a87
+/a88/a89/a90/a91/a92/a93/a94/a95
+/a96/a101/a102/a103/a104/a106/a107/a108
+/a112/a111/a110/a109/a120/a121/a122/a123
+/a124/a125/a126/a127/a128/a129/a130/a131
+/a132/a133/a134/a135/a136/a137/a138/a139
+/a140/a141/a142/a143/a144/a145/a146/a147
+/a148/a149/a150/a151/a152/a153/a154/a155
+/a156/a157/a158/a159/a160/a161/a163/a164
+/a196/a165/a192/a166/a167/a168/a169/a170
+/a171/a172/a173/a162/a174/a175/a176/a177
+/a178/a179/a193/a180/a199/a181/a200/a182
+/.notdef/a201/a183/a184/a197/a185/a194/a198
+/a186/a195/a187/a188/a189/a190/a191/.notdef]putinterval
+%
+/encoding 0 def/ILfont 0 def/PSfont 0 def/ptsize 0 def
+/newFont
+{
+	findfont imatrix makefont
+	exch DPIx 72 div mul scalefont
+} bdf
+/declareNFont{
+	/encoding xdf/ILfont xdf/PSfont xdf/ptsize xdf
+	FontDirectory ILfont known false eq{PSfont ILfont encoding ReEncode}if
+	ptsize ILfont newFont
+}bdf
+/declareRFont{0 begin
+ /PLname xdf
+ PSfontobj PLname
+ 10 dict dup begin
+ /FontType 3 def
+ /FontMatrix[DPIx 300 div 0 0 DPIy 300 div 0 0]def
+ /FontBBox[0 0 0 0]def
+ /Encoding ILEncoding def
+ /BuildChar{0 begin
+  /char xdf
+  /fontdict xdf
+  /charname fontdict/Encoding get char get def
+  /charinfo fontdict/CharData get charname get def
+  /wx charinfo 0 get def
+  charinfo 0 get BOGUSWIDTH eq
+   {puterrchar}
+   {/charbbox charinfo 1 4 getinterval def
+    wx 0 charbbox aload pop setcachedevice	
+    charinfo 5 get charinfo 6 get true
+    fontdict/imagemaskmatrix get
+    dup 5 charinfo 8 get put
+    dup 4 charinfo 7 get put
+    charinfo 9 get
+    imagemask}
+  ifelse
+  end
+ }def
+ /BuildChar load 0 7 dict put
+ /imagemaskmatrix[1 0 0 1 0 0]def
+ /CharData MAXCHARS dict def
+ end
+ PLname exch definefont put
+ PSfontobj PLname get/CharData get/space[16 0 0 1 1 16 1 0 0[<00>]cvx]put
+ end
+}def
+/declareRFont load 0 3 dict put
+/numLoadEmptyGlyph{
+	0 begin
+	/chnum 0 def/font 0 def/w 0 def
+	/chnum xdf/font xdf/w xdf
+	w font PSfontobj font get/Encoding get chnum get
+	LoadEmptyGlyph
+	end
+}bdf
+/numLoadEmptyGlyph load 0 3 dict put
+/puterrchar{
+ PSfontobj errfontname get dup
+ /BuildChar get errcharno exch exec
+ (\tInterleaf::out of VM loading bitmap(?). Try breaking up document\n)
+ dup print flush
+ emsg1 copy pop
+}def
+/QUIT{
+ (\tInterleaf::completely out of memory. \n\tTry breaking up the document \n)
+ dup print flush
+ emsg2 copy pop stop
+}def
+/LoadGlyph{
+	0 begin
+	/charno 0 def/fontname 0 def/height 0 def/width 0 def
+	/hsize 0 def/nbytes 0 def/glyph 0 def/tx 0 def/ty 0 def/lly 0 def
+	/llx 0 def/urx 0 def/lsb 0 def/glyph 0 def/NoVMHead 0 def
+	%
+	/charno xdf/fontname xdf/height xdf/vadj xdf/width xdf/hsize xdf/lsb xdf
+	/NoVMHead vmstatus exch sub exch pop dup
+	 VMHEAD 2 idiv lt{QUIT}if
+	 VMHEAD lt{true}{false}ifelse def
+	/nbytes hsize 15 add 16 idiv 2 mul height mul def	
+	NoVMHead not{/glyph nbytes string def}if
+	currentfile NoVMHead {trashheap 0 nbytes getinterval}{glyph}ifelse
+	readhexstring pop pop
+	/hsize hsize 15 add 16 idiv 16 mul def
+	/lly height vadj add def
+	/urx hsize lsb add def
+	/tx lsb neg def
+	/ty vadj neg def
+	PSfontobj fontname get dup /Encoding get charno get
+	exch /CharData get exch
+	NoVMHead {[BOGUSWIDTH]}
+	{[width lsb lly urx vadj hsize height tx ty[glyph]cvx]}ifelse
+	put end
+}bdf
+/LoadGlyph load 0 15 dict put
+%
+/scfrq 0 def/scang 0 def
+/solidfill{
+ /scfrq xdf/scang xdf
+ gsave
+ scfrq 0 ne{
+  scang 0 eq{/scang 45 def}if
+  scfrq scang currentscreen 3 1 roll pop pop setscreen
+ }if
+ eofill
+ grestore
+}bdf
+/patstr 1 string def/patchar 0 def/pffontname 0 def
+/fillpatset{/patchar xdf/pffontname xdf}bdf
+/fp{
+ /scfrq xdf/scang xdf
+ gsave 
+ scfrq 0 ne{
+  scang 0 eq{/scang 45 def}if
+  scfrq scang currentscreen 3 1 roll pop pop setscreen
+ }if
+ currentfont PSfontobj pffontname get setfont pfill
+ dup null ne{setfont}{pop}ifelse grestore
+}bdf
+/pfill{
+ gsave 1 1 1 setrgbcolor eofill grestore
+ setupfactors setupregion blastchars
+ newpath
+}bdf
+%
+/paty 0 def/patx 0 def
+/setupfactors{
+ patstr 0 patchar put
+ patstr stringwidth pop/paty exch def/patx paty def
+}bdf
+/ry 0 def/rx 0 def/ly 0 def/lx 0 def
+/setupregion{
+ eoclip	
+ pathbbox
+ /ry exch floor def
+ /rx exch floor def
+ /ly exch ceiling cvi
+ dup 0 lt{paty sub}if cvi
+ dup paty ceiling cvi mod sub def
+ /lx exch ceiling cvi
+ dup 0 lt{patx sub}if cvi
+ dup patx ceiling cvi mod sub def
+ /ry ry paty add def
+ /ly ly paty sub def
+ newpath
+}bdf
+/blastchars{
+ /#chars rx lx sub patx div ceiling cvi def
+ ly paty ry{lx exch M #chars{patstr show}repeat}for
+}bdf
+%
+/clp{initclip newpath M L L L closepath clip}bdf
+%
+/cm 0 def/pgw 0 def/pgl 0 def/cn 0 def/pw 0 def/pw2 0 def/lnx 0 def/lny 0 def
+/cropdefs[
+{} % 0
+{ % 1
+ 0 0 M lnx neg 0 L
+ 0 0 M 0 lny neg L
+}
+{ % 2
+ 0 0 M lnx 0 L
+ 0 0 M 0 lny L
+}
+{ % 3
+ lnx .25 mul neg 0 M lnx neg 0 L
+ 0 lny .25 mul neg M 0 lny neg L
+}
+{ % 4
+ lnx .25 mul 0 M lnx 0 L
+ 0 lny .25 mul M 0 lny L
+}
+{ % 5
+ lnx neg 0 M lnx 0 L
+ 0 lny neg M 0 lny L
+}
+{  % 6
+ [lnx .75 mul lnx .50 mul]0 setdash
+ lnx neg 0 M lnx 0 L 0 lny neg M 0 lny L
+}
+{ % 7
+ cn 1 eq cn 3 eq or {90 rotate}if
+ 0 0 M lnx neg 0 L
+ 0 lny M 0 lny neg L
+ cn 1 eq cn 3 eq or {90 neg rotate}if
+ /cn cn 1 add def
+}
+]def
+/cutmarks{	%stack: pglen pgwid cmtype => ---  
+	gsave 0 setgray [] 0 setdash
+	/cm xdf/pgwid xdf/pglen xdf
+	/pw DPIx 80 div def/pw2 pw 2 div def
+	/lnx DPIx 4 div def/lny DPIy 4 div def
+	initclip pw sw
+	/cn 0 def newpath
+	% upper left corner
+	pw2 neg pw2 neg translate
+	cropdefs cm get exec
+	% upper right corner
+	pgwid pw add 0 translate
+	90 rotate cropdefs cm get exec 90 neg rotate
+	% lower right corner
+	0 pglen pw add translate
+	180 rotate cropdefs cm get exec 180 neg rotate
+	% lower left corner
+	pgwid pw add neg 0 translate
+	270 rotate cropdefs cm get exec 270 neg rotate
+	dp grestore
+}bdf
+/bop {/pgstate save def} bdf
+/eop {pgstate restore showpage} bdf
+end 
+%%EndProlog
+%%BeginSetup
+Ileaf_5.3.1 /initialize get exec
+/hline 5 array def
+hline 4 (For: chas ) put
+hline 3 (Printed on: Mon, Sep 19, 1994 17:26:05 ) put
+hline 2 (From book: somtempl ) put
+hline 1 (Document: somtempl ) put
+hline 0 (Last saved on: Mon, Sep 19, 1994 17:22:46 ) put
+/lline 5 array def
+lline 4 (For: chas ) put
+lline 3 (Printed on: Mon, Sep 19, 1994 17:26:05 ) put
+lline 2 (From book: somtempl ) put
+lline 1 (Document: somtempl ) put
+lline 0 (Last saved on: Mon, Sep 19, 1994 17:22:46 ) put
+logme
+% >> pl2ps version 5.3.1
+1 3 5 vck
+%%EndSetup
+%%Page: () 1
+%%BeginPageSetup
+bop
+/DPIx 1270 def /DPIy 1270 def
+72 DPIx div 72 DPIy div neg scale
+0 13977 neg translate
+%%EndPageSetup
+0 13978 10801 13978 10801 0 0 0 clp
+/wst:timsps10 10.00 /Times-Roman /wst:timsps ILEncoding declareNFont def
+wst:timsps10 setfont
+9517.0 558.0 m
+5392.0 h
+1266.0 h
+/wst:helvps16b 16.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps16b setfont
+13416.0 v
+/wst:helvps11b 11.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps11b setfont
+5506.0 h
+wst:helvps16b setfont
+9746.0 h
+1266.0 1609.0 m
+/wst:helvps18b 18.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps18b setfont
+0.0 0.0 m
+newpath
+17.0 sw
+[] 0 setdash
+0.0000 setgray
+1266 1609 M
+7166 1609 L
+7166 1609 L
+7166 1643 L
+1266 1643 L
+closepath
+0 0 solidfill
+dp
+1266.0 1957.0 m
+<534f4d54454d504c3a2054686520534f4d2054>
+ 3 4920 32 s
+4896.0 1957.0 m
+<656d706c617465204170706c69636174696f6e204275696c646572>
+ 2 9099 32 s
+2532.0 2428.0 m
+/wst:helvps10 10.00 /Helvetica /wst:helvps ILEncoding declareNFont def
+wst:helvps10 setfont
+<546865>
+ 0 2836 -1 s
+<20>
+ 1 2866 32 s
+/wst:helvps10b 10.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 3698 -1 s
+wst:helvps10 setfont
+<2070726f6772616d20697320612070726f6772616d6d696e67207574696c69747920746861742067656e65726174657320534f4d20736f757263652066696c657320616e642070726f6772616d73>
+ 12 9746 32 s
+2532.0 2639.0 m
+<66726f6d>
+ 0 2885 -1 s
+<20707265646566696e65642074656d706c617465732e20497420697320612075736566756c20746f6f6c20746f2073696d706c696679207265706574697469766520534f4d>
+ 11 7964 32 s
+<2070726f6772616d6d696e67207461736b732e20496e>
+ 3 9746 32 s
+2532.0 2850.0 m
+<67656e6572616c2c>
+ 0 3169 -1 s
+<2069742063616e2067656e657261746520616e7920736f7274206f6620746578742066696c652066726f6d206120707265646566696e65642074656d706c6174653b20686f7765766572>
+ 13 8575 32 s
+8565.0 2850.0 m
+<2c>
+ 0 8614 -1 s
+<20697427>
+ 1 8773 32 s
+8770.0 2850.0 m
+<73206f7074696f6e7320617265>
+ 2 9746 32 s
+2532.0 3060.0 m
+<7072696d6172696c79>
+ 0 3198 -1 s
+<20666f637573656420617420534f4d2070726f6772616d6d696e672e2049742063616e>
+ 6 6037 32 s
+<20616c736f20626520757365642073696d696c61726c7920746f20432b2b2074656d706c6174657320746f20646566696e65>
+ 9 9746 32 s
+2532.0 3271.0 m
+<706172616d65746572697a6564>
+ 0 3659 -1 s
+<20534f4d20636c61737365732e20466f7220626567696e6e6572732c20>
+ 5 6080 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 6912 -1 s
+wst:helvps10 setfont
+<20697320616c736f2075736566756c206265636175736520697420696e636c756465732061>
+ 7 9746 32 s
+2532.0 3482.0 m
+<74656d706c617465>
+ 0 3208 -1 s
+<20666f72206120636f6d706c65746520534f4d2f44534f4d2070726f6772616d20b120696e636c7564696e67>
+ 7 7033 32 s
+<206d616b652066696c657320666f72204149582c204f532f3220616e642057696e>
+ 7 9687 32 s
+<2d>
+ 0 9746 -1 s
+2532.0 3693.0 m
+<646f77732e>
+ 0 2992 -1 s
+1266.0 4137.0 m
+/wst:helvps14b 14.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps14b setfont
+<52756e6e696e67>
+ 0 2268 -1 s
+<20736f6d74656d706c>
+ 1 3504 32 s
+2532.0 4419.0 m
+wst:helvps10 setfont
+<54>
+ 0 2640 -1 s
+2620.0 4419.0 m
+<6f>
+ 0 2718 -1 s
+<2072756e20>
+ 2 3071 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 3903 -1 s
+wst:helvps10 setfont
+<2c2073696d706c7920656e7465722061742074686520636f6d6d616e64206c696e653a>
+ 6 6636 32 s
+2785.0 4718.0 m
+/wst:courps10 10.00 /Courier /wst:courps ILEncoding declareNFont def
+wst:courps10 setfont
+<736f6d74656d706c>
+ 0 3633 -1 s
+2532.0 5059.0 m
+wst:helvps10 setfont
+<5768656e>
+ 0 2992 -1 s
+<2072756e20776974686f757420617267756d656e74732c20>
+ 4 4811 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 5643 -1 s
+wst:helvps10 setfont
+<20646973706c6179732068656c70206f6e20697473206f7074696f6e7320616e6420616c736f2073686f77732061206c697374206f6620746865>
+ 12 9746 32 s
+2532.0 5270.0 m
+<617661696c61626c65>
+ 0 3227 -1 s
+<2074656d706c617465732074686174>
+ 2 4353 32 s
+<2063616e2062652067656e6572617465642e2054>
+ 4 5918 32 s
+5898.0 5270.0 m
+<6f2067656e6572617465206f6e65206f66207468652074656d706c617465732c207573652074686520b161206f7074696f6e2e>
+ 9 9746 32 s
+2532.0 5481.0 m
+<466f72>
+ 0 2797 -1 s
+<206578616d706c652c20746f2067656e657261746520612067656e657269632049444c2066696c652066726f6d20612074656d706c617465206e616d6564206769646c2c20656e7465723a>
+ 13 8607 32 s
+2785.0 5780.0 m
+wst:courps10 setfont
+<736f6d74656d706c>
+ 0 3633 -1 s
+<20b161206769646c>
+ 2 4481 32 s
+2532.0 6122.0 m
+wst:helvps10 setfont
+<57697468>
+ 0 2884 -1 s
+<207468697320636f6d6d616e642c>
+ 2 4125 32 s
+<207468652066696c6520646566696e656420696e20746865206769646c2074656d706c6174652077696c6c2062652067656e65726174656420696e746f207468652063757272656e74>
+ 13 9746 32 s
+2532.0 6332.0 m
+<6469726563746f7279>
+ 0 3208 -1 s
+3195.0 6332.0 m
+<2e>
+ 0 3244 -1 s
+<20546865206769646c2074656d706c6174652067656e6572617465732074686520666f6c6c6f77696e672049444c2066696c65206e616d656420787878782e69646c2062792064656661756c743a>
+ 12 9179 32 s
+2785.0 6843.0 m
+wst:courps10 setfont
+<2369666e646566>
+ 0 3527 -1 s
+<20787878785f69646c>
+ 1 4481 32 s
+2785.0 7036.0 m
+<23646566696e6520787878785f69646c>
+ 1 4481 32 s
+2785.0 7229.0 m
+<23696e636c756465203c736f6d6f626a2e69646c3e>
+ 1 5011 32 s
+2785.0 7423.0 m
+<23696e636c756465203c736f6d636c732e69646c3e>
+ 1 5011 32 s
+2785.0 7616.0 m
+<696e746572666163652064656661756c74436c617373203a20534f4d4f626a656374>
+ 3 6389 32 s
+2785.0 7809.0 m
+<7b>
+ 0 2891 -1 s
+2785.0 8003.0 m
+<20202f2f20417474726962757465732066696c6c656420696e20686572653a>
+ 6 6071 32 s
+2785.0 8196.0 m
+<20202f2f204f7065726174696f6e732066696c6c656420696e20686572653a>
+ 6 6071 32 s
+2785.0 8389.0 m
+<236966646566205f5f534f4d49444c5f5f>
+ 1 4587 32 s
+2785.0 8583.0 m
+<2020696d706c656d656e746174696f6e207b>
+ 3 4693 32 s
+2785.0 8776.0 m
+<2020202072656c656173656f726465723a3b>
+ 4 4693 32 s
+2785.0 8969.0 m
+<202020202f2f20436c617373204d6f646966696572733a>
+ 6 5223 32 s
+2785.0 9163.0 m
+<20202020616c69676e20202020203d20343b>
+ 10 4693 32 s
+2785.0 9356.0 m
+<20202020646c6c6e616d652020203d20ba787878782e646c6cba3b>
+ 8 5647 32 s
+2785.0 9549.0 m
+<202020206d657461636c617373203d20ba534f4d436c617373ba3b>
+ 6 5647 32 s
+2785.0 9743.0 m
+<202020202f2f20417474726962757465204d6f646966696572733a>
+ 6 5647 32 s
+2785.0 9936.0 m
+<202020202f2f204f76657272696465733a>
+ 5 4587 32 s
+2785.0 10129.0 m
+<20202020736f6d44656661756c74496e69743a206f766572726964652c20696e69743b202f2f2044656661756c74206f626a65637420696e697469616c697a6572>
+ 10 9675 32 s
+2785.0 10323.0 m
+<20202020736f6d44657374727563743a206f766572726964653b202020202020202020202f2f2044656661756c74206f626a65637420756e696e697469616c697a6572>
+ 18 9887 32 s
+2785.0 10516.0 m
+<20207d3b>
+ 2 3209 32 s
+2785.0 10709.0 m
+<23656e646966202f2a205f5f534f4d49444c5f5f202a2f>
+ 3 5223 32 s
+2785.0 10903.0 m
+<7d3b>
+ 0 2997 -1 s
+2785.0 11096.0 m
+<23656e64696620202f2a20787878785f69646c202a2f>
+ 4 5117 32 s
+2532.0 11437.0 m
+wst:helvps10 setfont
+<5768656e>
+ 0 2992 -1 s
+<20612074656d706c6174652069732067656e6572617465642c20746865206e616d6573206f662066696c657320616e6420636c6173736573206861766520707265646566696e65642076616c756573206279>
+ 14 9746 32 s
+2532.0 11648.0 m
+<64656661756c742e>
+ 0 3110 -1 s
+<2054686573652076616c7565732063616e2c20686f7765766572>
+ 4 5224 32 s
+5214.0 11648.0 m
+<2c206265206368616e6765642077697468206f7074696f6e7320676976656e206f6e2074686520>
+ 8 8111 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 8943 -1 s
+wst:helvps10 setfont
+<20636f6d6d616e64>
+ 1 9746 32 s
+2532.0 11859.0 m
+<6c696e652e>
+ 0 2855 -1 s
+<205468657365206f7074696f6e7320617265206465736372696265642062656c6f77>
+ 5 5637 32 s
+5627.0 11859.0 m
+<2e>
+ 0 5676 -1 s
+2543.0 12158.0 m
+wst:helvps10b setfont
+<4f7074696f6e>
+ 0 3112 -1 s
+2543.0 12458.0 m
+wst:helvps10 setfont
+wst:helvps10b setfont
+<b16e>
+ 0 2749 -1 s
+wst:helvps10 setfont
+<20>
+ 1 2798 32 s
+/wst:helvps10i 10.00 /Helvetica-Oblique /wst:helvpsi ILEncoding declareNFont def
+wst:helvps10i setfont
+<636c6173736e616d65>
+ 0 3640 -1 s
+wst:helvps10 setfont
+3809.0 12669.0 m
+<5468652074656d706c6174652077696c6c2062652067656e65726174656420776974682074686520676976656e20636c617373206e616d652e204966206e6f20636c617373206e616d65>
+ 13 9666 32 s
+3809.0 12879.0 m
+<697320676976656e20776974682074686973206f7074696f6e2c2074686520636c617373206e616d652064656661756c747320746f20>
+ 10 7814 32 s
+wst:helvps10b setfont
+<64656661756c74436c617373>
+ 0 8863 -1 s
+wst:helvps10 setfont
+<2e>
+ 0 8912 -1 s
+13978 10801 1 cutmarks
+eop
+%%Page: () 2
+%%BeginPageSetup
+bop
+/DPIx 1270 def /DPIy 1270 def
+72 DPIx div 72 DPIy div neg scale
+0 13977 neg translate
+%%EndPageSetup
+0 13978 10801 13978 10801 0 0 0 clp
+/wst:timsps10 10.00 /Times-Roman /wst:timsps ILEncoding declareNFont def
+wst:timsps10 setfont
+1055.0 558.0 m
+5181.0 h
+9306.0 h
+/wst:helvps10b 10.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps10b setfont
+1089.0 13531.0 m
+0.0000 setgray
+<32>
+ 0 1187 -1 s
+/wst:helvps11b 11.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps11b setfont
+4850.0 h
+/wst:helvps9b 9.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps9b setfont
+9510.0 h
+7230.0 13531.0 m
+<534f4d6f626a6563747320446576656c6f7065722054>
+ 2 9099 32 s
+9087.0 13531.0 m
+<6f6f6c6b6974>
+ 0 9510 -1 s
+2332.0 1503.0 m
+/wst:helvps10 10.00 /Helvetica /wst:helvps ILEncoding declareNFont def
+wst:helvps10 setfont
+wst:helvps10b setfont
+<b173>
+ 0 2528 -1 s
+wst:helvps10 setfont
+<20>
+ 1 2577 32 s
+/wst:helvps10i 10.00 /Helvetica-Oblique /wst:helvpsi ILEncoding declareNFont def
+wst:helvps10i setfont
+<66696c657374656d>
+ 0 3184 -1 s
+3598.0 1714.0 m
+wst:helvps10 setfont
+<54686973206f7074696f6e20616c6c6f777320796f7520746f20756e697175656c79206e616d65207468652066696c65732074686174206172652067656e657261746564206279>
+ 12 9103 32 s
+3598.0 1925.0 m
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 4430 -1 s
+wst:helvps10 setfont
+<2e205468652064656661756c742066696c65207374656d20697320>
+ 6 6340 32 s
+wst:helvps10b setfont
+<78787878>
+ 0 6732 -1 s
+wst:helvps10 setfont
+<2e204f6e2073797374656d732074686174206c696d69742066696c65206e616d657320746f>
+ 7 9513 32 s
+3598.0 2135.0 m
+<3820636861726163746572732c207468652066696c657374656d20676976656e20776974682074686973206f7074696f6e2073686f756c64206265206c696d6974656420746f2034>
+ 12 8965 32 s
+3598.0 2346.0 m
+<636861726163746572732e>
+ 0 4470 -1 s
+2332.0 2702.0 m
+wst:helvps10b setfont
+<b170>
+ 0 2538 -1 s
+wst:helvps10 setfont
+<20>
+ 1 2587 32 s
+wst:helvps10i setfont
+<636c6173733d66696c657374656d>
+ 0 3698 -1 s
+wst:helvps10 setfont
+3598.0 2913.0 m
+<54686973206f7074696f6e20616c6c6f777320796f7520746f2073656c656374206120706172656e7420636c61737320666f7220746865206d61696e20636c6173732067656e657261746564>
+ 13 9455 32 s
+3598.0 3124.0 m
+<696e207468652074656d706c6174652e204966206e6f20706172656e74206973207370656369666965642c207468652064656661756c7420706172656e7420697320>
+ 12 8359 32 s
+wst:helvps10b setfont
+<534f4d4f626a656374>
+ 0 9309 -1 s
+wst:helvps10 setfont
+<2e>
+ 0 9358 -1 s
+3598.0 3335.0 m
+<54686973206973206571756976616c656e7420746f20b17020>
+ 5 5449 32 s
+wst:helvps10b setfont
+<534f4d4f626a6563743d736f6d6f626a>
+ 0 7129 -1 s
+wst:helvps10 setfont
+<2e20204d6f7265207468616e206f6e6520706172656e7420636c617373>
+ 6 9412 32 s
+3598.0 3546.0 m
+<63616e2062652073706563696669656420627920696e636c7564696e67206d6f7265207468616e206f6e6520b170206f7074696f6e206f6e2074686520636f6d6d616e64>
+ 12 9172 32 s
+3598.0 3757.0 m
+<6c696e652e20546865206469726563746f726965732073706563696669656420696e2074686520534d494e434c55444520656e7669726f6e6d656e74207661726961626c6520617265>
+ 9 9434 32 s
+3598.0 3967.0 m
+<736561726368656420746f206c6f6361746520746865207370656369666965642066696c65206e616d656420>
+ 7 6987 32 s
+wst:helvps10i setfont
+<66696c657374656d2e69646c>
+ 0 7819 -1 s
+wst:helvps10 setfont
+<2e204966207468652066696c65206973206e6f74>
+ 5 9053 32 s
+3598.0 4178.0 m
+<666f756e642c2061206e657720706172656e7420636c6173732066696c65206e616d656420>
+ 7 6517 32 s
+wst:helvps10i setfont
+<66696c657374656d2e69646c>
+ 0 7349 -1 s
+wst:helvps10 setfont
+<2069732067656e6572617465642066726f6d20746865>
+ 4 9064 32 s
+3598.0 4389.0 m
+<696e636c756465642067656e657269632049444c2066696c652074656d706c6174652e>
+ 4 6252 32 s
+2332.0 4745.0 m
+wst:helvps10b setfont
+<b16d>
+ 0 2586 -1 s
+wst:helvps10 setfont
+<20>
+ 1 2635 32 s
+wst:helvps10i setfont
+<636c6173733d66696c657374656d>
+ 0 3746 -1 s
+wst:helvps10 setfont
+3598.0 4956.0 m
+<54686973206f7074696f6e20616c6c6f777320796f7520746f2073656c6563742061206d657461636c61737320666f7220746865206d61696e20636c6173732067656e65726174656420696e>
+ 13 9484 32 s
+3598.0 5167.0 m
+<7468652074656d706c6174652e204966206e6f206d657461636c617373206973207370656369666965642c207468652064656661756c74206d657461636c617373206973>
+ 10 8710 32 s
+3598.0 5378.0 m
+wst:helvps10b setfont
+<534f4d436c617373>
+ 0 4469 -1 s
+wst:helvps10 setfont
+<2e2054686973206973206571756976616c656e7420746f20b16d20>
+ 6 6467 32 s
+wst:helvps10b setfont
+<534f4d436c6173733d736f6d636c73>
+ 0 8048 -1 s
+wst:helvps10 setfont
+<2e204f6e6c79206f6e65>
+ 2 8851 32 s
+3598.0 5588.0 m
+<6d657461636c617373206f7074696f6e2063616e206265207370656369666965642e20546865206469726563746f726965732073706563696669656420696e20746865>
+ 9 8730 32 s
+3598.0 5799.0 m
+<534d494e434c55444520656e7669726f6e6d656e74207661726961626c652061726520736561726368656420746f206c6f6361746520746865207370656369666965642066696c65>
+ 9 9424 32 s
+3598.0 6010.0 m
+<6e616d656420>
+ 1 4186 32 s
+wst:helvps10i setfont
+<66696c657374656d2e69646c>
+ 0 5018 -1 s
+wst:helvps10 setfont
+<2e204966207468652066696c65206973206e6f7420666f756e642c2061206e6577206d657461636c6173732066696c65206e616d6564>
+ 11 9014 32 s
+3598.0 6221.0 m
+wst:helvps10i setfont
+<66696c657374656d2e69646c>
+ 0 4430 -1 s
+wst:helvps10 setfont
+<2069732067656e6572617465642066726f6d2074686520696e636c756465642067656e657269632049444c2066696c652074656d706c6174652e>
+ 9 8848 32 s
+2332.0 6577.0 m
+wst:helvps10b setfont
+<b165>
+ 0 2528 -1 s
+wst:helvps10 setfont
+3598.0 6788.0 m
+<54686973206f7074696f6e20696e6869626974732074686520736561726368696e67206f6620746865206469726563746f72696573206e616d656420696e20746865>
+ 10 8584 32 s
+3598.0 6999.0 m
+<534d494e434c55444520656e7669726f6e6d656e74207661726961626c652e2054686973206166>
+ 4 6946 32 s
+6943.0 6999.0 m
+<666563747320746865206f7065726174696f6e206f662074686520b16d20616e64>
+ 6 9520 32 s
+3598.0 7210.0 m
+<b170206f7074696f6e732e>
+ 1 4460 32 s
+2321.0 7566.0 m
+<546865>
+ 0 2625 -1 s
+<20666f6c6c6f77696e67206578616d706c652075736573207468652061626f7665206f7074696f6e7320746f2067656e6572617465207468652067656e657269632049444c2074656d706c6174652077697468206120636c617373>
+ 15 9535 32 s
+2321.0 7776.0 m
+<6e616d6564>
+ 0 2860 -1 s
+<20aa416e696d616cba2c206120706172656e7420636c617373206e616d656420aa534f4d5050657273697374656e744f626a656374ba2c2061206d657461636c617373>
+ 8 8883 32 s
+<206e616d6564>
+ 1 9535 32 s
+2321.0 7987.0 m
+<aa416e696d616c466163746f7279ba>
+ 0 3565 -1 s
+<20616e642066696c65206e616d657320626567696e6e696e67207769746820aa616e69ba2e>
+ 6 6386 32 s
+2574.0 8343.0 m
+/wst:courps10 10.00 /Courier /wst:courps ILEncoding declareNFont def
+wst:courps10 setfont
+<736f6d74656d706c>
+ 0 3422 -1 s
+<20b161206769646c20b16e20416e696d616c20b17320616e6920b17020534f4d5050657273697374656e744f626a6563743d706f20>
+ 9 9040 32 s
+2574.0 8537.0 m
+<b16d20416e696d616c466163746f72793d616e696d657461>
+ 1 5118 32 s
+2321.0 8973.0 m
+wst:helvps10 setfont
+<546865>
+ 0 2625 -1 s
+<206d61696e2049444c2066696c652070726f6475636564206279207468697320636f6d6d616e642c206e616d656420aa616e692e69646cba2c2069732073686f776e2062656c6f77>
+ 12 8722 32 s
+8712.0 8973.0 m
+<2e204e6f746520746865>
+ 2 9535 32 s
+2321.0 9184.0 m
+<646966>
+ 0 2507 -1 s
+2504.0 9184.0 m
+<666572656e636573>
+ 0 3180 -1 s
+<206265747765656e207468697320616e6420746865206561726c6965722067656e657269632049444c2066696c652e2054686520706172656e7420636c6173732066696c6520aa706f2e69646cba>
+ 13 8907 32 s
+<20616c7265616479>
+ 1 9535 32 s
+2321.0 9395.0 m
+<657869737473>
+ 0 2771 -1 s
+<20696e2074686520534f4d20696e636c756465206469726563746f72793b207468657265666f72652c206974206973206e6f74206372656174656420696e207468652063757272656e74206469726563746f7279>
+ 14 9132 32 s
+9119.0 9395.0 m
+<2e20546865>
+ 1 9535 32 s
+2321.0 9606.0 m
+<aa416e696d616c466163746f7279ba>
+ 0 3565 -1 s
+<206d657461636c617373>
+ 1 4399 32 s
+<20696e20aa616e696d6574612e69646cba20646964206e6f742070726576696f75736c792065786973743b20746875732074686520aa616e696d6574612e69646cba2066696c65206973>
+ 11 9535 32 s
+2321.0 9817.0 m
+<67656e657261746564>
+ 0 3115 -1 s
+<20696e746f207468652063757272656e74206469726563746f7279>
+ 4 5065 32 s
+5052.0 9817.0 m
+<2e>
+ 0 5101 -1 s
+2574.0 10173.0 m
+wst:courps10 setfont
+<2369666e646566>
+ 0 3316 -1 s
+<20616e695f69646c>
+ 1 4164 32 s
+2574.0 10366.0 m
+<23646566696e6520616e695f69646c>
+ 1 4164 32 s
+2574.0 10559.0 m
+<23696e636c756465203c706f2e69646c3e>
+ 1 4376 32 s
+2574.0 10753.0 m
+<23696e636c756465203c616e696d6574612e69646c3e>
+ 1 4906 32 s
+2574.0 10946.0 m
+<696e7465726661636520416e696d616c203a20534f4d5050657273697374656e744f626a656374>
+ 3 6708 32 s
+2574.0 11139.0 m
+<7b>
+ 0 2680 -1 s
+2574.0 11333.0 m
+<20202f2f20417474726962757465732066696c6c656420696e20686572653a>
+ 6 5860 32 s
+2574.0 11526.0 m
+<20202f2f204f7065726174696f6e732066696c6c656420696e20686572653a>
+ 6 5860 32 s
+2574.0 11719.0 m
+<236966646566205f5f534f4d49444c5f5f>
+ 1 4376 32 s
+2574.0 11913.0 m
+<2020696d706c656d656e746174696f6e207b>
+ 3 4482 32 s
+2574.0 12106.0 m
+<2020202072656c656173656f726465723a3b>
+ 4 4482 32 s
+2574.0 12299.0 m
+<202020202f2f20436c617373204d6f646966696572733a>
+ 6 5012 32 s
+2574.0 12493.0 m
+<20202020616c69676e20202020203d20343b>
+ 10 4482 32 s
+2574.0 12686.0 m
+<20202020646c6c6e616d652020203d20ba616e692e646c6cba3b>
+ 8 5330 32 s
+2574.0 12879.0 m
+<202020206d657461636c617373203d20ba416e696d616c466163746f7279ba3b>
+ 6 5966 32 s
+13978 10801 1 cutmarks
+eop
+%%Page: () 3
+%%BeginPageSetup
+bop
+/DPIx 1270 def /DPIy 1270 def
+72 DPIx div 72 DPIy div neg scale
+0 13977 neg translate
+%%EndPageSetup
+0 13978 10801 13978 10801 0 0 0 clp
+/wst:timsps10 10.00 /Times-Roman /wst:timsps ILEncoding declareNFont def
+wst:timsps10 setfont
+9517.0 558.0 m
+5392.0 h
+1266.0 h
+/wst:helvps10b 10.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps10b setfont
+9738.0 13531.0 m
+9640.0 13531.0 m
+0.0000 setgray
+<33>
+ 0 9738 -1 s
+/wst:helvps11b 11.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps11b setfont
+6146.0 h
+/wst:helvps9b 9.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps9b setfont
+1266.0 h
+<534f4d2054>
+ 1 1769 32 s
+1757.0 13531.0 m
+<656d706c61746520>
+ 1 2400 32 s
+2394.0 13531.0 m
+<4170706c69636174696f6e204275696c646572>
+ 1 3849 32 s
+2785.0 1503.0 m
+/wst:courps10 10.00 /Courier /wst:courps ILEncoding declareNFont def
+wst:courps10 setfont
+<202020202f2f20417474726962757465204d6f646966696572733a>
+ 6 5647 32 s
+2785.0 1696.0 m
+<202020202f2f204f76657272696465733a>
+ 5 4587 32 s
+2785.0 1890.0 m
+<20202020736f6d44656661756c74496e69743a206f766572726964652c20696e69743b202f2f2044656661756c74206f626a65637420696e697469616c697a6572>
+ 10 9675 32 s
+2785.0 2083.0 m
+<20202020736f6d44657374727563743a206f766572726964653b202020202020202020202f2f2044656661756c74206f626a65637420756e696e697469616c697a6572>
+ 18 9887 32 s
+2785.0 2276.0 m
+<20207d3b>
+ 2 3209 32 s
+2785.0 2470.0 m
+<23656e646966202f2a205f5f534f4d49444c5f5f202a2f>
+ 3 5223 32 s
+2785.0 2663.0 m
+<7d3b>
+ 0 2997 -1 s
+2785.0 2856.0 m
+<23656e64696620202f2a20616e695f69646c202a2f>
+ 4 5011 32 s
+2532.0 3390.0 m
+/wst:helvps10 10.00 /Helvetica /wst:helvps ILEncoding declareNFont def
+wst:helvps10 setfont
+<54>
+ 0 2640 -1 s
+2620.0 3390.0 m
+<656d706c61746573>
+ 0 3335 -1 s
+<206d617920696e636c756465206d6f7265207468616e206a75737420616e2049444c2066696c652e20537570706c696564207769746820>
+ 11 7351 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 8183 -1 s
+wst:helvps10 setfont
+<20697320612044534f4d2074656d706c617465>
+ 4 9746 32 s
+2532.0 3601.0 m
+<286f7074696f6e>
+ 0 3071 -1 s
+<20b1612064736f6d292e20546869732074656d706c61746520696e636c75646573207468652049444c2066696c65732c2061732077656c6c20617320746865204320736f757263652066696c657320616e64206d616b65>
+ 17 9746 32 s
+2532.0 3812.0 m
+<66696c6573>
+ 0 2845 -1 s
+<20746f20637265617465206120636f6d706c6574652044534f4d206170706c69636174696f6e2e>
+ 6 6008 32 s
+1266.0 4225.0 m
+/wst:helvps12i 12.00 /Helvetica-Oblique /wst:helvpsi ILEncoding declareNFont def
+wst:helvps12i setfont
+<54>
+ 0 1396 -1 s
+1376.0 4225.0 m
+<656d706c617465>
+ 0 2131 -1 s
+<2066696c6573>
+ 1 2567 32 s
+2532.0 4435.0 m
+wst:helvps10 setfont
+<546865>
+ 0 2836 -1 s
+<20>
+ 1 2881 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 3713 -1 s
+wst:helvps10 setfont
+<2070726f6772616d20757365732074776f2066696c6573>
+ 4 5509 32 s
+<20286c6f6361746564207669612074686520534d494e434c55444520656e7669726f6e6d656e74207661726961626c652920746f>
+ 7 9746 32 s
+2532.0 4646.0 m
+<64657465726d696e65>
+ 0 3316 -1 s
+<207468652066696c657320746f2062652067656e65726174656420616e642074686520617661696c61626c652074656d706c617465733a>
+ 9 7499 32 s
+2532.0 4945.0 m
+/spsb:symbb10 10.00 /Symbol /spsb:symbb ILSymBEnc declareNFont def
+spsb:symbb10 setfont
+<77>
+ 0 2613 -1 s
+wst:helvps10 setfont
+2743.0 h
+<546865>
+ 0 3047 -1 s
+<2066697273742066696c652069732063616c6c65642074686520636f6e66696775726174696f6e>
+ 6 5685 32 s
+<2066696c652e2054686520636f6e66696775726174696f6e2066696c6520636f6e7461696e7320746865206e616d6573206f6620746865>
+ 9 9746 32 s
+newpath
+0.0 sw
+8730 4958 M
+9746 4958 L
+9746 4965 L
+8730 4965 L
+closepath
+0 0 solidfill
+2743.0 5156.0 m
+<74656d706c61746573>
+ 0 3507 -1 s
+newpath
+2743 5169 M
+3507 5169 L
+3507 5176 L
+2743 5176 L
+closepath
+0 0 solidfill
+<20746861742063616e2062652067656e65726174656420616e6420746865206e616d6573206f66207468652066696c6573>
+ 10 7288 32 s
+newpath
+5922 5169 M
+7288 5169 L
+7288 5176 L
+5922 5176 L
+closepath
+0 0 solidfill
+<2074686174206d616b65207570207468652074656d706c6174652e>
+ 5 9399 32 s
+<20546865>
+ 1 9746 32 s
+2743.0 5367.0 m
+<636f6e66696775726174696f6e>
+ 0 3752 -1 s
+<2066696c6520616c736f20636f6e7461696e732075736572b1646566696e65642073796d626f6c73>
+ 5 6861 32 s
+newpath
+5148 5380 M
+6861 5380 L
+6861 5387 L
+5148 5387 L
+closepath
+0 0 solidfill
+<20666f7220737562737469747574696f6e207768656e2066696c6573206172652067656e6572>
+ 6 9687 32 s
+<2d>
+ 0 9746 -1 s
+2743.0 5578.0 m
+<617465642e>
+ 0 3135 -1 s
+2532.0 5877.0 m
+spsb:symbb10 setfont
+<77>
+ 0 2613 -1 s
+wst:helvps10 setfont
+2743.0 h
+<546865>
+ 0 3047 -1 s
+<20636f6e74656e7473206f66207468652066696c657320646566696e65642062792074686520636f6e66696775726174696f6e2066696c652061726520636f6e7461696e656420696e20746865207365636f6e642066696c652c20746865>
+ 16 9746 32 s
+2743.0 6087.0 m
+<74656d706c617465>
+ 0 3419 -1 s
+<2066696c652e>
+ 1 3742 32 s
+2532.0 6457.0 m
+wst:helvps10b setfont
+<54686520737570706c6965642074656d706c61746573>
+ 2 4493 32 s
+2532.0 6693.0 m
+wst:helvps10 setfont
+<546865>
+ 0 2836 -1 s
+<2064656661756c7420636f6e66696775726174696f6e2066696c65207573656420627920>
+ 6 5355 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 6187 -1 s
+wst:helvps10 setfont
+<206973206e616d656420>
+ 3 6948 32 s
+wst:helvps10b setfont
+<736f6d74656d706c2e636667>
+ 0 8094 -1 s
+wst:helvps10 setfont
+<2e205468652064656661756c742074656d706c617465>
+ 3 9746 32 s
+2532.0 6904.0 m
+<66696c65>
+ 0 2757 -1 s
+<206973206e616d656420>
+ 3 3513 32 s
+wst:helvps10b setfont
+<736f6d74656d706c2e617070>
+ 0 4708 -1 s
+wst:helvps10 setfont
+<2e2054686573652066696c65732061726520737570706c69656420696e20534f4d27>
+ 6 7230 32 s
+7227.0 6904.0 m
+<7320696e636c756465206469726563746f7279>
+ 2 8610 32 s
+8597.0 6904.0 m
+<2e2054>
+ 1 8784 32 s
+8764.0 6904.0 m
+<6f206368616e676520746865>
+ 2 9746 32 s
+2532.0 7115.0 m
+<6e616d6573>
+ 0 3061 -1 s
+<206f662074686520636f6e66696775726174696f6e20616e642074656d706c6174652066696c6573207573656420627920>
+ 9 6808 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 7640 -1 s
+wst:helvps10 setfont
+<2c20796f752063616e207573652074686520666f6c6c6f77696e67>
+ 5 9746 32 s
+2532.0 7326.0 m
+<6f7074696f6e73>
+ 0 3100 -1 s
+<207768656e20796f752072756e207468652070726f6772616d3a>
+ 5 5256 32 s
+2543.0 7625.0 m
+wst:helvps10b setfont
+<4f7074696f6e>
+ 0 3112 -1 s
+2543.0 7923.0 m
+wst:helvps10 setfont
+wst:helvps10b setfont
+<b166>
+ 0 2700 -1 s
+wst:helvps10 setfont
+<20>
+ 1 2749 32 s
+/wst:helvps10i 10.00 /Helvetica-Oblique /wst:helvpsi ILEncoding declareNFont def
+wst:helvps10i setfont
+<636f6e66696766696c65>
+ 0 3444 -1 s
+wst:helvps10 setfont
+3809.0 8134.0 m
+wst:helvps10i setfont
+<636f6e66696766696c65>
+ 0 4504 -1 s
+wst:helvps10 setfont
+<20697320746865206e616d65206f662074686520>
+ 6 6003 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 6835 -1 s
+wst:helvps10 setfont
+<20636f6e66696775726174696f6e2066696c652e2044656661756c74206973>
+ 4 8999 32 s
+3809.0 8345.0 m
+<736f6d74656d706c2e6366672e>
+ 0 4906 -1 s
+2543.0 8644.0 m
+wst:helvps10b setfont
+<b174>
+ 0 2700 -1 s
+wst:helvps10 setfont
+<20>
+ 1 2749 32 s
+wst:helvps10i setfont
+<74656d706c61746566696c65>
+ 0 3650 -1 s
+wst:helvps10 setfont
+3809.0 8855.0 m
+wst:helvps10i setfont
+<74656d706c61746566696c65>
+ 0 4710 -1 s
+wst:helvps10 setfont
+<20697320746865206e616d65206f662074686520>
+ 6 6209 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 7041 -1 s
+wst:helvps10 setfont
+<2074656d706c6174652066696c652e2044656661756c74206973>
+ 4 8872 32 s
+3809.0 9066.0 m
+<736f6d74656d706c2e6170702e>
+ 0 4965 -1 s
+2532.0 9365.0 m
+<436f6e7461696e6564>
+ 0 3335 -1 s
+<20696e207468652064656661756c7420636f6e66696775726174696f6e20616e642074656d706c6174652066696c65732c20796f752077696c6c2066696e642074686520666f6c6c6f77696e672074656d706c617465733a>
+ 13 9746 32 s
+2543.0 9664.0 m
+wst:helvps10b setfont
+<54>
+ 0 2651 -1 s
+2638.0 9664.0 m
+<656d706c617465>
+ 0 3304 -1 s
+2543.0 9962.0 m
+wst:helvps10 setfont
+<6769646c>
+ 0 2817 -1 s
+3809.0 10173.0 m
+<41>
+ 0 3926 -1 s
+<2074656d706c617465206f6620612067656e657269632049444c2066696c652e2047656e657261746520746869732074656d706c61746520616e64207468656e2061646420796f7572>
+ 13 9569 32 s
+3809.0 10384.0 m
+<6f776e206d6574686f64732c206174747269627574657320616e6420646174612e>
+ 4 6464 32 s
+2543.0 10683.0 m
+<69646c5f646c6c>
+ 0 2993 -1 s
+3809.0 10894.0 m
+<412074656d706c617465206f66207468652073616d652067656e657269632049444c2066696c6520617320696e20746865206769646c2074656d706c61746520706c7573206d616b65>
+ 14 9460 32 s
+3809.0 11105.0 m
+<66696c65732c206d6f64756c6520646566696e6974696f6e2066696c657320616e6420636c617373206c69627261727920696e697469616c697a6174696f6e20736f7572636520666f72204149582c>
+ 10 9409 32 s
+3809.0 11316.0 m
+<4f532f3220616e642057696e646f77732e205468652067656e6572617465642074656d706c6174652063616e206265206275696c7420696d6d6564696174656c792077697468>
+ 10 9587 32 s
+3809.0 11526.0 m
+<746865206d616b65207574696c697479>
+ 2 4984 32 s
+4971.0 11526.0 m
+<2e>
+ 0 5020 -1 s
+2543.0 11825.0 m
+<64736f6d>
+ 0 2974 -1 s
+3809.0 12036.0 m
+<546869732074656d706c6174652067656e657261746573206120636f6d706c65746520446973747269627574656420534f4d2070726f6772616d20666f722061206261736963>
+ 10 9520 32 s
+3809.0 12247.0 m
+<534f4d20636c6173732e20416c736f2067656e6572617465642061726520746865206d616b652066696c65732c206d6f64756c6520646566696e6974696f6e2066696c65732c20636c617373>
+ 11 9674 32 s
+3809.0 12458.0 m
+<6c69627261727920696e697469616c697a6174696f6e20736f7572636520616e6420736f7572636520746f2073696d706c696679206c6f63616c2f72656d6f7465206f626a656374>
+ 8 9107 32 s
+3809.0 12669.0 m
+<7472616e73706172656e6379>
+ 0 4828 -1 s
+4815.0 12669.0 m
+<2e205468652067656e657261746564206170706c69636174696f6e206372656174657320656974686572206c6f63616c206f722072656d6f7465>
+ 8 9283 32 s
+3809.0 12879.0 m
+<6f626a6563747320616e6420696e636c7564657320636f6d6d616e64207363726970747320746f207365742075702074686520736572766572206c6f636174696f6e2e>
+ 10 9049 32 s
+13978 10801 1 cutmarks
+eop
+%%Page: () 4
+%%BeginPageSetup
+bop
+/DPIx 1270 def /DPIy 1270 def
+72 DPIx div 72 DPIy div neg scale
+0 13977 neg translate
+%%EndPageSetup
+0 13978 10801 13978 10801 0 0 0 clp
+/wst:timsps10 10.00 /Times-Roman /wst:timsps ILEncoding declareNFont def
+wst:timsps10 setfont
+1055.0 558.0 m
+5181.0 h
+9306.0 h
+/wst:helvps10b 10.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps10b setfont
+1089.0 13531.0 m
+0.0000 setgray
+<34>
+ 0 1187 -1 s
+/wst:helvps11b 11.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps11b setfont
+4850.0 h
+/wst:helvps9b 9.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps9b setfont
+9510.0 h
+7230.0 13531.0 m
+<534f4d6f626a6563747320446576656c6f7065722054>
+ 2 9099 32 s
+9087.0 13531.0 m
+<6f6f6c6b6974>
+ 0 9510 -1 s
+2332.0 1503.0 m
+/wst:helvps10 10.00 /Helvetica /wst:helvps ILEncoding declareNFont def
+wst:helvps10 setfont
+<64736f6d737672>
+ 0 2998 -1 s
+3598.0 1714.0 m
+<5468652074656d706c6174652067656e65726174657320612044534f4d207365727665722070726f6772616d2e205468652070726f6772616d2067656e657261746564>
+ 9 9380 32 s
+3598.0 1925.0 m
+<63616e206265207573656420696e20706c616365206f662074686520736f6d647376722070726f6772616d20737570706c69656420776974682074686520534f4d6f626a65637473>
+ 12 9494 32 s
+3598.0 2135.0 m
+<54>
+ 0 3706 -1 s
+3686.0 2135.0 m
+<6f6f6c6b69742e204f6e6c792074686520b173206f7074696f6e2069732075736566756c207768656e2067656e65726174696e6720746869732074656d706c6174652e2054686520b173>
+ 12 9347 32 s
+3598.0 2346.0 m
+<3c7374656d3e206f7074696f6e20616c6c6f777320796f7520746f206368616e676520746865207365727665722070726f6772616d206e616d652066726f6d2078787878737672>
+ 11 9476 32 s
+3598.0 2557.0 m
+<746f203c7374656d3e737672>
+ 1 4617 32 s
+4607.0 2557.0 m
+<2e>
+ 0 4656 -1 s
+1055.0 3021.0 m
+/wst:helvps12i 12.00 /Helvetica-Oblique /wst:helvpsi ILEncoding declareNFont def
+wst:helvps12i setfont
+<4f74686572>
+ 0 1586 -1 s
+<20736f6d74656d706c206f7074696f6e73>
+ 2 3308 32 s
+2332.0 3239.0 m
+wst:helvps10 setfont
+wst:helvps10b setfont
+<b16f>
+ 0 2538 -1 s
+wst:helvps10 setfont
+3598.0 3450.0 m
+<54686973>
+ 0 3931 -1 s
+<206f7074696f6e20696e6469636174657320796f752077696c6c20616c6c6f7720>
+ 6 6329 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 7161 -1 s
+wst:helvps10 setfont
+<20746f206f7665727772697465206578697374696e672066696c65732e20204279>
+ 6 9481 32 s
+3598.0 3661.0 m
+<64656661756c742c20612066696c6520696e207468652063757272656e74206469726563746f72792077697468207468652073616d65206e616d6520617320612067656e6572617465642066696c65>
+ 14 9525 32 s
+3598.0 3871.0 m
+<77696c6c206e6f74206265206f7665727772697474656e2e>
+ 3 5341 32 s
+2332.0 4196.0 m
+wst:helvps10b setfont
+<b169>
+ 0 2479 -1 s
+wst:helvps10 setfont
+<20>
+ 1 2528 32 s
+/wst:helvps10i 10.00 /Helvetica-Oblique /wst:helvpsi ILEncoding declareNFont def
+wst:helvps10i setfont
+<66696c65>
+ 0 2753 -1 s
+wst:helvps10 setfont
+3598.0 4407.0 m
+<5768656e2074686973206f7074696f6e20697320757365642c20>
+ 5 5615 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 6447 -1 s
+wst:helvps10 setfont
+<2077696c6c2072656164206f7074696f6e732066726f6d20746865206e616d656420>
+ 7 9092 32 s
+wst:helvps10i setfont
+<66696c65>
+ 0 9317 -1 s
+wst:helvps10 setfont
+<2c>
+ 0 9366 -1 s
+3598.0 4618.0 m
+<726174686572207468616e2066726f6d2074686520636f6d6d616e64206c696e652e>
+ 5 6342 32 s
+2332.0 4942.0 m
+wst:helvps10b setfont
+<b17520>
+ 1 2587 32 s
+wst:helvps10i setfont
+<6e616d653d76616c7565>
+ 0 3552 -1 s
+wst:helvps10b setfont
+3598.0 5153.0 m
+wst:helvps10 setfont
+<54686973206f7074696f6e20737065636966696573207468617420612075736572b1646566696e65642073796d626f6c20>
+ 7 7408 32 s
+wst:helvps10i setfont
+<6e616d65>
+ 0 7849 -1 s
+wst:helvps10 setfont
+<2073686f756c64206265207265706c61636564>
+ 3 9387 32 s
+3598.0 5364.0 m
+<62792074686520676976656e20>
+ 3 4597 32 s
+wst:helvps10i setfont
+<76616c7565>
+ 0 5018 -1 s
+wst:helvps10 setfont
+<207768656e2066696c6573206172652067656e6572617465642e205468697320616c6c6f777320796f7520746f20646566696e65>
+ 9 9024 32 s
+3598.0 5574.0 m
+<706172616d65746572697a656420534f4d20636c6173732074656d706c617465732e2059>
+ 4 6653 32 s
+6637.0 5574.0 m
+<6f75206d61792073706563696679206d756c7469706c6520b175206f7074696f6e73>
+ 5 9330 32 s
+3598.0 5785.0 m
+<6f6e207468652073616d6520636f6d6d616e64206c696e652e2049662074686520>
+ 7 6253 32 s
+wst:helvps10i setfont
+<6e616d65>
+ 0 6694 -1 s
+wst:helvps10 setfont
+<20737065636966696564206973207468652073616d652061732061>
+ 6 8770 32 s
+3598.0 5996.0 m
+<75736572b1646566696e65642073796d626f6c206e616d6520616c726561647920646566696e656420696e2074686520>
+ 7 7497 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 8329 -1 s
+wst:helvps10 setfont
+<20636f6e66696775726174696f6e>
+ 1 9387 32 s
+3598.0 6207.0 m
+<66696c652c2074686520737562737469747574696f6e20>
+ 3 5155 32 s
+wst:helvps10i setfont
+<76616c7565>
+ 0 5576 -1 s
+wst:helvps10 setfont
+<206f6e2074686520636f6d6d616e64206c696e652074616b657320707265636564656e63652e>
+ 6 8750 32 s
+2332.0 6531.0 m
+wst:helvps10b setfont
+<b153>
+ 0 2547 -1 s
+3598.0 6742.0 m
+wst:helvps10 setfont
+<54686973206f7074696f6e20696e68696269747320737562737469747574696f6e206f662074656d706c6174652073796d626f6c732e205468652066696c65732067656e657261746564206279>
+ 10 9455 32 s
+3598.0 6953.0 m
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 4430 -1 s
+wst:helvps10 setfont
+<2077696c6c20636f6e7461696e2074686520636f6e74656e74206f66207468652074656d706c6174652066696c6520776974686f757420737562737469747574696f6e2e>
+ 10 9346 32 s
+3598.0 7164.0 m
+<54686973206d61792062652075736566756c20666f72206372656174696e6720796f7572206f776e206164646974696f6e7320746f207468652074656d706c6174652066696c652e>
+ 12 9064 32 s
+1055.0 7870.0 m
+/wst:helvps14b 14.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps14b setfont
+<4d6f64696679696e67>
+ 0 2222 -1 s
+<20616e6420616464696e672074656d706c6174657320746f20736f6d74656d706c>
+ 5 6368 32 s
+2321.0 8177.0 m
+wst:helvps10 setfont
+<59>
+ 0 2438 -1 s
+2422.0 8177.0 m
+<6f75>
+ 0 2618 -1 s
+<206d6179206164642074656d706c61746573206f72>
+ 4 4302 32 s
+<206d6f64696679206578697374696e672074656d706c61746573206279206d616b696e67206368616e67657320746f20>
+ 8 8017 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 8849 -1 s
+wst:helvps10 setfont
+<27>
+ 0 8888 -1 s
+8885.0 8177.0 m
+<7320636f6e666967>
+ 1 9476 32 s
+<2d>
+ 0 9535 -1 s
+2321.0 8387.0 m
+<75726174696f6e>
+ 0 2860 -1 s
+<20616e642074656d706c6174652066696c65732c20736f6d74656d706c2e636667>
+ 4 5464 32 s
+<20616e6420736f6d74656d706c2e6170702e20546869732073656374696f6e206465736372696265732074686520636f6e>
+ 7 9476 32 s
+<2d>
+ 0 9535 -1 s
+2321.0 8598.0 m
+<74656e7473>
+ 0 2703 -1 s
+<206f662074686573652066696c657320696e206d6f72652064657461696c20616e64206578706c61696e7320686f7720746f206d6f646966792074686573652066696c65732e>
+ 13 7913 32 s
+1055.0 9062.0 m
+wst:helvps12i setfont
+<436f6e66696775726174696f6e>
+ 0 2317 -1 s
+<2066696c65>
+ 1 2647 32 s
+2321.0 9280.0 m
+wst:helvps10 setfont
+<546865>
+ 0 2625 -1 s
+<20736f6d74656d706c2e6366672066696c6520646566696e6573207468652074656d706c6174657320746861742063616e2062652067656e65726174656420627920>
+ 11 7570 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 8402 -1 s
+wst:helvps10 setfont
+<2e205468657265206172652074776f>
+ 3 9535 32 s
+2321.0 9491.0 m
+<73656374696f6e73>
+ 0 2967 -1 s
+<20696e20746869732066696c65>
+ 3 3723 32 s
+<20746861742063616e206265206d6f6469666965642062792075736572732e205468652066697273742073656374696f6e20697320666f722075736572b1646566696e65642073796d626f6c732e>
+ 13 9535 32 s
+2321.0 9702.0 m
+<28436f6d6d656e7473>
+ 0 3232 -1 s
+<20696e2074686520736f6d74656d706c2e6366672066696c6520696e646963617465207768657265207468652075736572b1646566696e65642073796d626f6c732073686f756c64206265>
+ 11 9535 32 s
+2321.0 9913.0 m
+<706c616365642e29>
+ 0 2948 -1 s
+<20412075736572b1646566696e65642073796d626f6c20697320646566696e65642077697468207468652073796e7461783a>
+ 8 6855 32 s
+2574.0 10237.0 m
+/wst:courps10 10.00 /Courier /wst:courps ILEncoding declareNFont def
+wst:courps10 setfont
+<73796d626f6c6e616d653d76616c7565>
+ 0 4270 -1 s
+2321.0 10620.0 m
+wst:helvps10 setfont
+<416e206578616d706c65206f66207375636820612073796d626f6c2c2073686f776e2062656c6f77>
+ 7 5738 32 s
+5728.0 10620.0 m
+<2c2063616e20626520666f756e6420696e2074686520736f6d74656d706c2e6366672066696c652e>
+ 7 8745 32 s
+2574.0 10945.0 m
+wst:courps10 setfont
+<55534552444546494e4544545950453d6c6f6e67>
+ 0 4694 -1 s
+2321.0 11328.0 m
+wst:helvps10 setfont
+<546865>
+ 0 2625 -1 s
+<20737472696e672020aa55534552444546494e454454595045ba2077697468696e20612074656d706c6174652066696c652028736f6d74656d706c2e617070292077696c6c206265207265706c6163656420627920746865>
+ 13 9535 32 s
+2321.0 11539.0 m
+<737472696e67>
+ 0 2752 -1 s
+<2076616c756520aa6c6f6e67ba207768656e207468652066696c6520636f6e7461696e696e67207468652073796d626f6c2069732067656e6572617465642e205468652076616c7565206173736f63696174656420776974682061>
+ 15 9535 32 s
+2321.0 11750.0 m
+<75736572b1646566696e6564>
+ 0 3340 -1 s
+<2073796d626f6c2063616e206265206d6f646966696564207768656e20>
+ 6 5879 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 6711 -1 s
+wst:helvps10 setfont
+<2069732072756e2c206279207573696e672074686520b175206f7074696f6e2e>
+ 7 9202 32 s
+<20466f72>
+ 1 9535 32 s
+2321.0 11961.0 m
+<6578616d706c652c>
+ 0 3036 -1 s
+<207468652061626f766520646566696e6974696f6e20636f756c64206265206368616e67656420627920616464696e6720746865206f7074696f6e3a>
+ 10 7738 32 s
+2574.0 12285.0 m
+wst:courps10 setfont
+<b175>
+ 0 2786 -1 s
+<2055534552444546494e4544545950453d737472696e67>
+ 1 5224 32 s
+2321.0 12669.0 m
+wst:helvps10 setfont
+<546865>
+ 0 2625 -1 s
+<207365636f6e642073656374696f6e20746861742063616e206265206d6f64696669656420696e206120636f6e66696775726174696f6e2066696c652069732074686520706f7274696f6e207468617420646566696e6573207468652066696c6573>
+ 17 9535 32 s
+2321.0 12879.0 m
+<746f>
+ 0 2468 -1 s
+<2062652067656e65726174656420666f7220612074656d706c6174652e20546865>
+ 6 4971 32 s
+<2073796e746178206f66207468697320706f7274696f6e206f662074686520636f6e66696775726174696f6e2066696c652069732073686f776e2062656c6f773a>
+ 11 9535 32 s
+13978 10801 1 cutmarks
+eop
+%%Page: () 5
+%%BeginPageSetup
+bop
+/DPIx 1270 def /DPIy 1270 def
+72 DPIx div 72 DPIy div neg scale
+0 13977 neg translate
+%%EndPageSetup
+0 13978 10801 13978 10801 0 0 0 clp
+/wst:timsps10 10.00 /Times-Roman /wst:timsps ILEncoding declareNFont def
+wst:timsps10 setfont
+9517.0 558.0 m
+5392.0 h
+1266.0 h
+/wst:helvps10b 10.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps10b setfont
+9738.0 13531.0 m
+9640.0 13531.0 m
+0.0000 setgray
+<35>
+ 0 9738 -1 s
+/wst:helvps11b 11.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps11b setfont
+6146.0 h
+/wst:helvps9b 9.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps9b setfont
+1266.0 h
+<534f4d2054>
+ 1 1769 32 s
+1757.0 13531.0 m
+<656d706c61746520>
+ 1 2400 32 s
+2394.0 13531.0 m
+<4170706c69636174696f6e204275696c646572>
+ 1 3849 32 s
+2785.0 1503.0 m
+/wst:courps10 10.00 /Courier /wst:courps ILEncoding declareNFont def
+wst:courps10 setfont
+/wst:courps10b 10.00 /Courier-Bold /wst:courpsb ILEncoding declareNFont def
+wst:courps10b setfont
+<3a>
+ 0 2891 -1 s
+wst:courps10 setfont
+<3c>
+ 0 2997 -1 s
+/wst:courps10i 10.00 /Courier-Oblique /wst:courpsi ILEncoding declareNFont def
+wst:courps10i setfont
+<74656d706c6174655f6e616d65>
+ 0 4375 -1 s
+wst:courps10 setfont
+<3e>
+ 0 4481 -1 s
+wst:courps10b setfont
+<7c>
+ 0 4587 -1 s
+wst:courps10 setfont
+<3c>
+ 0 4693 -1 s
+wst:courps10i setfont
+<74656d706c6174655f7469746c65>
+ 0 6177 -1 s
+wst:courps10 setfont
+<3e>
+ 0 6283 -1 s
+wst:courps10b setfont
+<7c74656d706c61746566696c653d3d>
+ 0 7873 -1 s
+wst:courps10 setfont
+<3c>
+ 0 7979 -1 s
+wst:courps10i setfont
+<66696c656e616d65>
+ 0 8827 -1 s
+wst:courps10 setfont
+<3e>
+ 0 8933 -1 s
+2785.0 1696.0 m
+<2020203c>
+ 3 3209 32 s
+wst:courps10i setfont
+<74656d706c6174655f66696c656e616d65>
+ 0 5011 -1 s
+wst:courps10 setfont
+<3e205b>
+ 1 5329 32 s
+wst:courps10i setfont
+<74656d706c6174655f73656374696f6e5f6e616d65>
+ 0 7555 -1 s
+wst:courps10 setfont
+<5d>
+ 0 7661 -1 s
+2785.0 1890.0 m
+<2020202e2e2e>
+ 3 3421 32 s
+2785.0 2083.0 m
+<5b>
+ 0 2891 -1 s
+/wst:courps10bi 10.00 /Courier-BoldOblique /wst:courpsbi ILEncoding declareNFont def
+wst:courps10bi setfont
+<3e>
+ 0 2997 -1 s
+wst:courps10 setfont
+<5b>
+ 0 3103 -1 s
+wst:courps10b setfont
+<3f>
+ 0 3209 -1 s
+wst:courps10 setfont
+<3c>
+ 0 3315 -1 s
+wst:courps10b setfont
+<414958>
+ 0 3633 -1 s
+wst:courps10 setfont
+<7c>
+ 0 3739 -1 s
+wst:courps10b setfont
+<4f5332>
+ 0 4057 -1 s
+wst:courps10 setfont
+<7c>
+ 0 4163 -1 s
+wst:courps10b setfont
+<573136>
+ 0 4481 -1 s
+wst:courps10 setfont
+<3e5d5d>
+ 0 4799 -1 s
+2543.0 2647.0 m
+/wst:helvps10 10.00 /Helvetica /wst:helvps ILEncoding declareNFont def
+wst:helvps10 setfont
+/wst:helvps10i 10.00 /Helvetica-Oblique /wst:helvpsi ILEncoding declareNFont def
+wst:helvps10i setfont
+<74656d706c6174655f6e616d65>
+ 0 3758 -1 s
+wst:helvps10 setfont
+3809.0 2858.0 m
+<546865>
+ 0 4113 -1 s
+<2074656d706c617465206e616d6520697320612073696e676c6520737472696e67207468617420756e697175656c79206964656e746966696573207468652074656d706c6174652e>
+ 11 9500 32 s
+2543.0 3174.0 m
+wst:helvps10i setfont
+<74656d706c6174655f7469746c65>
+ 0 3591 -1 s
+wst:helvps10 setfont
+3809.0 3385.0 m
+<546865207469746c652063616e206265206d756c7469706c6520737472696e67732e20546865207469746c652c20616c6f6e672077697468207468652074656d706c61746527>
+ 11 8912 32 s
+8909.0 3385.0 m
+<73206e616d652c206973>
+ 2 9712 32 s
+3809.0 3596.0 m
+<73686f776e207768656e2074686520>
+ 3 5131 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 5963 -1 s
+wst:helvps10 setfont
+<2068656c7020697320646973706c617965642e>
+ 3 7363 32 s
+2543.0 3913.0 m
+wst:helvps10i setfont
+<66696c656e616d65>
+ 0 3209 -1 s
+wst:helvps10 setfont
+3809.0 4124.0 m
+<5468697320697320746865206e616d65206f66207468652074656d706c6174652066696c65207468617420636f6e7461696e73207468652061676772656761746520636f6e74656e7473206f66>
+ 13 9687 32 s
+3809.0 4335.0 m
+<7468652066696c6573206e616d656420627920>
+ 4 5288 32 s
+wst:helvps10i setfont
+<74656d706c6174655f66696c656e616d65>
+ 0 6728 -1 s
+wst:helvps10 setfont
+<2e2049742063616e20626520616e7920746578742066696c652c20616c74686f756768206974206973>
+ 9 9529 32 s
+3809.0 4545.0 m
+<7479706963616c6c7920736f6d74656d706c2e6170702e>
+ 1 5640 32 s
+2543.0 4862.0 m
+wst:helvps10i setfont
+<74656d706c6174655f66696c656e616d65>
+ 0 3983 -1 s
+wst:helvps10 setfont
+3809.0 5073.0 m
+<5468697320697320746865206e616d65206f6620612066696c6520746861742077696c6c2062652067656e65726174656420627920>
+ 12 7727 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 8559 -1 s
+wst:helvps10 setfont
+<2e2059>
+ 1 8774 32 s
+8758.0 5073.0 m
+<6f7520696e636c756465>
+ 1 9561 32 s
+3809.0 5284.0 m
+<6f6e6520>
+ 1 4152 32 s
+wst:helvps10i setfont
+<74656d706c6174655f66696c656e616d65>
+ 0 5592 -1 s
+wst:helvps10 setfont
+<20656e74727920666f722065616368>
+ 3 6719 32 s
+newpath
+0.0 sw
+6337 5297 M
+6719 5297 L
+6719 5304 L
+6337 5304 L
+closepath
+0 0 solidfill
+<2066696c6520796f752077616e7420>
+ 4 7796 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 8628 -1 s
+wst:helvps10 setfont
+<20746f2067656e65726174652e>
+ 2 9618 32 s
+3809.0 5495.0 m
+<546865207370656369666965642066696c65206e616d65206d617920636f6e7461696e2074686520737472696e67205f5f534f4d5f5354454d5f5f2e>
+ 8 8872 32 s
+3809.0 5705.0 m
+<5f5f534f4d5f5354454d5f5f2077696c6c206265207265706c61636564206279207468652066696c65207374656d2073706563696669656420776974682074686520b173>
+ 11 9321 32 s
+3809.0 5916.0 m
+<636f6d6d616e64206c696e65206f7074696f6e2e205768656e2074686520b173206f7074696f6e206973206e6f7420757365642c205f5f534f4d5f5354454d5f5f206973>
+ 11 9606 32 s
+3809.0 6127.0 m
+<7265706c6163656420627920787878782e20205468652067656e65726174656420636f6e74656e7473206f6620>
+ 8 7375 32 s
+wst:helvps10i setfont
+<74656d706c6174655f66696c656e616d65>
+ 0 8815 -1 s
+wst:helvps10 setfont
+<20617265206c6f6361746564>
+ 2 9736 32 s
+3809.0 6338.0 m
+<7669612061206c6162656c206f662074686520666f726d>
+ 5 5494 32 s
+2785.0 6655.0 m
+wst:courps10 setfont
+3629.0 h
+4473.0 h
+<3a3c>
+ 0 4685 -1 s
+wst:courps10i setfont
+<74656d706c6174655f6e616d65>
+ 0 6063 -1 s
+wst:courps10 setfont
+<3e5f3c>
+ 0 6381 -1 s
+wst:courps10i setfont
+<74656d706c6174655f66696c656e616d65>
+ 0 8183 -1 s
+wst:courps10 setfont
+<3e>
+ 0 8289 -1 s
+2543.0 7025.0 m
+wst:helvps10 setfont
+3809.0 7236.0 m
+<77697468696e207468652074656d706c61746566696c652e204966206120>
+ 5 5895 32 s
+wst:helvps10i setfont
+<74656d706c6174655f73656374696f6e5f6e616d65>
+ 0 7766 -1 s
+wst:helvps10 setfont
+<20697320676976656e20616c6f6e6720776974682061>
+ 5 9401 32 s
+3809.0 7447.0 m
+wst:helvps10i setfont
+<74656d706c6174655f66696c656e616d65>
+ 0 5249 -1 s
+wst:helvps10 setfont
+<2c207468652067656e65726174656420636f6e74656e7473206f6620>
+ 5 7395 32 s
+wst:helvps10i setfont
+<74656d706c6174655f66696c656e616d65>
+ 0 8835 -1 s
+wst:helvps10 setfont
+<20617265>
+ 1 9139 32 s
+3809.0 7658.0 m
+<6c6f6361746564207669612061206c6162656c206f662074686520666f726d3a>
+ 6 6160 32 s
+2785.0 7975.0 m
+wst:courps10 setfont
+3629.0 h
+4473.0 h
+<3a3c>
+ 0 4685 -1 s
+wst:courps10i setfont
+<74656d706c6174655f73656374696f6e5f6e616d65>
+ 0 6911 -1 s
+wst:courps10 setfont
+<3e>
+ 0 7017 -1 s
+2543.0 8345.0 m
+wst:helvps10 setfont
+3809.0 8556.0 m
+<54686520>
+ 1 4162 32 s
+wst:helvps10i setfont
+<74656d706c6174655f73656374696f6e5f6e616d65>
+ 0 6033 -1 s
+wst:helvps10 setfont
+<206f7074696f6e20616c6c6f777320796f7520746f20646566696e6520612073696e676c65206c6162656c2074686174>
+ 9 9578 32 s
+3809.0 8767.0 m
+<63616e2062652075736564206279206d756c7469706c652074656d706c617465732e>
+ 5 6522 32 s
+2543.0 9084.0 m
+<3e>
+ 0 2646 -1 s
+3809.0 9294.0 m
+<5468697320636861726163746572>
+ 1 4926 32 s
+4916.0 9294.0 m
+<2c20706c6163656420696e2074686520666972737420636f6c756d6e2c20646972656374732074686520737472696e6773207468617420666f6c6c6f77206f6e>
+ 11 9529 32 s
+3809.0 9505.0 m
+<74686174206c696e6520746f207374616e64617264206572726f72206f757470757420b120757375616c6c792074686520646973706c617920b1206166746572207468652066696c6573>
+ 13 9158 32 s
+3809.0 9716.0 m
+<6e616d656420627920>
+ 2 4632 32 s
+wst:helvps10i setfont
+<74656d706c6174655f66696c656e616d65>
+ 0 6072 -1 s
+wst:helvps10 setfont
+<2068617665206265656e2067656e6572617465642e2059>
+ 4 8002 32 s
+7986.0 9716.0 m
+<6f752063616e207461696c6f7220796f7572>
+ 3 9338 32 s
+3809.0 9927.0 m
+<6d6573736167652062792073797374656d20627920696e636c7564696e6720616e206f7074696f6e616c2073797374656d206e616d6520666f6c6c6f77696e6720746865203e>
+ 11 9533 32 s
+3809.0 10138.0 m
+<636861726163746572>
+ 0 4544 -1 s
+4534.0 10138.0 m
+<2e205370656369666963616c6c79>
+ 1 5512 32 s
+5499.0 10138.0 m
+<2c203e3f414958206f757470757473206f6e6c79206f6e204149582073797374656d732c203e3f4f5332206f757470757473>
+ 8 9630 32 s
+3809.0 10349.0 m
+<6f6e6c79206f6e204f532f322073797374656d7320616e64203e3f573136206f757470757473206f6e6c79206f6e2057696e646f77732073797374656d732e>
+ 10 9228 32 s
+2543.0 10665.0 m
+<23>
+ 0 2641 -1 s
+3809.0 10876.0 m
+<5468697320636861726163746572>
+ 1 4926 32 s
+4916.0 10876.0 m
+<2c20706c6163656420696e2074686520666972737420636f6c756d6e2c20696e6469636174657320746865206c696e65206973206120636f6d6d656e742e>
+ 11 9519 32 s
+2532.0 11193.0 m
+<41>
+ 0 2649 -1 s
+<20636f6d706c657465206578616d706c6520666f72207468652074656d706c617465206e616d656420aa69646c5f646c6cba2c20636f6e7461696e656420696e2074686520737570706c69656420736f6d74656d706c2e6366672c206973>
+ 13 9746 32 s
+2532.0 11404.0 m
+<73686f776e>
+ 0 3041 -1 s
+<2062656c6f773a>
+ 1 3599 32 s
+13978 10801 1 cutmarks
+eop
+%%Page: () 6
+%%BeginPageSetup
+bop
+/DPIx 1270 def /DPIy 1270 def
+72 DPIx div 72 DPIy div neg scale
+0 13977 neg translate
+%%EndPageSetup
+0 13978 10801 13978 10801 0 0 0 clp
+/wst:timsps10 10.00 /Times-Roman /wst:timsps ILEncoding declareNFont def
+wst:timsps10 setfont
+1055.0 558.0 m
+5181.0 h
+9306.0 h
+/wst:helvps10b 10.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps10b setfont
+1089.0 13531.0 m
+0.0000 setgray
+<36>
+ 0 1187 -1 s
+/wst:helvps11b 11.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps11b setfont
+4850.0 h
+/wst:helvps9b 9.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps9b setfont
+9510.0 h
+7230.0 13531.0 m
+<534f4d6f626a6563747320446576656c6f7065722054>
+ 2 9099 32 s
+9087.0 13531.0 m
+<6f6f6c6b6974>
+ 0 9510 -1 s
+2574.0 1503.0 m
+/wst:courps10 10.00 /Courier /wst:courps ILEncoding declareNFont def
+wst:courps10 setfont
+<23>
+ 0 2680 -1 s
+<2054656d706c6174653a2069646c5f646c6c>
+ 2 4588 32 s
+2574.0 1696.0 m
+<23205469746c653a20426173696320534f4d20436c617373204c696272617279>
+ 5 5966 32 s
+2574.0 1890.0 m
+<2320436f6e74656e7473206f662066696c657320696e3a20736f6d74656d706c2e617070>
+ 5 6390 32 s
+2574.0 2083.0 m
+<3a69646c5f646c6c7c426173696320534f4d20436c617373204c6962726172797c74656d706c61746566696c653d3d736f6d74656d706c2e617070>
+ 3 8828 32 s
+2574.0 2276.0 m
+<232047656e65726174652074686520666f6c6c6f77696e6720382066696c65732e>
+ 5 6072 32 s
+2574.0 2470.0 m
+<23204e6f74653a20746865205f5f534f4d5f5354454d5f5f2e69646c2066696c65206973206a75737420746865>
+ 7 7344 32 s
+2574.0 2663.0 m
+<232020202020202067656e657269632049444c2066696c652e>
+ 9 5224 32 s
+2574.0 2856.0 m
+<202020204d616b6566696c65>
+ 4 3846 32 s
+2574.0 3050.0 m
+<202020206d616b6566696c652e3332>
+ 4 4164 32 s
+2574.0 3243.0 m
+<202020206d616b6566696c652e773136>
+ 4 4270 32 s
+2574.0 3436.0 m
+<202020205f5f534f4d5f5354454d5f5f2e646566>
+ 4 4694 32 s
+2574.0 3630.0 m
+<202020205f5f534f4d5f5354454d5f5f2e657870>
+ 4 4694 32 s
+2574.0 3823.0 m
+<202020205f5f534f4d5f5354454d5f5f2e69646c206769646c>
+ 5 5224 32 s
+2574.0 4016.0 m
+<202020205f5f534f4d5f5354454d5f5f696e69742e63>
+ 4 4906 32 s
+2574.0 4210.0 m
+<202020205f5f534f4d5f5354454d5f5f7731362e646566>
+ 4 5012 32 s
+2574.0 4403.0 m
+<23204f75747075742074686520666f6c6c6f77696e67206166746572207468652066696c6573206172652067656e6572617465642e>
+ 8 8192 32 s
+2574.0 4596.0 m
+<3e202020204170706c69636174696f6e205f5f534f4d5f434c4153535f4e414d455f5f2067656e65726174696f6e20636f6d706c657465642e>
+ 7 8616 32 s
+2574.0 4790.0 m
+<3e3f41495820202020506c6561736520747970653a>
+ 5 4800 32 s
+2574.0 4983.0 m
+<3e3f41495820202020202020206d616b65>
+ 8 4376 32 s
+2574.0 5176.0 m
+<3e3f41495820202020746f206275696c6420796f7572205f5f534f4d5f5354454d5f5f2e646c6c2e>
+ 7 6814 32 s
+2574.0 5370.0 m
+<3e3f4f533220202020506c6561736520747970653a>
+ 5 4800 32 s
+2574.0 5563.0 m
+<3e3f4f533220202020202020206e6d616b6520b166206d616b6566696c652e3332>
+ 10 6072 32 s
+2574.0 5756.0 m
+<3e3f4f533220202020746f206275696c6420796f7572205f5f534f4d5f5354454d5f5f2e646c6c2e>
+ 7 6814 32 s
+2574.0 5950.0 m
+<3e3f57313620202020506c6561736520747970653a>
+ 5 4800 32 s
+2574.0 6143.0 m
+<3e3f57313620202020202020206e6d616b6520b166206d616b6566696c652e773136>
+ 10 6178 32 s
+2574.0 6336.0 m
+<3e3f57313620202020746f206275696c6420796f7572205f5f534f4d5f5354454d5f5f2e646c6c2e>
+ 7 6814 32 s
+1055.0 7017.0 m
+/wst:helvps12i 12.00 /Helvetica-Oblique /wst:helvpsi ILEncoding declareNFont def
+wst:helvps12i setfont
+<54>
+ 0 1185 -1 s
+1165.0 7017.0 m
+<656d706c617465>
+ 0 1920 -1 s
+<2066696c65>
+ 1 2250 32 s
+2321.0 7231.0 m
+/wst:helvps10 10.00 /Helvetica /wst:helvps ILEncoding declareNFont def
+wst:helvps10 setfont
+<41>
+ 0 2438 -1 s
+<2074656d706c6174652066696c6520636f6e7461696e7320746865>
+ 4 4452 32 s
+<2061676772656761746520636f6e74656e7473206f66207468652066696c657320746861742068617665206265656e20646566696e65642077697468696e20746865>
+ 11 9535 32 s
+2321.0 7442.0 m
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 3153 -1 s
+wst:helvps10 setfont
+<20636f6e66696775726174696f6e2066696c652e20412074656d706c6174652066696c6520636f6e7461696e732074686520636f6e74656e7473206f66206d756c7469706c652066696c657320746f2062652067656e6572>
+ 14 9476 32 s
+<2d>
+ 0 9535 -1 s
+2321.0 7653.0 m
+<617465642e>
+ 0 2713 -1 s
+<20456163682066696c652067656e657261746564206973206c6f6361746564206c6f63617465642077697468696e20612074656d706c6174652066696c65207669612061206c6162656c2e2041732064657363726962656420696e20746865>
+ 17 9535 32 s
+2321.0 7863.0 m
+<70726576696f7573>
+ 0 2987 -1 s
+<2073656374696f6e2c20746865206c6162656c206e616d65206d6179206265206569746865723a>
+ 7 6014 32 s
+2574.0 8174.0 m
+wst:courps10 setfont
+<3a3c>
+ 0 2786 -1 s
+/wst:courps10i 10.00 /Courier-Oblique /wst:courpsi ILEncoding declareNFont def
+wst:courps10i setfont
+<74656d706c6174655f6e616d65>
+ 0 4164 -1 s
+wst:courps10 setfont
+<3e5f3c>
+ 0 4482 -1 s
+wst:courps10i setfont
+<74656d706c6174655f66696c656e616d65>
+ 0 6284 -1 s
+wst:courps10 setfont
+<3e>
+ 0 6390 -1 s
+2321.0 8535.0 m
+wst:helvps10 setfont
+<6f72>
+ 0 2478 -1 s
+2574.0 8846.0 m
+wst:courps10 setfont
+<3a3c>
+ 0 2786 -1 s
+wst:courps10i setfont
+<74656d706c6174655f73656374696f6e5f6e616d65>
+ 0 5012 -1 s
+wst:courps10 setfont
+<3e>
+ 0 5118 -1 s
+2321.0 9207.0 m
+wst:helvps10 setfont
+<546865>
+ 0 2625 -1 s
+<206c696e657320646566696e696e67207468652067656e6572617465642066696c6520636f6e74656e747320666f6c6c6f7720746865206c6162656c2c20757020746f20627574206e6f7420696e636c7564696e6720746865206c696e65>
+ 16 9535 32 s
+2321.0 9418.0 m
+<636f6e7461696e696e67>
+ 0 3124 -1 s
+<20746865206e657874206c6162656c2e>
+ 3 4270 32 s
+2321.0 9809.0 m
+wst:helvps10b setfont
+<54>
+ 0 2429 -1 s
+2416.0 9809.0 m
+<656d706c6174652066696c652073796d626f6c73>
+ 2 4150 32 s
+2321.0 10049.0 m
+wst:helvps10 setfont
+<57697468696e>
+ 0 2810 -1 s
+<20612074656d706c6174652066696c652c20746865726520617265207365766572616c2073796d626f6c7320746861742063616e206265207573656420746f20616c6c6f7720612074656d706c61746520746f>
+ 16 9282 32 s
+<206265>
+ 1 9535 32 s
+2321.0 10260.0 m
+<67656e657261746564>
+ 0 3115 -1 s
+<206261736564206f6e2074686520636f6d6d616e64>
+ 4 4946 32 s
+<206c696e65206f7074696f6e732075736564207768656e20>
+ 5 6758 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 7590 -1 s
+wst:helvps10 setfont
+<2069732072756e2e205468652076616c756520666f722065616368>
+ 6 9535 32 s
+2321.0 10471.0 m
+<73796d626f6c>
+ 0 2879 -1 s
+<2069732064657465726d696e6564207768656e>
+ 3 4453 32 s
+<20>
+ 1 4500 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 5332 -1 s
+wst:helvps10 setfont
+<2069732072756e3b20746861742069732c20656163682076616c756520697320737562737469747574656420696e20706c616365206f6620746865>
+ 12 9535 32 s
+2321.0 10681.0 m
+<636f72726573706f6e64696e67>
+ 0 3438 -1 s
+<2073796d626f6c207768656e2066696c6573206172652067656e6572617465642e2054686573652073796d626f6c732061726520696e206164646974696f6e20746f207468652075736572b16465>
+ 13 9476 32 s
+<2d>
+ 0 9535 -1 s
+2321.0 10892.0 m
+<66696e6564>
+ 0 2703 -1 s
+<2073796d626f6c7320746861742063616e20626520646566696e656420696e2074686520>
+ 8 5331 32 s
+wst:helvps10b setfont
+<736f6d74656d706c>
+ 0 6163 -1 s
+wst:helvps10 setfont
+<20636f6e66696775726174696f6e2066696c652e2054686520617661696c61626c652073796d626f6c7320617265>
+ 6 9535 32 s
+2321.0 11103.0 m
+<646573637269626564>
+ 0 3085 -1 s
+<2062656c6f773a20285265766965772074686520636f6e74656e7473206f66207468652064656661756c742074656d706c6174652066696c6520736f6d74656d706c2e61707020746f2073656520696e206d6f7265>
+ 14 9535 32 s
+2321.0 11314.0 m
+<64657461696c>
+ 0 2742 -1 s
+<20686f772074686573652073796d626f6c732061726520757365642e29>
+ 5 5132 32 s
+2332.0 11625.0 m
+wst:helvps10b setfont
+<53796d626f6c>
+ 0 2968 -1 s
+2332.0 11936.0 m
+wst:helvps10 setfont
+<5f5f534f4d5f434c4153535f4e414d455f5f>
+ 0 4405 -1 s
+3598.0 12147.0 m
+<546869732073796d626f6c206973207265706c6163656420627920746865206e616d65206f662074686520636c6173732073706563696669656420776974682074686520b16e>
+ 13 9043 32 s
+3598.0 12358.0 m
+<6f7074696f6e206f722077697468207468652064656661756c7420>
+ 5 5567 32 s
+wst:helvps10b setfont
+<64656661756c74436c617373>
+ 0 6616 -1 s
+wst:helvps10 setfont
+<2e>
+ 0 6665 -1 s
+2332.0 12669.0 m
+<5f5f534f4d5f4d4554>
+ 0 3399 -1 s
+3386.0 12669.0 m
+<415f4e414d45535f5f>
+ 0 4422 -1 s
+3598.0 12879.0 m
+<546869732073796d626f6c20697320757365642077697468696e2049444c2066696c657320616e64206973207265706c61636564206279207468652049444c2066696c6520746f206265>
+ 15 9140 32 s
+13978 10801 1 cutmarks
+eop
+%%Page: () 7
+%%BeginPageSetup
+bop
+/DPIx 1270 def /DPIy 1270 def
+72 DPIx div 72 DPIy div neg scale
+0 13977 neg translate
+%%EndPageSetup
+0 13978 10801 13978 10801 0 0 0 clp
+/wst:timsps10 10.00 /Times-Roman /wst:timsps ILEncoding declareNFont def
+wst:timsps10 setfont
+9517.0 558.0 m
+5392.0 h
+1266.0 h
+/wst:helvps10b 10.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps10b setfont
+9738.0 13531.0 m
+9640.0 13531.0 m
+0.0000 setgray
+<37>
+ 0 9738 -1 s
+/wst:helvps11b 11.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps11b setfont
+6146.0 h
+/wst:helvps9b 9.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps9b setfont
+1266.0 h
+<534f4d2054>
+ 1 1769 32 s
+1757.0 13531.0 m
+<656d706c61746520>
+ 1 2400 32 s
+2394.0 13531.0 m
+<4170706c69636174696f6e204275696c646572>
+ 1 3849 32 s
+3809.0 1503.0 m
+/wst:helvps10 10.00 /Helvetica /wst:helvps ILEncoding declareNFont def
+wst:helvps10 setfont
+<696e636c7564656420666f7220746865206d657461636c617373206e616d656420776974682074686520b16d206f7074696f6e2e20546869732064656661756c747320746f>
+ 11 9216 32 s
+3809.0 1714.0 m
+wst:helvps10b setfont
+<23696e636c756465203c736f6d636c732e69646c3e>
+ 1 5642 32 s
+wst:helvps10 setfont
+<2e>
+ 0 5691 -1 s
+2543.0 2016.0 m
+<5f5f534f4d5f50>
+ 0 3355 -1 s
+3342.0 2016.0 m
+<4152454e545f4e414d45535f5f>
+ 0 4857 -1 s
+3809.0 2227.0 m
+<546869732073796d626f6c206973207265706c6163656420627920746865206e616d6573206f662074686520706172656e7420636c6173736573207370656369666965642077697468>
+ 12 9538 32 s
+3809.0 2438.0 m
+<74686520b170206f7074696f6e2e20546869732064656661756c747320746f20>
+ 6 6170 32 s
+wst:helvps10b setfont
+<534f4d4f626a656374>
+ 0 7120 -1 s
+wst:helvps10 setfont
+<2e205768656e206d6f7265207468616e206f6e6520706172656e74>
+ 5 9413 32 s
+3809.0 2649.0 m
+<636c617373206973207370656369666965642c2074686520706172656e7420636c617373206e616d6573206f66207468652076616c7565206f6620746869732073796d626f6c2077696c6c206265>
+ 14 9674 32 s
+3809.0 2860.0 m
+<73657061726174656420627920636f6d6d61732e>
+ 2 5592 32 s
+2543.0 3162.0 m
+<5f5f534f4d5f5354454d5f5f>
+ 0 3923 -1 s
+3809.0 3373.0 m
+<546869732073796d626f6c2063616e206265207573656420696e2066696c65206e616d6573206f72207768657265766572206120756e69717565206e616d65206973>
+ 13 9167 32 s
+3809.0 3584.0 m
+<6e65656465642e20497420636f72726573706f6e647320746f20746865207374656d2073706563696669656420776974682074686520b17320636f6d6d616e64206c696e65>
+ 11 9314 32 s
+3809.0 3795.0 m
+<6f7074696f6e2e2049742064656661756c747320746f20>
+ 4 5396 32 s
+wst:helvps10b setfont
+<78787878>
+ 0 5788 -1 s
+wst:helvps10 setfont
+<2e>
+ 0 5837 -1 s
+2543.0 4097.0 m
+<5f5f534f4d5f4f424a535f5f>
+ 0 3893 -1 s
+3809.0 4308.0 m
+<546869732073796d626f6c206973207573656420696e206d616b652066696c65732e204974206e616d657320746865206f626a6563742066696c6573207468617420746865>
+ 13 8970 32 s
+3809.0 4519.0 m
+<67656e657261746564206170706c69636174696f6e2077696c6c206e65656420746f206275696c642e2054>
+ 6 7051 32 s
+7041.0 4519.0 m
+<79706963616c6c79>
+ 0 7618 -1 s
+7605.0 4519.0 m
+<2c207468652076616c7565206f6620746869732073796d626f6c206973>
+ 6 9720 32 s
+3809.0 4730.0 m
+<787878782e6f2e205768656e20706172656e7420636c61737320736f7572636520697320616c736f2067656e6572617465642c2074686973206f626a6563742066696c65206e616d65206973>
+ 12 9665 32 s
+3809.0 4941.0 m
+<616c736f20696e636c7564656420696e207468652076616c7565206f6620746869732073796d626f6c2e20466f72206578616d706c653a20706172656e742e6f20787878782e6f2e2041>
+ 12 9499 32 s
+3809.0 5152.0 m
+<6d657461636c617373206f626a6563742066696c65206e616d65206d617920616c736f2062652061646465642069662067656e6572617465642e>
+ 9 8452 32 s
+2543.0 5454.0 m
+<5f5f534f4d5f4f424a535f524553504f4e53455f5f>
+ 0 4967 -1 s
+3809.0 5665.0 m
+<546869732073796d626f6c206973207573656420696e206c696e6b657220726573706f6e73652066696c657320616e642069732073696d696c617220746f>
+ 11 8421 32 s
+3809.0 5876.0 m
+<5f5f534f4d5f4f424a535f5f2065786365707420746861742066696c65206e616d657320617265207365706172617465642077697468206120aa2bba20636861726163746572>
+ 10 9622 32 s
+9612.0 5876.0 m
+<2e>
+ 0 9661 -1 s
+2543.0 6179.0 m
+<5f5f534f4d5f4f424a535f435f444550535f5f>
+ 0 4694 -1 s
+3809.0 6389.0 m
+<546869732073796d626f6c206973207573656420696e206d616b652066696c65732e20497420696e636c756465732061206c696e6520666f72206561636820646570656e64656e637920746f>
+ 14 9636 32 s
+3809.0 6600.0 m
+<6275696c6420616e206f626a6563742066696c652066726f6d2061204320736f757263652066696c652e20466f72206578616d706c653a20787878782e6f3a20787878782e696820787878782e632e>
+ 13 9694 32 s
+3809.0 6811.0 m
+<54686520646570656e64656e6369657320666f7220706172656e7420616e64206d657461636c61737365732061726520616c736f20696e636c7564656420696e20746865>
+ 10 9295 32 s
+3809.0 7022.0 m
+<73796d626f6c2069662074686579206172652067656e6572617465642e>
+ 4 6082 32 s
+2543.0 7325.0 m
+<5f5f534f4d5f4f424a535f4350505f444550535f5f>
+ 0 4928 -1 s
+3809.0 7535.0 m
+<546869732073796d626f6c206973207573656420696e206d616b652066696c65732e20497420696e636c756465732061206c696e6520666f72206561636820646570656e64656e637920746f>
+ 14 9636 32 s
+3809.0 7746.0 m
+<6275696c6420616e206f626a6563742066696c652066726f6d206120432b2b20736f757263652066696c652e20466f72206578616d706c653a20787878782e6f3a20787878782e786968>
+ 12 9401 32 s
+3809.0 7957.0 m
+<787878782e6370702e2054686520646570656e64656e6369657320666f7220706172656e7420616e64206d657461636c61737365732061726520616c736f20696e636c75646564>
+ 9 9598 32 s
+3809.0 8168.0 m
+<696e207468652073796d626f6c2069662074686579206172652067656e6572617465642e>
+ 6 6562 32 s
+2543.0 8471.0 m
+<5f5f534f4d5f494e49545f424f44595f5f>
+ 0 4363 -1 s
+3809.0 8681.0 m
+<546869732073796d626f6c206973207573656420696e2074686520626f6479206f66206120534f4d496e69744d6f64756c652070726f6365647572652e20497420636f6e7461696e73>
+ 12 9617 32 s
+3809.0 8892.0 m
+<63616c6c7320746f20746865204e6577436c6173732070726f636564757265206f662074686520636c61737365732067656e6572617465642e20466f72206578616d706c653a>
+ 10 9431 32 s
+2785.0 9195.0 m
+/wst:courps10 10.00 /Courier /wst:courps ILEncoding declareNFont def
+wst:courps10 setfont
+wst:helvps10 setfont
+3629.0 h
+4473.0 h
+<706172656e744e6577436c61737328706172656e745f4d616a6f7256>
+ 0 6980 -1 s
+6970.0 9195.0 m
+<657273696f6e2c20706172656e745f4d696e6f7256>
+ 1 8704 32 s
+8694.0 9195.0 m
+<657273696f6e293b>
+ 0 9282 -1 s
+2785.0 9388.0 m
+3629.0 h
+4473.0 h
+<64656661756c74436c6173734e6577436c6173732864656661756c74436c6173735f4d616a6f7256>
+ 0 7918 -1 s
+7908.0 9388.0 m
+<657273696f6e2c>
+ 0 8437 -1 s
+2785.0 9582.0 m
+<20202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202064656661756c74436c6173735f4d696e6f7256>
+ 69 7791 32 s
+7781.0 9582.0 m
+<657273696f6e293b>
+ 0 8369 -1 s
+2543.0 9929.0 m
+<5f5f534f4d5f435f4845414445525f46494c45535f5f>
+ 0 4978 -1 s
+3809.0 10139.0 m
+<546869732073796d626f6c206973207573656420696e204320736f7572636520636f646520746f20696e636c756465207468652067656e65726174656420636c61737320686561646572>
+ 13 9715 32 s
+3809.0 10350.0 m
+<66696c65732e20466f72206578616d706c653a>
+ 2 5249 32 s
+2785.0 10653.0 m
+wst:courps10 setfont
+3629.0 h
+4473.0 h
+<23696e636c756465>
+ 0 5321 -1 s
+<20ba707070702e68ba>
+ 1 6275 32 s
+2785.0 10846.0 m
+3629.0 h
+4473.0 h
+<23696e636c75646520ba787878782e68ba>
+ 1 6275 32 s
+2543.0 11193.0 m
+wst:helvps10 setfont
+<5f5f534f4d5f435f4845414445525f44454c4554455f46494c45535f5f>
+ 0 5760 -1 s
+3809.0 11404.0 m
+<54686973>
+ 0 4142 -1 s
+<2073796d626f6c206973207573656420696e206d616b652066696c65732e204974206e616d6573207468652043206865616465722066696c657320746f2062652064656c65746564>
+ 15 9656 32 s
+3809.0 11615.0 m
+<7768656e20746865206469726563746f727920697320636c65616e6564206f6620756e6e65636573736172792066696c65732e20466f72206578616d706c653a>
+ 9 8824 32 s
+2785.0 11917.0 m
+wst:courps10 setfont
+3629.0 h
+4473.0 h
+<b1242844454c45544529>
+ 0 5533 -1 s
+<20707070702e68>
+ 1 6275 32 s
+2785.0 12111.0 m
+3629.0 h
+4473.0 h
+<b1242844454c4554452920787878782e68>
+ 1 6275 32 s
+2543.0 12458.0 m
+wst:helvps10 setfont
+<5f5f534f4d5f4350505f4845414445525f46494c45535f5f>
+ 0 5212 -1 s
+3809.0 12669.0 m
+<54686973>
+ 0 4142 -1 s
+<2073796d626f6c206973207573656420696e20432b2b20736f7572636520636f646520746f20696e636c756465207468652067656e65726174656420636c617373>
+ 12 9323 32 s
+3809.0 12879.0 m
+<6865616465722066696c65732e20466f72206578616d706c653a>
+ 3 5847 32 s
+13978 10801 1 cutmarks
+eop
+%%Page: () 8
+%%BeginPageSetup
+bop
+/DPIx 1270 def /DPIy 1270 def
+72 DPIx div 72 DPIy div neg scale
+0 13977 neg translate
+%%EndPageSetup
+0 13978 10801 13978 10801 0 0 0 clp
+/wst:timsps10 10.00 /Times-Roman /wst:timsps ILEncoding declareNFont def
+wst:timsps10 setfont
+1055.0 558.0 m
+5181.0 h
+9306.0 h
+/wst:helvps10b 10.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps10b setfont
+1089.0 13531.0 m
+0.0000 setgray
+<38>
+ 0 1187 -1 s
+/wst:helvps11b 11.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps11b setfont
+4850.0 h
+/wst:helvps9b 9.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps9b setfont
+9510.0 h
+7230.0 13531.0 m
+<534f4d6f626a6563747320446576656c6f7065722054>
+ 2 9099 32 s
+9087.0 13531.0 m
+<6f6f6c6b6974>
+ 0 9510 -1 s
+2574.0 1503.0 m
+/wst:courps10 10.00 /Courier /wst:courps ILEncoding declareNFont def
+wst:courps10 setfont
+3418.0 h
+4262.0 h
+<23696e636c756465>
+ 0 5110 -1 s
+<20ba707070702e7868ba>
+ 1 6170 32 s
+2574.0 1696.0 m
+3418.0 h
+4262.0 h
+<23696e636c75646520ba787878782e7868ba>
+ 1 6170 32 s
+2332.0 2050.0 m
+/wst:helvps10 10.00 /Helvetica /wst:helvps ILEncoding declareNFont def
+wst:helvps10 setfont
+<5f5f534f4d5f4350505f4845414445525f44454c4554455f46494c45535f5f>
+ 0 5783 -1 s
+3598.0 2261.0 m
+<54686973>
+ 0 3931 -1 s
+<2073796d626f6c206973207573656420696e206d616b652066696c65732e204974206e616d65732074686520432b2b206865616465722066696c657320746f206265>
+ 14 9024 32 s
+3598.0 2472.0 m
+<64656c65746564207768656e20746865206469726563746f727920697320636c65616e6564206f6620756e6e65636573736172792066696c65732e20466f72206578616d706c653a>
+ 10 9240 32 s
+2574.0 2779.0 m
+wst:courps10 setfont
+3418.0 h
+4262.0 h
+<b1242844454c45544529>
+ 0 5322 -1 s
+<20707070702e7868>
+ 1 6170 32 s
+2574.0 2972.0 m
+3418.0 h
+4262.0 h
+<b1242844454c4554452920787878782e7868>
+ 1 6170 32 s
+2332.0 3327.0 m
+wst:helvps10 setfont
+<5f5f534f4d5f4558504f52>
+ 0 3642 -1 s
+3639.0 3327.0 m
+<545f435f4e414d45535f5f>
+ 0 4891 -1 s
+3598.0 3537.0 m
+<54686973>
+ 0 3931 -1 s
+<2073796d626f6c206973207573656420696e206d6f64756c6520646566696e6974696f6e2066696c657320746f206e616d652065787465726e616c20656e74727920706f696e7473>
+ 12 9396 32 s
+3598.0 3748.0 m
+<666f72207468652067656e65726174656420636c61737365732e20466f72206578616d706c653a>
+ 5 6704 32 s
+2574.0 4055.0 m
+wst:courps10 setfont
+3418.0 h
+4262.0 h
+<5f706172656e7443436c61737344617461>
+ 0 6064 -1 s
+2574.0 4248.0 m
+3418.0 h
+4262.0 h
+<5f706172656e74436c61737344617461>
+ 0 5958 -1 s
+2574.0 4442.0 m
+3418.0 h
+4262.0 h
+<5f706172656e744e6577436c617373>
+ 0 5852 -1 s
+2574.0 4635.0 m
+3418.0 h
+4262.0 h
+<5f64656661756c74436c61737343436c61737344617461>
+ 0 6700 -1 s
+2574.0 4829.0 m
+3418.0 h
+4262.0 h
+<5f64656661756c74436c617373436c61737344617461>
+ 0 6594 -1 s
+2574.0 5022.0 m
+3418.0 h
+4262.0 h
+<5f64656661756c74436c6173734e6577436c617373>
+ 0 6488 -1 s
+2332.0 5376.0 m
+wst:helvps10 setfont
+<5f5f534f4d5f4558504f52>
+ 0 3642 -1 s
+3639.0 5376.0 m
+<545f50>
+ 0 3962 -1 s
+3949.0 5376.0 m
+<415343414c5f4e414d45535f5f>
+ 0 5444 -1 s
+3598.0 5587.0 m
+<546869732073796d626f6c206973207573656420696e206d6f64756c6520646566696e6974696f6e2066696c657320746f206e616d652065787465726e616c20656e74727920706f696e7473>
+ 12 9396 32 s
+3598.0 5798.0 m
+<666f72207468652067656e65726174656420636c61737365732e20466f72206578616d706c653a>
+ 5 6704 32 s
+2574.0 6105.0 m
+wst:courps10 setfont
+3418.0 h
+4262.0 h
+<706172656e7443436c61737344617461>
+ 0 5958 -1 s
+2574.0 6298.0 m
+3418.0 h
+4262.0 h
+<706172656e74436c61737344617461>
+ 0 5852 -1 s
+2574.0 6491.0 m
+3418.0 h
+4262.0 h
+<706172656e744e6577436c617373>
+ 0 5746 -1 s
+2574.0 6685.0 m
+3418.0 h
+4262.0 h
+<64656661756c74436c61737343436c61737344617461>
+ 0 6594 -1 s
+2574.0 6878.0 m
+3418.0 h
+4262.0 h
+<64656661756c74436c617373436c61737344617461>
+ 0 6488 -1 s
+2574.0 7071.0 m
+3418.0 h
+4262.0 h
+<64656661756c74436c6173734e6577436c617373>
+ 0 6382 -1 s
+2332.0 7426.0 m
+wst:helvps10 setfont
+<5f5f534f4d5f4d4554>
+ 0 3399 -1 s
+3386.0 7426.0 m
+<415f434c4153535f4e414d455f5f>
+ 0 4979 -1 s
+3598.0 7636.0 m
+<546869732073796d626f6c206973207265706c616365642062792074686520636c617373206e616d65206f6620746865206d657461636c617373207370656369666965642077697468>
+ 12 9346 32 s
+3598.0 7847.0 m
+<74686520b16d206f7074696f6e2e>
+ 2 4715 32 s
+2332.0 8154.0 m
+<5f5f534f4d5f50>
+ 0 3144 -1 s
+3131.0 8154.0 m
+<4152454e545f434c4153535f4e414d455f5f>
+ 0 5203 -1 s
+3598.0 8365.0 m
+<546869732073796d626f6c206973207265706c616365642062792074686520636c617373206e616d65206f662074686520706172656e7420737065636966696564207769746820746865>
+ 13 9347 32 s
+3598.0 8576.0 m
+<b170206f7074696f6e2e205768656e206d6f7265207468616e206f6e6520b170206f7074696f6e206973207370656369666965642c20746869732073796d626f6c>
+ 11 8740 32 s
+3598.0 8787.0 m
+<726570726573656e74732074686520666972737420706172656e74206e616d65642e>
+ 4 6244 32 s
+2332.0 9094.0 m
+<5f5f534f4d5f444c4c5354454d5f5f>
+ 0 4035 -1 s
+3598.0 9304.0 m
+<546869732073796d626f6c206973207573656420746f206e616d65206f766572616c6c206f75747075742066696c65206e616d65732c2073756368206173206120444c4c206f72>
+ 14 9220 32 s
+3598.0 9515.0 m
+<6c6962726172792070726f64756365642062792061206d616b652066696c652e2049742064656661756c747320746f20>
+ 9 7105 32 s
+wst:helvps10b setfont
+<78787878>
+ 0 7497 -1 s
+wst:helvps10 setfont
+<20616e642063616e20626520736574207669612074686520b173>
+ 7 9505 32 s
+3598.0 9726.0 m
+<6f7074696f6e2e205468652076616c7565206f6620746869732073796d626f6c20697320636f6e7374616e742c206576656e207768656e20706172656e7420616e64>
+ 11 8809 32 s
+3598.0 9937.0 m
+<6d657461636c6173732066696c6573206172652067656e6572617465642028746861742069732c207768657265205f5f534f4d5f5354454d5f5f206973>
+ 8 8661 32 s
+3598.0 10148.0 m
+<64657465726d696e65642062792074686520b17020616e6420b16d206f7074696f6e732e29>
+ 6 6616 32 s
+1055.0 10577.0 m
+/wst:helvps12i 12.00 /Helvetica-Oblique /wst:helvpsi ILEncoding declareNFont def
+wst:helvps12i setfont
+<416464696e67>
+ 0 1715 -1 s
+<2074656d706c61746573>
+ 1 2694 32 s
+2321.0 10790.0 m
+wst:helvps10 setfont
+<59>
+ 0 2438 -1 s
+2422.0 10790.0 m
+<6f75>
+ 0 2618 -1 s
+<2063616e20616464206e65772074656d706c6174657320746f2074686520736f6d74656d706c2e63666720616e6420736f6d74656d706c2e6170702066696c6573207769746820616e79207465787420656469746f72>
+ 14 9170 32 s
+9160.0 10790.0 m
+<2e2059>
+ 1 9355 32 s
+9339.0 10790.0 m
+<6f75>
+ 0 9535 -1 s
+2321.0 11001.0 m
+<6d6179>
+ 0 2654 -1 s
+<2066696e642074686174207468697320697320746865206d6f737420636f6e76656e69656e7420617070726f6163682e2054686572652069732c20686f7765766572>
+ 11 7653 32 s
+7643.0 11001.0 m
+<2c20616e20616c7465726e6174652077617920746f20616464>
+ 5 9535 32 s
+2321.0 11211.0 m
+<74656d706c6174657320746f2074686573652066696c65732074686174206d61792073696d706c69667920796f7572207461736b20b120796f75>
+ 10 6658 32 s
+<2063616e>
+ 1 6985 32 s
+<207573652074686520>
+ 3 7641 32 s
+wst:helvps10b setfont
+<b167>
+ 0 7847 -1 s
+wst:helvps10 setfont
+<206f7074696f6e2e202054686520666f6c6c6f77696e67>
+ 4 9535 32 s
+2321.0 11422.0 m
+<617265>
+ 0 2576 -1 s
+<20746865207265636f6d6d656e6420737465707320746f207573652074686520b167206f7074696f6e3a>
+ 8 5966 32 s
+2321.0 11729.0 m
+<312e>
+ 0 2468 -1 s
+2574.0 h
+<4d616b65206261636b757020636f70696573206f66207468652063757272656e7420736f6d74656d706c2e63666720616e6420736f6d74656d706c2e6170702066696c65732e>
+ 9 8275 32 s
+2321.0 12036.0 m
+<322e>
+ 0 2468 -1 s
+2574.0 h
+<47656e657261746520616e206578697374696e672074656d706c61746520776974682074686520b153206f7074696f6e2e2054686973206f7074696f6e2067656e65726174657320612074656d706c61746527>
+ 12 9078 32 s
+9075.0 12036.0 m
+<732066696c6573>
+ 1 9525 32 s
+2574.0 12247.0 m
+<776974686f757420646f696e6720616e792073796d626f6c20737562737469747574696f6e2e20466f72206578616d706c652c2066697273742067656e6572617465207468652069646c5f646c6c2074656d706c6174653a>
+ 11 9264 32 s
+2574.0 12458.0 m
+12669.0 v
+wst:courps10 setfont
+<736f6d74656d706c>
+ 0 3422 -1 s
+<20b1612069646c5f646c6c20b153>
+ 3 4906 32 s
+2574.0 12879.0 m
+13978 10801 1 cutmarks
+eop
+%%Page: () 9
+%%BeginPageSetup
+bop
+/DPIx 1270 def /DPIy 1270 def
+72 DPIx div 72 DPIy div neg scale
+0 13977 neg translate
+%%EndPageSetup
+0 13978 10801 13978 10801 0 0 0 clp
+/wst:timsps10 10.00 /Times-Roman /wst:timsps ILEncoding declareNFont def
+wst:timsps10 setfont
+9517.0 558.0 m
+5392.0 h
+1266.0 h
+/wst:helvps10b 10.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps10b setfont
+9738.0 13531.0 m
+9640.0 13531.0 m
+0.0000 setgray
+<39>
+ 0 9738 -1 s
+/wst:helvps11b 11.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps11b setfont
+6146.0 h
+/wst:helvps9b 9.00 /Helvetica-Bold /wst:helvpsb ILEncoding declareNFont def
+wst:helvps9b setfont
+1266.0 h
+<534f4d2054>
+ 1 1769 32 s
+1757.0 13531.0 m
+<656d706c61746520>
+ 1 2400 32 s
+2394.0 13531.0 m
+<4170706c69636174696f6e204275696c646572>
+ 1 3849 32 s
+2785.0 1503.0 m
+/wst:courps10 10.00 /Courier /wst:courps ILEncoding declareNFont def
+wst:courps10 setfont
+/wst:helvps10 10.00 /Helvetica /wst:helvps ILEncoding declareNFont def
+wst:helvps10 setfont
+<54686973>
+ 0 3118 -1 s
+<2077696c6c206769766520796f75206120736574206f662066696c6573207468617420697320726561647920746f20626520706c61636564206261636b20696e746f207468652074656d706c6174652066696c65>
+ 18 9170 32 s
+2785.0 1714.0 m
+<736f6d74656d706c2e6170702061732061206e65772074656d706c6174652e>
+ 4 5420 32 s
+2532.0 2030.0 m
+<332e>
+ 0 2679 -1 s
+2785.0 h
+<4e6578742c206d6f646966792074686520736574206f662067656e6572617465642074656d706c6174652066696c657320746f20696e636c75646520746865206368616e67657320796f752077616e7420696e20796f7572>
+ 15 9612 32 s
+2785.0 2241.0 m
+<6e65772074656d706c6174652e>
+ 1 3882 32 s
+2532.0 2558.0 m
+<342e>
+ 0 2679 -1 s
+2785.0 h
+<5573652074686520b16720616e6420b154206f7074696f6e73207769746820746865206e616d6573206f66207468652067656e6572617465642074656d706c6174652066696c657320746f206164642061206e6577>
+ 17 9564 32 s
+2785.0 2769.0 m
+<74656d706c61746520746f2074686520636f6e66696775726174696f6e20616e642074656d706c6174652066696c65732e20466f72206578616d706c653a>
+ 8 7566 32 s
+2785.0 2980.0 m
+3191.0 v
+wst:courps10 setfont
+<736f6d74656d706c>
+ 0 3633 -1 s
+<20b15420ba54686973206973206d79206d6f6469666965642074656d706c617465ba20b167206e65776f6e65204d616b6566696c65>
+ 9 9251 32 s
+2785.0 3401.0 m
+<2020206d616b6566696c652e3332206d616b6566696c652e77313620787878782e64656620787878782e65787020787878782e69646c2078787878696e69742e63>
+ 8 9675 32 s
+2785.0 3612.0 m
+<202020787878787731362e646566>
+ 3 4269 32 s
+2785.0 3823.0 m
+4034.0 v
+wst:helvps10 setfont
+<54686973>
+ 0 3118 -1 s
+<2077696c6c2061646420612073656374696f6e20696e2074686520736f6d74656d706c2e6366672066696c6520666f72207468652074656d706c617465206e616d656420aa6e65776f6e65ba20776974682061>
+ 15 9514 32 s
+2785.0 4245.0 m
+<7469746c65206f6620aa54686973206973206d79206d6f6469666965642074656d706c617465ba2e20546865206e616d65642066696c657320284d616b6566696c652c206d616b6566696c652e33322c202e2e2e292077696c6c206265>
+ 14 9612 32 s
+2785.0 4456.0 m
+<616464656420746f20736f6d74656d706c2e6170702e>
+ 2 4676 32 s
+2532.0 4772.0 m
+<352e>
+ 0 2679 -1 s
+2785.0 h
+<46696e616c6c79>
+ 0 3294 -1 s
+3281.0 4772.0 m
+<2c20656469742074686520736f6d74656d706c2e63666720616e6420736f6d74656d706c2e6170702066696c657320746f206d616b6520616e792066696e697368696e6720746f756368657320746f>
+ 12 9481 32 s
+2785.0 4983.0 m
+<796f7572206e65772074656d706c6174652e20466f72206578616d706c652c20616464207465787420746f2074686520636f6e66696775726174696f6e2066696c6520746861742073686f756c64206265>
+ 13 9006 32 s
+2785.0 5194.0 m
+<646973706c61796564207768656e207468652074656d706c6174652069732067656e6572617465643a>
+ 5 6086 32 s
+2785.0 5405.0 m
+5616.0 v
+wst:courps10 setfont
+<3e3f414958>
+ 0 3315 -1 s
+<20202020506c6561736520747970653a>
+ 5 5011 32 s
+2785.0 5827.0 m
+<3e3f41495820202020202020206d616b65>
+ 8 4587 32 s
+2785.0 6037.0 m
+<3e3f41495820202020746f206275696c6420796f7572205f5f534f4d5f5354454d5f5f2e646c6c2e>
+ 7 7025 32 s
+2785.0 6248.0 m
+<3e3f4f533220202020506c6561736520747970653a>
+ 5 5011 32 s
+2785.0 6459.0 m
+<3e3f4f533220202020202020206e6d616b6520b166206d616b6566696c652e3332>
+ 10 6283 32 s
+2785.0 6670.0 m
+<3e3f4f533220202020746f206275696c6420796f7572205f5f534f4d5f5354454d5f5f2e646c6c2e>
+ 7 7025 32 s
+2785.0 6881.0 m
+<3e3f57313620202020506c6561736520747970653a>
+ 5 5011 32 s
+2785.0 7092.0 m
+<3e3f57313620202020202020206e6d616b6520b166206d616b6566696c652e773136>
+ 10 6389 32 s
+2785.0 7302.0 m
+<3e3f57313620202020746f206275696c6420796f7572205f5f534f4d5f5354454d5f5f2e646c6c2e>
+ 7 7025 32 s
+2532.0 7619.0 m
+wst:helvps10 setfont
+wst:helvps10b setfont
+<4e6f74653a>
+ 0 2983 -1 s
+3113.0 h
+wst:helvps10 setfont
+<5768656e>
+ 0 3573 -1 s
+<20796f75207573652074686520b167206f7074696f6e2c20746865206f6e6c7920726576657273652073796d626f6c20737562737469747574696f6e207468617420697320646f6e6520697320666f72>
+ 15 9597 32 s
+3113.0 7830.0 m
+<746865207374656d206e616d652028b1732920616e6420636c617373206e616d652028b16e292e20546861742069732c20746865206e616d6573206f66207468652066696c657320696e20746865>
+ 16 9158 32 s
+3113.0 8041.0 m
+<6578616d706c652061626f7665206172652073746f72656420696e2074686520636f6e66696775726174696f6e20616e642074656d706c6174652066696c6573207573696e67>
+ 10 8589 32 s
+3113.0 8252.0 m
+<5f5f534f4d5f5354454d5f5f20696e7374656164206f6620787878782e204c696b65776973652c2064656661756c74436c617373206973207265706c616365642077697468>
+ 8 8810 32 s
+3113.0 8462.0 m
+<5f5f534f4d5f434c4153535f4e414d455f5f2e>
+ 0 5235 -1 s
+13978 10801 1 cutmarks
+eop
+%%Trailer
+Ileaf_5.3.1 /terminate get exec
+%%Pages: 9
+%%BoundingBox: 0 0 612 792
+%%DocumentFonts: Symbol
+%%+ Courier
+%%+ Courier-Bold
+%%+ Courier-BoldOblique
+%%+ Courier-Oblique
+%%+ Helvetica
+%%+ Helvetica-Bold
+%%+ Helvetica-Oblique
+%%+ Times-Roman
+%%EOF

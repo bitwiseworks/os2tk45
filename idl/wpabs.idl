@@ -1,0 +1,93 @@
+
+//  Module Header
+//
+//  Module Name: WPABS
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpabs_idl
+#define wpabs_idl
+
+#include "wpobject.idl"
+#include <somcls.idl>
+
+interface M_WPAbstract;
+
+interface WPAbstract : WPObject
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpab;
+    local;
+    externalprefix = ab_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpabs;
+    metaclass = M_WPAbstract;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+
+    wpQueryHandle: override;
+    wpSaveImmediate: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpSetTitle: override;
+    wpCopyObject: override;
+    wpMoveObject: override;
+    wpQueryIcon: override;
+    wpQueryIconData: override;
+    wpSetIconData: override;
+    wpDragOver: override;
+    wpReplaceObject: override;
+    wpQueryNameClashOptions: override;
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+    wpIdentify: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPAbstract : M_WPObject
+{
+
+  ULONG wpclsQuerySetting(in PSZ pszSetting, in PVOID pValue,
+                          in ULONG ulValueLen);
+
+  BOOL wpclsSetSetting(in PSZ pszSetting, in PVOID pValue);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder:
+    wpclsAbsPrivate1,wpclsAbsPrivate2,wpclsAbsPrivate3,
+                  wpclsQuerySetting, wpclsSetSetting;
+
+    externalstem = wpab;
+    local;
+    externalprefix = abM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpabs;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryTitle: override;
+    wpclsObjectFromHandle: override;
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpabs_idl */

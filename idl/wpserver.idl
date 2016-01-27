@@ -1,0 +1,96 @@
+
+//  Module Header
+//
+//  Module Name: WPSERVER
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpserver_idl
+#define wpserver_idl
+
+#include "wpfolder.idl"
+#include <somcls.idl>
+
+interface M_WPServer;
+
+interface WPServer : WPFolder
+{
+  ULONG wpAddServerPage(in HWND hwndNotebook);
+
+  PSZ wpQuerySrvrIdentity();
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddServerPage,wpQuerySrvrIdentity;
+
+    externalstem = wpser;
+    local;
+    externalprefix = ser_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpserver;
+    metaclass = M_WPServer;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+
+    wpSetup: override;
+    wpAddSettingsPages: override;
+    wpMenuItemHelpSelected: override;
+    wpMenuItemSelected: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpInitData: override;
+    wpUnInitData: override;
+    wpOpen: override;
+    wpPopulate: override;
+    wpDeleteContents: override;
+    wpAddFolderIncludePage: override;
+    wpAddFile1Page: override;
+    wpAddFile2Page: override;
+    wpAddFile3Page: override;
+    wpAddObjectGeneralPage: override;
+    wpAddObjectGeneralPage2: override;                                          
+    wpFilterMenu: override;                                                     
+    wpModifyMenu: override;                                                     
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+    wpAddFirstChild: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPServer : M_WPFolder
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpser;
+    local;
+    externalprefix = serM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpserver;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryTitle: override;
+    wpclsQueryIconData: override;
+    wpclsQueryIconDataN: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryStyle: override;
+    wpclsQuerySettingsPageSize: override; 
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpserver_idl */

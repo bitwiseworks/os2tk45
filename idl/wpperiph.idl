@@ -1,0 +1,74 @@
+
+//  Module Header
+//
+//  Module Name: WPPERIPH
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpperiph_idl
+#define wpperiph_idl
+
+#include "wpdevice.idl"
+
+interface M_WPDevPeriph;
+
+interface WPDevPeriph : WPDevice
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpperiph;
+    functionprefix = periph_;
+    local;
+//    externalprefix = periph_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpperiph;
+    metaclass = M_WPDevPeriph;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+    passthru C_h =  ""
+"";
+
+/* Private instance data area */
+
+     /* Overridden instance methods area */
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDevPeriph : M_WPDevice
+{
+  /* New class methods section */
+
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpperiph;
+    functionprefix = periphM_;
+    local;
+//    externalprefix = periphM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpperiph;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+
+    /* Overridden class methods section */
+    wpclsInitData:      override;
+    wpclsQueryIconData: override;                                              //bjf152374
+    wpclsQueryTitle:    override;
+    wpclsUnInitData:    override;
+  };
+
+};
+#endif  /* wpperiph_idl */

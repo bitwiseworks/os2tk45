@@ -1,0 +1,45 @@
+/***********************************************************************/
+/* Copyright (c) IBM Corporation  1992, 1993                           */
+/*                                                                     */
+/* This file contains install information.  Comments are delimited     */
+/* as these comments are.  Blank lines are ignored.  Non-blank lines   */
+/* will be parsed and extraneous characters will cause errors.  First  */
+/* non-comment line must be the total number of files to be installed. */
+/*                                                                     */
+/*   for release 1 - driver 1.0.0                                      */
+/*                                                                     */
+/* Total number of entries is 2                                        */
+/***********************************************************************/
+
+    2
+
+/***********************************************************************/
+/* all files on the install disk(s) are listed below. Other            */
+/* information is also given, as follows:                              */
+/*                                                                     */
+/* Disk#    - The number of the disk on which the file resides.        */
+/*            (Ignored if installing from CD-ROM). These are sorted    */
+/*            from 0 to the number of disks, ascending.                */
+/*                                                                     */
+/* Group#   - The logical group to which the file belongs. Group       */
+/*            starts at 0.                                             */
+/*                                                                     */
+/* Dest#    - The destination subdirectory into which the file will be */
+/*            copied.  Dest# starts at 0.                              */
+/*                                                                     */
+/* Path     - The installation disk(s) subdirectory where the file     */
+/*            resides.                                                 */
+/*                                                                     */
+/* FileName - The base filename.                                       */
+/*                                                                     */
+/* sourcedir="\\"                                       = 0            */
+/*                                                                     */
+/* destindir="\\MMOS2\\MMTOOLKT\\SAMPLES\\SHRC\\"       = 0            */
+/*                                                                     */
+/*        groups                                                       */
+/*            - 0  = Sample Resource file                              */
+/*                                                                     */
+/* Disk# Group# Dest#  Path   FileName                                 */
+/***********************************************************************/
+    0    0   0     0   "SHRC.DLL"
+    0    0   0     0   "SHRCINI.SCR"

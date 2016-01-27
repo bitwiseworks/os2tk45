@@ -1,0 +1,187 @@
+//#
+//#  COMPONENT_NAME: somi
+//#
+//#  ORIGINS: 27
+//#
+//#
+//#   25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1996,1996 
+//#  All Rights Reserved
+//#  Licensed Materials - Property of IBM
+//#  US Government Users Restricted Rights - Use, duplication or
+//#  disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#
+//#  @(#) 2.11.1.5 src/somi/ir/somir/containd.idl, somi.corba, som2.1 12/26/95 16:36:50 [7/30/96 14:46:20]
+
+
+//#  Contained: CORBA Interface for objects contained
+//#  in the Interface Repository.  See CORBA 1.1, 7.5.1 pp. 129-130
+
+#ifndef containd_idl
+#define containd_idl
+
+#include <somobj.idl>
+#include <somcls.idl>
+
+struct somModifier {
+    string name;
+    string value;
+}; // SOM-unique extension
+
+#ifndef containr_idl
+   interface Container;
+   typedef string Identifier;
+#endif
+
+typedef string RepositoryId;
+
+interface Contained : SOMObject
+//
+// CORBA 1.1, 7.5.1, p.130
+//
+// The Contained interface is the most generic form of interface
+// for the objects in the SOM CORBA-compliant Interface Repository (IR).
+// All objects contained in the IR inherit this interface.
+{
+    struct Description {
+	Identifier name;
+	any	   value;
+    };
+
+    attribute Identifier name;
+    // The value of the "name" field of the receiving object
+    //
+    // This is a simple name that indentifies the receiving object
+    // within its containment hierarchy.  Outside of the containment
+    // hierarchy this name is not necessarily unique, and may require
+    // qualification by ModuleDef name, InterfaceDef name, etc.
+
+    attribute RepositoryId id;
+    // The value of the "id" field of the receiving object
+    //
+    // The "id" is a string that uniquely identifies any object in
+    // the interface repository.  No qualification is needed for
+    // an "id".  Notice that "RepositoryId"s have no relationship
+    // to the SOM type "somId".
+
+    attribute RepositoryId defined_in;
+    // The value of the "defined_in" field of the receiving object
+    //
+    // This "id" uniquely identifies the container where the
+    // receiving object is defined.  Objects that have global scope
+    // and do not appear within any other objects are by default
+    // placed in the "Repository" object.
+
+    attribute sequence<somModifier> somModifiers;
+    // [SOM-unique extension]
+    //
+    // The somModifiers attribute is a sequence containing all of
+    // the "modifiers" attached to the corresponding IDL object in
+    // the SOM-unique implementation section of the IDL file where
+    // the receiving object was originally defined.
+
+    sequence<Container> within();
+    // Returns a list of objects that contain the receiving object.
+    // If the object is an interface or module, it can only be contained
+    // by the object that defines it.  Other objects can be contained by
+    // objects that define or inherit them.
+    //
+    // When you have finished using the sequence returned by this method
+    // it is your responsibility to release the storage allocated for it.
+    // To free the sequence, use a call similar to the following:
+    //
+    //	  if (seqname._length)
+    //	      long i;
+    //	      for(i=0; i<seqname._length; i++)
+    //		_somFree(seqname._buffer[i]);
+    //	      SOMFree (seqname._buffer);
+
+    Description describe();
+    // Returns a structure containing all of the attributes defined in
+    // the interface of the receiving object.
+    //
+    // Warning: this method returns pointers to things withing objects
+    // (for example, name).  Don't use the somFree method to release
+    // any of these objects while this information is still needed..
+    //
+    // When you have finished using the information in the returned
+    // Description structure, it is your responsibility to release
+    // the associated storage using a call similar to the following:
+    //
+    //	  if (desc.value._value)
+    //	      SOMFree (desc.value._value);
+
+#ifdef __SOMIDL__
+  implementation {
+      releaseorder: within, describe,
+		  _get_name, _set_name,
+		  _get_id, _set_id,
+		  _get_defined_in, _set_defined_in,
+		  _get_somModifiers, _set_somModifiers
+		  ;
+
+      //# Class Modifiers
+      callstyle = idl;
+      majorversion = 2;
+      minorversion = 3;
+      filestem = containd;
+      dllname = "somir.dll";
+
+      passthru C_h =
+	""
+	"    #include <somtcnst.h>"
+	"    #include <stdio.h>"
+	"    #include <somir.h>"
+	""
+	"    #define RepositoryId string"
+	"    #define _IDL_SEQUENCE_RepositoryId _IDL_SEQUENCE_string"
+	"    #define TC_Contained ((TypeCode) &TC__Contained)"
+	"    typedef struct {TCKind t; long f; string s;} TC_Contained_td;"
+	"    SOMEXTERN TC_Contained_td SOMDLINK TC__Contained;"
+	"";
+      passthru C_xh =
+	""
+	"    #include <somtcnst.xh>"
+	"    #include <stdio.h>"
+	"    #include <somir.xh>"
+	""
+	"    #define RepositoryId string"
+	"    #define _IDL_SEQUENCE_RepositoryId _IDL_SEQUENCE_string"
+	"    #define TC_Contained ((TypeCode) &TC__Contained)"
+	"    typedef struct {TCKind t; long f; string s;} TC_Contained_td;"
+	"    SOMEXTERN TC_Contained_td SOMDLINK TC__Contained;"
+	"";
+
+      //# Attribute Modifiers
+      name: noget, noset;
+      id: noget, noset;
+      defined_in: nodata;
+      somModifiers: noset;
+#if defined __SOM_KERNEL_LEVEL && __SOM_KERNEL_LEVEL >= 250
+      _get_defined_in : dual_owned_result;
+      _get_id	: dual_owned_result;
+      _get_name : dual_owned_result;
+      _get_somModifiers : dual_owned_result;
+#else
+      _set_name : caller_owns_parameters = "name";
+      _set_id	: caller_owns_parameters = "id";
+      _set_defined_in : caller_owns_parameters = "defined_in";
+      _set_somModifiers : caller_owns_parameters = "somModifiers";
+#endif
+
+      //# Method Modifiers
+      somFree: override;
+      somDefaultInit: override, init;
+      somDestruct: override;
+      somDumpSelf: override;
+      somDumpSelfInt: override;
+#if defined __SOM_KERNEL_LEVEL && __SOM_KERNEL_LEVEL >= 250
+      describe: dual_owned_result;
+      within : dual_owned_result;
+#endif
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif	/* containd_idl */

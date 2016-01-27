@@ -1,0 +1,489 @@
+//#
+//#   COMPONENT_NAME: somk
+//#
+//#   ORIGINS: 27
+//#
+//#
+//#    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#
+//#  @(#) 2.27.3.9 src/somk/somobj.idl, somk.so, som2.1 3/25/96 19:45:42 [7/30/96 14:46:44]
+//#
+//#  SOMObject: System Object Model root class
+
+#ifndef somobj_idl
+#define somobj_idl
+
+interface SOMClass;
+interface SOMObject;
+
+#ifdef __SOMIDL__
+typedef void* somToken;
+// A somToken is word-sized data whose type and use is private.
+#else
+typedef unsigned long somToken
+// A somToken is word-sized data whose type and use is private.
+#endif
+
+//#  We define SOMFOREIGN as an anchor within the IDL type system for
+//#  "foreign" types that are not expressible in IDL.  Foreign types
+//#  can be used at a class implementer's discretion, but we discourage
+//#  their use except within "private" sections of an IDL definition.
+//#  If you decide to define a foreign type, you must do so by setting
+//#  up a typedef for it and then supplying an "impctx" modifier (within
+//#  your implementation section) that designates the implementation
+//#  context where your type is understood.  You can also optionally
+//#  supply a "length" modifier that indicates the number of bytes
+//#  needed to hold an instance of the foreign type.  The FILE type
+//#  below is an example of a foreign type useful in C programming.
+//#  The impctx modifier is attached to the FILE type in the SOMObject
+//#  implementation section.
+//#
+#ifndef _SOMFOREIGN_DEFINED_
+  #define _SOMFOREIGN_DEFINED_
+  typedef somToken SOMFOREIGN;
+#endif /* !_SOMFOREIGN_DEFINED_ */
+
+typedef SOMFOREIGN FILE;
+#pragma modifier FILE: impctx = C, length = 0;
+
+typedef SOMFOREIGN va_list;
+//  "va_list" is used to represent a standard parameter list constructed
+//  by a caller for functions or methods that can accept a variable number
+//  of arguments.
+#pragma modifier va_list: impctx = C;
+
+typedef SOMFOREIGN SOMHANDLE;
+//  "SOMHANDLE" is used within SOM to represent arguments whose value
+//  is uninterpretted.
+#pragma modifier SOMHANDLE: impctx = SOM;
+
+typedef SOMFOREIGN somId;
+#pragma modifier somId: impctx = "SOM,static(somIdMarshal,0)";
+//  "somId" is used to refer to the efficient case-insensitive string
+//  representation used by many SOM run-time methods.
+
+enum TCKind {
+    tk_null, tk_void,
+    tk_short, tk_long, tk_ushort, tk_ulong,
+    tk_float, tk_double, tk_boolean, tk_char,
+    tk_octet, tk_any, tk_TypeCode, tk_Principal, tk_objref,
+    tk_struct, tk_union, tk_enum, tk_string,
+    tk_sequence, tk_array,
+
+    /* SOM extensions follow: */
+    tk_pointer, /* tk_pointer takes a parameter list with 1 argument:  */
+                /* tk_pointer {TypeCode} - The TypeCode describes the  */
+                /* type that the pointer references.                   */
+    tk_self,    /* tk_self takes a parameter list with 1 argument:     */
+                /* tk_self {name} - The name refers to an enclosing    */
+                /* struct or union.  This type, when combined with     */
+                /* tk_pointer above, permits the existence of self-    */
+                /* -referential pointers in a struct or union.         */
+    tk_foreign  /* tk_foreign takes a parameter list with 2 arguments: */
+                /* tk_foreign {context, length} - The context is a     */
+                /* string that designates an implementation domain     */
+                /* where the foreign type is understood.  The length   */
+                /* parameter is optional, but if supplied indicates    */
+                /* the size of an instance of the type.                */
+};
+//  Kinds of TypeCodes, per CORBA 1.1, p.139
+
+//#
+//# Other useful definitions
+//#
+
+//#  A value large enough to be used in typedefs for character
+//#  arrays that need to be able to hold the largest legal file name.
+#define FILENAME_MAX 260
+
+typedef octet uchar_t;
+//  Provide the type "uchar_t".
+
+typedef unsigned long size_t;
+//  Provide the type "size_t".
+
+typedef octet signed_char;
+
+typedef long int;
+//  Provide the type "int".
+//  Although the mapping of a user-defined type named "int" to the
+//  IDL type long, given here, is both binary and source compatible
+//  on AIX and OS/2 2.x, it is still bad form, since the C type "int"
+//  can vary from platform to platform.  This is here only for migration
+//  of OIDL to IDL.  All new IDL files should explicitly select long or
+//  short (as appropriate) instead of "int."
+
+//#
+//#  Types defined only for compatibility with SOM Release 1
+//#
+typedef char integer1;
+typedef short integer2;
+typedef unsigned short uinteger2;
+typedef long integer4;
+typedef unsigned long uinteger4;
+typedef float float4;
+typedef double float8;
+typedef string zString;                 /* NULL terminated string */
+typedef string fString;                 /* non-terminated string  */
+
+//# The following typedefs are based on somapi.h and somcorba.h, which
+//# define the published API form of internal SOM data structures.
+//# We provide these typedefs here in their IDL form primarily to
+//# satisfy the IDL compiler, which requires that all methods declared
+//# using IDL have known argument types. Also, as a result of this
+//# approach, the interface repository will contain the "public" types
+//# for SOM internal data structures -- not the actual types.
+
+// -- Special procedure pointer types */
+typedef somToken somMethodProc;
+typedef somToken somMethodPtr;
+
+struct somMethodTab {
+    SOMClass classObject;
+};
+// -- Public Method Table Structure */
+
+struct SOMAny {
+    somMethodTab  *mtab;
+};
+//  -- Public Object Instance Structure */
+
+//# -- Public Method and Data Tokens */
+typedef somToken somMToken;
+typedef somToken somMLocator;
+typedef somToken somDToken;
+typedef somToken somDLocator;
+typedef somToken somClassInfo;
+typedef somToken SOMTokBuf;
+
+struct somGenericCtrl {
+        somToken mask;
+        somToken info;
+        long     infoSize;
+        somToken ctrlInfo;
+};
+// -- Public InitCtrl Structs -- */
+typedef somGenericCtrl som3InitCtrl;
+typedef somGenericCtrl som3DestructCtrl;
+typedef somGenericCtrl som3AssignCtrl;
+
+//# legacy support for old IDL */
+typedef somGenericCtrl somInitCtrl;
+typedef somGenericCtrl somDestructCtrl;
+typedef somGenericCtrl somAssignCtrl;
+
+typedef unsigned long somRdAppType; /* method signature encoding */
+
+struct somMethodInfo {
+    somRdAppType       callType;
+    long               va_listSize;
+    unsigned long      *float_map;
+} ;
+
+typedef struct somMethodDataStruct {
+    somId id;
+    long type;                    /* 0=static, 1=dynamic, 2=nonstatic */
+    somId descriptor;             /* for use with IR interfaces */
+    somMToken mToken;             /* NULL for dynamic methods */
+    somMethodPtr method;          /* depends on resolution context */
+    somToken *shared;
+} somMethodData;
+// -- Public Method descriptor structure */
+
+struct somObjectList {
+    SOMObject cls;
+    somObjectList *next;
+};
+// -- For building lists of objects */
+typedef somObjectList *somObjects;
+
+struct somClassList {
+    SOMClass cls;
+    somClassList *next;
+};
+// -- For building lists of class objects */
+typedef somClassList *somClasses;
+
+struct somMethodTabList {
+    somMethodTab      *mtab;
+    somMethodTabList  *next;
+};
+// -- For building lists of method tables */
+typedef somMethodTabList *somMethodTabs;
+typedef somMethodTabList *somParentMtabStructPtr;
+
+struct somClassDataStructure {
+    SOMClass classObject;
+    somToken tokens[1];
+};
+// -- Generic ClassData structure */
+
+struct somCClassDataStructure {
+    somMethodTabs parentMtab;
+    somDToken instanceDataToken;
+    somMethodPtr ptrs[1];
+};
+// -- Generic Auxiliary Class Data Structure */
+typedef somCClassDataStructure *somCClassDataStructurePtr;
+
+typedef octet *somBooleanVector;
+
+enum exception_type { NO_EXCEPTION, USER_EXCEPTION, SYSTEM_EXCEPTION };
+// exception enum constants found in somcorba.h
+
+struct Environment {
+    exception_type major;  // use somcorba.h exception_type values
+    octet opaque_data[12]; // #2990
+};
+
+//#
+//#
+//#-------------------------------------------------------------
+//# SOMObject Interface Definition
+//#
+
+
+interface SOMObject
+// This is the SOM root class, all SOM classes must be descended from
+// <SOMObject>. <SOMObject> has no instance data so there is no
+// per-instance cost to to being descended from it.
+
+{
+
+  //### Typedefs
+
+  typedef sequence <SOMObject> SOMObjectSequence;
+  // a sequence of SOM Objects
+
+  typedef sequence <octet> BooleanSequence;
+  // a sequence of booleans.
+
+  struct somObjectOffset {
+     SOMObject obj;
+     long     offset;
+  };
+  // a structure to describe an object-related offset
+  typedef sequence <somObjectOffset> somObjectOffsets;
+  // a sequence of object-related offsets
+
+
+  //###  Initialization / Termination
+
+  void somDefaultInit(in som3InitCtrl *ctrl);
+  // A default initializer for a SOM object. Passing a null ctrl
+  // indicates to the receiver that its class is the class of the
+  // object being initialized, whereby the initializer will determine
+  // an appropriate control structure.
+
+  void somDestruct(in octet doFree, in som3DestructCtrl *ctrl);
+  // The default destructor for a SOM object. A nonzero <doFree>
+  // indicates that the object storage should be freed by the
+  // object's class (via somDeallocate) after uninitialization.
+  // As with somDefaultInit, a null ctrl can be passed.
+
+  void somDefaultCopyInit(in som3InitCtrl *ctrl, in SOMObject fromObj);
+  // A default copy constructor. Use this to make copies of objects for
+  // calling methods with "by-value" argument semantics.
+
+  SOMObject somDefaultAssign(in som3AssignCtrl *ctrl, in SOMObject fromObj);
+  // A default assignment operator. Use this to "assign" the state of one
+  // object to another.
+
+  //### etc.
+
+  void somDefaultConstCopyInit(in som3InitCtrl *ctrl, in SOMObject fromObj);
+  // A default copy constructor that uses a const fromObj.
+
+  void somDefaultVCopyInit(in som3InitCtrl *ctrl, in SOMObject fromObj);
+  // A default copy constructor that uses a volatile fromObj.
+
+  void somDefaultConstVCopyInit(in som3InitCtrl *ctrl, in SOMObject fromObj);
+  // A default copy constructor that uses a const volatile fromObj.
+
+  SOMObject somDefaultConstAssign(in som3AssignCtrl *ctrl,
+                                  in SOMObject fromObj);
+  // A default assignment operator that uses a const fromObj.
+
+  SOMObject somDefaultVAssign(in som3AssignCtrl *ctrl, in SOMObject fromObj);
+  // A default assignment operator that uses a volatile fromObj.
+
+  SOMObject somDefaultConstVAssign(in som3AssignCtrl *ctrl,
+                                   in SOMObject fromObj);
+  // A default assignment operator that uses a const volatile fromObj.
+
+  void somInit();
+  // Obsolete but still supported. Override somDefaultInit instead of somInit.
+
+  void somFree();
+  // Use as directed by framework implementations.
+
+  void somUninit();
+  // Obsolete but still supported. Override somDestruct instead of somUninit.
+
+  //### Access
+
+  SOMClass somGetClass();
+  // Return the receiver's class.
+
+  string somGetClassName();
+  // Return the name of the receiver's class.
+
+  long somGetSize();
+  // Return the size of the receiver.
+
+  //### Testing Group
+
+  boolean somIsA(in SOMClass aClassObj);
+  // Returns 1 (true) if the receiver responds to methods
+  // introduced by <aClassObj>, and 0 (false) otherwise.
+
+  boolean somIsInstanceOf(in SOMClass aClassObj);
+  // Returns 1 (true) if the receiver is an instance of
+  // <aClassObj> and 0 (false) otherwise.
+
+  boolean somRespondsTo(in somId mId);
+  // Returns 1 (true) if the indicated method can be invoked
+  // on the receiver and 0 (false) otherwise.
+
+  //### Dynamic
+
+  boolean somDispatch(out somToken retValue,
+                   in somId methodId,
+                   in va_list ap);
+  // This method provides a generic, class-specific dispatch mechanism.
+  // It accepts as input <retValue> a pointer to the memory area to be
+  // loaded with the result of dispatching the method indicated by
+  // <methodId> using the arguments in <ap>. <ap> contains the object
+  // on which the method is to be invoked as the first argument.
+
+  boolean somClassDispatch(in SOMClass clsObj,
+                        out somToken retValue,
+                        in somId methodId,
+                        in va_list ap);
+  // Like somDispatch, but method resolution for static methods is done
+  // according to the clsObj instance method table.
+
+
+  boolean somCastObj(in SOMClass cls);
+  // cast the receiving object to cls (which must be an ancestor of the
+  // objects true class. Returns true on success.
+
+  boolean somResetObj();
+  // reset an object to its true class. Returns true always.
+
+
+  void somDispatchV(in somId methodId,
+                    in somId descriptor,
+                    in va_list ap);
+  // Obsolete. Use somDispatch instead.
+
+  long somDispatchL(in somId methodId,
+                    in somId descriptor,
+                    in va_list ap);
+  // Obsolete. Use somDispatch instead.
+
+  void* somDispatchA(in somId methodId,
+                     in somId descriptor,
+                     in va_list ap);
+  // Obsolete. Use somDispatch instead.
+
+  double somDispatchD(in somId methodId,
+                      in somId descriptor,
+                      in va_list ap);
+  // Obsolete. Use somDispatch instead.
+
+  //### Development Support
+
+  SOMObject somPrintSelf();
+  // Uses <SOMOutCharRoutine> to write a brief string with identifying
+  // information about this object.  The default implementation just gives
+  // the object's class name and its address in memory.
+  // <self> is returned.
+
+  void somDumpSelf(in long level);
+  // Uses <SOMOutCharRoutine> to write a detailed description of this object
+  // and its current state.
+  //
+  // <level> indicates the nesting level for describing compound objects
+  // it must be greater than or equal to zero.  All lines in the
+  // description will be preceeded by <2*level> spaces.
+  //
+  // This routine only actually writes the data that concerns the object
+  // as a whole, such as class, and uses <somDumpSelfInt> to describe
+  // the object's current state.  This approach allows readable
+  // descriptions of compound objects to be constructed.
+  //
+  // Generally it is not necessary to override this method, if it is
+  // overriden it generally must be completely replaced.
+
+  void somDumpSelfInt(in long level);
+  // Uses <SOMOutCharRoutine> to write in the current state of this object.
+  // Generally this method will need to be overridden.  When overriding
+  // it, begin by calling the parent class form of this method and then
+  // write in a description of your class's instance data. This will
+  // result in a description of all the object's instance data going
+  // from its root ancestor class to its specific class.
+
+
+#ifdef __SOMIDL__
+  implementation {
+    releaseorder: somInit,somUninit,somFree,somDefaultVCopyInit,
+                  somGetClassName,somGetClass,somIsA,somRespondsTo,
+                  somIsInstanceOf,somGetSize,somDumpSelf,somDumpSelfInt,
+                  somPrintSelf,somDefaultConstVCopyInit,somDispatchV,
+                  somDispatchL,somDispatchA,
+                  somDispatchD,somDispatch,somClassDispatch,
+                  somCastObj, somResetObj, somDefaultInit, somDestruct,
+                  somPrivate1, somPrivate2,
+                  somDefaultCopyInit, somDefaultConstCopyInit, somDefaultAssign,
+                  somDefaultConstAssign, somDefaultVAssign,
+                  somDefaultConstVAssign;
+
+
+    // Class Modifiers
+    callstyle = oidl;
+    externalstem = somob;
+    majorversion = 1;
+#ifndef SOMPCALL
+    minorversion = 5; // for som2.5 kernel
+#else
+    minorversion = 6; // for som2.5 kernel with pcall
+#endif
+    filestem = somobj;
+    dllname = "som.dll";
+
+    // Public Method Modifiers
+    somDefaultInit: init;
+    somDefaultCopyInit: init;
+    somDefaultConstCopyInit: init;
+    somDefaultVCopyInit: init;
+    somDefaultConstVCopyInit: init;
+
+    somDefaultInit: caller_owns_parameters = "ctrl";
+    somDestruct: caller_owns_parameters = "ctrl";
+    somDefaultCopyInit: caller_owns_parameters = "ctrl";
+    somDefaultAssign: caller_owns_parameters = "ctrl";
+    somDefaultConstCopyInit: caller_owns_parameters = "ctrl";
+    somDefaultVCopyInit: caller_owns_parameters = "ctrl";
+    somDefaultConstVCopyInit: caller_owns_parameters = "ctrl";
+    somDefaultConstAssign: caller_owns_parameters = "ctrl";
+    somDefaultVAssign: caller_owns_parameters = "ctrl";
+    somDefaultConstVAssign: caller_owns_parameters = "ctrl";
+    somRespondsTo: caller_owns_parameters = "mId";
+    somDispatch: caller_owns_parameters = "methodId, ap";
+    somClassDispatch: caller_owns_parameters = "methodId, ap";
+    somDispatchV: caller_owns_parameters = "methodId, descriptor, ap";
+    somDispatchL: caller_owns_parameters = "methodId, descriptor, ap";
+    somDispatchA: caller_owns_parameters = "methodId, descriptor, ap";
+    somDispatchD: caller_owns_parameters = "methodId, descriptor, ap";
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* somobj_idl */

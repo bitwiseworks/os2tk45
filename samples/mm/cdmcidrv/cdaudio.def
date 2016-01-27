@@ -1,0 +1,13 @@
+LIBRARY CDAUDIOT INITINSTANCE TERMINSTANCE
+DESCRIPTION 'CD Audio Toolkit MCI Driver, (c) IBM Corp 1991-1993'
+DATA MULTIPLE NONSHARED
+HEAPSIZE          44120
+STACKSIZE         53000
+IMPORTS
+  mdm.mdmDriverNotify
+  mdm.mciSendCommand
+  mdm.mciConnection
+  mdm.mciQueryConnections
+  mdm.mciQueryDefaultConnections
+EXPORTS
+   mciDriverEntry

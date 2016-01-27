@@ -1,0 +1,34 @@
+
+#include "browse.ih"
+#include "pmbrowse.h"
+
+ICON ID_ICON LOADONCALL MOVEABLE DISCARDABLE browse.ico
+
+MENU ID_OPENMENU LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   MENUITEM "Open ~Text View", ID_OPEN_TEXT
+   MENUITEM "Open ~Hex View",  ID_OPEN_HEX
+END
+
+MENU ID_PRODUCTINFOMENU LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   MENUITEM SEPARATOR
+   MENUITEM "~Product information", ID_OPEN_PRODUCTINFO
+END
+
+DLGTEMPLATE ID_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Product Information", ID_PRODUCTINFO, 75, 75, 275, 130,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        ICON            ID_ICON, ID_ICON, 121, 92, 20, 16, WS_GROUP
+        CTEXT           "Browse-O-Matic", 121, 100, 71, 69, 8
+        CTEXT           "(C) Copyright IBM Corporation 1993. All Rights rese"
+                        "rved.", 256, 7, 54, 255, 8
+        CTEXT           "OS/2 is a registered trademark of", 258, 7, 44, 255,
+                        8
+        CTEXT           "International Business Machines Corp.", 257, 7, 34,
+                        255, 8
+        DEFPUSHBUTTON   "~OK", ID_OK, 111, 8, 45, 15
+    END
+END

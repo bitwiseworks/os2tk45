@@ -1,0 +1,66 @@
+
+//  Module Header
+//
+//  Module Name: WPCLSMGR
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpclsmgr_idl
+#define wpclsmgr_idl
+
+#include <somcm.idl>
+#include <somcls.idl>
+
+typedef string PSZ;                
+typedef long BOOL;
+
+interface WPObject;
+
+interface WPClassManager : SOMClassMgr
+
+{
+  BOOL wpReplacementIsInEffect(in PSZ pszOldClass, in PSZ pszNewClass );
+
+  PSZ wpModuleForClass(in PSZ pszClass);
+
+  PSZ wpGetTrueClassName(in WPObject Object);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder:
+    wpClassManagerPrivate1,
+    wpGetTrueClassName, wpReplacementIsInEffect, wpModuleForClass;
+
+    externalstem = WPClassManager;
+    local;
+    externalprefix = wpcm_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpclsmgr;
+    metaclass = SOMClass;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+
+    somInit: override;
+    somFindClass: override;
+    somFindClsInFile: override;
+    somLocateClassFile: override;
+    somMergeInto: override;
+    somRegisterClass: override;            
+    somUnregisterClass: override;
+    somDefaultInit: override;              
+    somDestruct: override;                 
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpclsmgr_idl */

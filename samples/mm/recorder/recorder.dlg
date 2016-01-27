@@ -1,0 +1,69 @@
+/*************************************************************************
+ * File Name    :  recorder.dlg
+ *
+ * Description  :  This file holds the dialog window used by the Wave
+ *                 Recorder sample program.
+ *                 The WS_ANIMATE frame style allows this window to
+ *                 respond to system sounds.
+ *
+ * Copyright (C) IBM 1993
+ ***************************************************************************/
+DLGTEMPLATE ID_DLG_MAIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   DIALOG "",              /* window title will be set explicitly */
+          ID_DLG_MAIN, 15, 150, 135, 44,
+          FS_NOBYTEALIGN | WS_CLIPSIBLINGS | WS_SAVEBITS | WS_ANIMATE,  FCF_SYSMENU |
+          FCF_TITLEBAR | FCF_MINBUTTON | FCF_MENU | FCF_SIZEBORDER |
+          FCF_VERTSCROLL | FCF_HORZSCROLL | FCF_TASKLIST | FCF_ICON |
+   BEGIN
+      CONTROL "", ID_STATUSTXT, 5, 36, 100, 7, WC_STATIC, SS_TEXT |
+                  DT_LEFT | DT_TOP | WS_VISIBLE
+              PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+      CONTROL "", ID_GPB_PLAY, 30, 18, 49, 6, WC_GRAPHICBUTTON,
+                  GBS_ANIMATION | GBS_3D_TEXTRAISED | WS_GROUP |
+                  WS_TABSTOP | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 5,          /* Number of bitmaps */
+                                           ID_BMP_PLAY0,
+                                           ID_BMP_PLAY1,
+                                           ID_BMP_PLAY2,
+                                           ID_BMP_PLAY3,
+                                           ID_BMP_PLAY4
+      CONTROL "", ID_GPB_RECORD, 4, 18, 26, 6, WC_GRAPHICBUTTON,
+                  GBS_ANIMATION | GBS_3D_TEXTRAISED | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 2, ID_BMP_REC1,
+                                          ID_BMP_REC0
+      CONTROL "", ID_GPB_REWIND, 4, 1, 20, 6, WC_GRAPHICBUTTON,
+                  GBS_3D_TEXTRAISED | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 1, ID_BMP_REW
+      CONTROL "", ID_GPB_STOP, 30, 1, 23, 6, WC_GRAPHICBUTTON,
+                  GBS_3D_TEXTRAISED | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 1, ID_BMP_STOP
+      CONTROL "", ID_GPB_FF, 53, 1, 20, 6, WC_GRAPHICBUTTON,
+                  GBS_3D_TEXTRAISED | WS_VISIBLE
+              CTLDATA GB_RESOURCE, "", 1, ID_BMP_FASTF
+
+      CONTROL "", ID_SL_VOLUME, 80, -4, 53, 39, WC_CIRCULARSLIDER,
+                  WS_GROUP | WS_VISIBLE | CSS_NOTEXT | WS_TABSTOP |
+                  CSS_MIDPOINT
+              PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+   END
+END
+
+DLGTEMPLATE ID_DLG_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Audio Recorder - Product Information", ID_DLG_PRODUCTINFO,
+       62, 62, 250, 90,
+       FS_NOBYTEALIGN | FS_SIZEBORDER | WS_VISIBLE | WS_SAVEBITS,
+       FCF_SYSMENU | FCF_TITLEBAR | FCF_MINBUTTON | FCF_VERTSCROLL |
+       FCF_HORZSCROLL
+    BEGIN
+        CTEXT "MMPM/2 Audio Recorder sample program"  -1, 5, 72, 235, 8
+        CTEXT "1.10"                                  -1, 5, 64, 235, 8
+        CTEXT "(C) Copyright IBM Corporation 1993."   -1, 5, 56, 235, 8
+        CTEXT "All Rights Reserved."                  -1, 5, 48, 235, 8
+        CTEXT "IBM is a registered Trademark of"      -1, 5, 40, 235, 8
+        CTEXT "International Business Machine Corp."  -1, 5, 32, 235, 8
+        DEFPUSHBUTTON "OK"          DID_OK,            100, 8, 40, 16
+    END
+END

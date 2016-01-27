@@ -1,0 +1,179 @@
+//
+//   COMPONENT_NAME: somr
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.10 src/somr/replicbl.idl, somr, som2.1 9/1/94 15:52:08 [7/30/96 14:49:30]
+
+
+
+#ifndef replicbl_idl
+#define replicbl_idl
+
+#include "nameable.idl"
+#include "linear.idl"
+#include <somrerrd.idl>
+
+interface SOFTRepmgrAB;
+interface Set;
+
+
+interface SOMRReplicbl : SOMRNameable , SOMRLinearizable
+
+// This class provides a link to the Replication Framework. Any class derived
+// from this class can have instances that are replicated in other address
+// spaces.  To get the ability to replicate, the derived
+// class has to abide by the following rules (these rules are binding on
+// further derivations and contained (constituent) subobjects as well):
+//
+//    1. It must obtain a replica lock before updating its data and must
+//       release the same after the update. (i.e., The update methods
+//       must bracket their code in a (somrLock, somrReleaseNPropagateUpdate)
+//       pair or a (somrLockNLogOp, somrReleaseNPropagateOperation) pair.)
+//    2. If after obtaining the replica lock, if the object decides to abort
+//       an update operation, it must call the appropriate abort method.
+//       (somrReleaseLockNAbortOp or somrReleaseLockNAbortUpdate)
+//    3. In case value logging is used, it must have an update language in which
+//       changes in the state of the object can be described.
+//    4. In case value logging is used, it must provide a method to receive and
+//       interpret update messages propagated by other replicas. (i.e., Must implement
+//       somrApplyUpdates method. When there are subobjects, this implementation
+//       should call them to interpret the updates appropriate to them.)
+//    5. It must have methods to get and set the complete state of the object (including
+//       any subobjects). (i.e., Must provide implementations for somrGetState
+//       and somrSetState.)
+//    6. It should be able to receive and interpret data replication
+//       directives (e.g., "LOST_CONNECTION", "BECOME_STAND_ALONE", etc. )
+
+{
+
+  void somrLock() raises(SOMRErrorDefinition::somrException);
+  // Get a lock on this replica of the object. An exception is raised if the
+  // lock is not obtained.
+
+  void somrLockNlogOp( in string ClassName, in string MthdName,
+                       in va_list ap) raises (SOMRErrorDefinition::somrException);
+  // Similar to somrLock, but it also logs the method (i.e., MthdName) that is
+  // requesting the lock.
+  // The va_list parameter is for specifying the actual arguments with which "MthdName" is
+  // being called.
+
+  void somrReleaseNPropagateUpdate( in string clsname, in string buf,
+                                     in long len, in long intOid);
+  // Release the lock locally and propagate the local updates to master and or
+  // other shadows by calling the local replica manager. This propagates
+  // "value log" of state changes. The parameter intOid is used to indicate
+  // a subobject id to which this update is to be applied. If there are no
+  // subobjects, this argument is to be set to 0.
+
+  void somrReleaseLockNAbortUpdate();
+  // Lets the data replication framework know that the user decided to abort
+  // the operation he/she began by calling somrLock. Once a lock is
+  // obtained, either this method or somrReleaseNPropagateUpdate must
+  // be called.
+
+  void somrReleaseNPropagateOperation();
+  // Similar to Propagate update, except now propagate the "operation log"
+  // instead of the value log  prepared by the subclass implementation.
+
+  void somrReleaseLockNAbortOp();
+  // Lets the data replication framework know that the user decided to abort
+  // the operation that he/she began by calling somrLockNLogOp. Once a lock
+  // is obtained, either this method or somrReleaseNPropagateOperation must
+  // be called
+
+
+  long somrRepInit(in char lType, in char mode) raises (SOMRErrorDefinition::somrException);
+  // Makes the object ready for replication. A derived object
+  // MUST call this method for activating replica control.  The parameter
+  // lType indicates the type of logging used: 'v' for value logging and 'o'
+  // for operation logging.  The parameter mode indicates whether the
+  // object is opened for reading("r") or writing ("w").
+  //
+  // If no errors occur, a return value of 1 indicates that this is the first
+  // replica to be activated (i.e., the Master), and 0 indicates it is a shadow.
+  //
+  // If an error occurs, an exception is raised, and the return value is
+  // indeterminate (and should be ignored).
+  //
+  // If the object is already initialized, no action is taken, and a return
+  // code of 0 is returned.
+
+  void somrRepUninit();
+  // Destroys the set up for replication.
+  // If the object is not initialized for replication, no action is taken.
+
+  void somrApplyUpdates(in string buf, in long len, in long ObjIntId);
+  // This method interprets the buffer received as an update to its state.
+  // The format of this update is exactly the same as the one used by the
+  // subclass implementor for the update buffer passed to ReleaseNPropagateUpdate
+  // method. The ObjIntId parameter indicates the internal subobject id to which
+  // this update should be applied. If it is 0, then the update is to be applied
+  // to self.
+
+  void somrDoDirective(in string str);
+  // The string gives a directive to the object to implement. The directive usually
+  // indications a condition that warrants user intervention/awareness.
+
+  void somrPin() raises(SOMRErrorDefinition::somrException);
+  // Makes the replica lock obtained by this replica stay with it until a call
+  // to UnPin is made.  That is, it makes the replica lock un-preemptible.
+  // Raises an Exception if the lock is denied (SOMR_DENIED).
+
+  void somrUnPin();
+  // Declares the replica lock preemptible. That is, other shadows can grab the
+  // replica lock from this shadow.
+
+  long somrGetSecurityPolicy();
+  //  Returns the security policy for replicated objects that are either
+  //  non-persistent or persistent but haven't been created yet.
+  //  Caveat: Meaningful only on AIX. Ignored for OS/2.
+
+
+
+  #ifdef __SOMIDL__
+
+  implementation
+  {
+    callstyle=idl;
+    /* Be careful about adding methods here. There are eight private methods at the end of the
+       release order below. If you need to add a new public method at the end, then declare eight
+       dummy names to account for these private methods and then add the new one (in the public idl file).
+    */
+
+    releaseorder: somrLock, somrLockNlogOp,
+                  somrReleaseNPropagateUpdate, somrReleaseLockNAbortUpdate,
+                  somrReleaseNPropagateOperation, somrReleaseLockNAbortOp,
+                  somrSendDirective, somrGetSavePermit,
+                  somrRepInit, somrRepUninit,
+                  somrApplyUpdates, somrDoDirective,
+                  somrPin, somrUnPin, somrGetSecurityPolicy
+                  ;
+
+    // Class Modifiers
+    majorversion = 2; 
+    minorversion = 1; 
+    filestem = replicbl;
+
+    passthru C_h_before =  "#include <somrerrd.h>";
+    passthru C_xh_before = "#include <somrerrd.xh>";
+
+    // Internal Instance Variables
+
+    // Method Modifiers
+    somInit: override;
+    somUninit: override;
+    somrSetObjName: override;
+
+  };
+  #endif /* __SOMIDL__ */
+};
+
+#endif  /* replicbl_idl */

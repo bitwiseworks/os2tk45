@@ -1,0 +1,61 @@
+/*************************************************************************
+*
+*  File Name   : MOVIE.DLG
+*
+*  Copyright (C) IBM 1993
+*************************************************************************/
+#define INCL_SW               /* needed for graphic buttons controls */
+                              /* secondary windows, circular sliders */
+
+#include <sw.h>
+
+DLGTEMPLATE IDD_MAIN_WINDOW LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+      DIALOG  "",IDD_MAIN_WINDOW, 200, 15, 204, 170,
+             FS_NOBYTEALIGN | FS_SIZEBORDER | WS_VISIBLE | WS_SAVEBITS,
+             FCF_SYSMENU | FCF_TITLEBAR | FCF_MINBUTTON | FCF_NOBYTEALIGN |
+             FCF_TASKLIST | FCF_VERTSCROLL | FCF_HORZSCROLL | FCF_ICON
+    BEGIN
+       CONTROL "", IDC_GPB_REWIND, 5, 46, 23, 12, WC_GRAPHICBUTTON,
+                   GBS_3D_TEXTRAISED | WS_VISIBLE | BS_PUSHBUTTON
+               CTLDATA GB_RESOURCE, "", 1, ID_BMP_REWIND
+
+       CONTROL "", IDC_GPB_STOP, 36, 46, 23, 12, WC_GRAPHICBUTTON,
+                   GBS_3D_TEXTRAISED | WS_VISIBLE | BS_PUSHBUTTON
+               CTLDATA GB_RESOURCE, "", 1, ID_BMP_STOP
+
+       CONTROL "", IDC_GPB_PAUSE, 62, 46, 23, 12, WC_GRAPHICBUTTON,
+                   GBS_3D_TEXTRAISED | WS_VISIBLE | BS_PUSHBUTTON
+               CTLDATA GB_RESOURCE, "", 1, ID_BMP_PAUSE
+
+       CONTROL "", IDC_GPB_PLAY, 90, 46, 30, 12, WC_GRAPHICBUTTON,
+                   GBS_3D_TEXTRAISED | WS_VISIBLE | WS_GROUP | WS_TABSTOP | BS_DEFAULT
+               CTLDATA GB_RESOURCE, "", 1, ID_BMP_PLAY0
+
+       CONTROL "", IDC_GPB_EDIT, 145, 46, 40, 20, WC_GRAPHICBUTTON,
+                   GBS_3D_TEXTRAISED | WS_VISIBLE | WS_GROUP | WS_TABSTOP | BS_DEFAULT
+               CTLDATA GB_RESOURCE, "Edit",0
+
+       CONTROL "Play movie in application window",IDC_RADIO1, 71, 21, 114, 10,
+                      WC_BUTTON, BS_AUTORADIOBUTTON |
+                      WS_TABSTOP | WS_VISIBLE
+                   PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+       CONTROL "Play movie in standard window", IDC_RADIO2, 71, 12, 113, 10,
+                       WC_BUTTON, BS_AUTORADIOBUTTON |
+                       WS_TABSTOP | WS_VISIBLE
+                   PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+       CONTROL "Movie Selection Window", -1, 68, 10, 120, 29,
+                       WC_STATIC, SS_GROUPBOX | WS_VISIBLE
+                   PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+      CONTROL "", IDC_VOLUME_SLIDER, 5, 2, 55, 40, WC_CIRCULARSLIDER,
+                  WS_GROUP | WS_VISIBLE | CSS_NOTEXT | WS_TABSTOP |
+                  CSS_MIDPOINT | CSS_PROPORTIONALTICKS
+                  PRESPARAMS PP_FONTNAMESIZE, 0x65482E38L, 0x0000766CL
+
+   END
+END
+
+

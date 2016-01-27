@@ -1,0 +1,276 @@
+//#  @(#) 2.12 src/somuc/thash.idl, somuc, som2.1 12/26/95 15:37:44 [7/30/96 14:50:05]
+//
+//   COMPONENT_NAME: somuc
+//
+//   ORIGINS: 82, 81, 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1996,1996  
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//   Copyright © 1988, 1989 Apple Computer, Inc. All rights reserved.
+
+/*
+ * CLASS_NAME: somf_THashTable
+ *
+ * DESCRIPTION: Every Hash Table has a set of entries which associate a
+ *              key to a value.  Hash tables provide for fast lookup of a
+ *              value when given a key even if there are a large number of
+ *              entries in the table.  Functions are provided for the usual
+ *              things (insert, delete, etc.) as well as for controlling when
+ *              rehashing will occur, and the growth of the table when a
+ *              rehash occurs.
+ *
+ */
+
+#ifndef THash_idl
+#define THash_idl
+
+#include "mcollect.idl"
+
+interface THAssoc;
+
+interface somf_THashTable : somf_MCollectible
+{
+  const long kDefaultHashTableSize = 23;
+  const long kDefaultGrowthRate = 20;
+  const long kDefaultRehashThreshold = 80;
+  enum  ETableClassification { kUnchecked, kNormal, kFast };
+
+  //#   friend class THashTableIterator;
+
+  somf_THashTable somfTHashTableInitFLLL(in somf_MCollectible::somf_MCollectibleCompareFn testfn,
+				      in long tablesize,
+				      in long rate,
+				      in long threshold);
+
+  // Initializes the new hash table.
+  //#   THashTable(MCollectibleCompareFn testfn = &MCollectible::IsSame,
+  //#      long tablesize=kDefaultHashTableSize,
+  //#      long rate=kDefaultGrowthRate, long threshold=kDefaultRehashThreshold);
+
+  somf_THashTable somfTHashTableInitFLL(in somf_MCollectible::somf_MCollectibleCompareFn testfn,
+				     in long tablesize,
+				     in long rate);
+
+  // Initializes the new hash table.
+  //#   THashTable(MCollectibleCompareFn testfn = &MCollectible::IsSame,
+  //#      long tablesize=kDefaultHashTableSize,
+  //#      long rate=kDefaultGrowthRate, long threshold=kDefaultRehashThreshold);
+
+  somf_THashTable somfTHashTableInitFL(in somf_MCollectible::somf_MCollectibleCompareFn testfn,
+				    in long tablesize);
+
+  // Initializes the new hash table.
+  //#   THashTable(MCollectibleCompareFn testfn = &MCollectible::IsSame,
+  //#      long tablesize=kDefaultHashTableSize,
+  //#      long rate=kDefaultGrowthRate, long threshold=kDefaultRehashThreshold);
+
+  somf_THashTable somfTHashTableInitH(in somf_THashTable h);
+
+  // Initializes the new hash table.
+  //#   THashTable(const THashTable&);
+
+  void somfAssign(in somf_THashTable source);
+
+  // Assign the instance of this equal to the instance of source.
+  //#   const THashTable&  operator=(const THashTable&);
+
+  long somfCount();
+
+  // Return the number of objects in this.
+  //#   long     Count() const;
+
+  somf_MCollectible somfRemove(in somf_MCollectible key);
+
+  // Remove obj from this.  Return the object which was actually removed
+  // (which if you are using an IsSame test function may not be the same
+  // as the object passed in only "equal").
+  //#   MCollectible*  Remove(const MCollectible& key);
+
+  somf_MCollectible somfDelete(in somf_MCollectible key);
+
+  // Remove key from this and deallocate the storage that these objects might
+  // have owned (that is, the destructor function is called for each object
+  // in the collection).  Return the object which was actually removed (which
+  // if you are using an IsSame test function may not be the same as the object
+  // passed in only "equal").
+  //#   MCollectible*  Delete(MCollectible* key);
+
+  somf_MCollectible somfMember(in somf_MCollectible key);
+
+  // Each object in this is compared to obj using the function testFn.  Return the
+  // object for which testFn returned TRUE.  Return SOMF_NIL if not object was found.
+  //#   MCollectible*  Member(const MCollectible& key) const;
+
+  void somfRemoveAll();
+
+  // Remove all of the objects from this.
+  //#   void     RemoveAll();
+
+  void somfDeleteAll();
+
+  // Remove all of the objects from this and deallocate the storage that these
+  // objects might have owned (that is, the destructor function is called
+  // for each object in the collection).
+  //#   void     DeleteAll();
+
+  void somfDeleteAllKeys();
+
+  // Remove all of the keys from this and deallocate the storage that these
+  // objects might have owned (that is, the destructor function is called
+  // for each object in the collection).
+  //#   void     DeleteAllKeys();
+
+  void somfDeleteAllValues();
+
+  // Remove all of the values from this and deallocate the storage that these
+  // objects might have owned (that is, the destructor function is called
+  // for each object in the collection).
+  //#   void     DeleteAllValues();
+
+  somf_MCollectible somfAddMMB(in somf_MCollectible key,
+			    in somf_MCollectible value,
+			    in boolean replace);
+
+  // Add key and value to this.  If replace = TRUE, replace a copy if it already
+  // exists.
+  //#   MCollectible*  Add(const MCollectible* key, MCollectible* value, Boolean replace = TRUE);
+
+  somf_MCollectible somfAddMM(in somf_MCollectible key,
+			   in somf_MCollectible value);
+
+  // Add key and value to this.  Replace a copy if it already exists.
+  //#   MCollectible*  Add(const MCollectible* key, MCollectible* value, Boolean replace = TRUE);
+
+  void somfGrow();
+
+  // Grow the Hash Table
+  //#   void     Grow();
+
+  somf_MCollectible somfRetrieve(in somf_MCollectible key);
+
+  // Retrieve and return the value associated with key.
+  //#   MCollectible*  Retrieve(const MCollectible& key) const;
+
+  void somfSetGrowthRate(in long rate);
+
+  // Set the growth rate of the hash table.
+  //#   void     SetGrowthRate(long rate);
+
+  void somfSetRehashThreshold(in long threshold);
+
+  // Set the rehash threshold of the hash table.
+  //#   void     SetRehashThreshold(long threshold);
+
+  long somfGetGrowthRate();
+
+  // Return the growth rate of the hash table.
+  //#   long      GetGrowthRate() const;
+
+  long somfGetRehashThreshold();
+
+  // Return the rehash threshold of the hash table.
+  //#   long      GetRehashThreshold() const;
+
+  void somfSetHashFunction(in somf_MCollectible::somf_MCollectibleHashFn fn);
+
+  // Set the hash function to fn.
+  //#   void     SetHashFunction(MCollectibleHashFn);
+
+  somf_MCollectible::somf_MCollectibleHashFn somfGetHashFunction();
+
+  // Return the hash function.
+  //#   MCollectibleHashFn GetHashFunction() const;
+
+  //#   override StreamOut;
+  //# // Stream stuff
+  //# //   virtual TStream&   operator>>=(TStream& towhere) const;
+  //#
+  //#   override StreamIn;
+  //# // Stream stuff
+  //# //   virtual TStream&   operator<<=(TStream& towhere);
+
+  //#override somfClone;
+  //# There is no point in overriding somfClone, the code was fixed so it works
+  //# correctly.
+  //#   MCollectibleDeclarationsMacro(THashTable);
+
+  //#
+  //# The following method has been commented out since the code for IsFastTable
+  //# is non-portable.  A Method that just returns FALSE doesn't have much use.
+  //#    Boolean     IsFastTable(const MCollectible* obj),private,nooverride,nomodify;
+  //# // private:
+  //# //   Boolean     IsFastTable(const MCollectible*) const;
+
+
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: somfCount,somfRemove,somfDelete,somfMember,
+		  somfRemoveAll,somfDeleteAll,somfDeleteAllKeys,
+		  somfDeleteAllValues,somfAddMMB,somfAddMM,somfGrow,somfRetrieve,
+		  somfSetGrowthRate,somfSetRehashThreshold,somfGetGrowthRate,
+		  somfGetRehashThreshold,somfSetHashFunction,somfGetHashFunction,
+		  somfFind,somfMakeNewTable,somfCopyIn,somfAssign,
+		  somfTHashTableInitFLLL,somfTHashTableInitFLL,
+		  somfTHashTableInitFL,somfTHashTableInitH;
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = thash;
+    dllname = "somuc.dll";
+
+
+    //# Internal Instance Variables
+    long fTableSize;              // Actual physical size of the table
+    long fSize;                   // Number of entries in the table
+    long fGrowthRate;
+    long fRehashThreshold;
+    long fNextRehash;
+    THAssoc fTable;
+    somf_MCollectible::somf_MCollectibleCompareFn fTestfn;
+    somf_MCollectible::somf_MCollectibleHashFn fHashfn;
+    unsigned long fSeed;          // Count of operations on the table. Used by Iterator
+    ETableClassification fFast;
+
+    //# Method Modifiers
+    somInit: override;
+    somUninit: override;
+    somfCount: nooverride, nomodify;
+    somfRemove: nooverride;
+    somfDelete: nooverride;
+    somfMember: nooverride, nomodify;
+    somfRemoveAll: nooverride;
+    somfDeleteAll: nooverride;
+    somfDeleteAllKeys: nooverride;
+    somfDeleteAllValues: nooverride;
+    somfAddMMB: nooverride;
+    somfAddMM: nooverride;
+    somfGrow: nooverride;
+    somfRetrieve: nooverride, nomodify;
+    somfSetGrowthRate: nooverride;
+    somfSetRehashThreshold: nooverride;
+    somfGetGrowthRate: nooverride, nomodify;
+    somfGetRehashThreshold: nooverride, nomodify;
+    somfSetHashFunction: nooverride;
+    somfGetHashFunction: nooverride, nomodify;
+    somfTHashTableInitFLLL: nooverride;
+    somfTHashTableInitFLL: nooverride;
+    somfTHashTableInitFL: nooverride;
+    somfTHashTableInitH: nooverride;
+
+    //# Data Modifiers
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* THash_idl */

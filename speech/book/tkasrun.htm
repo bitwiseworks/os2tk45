@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<HTML><HEAD>
+<TITLE>Application Programming Interface (API) Reference</TITLE>
+<!-- Begin Header Records  ========================================== -->
+<META HTTP-EQUIV="security"  CONTENT="Version 1.0 - April 1997">
+<META HTTP-EQUIV="updated"  CONTENT="1996-08-08">
+<META HTTP-EQUIV="review"  CONTENT="1997-08-08">
+<META HTTP-EQUIV="expires"  CONTENT="1998-08-08">
+</HEAD><BODY>
+<!-- End Header Records  ============================================ -->
+<IMG SRC="bannerx.gif" ALT=""><BR>
+<A NAME=Top_Of_Page>&nbsp;</A>
+<H1>Application Programming Interface (API) Reference</H1>
+<P><B>Version 1.0 - April 1997</B><P>
+IBM VoiceType Developer&#39;s Toolkit for OS/2<BR>
+<P> Version 1.0<P>
+Application Programming Interface (API) Reference<BR>
+<P>
+<HR><H2><A NAME=ToC>Table of Contents</A></H2>
+<P><I><B><A NAME=ToC_201 HREF="tkasru02.htm#Header_1" >IBM Speech API (SMAPI)</A></B></I><BR>
+<MENU>
+<P><B><LI><A NAME=ToC_202 HREF="tkasru02.htm#HDRFUNFORM" >Overview</A></B>
+<MENU>
+<LI><A NAME=ToC_203 HREF="tkasru02.htm#Header_3" >Format of the Function Call Descriptions</A>
+<LI><A NAME=ToC_204 HREF="tkasru02.htm#Header_4" >Naming Conventions</A>
+<LI><A NAME=ToC_205 HREF="tkasru02.htm#Header_5" >SMAPI Function Calls by Group</A>
+<MENU>
+<LI><A NAME=ToC_206 HREF="tkasru02.htm#Header_6" >Attribute Handling Functions</A>
+<LI><A NAME=ToC_207 HREF="tkasru02.htm#Header_7" >Callback and Dispatching Functions</A>
+<LI><A NAME=ToC_208 HREF="tkasru02.htm#Header_8" >Data Access Functions</A>
+<LI><A NAME=ToC_209 HREF="tkasru02.htm#Header_9" >Connection Functions</A>
+<LI><A NAME=ToC_210 HREF="tkasru02.htm#Header_10" >Session Functions</A>
+<LI><A NAME=ToC_211 HREF="tkasru02.htm#Header_11" >Database Functions</A>
+<LI><A NAME=ToC_212 HREF="tkasru02.htm#Header_12" >Speech Engine State Functions</A>
+<LI><A NAME=ToC_213 HREF="tkasru02.htm#Header_13" >Vocabulary Functions</A>
+<LI><A NAME=ToC_214 HREF="tkasru02.htm#Header_14" >Audio Functions</A>
+</MENU>
+<LI><A NAME=ToC_215 HREF="tkasru02.htm#Header_15" >Parallel Session API Calls</A>
+</MENU>
+<P><B><LI><A NAME=ToC_216 HREF="tkasru03.htm#HDRSTART" >Starter Set APIs</A></B>
+<P><B><LI><A NAME=ToC_217 HREF="tkasru04.htm#HDRSERV" >Function Calls to the Engine</A></B>
+<MENU>
+<LI><A NAME=ToC_1 HREF="tkasru04.htm#LENADCLBK" >SmAddCallback</A>
+<LI><A NAME=ToC_2 HREF="tkasru04.htm#LENADPRON" >SmAddPronunciation</A>
+<LI><A NAME=ToC_3 HREF="tkasru04.htm#LENADTOVOC" >SmAddToVocab</A>
+<LI><A NAME=ToC_4 HREF="tkasru04.htm#LENAPIVC" >SmApiVersionCheck</A>
+<LI><A NAME=ToC_5 HREF="tkasru04.htm#LENCANPLA" >SmCancelPlayback</A>
+<LI><A NAME=ToC_6 HREF="tkasru04.htm#LENCLOSE" >SmClose</A>
+<LI><A NAME=ToC_7 HREF="tkasru04.htm#LENCONN" >SmConnect</A>
+<LI><A NAME=ToC_8 HREF="tkasru04.htm#LENCORTEX" >SmCorrectText</A>
+<LI><A NAME=ToC_9 HREF="tkasru04.htm#LENCTXCNCL" >SmCorrectTextCancel</A>
+<LI><A NAME=ToC_10 HREF="tkasru04.htm#LENDEFGRM" >SmDefineGrammar</A>
+<LI><A NAME=ToC_11 HREF="tkasru04.htm#LENDEFVOC" >SmDefineVocab</A>
+<LI><A NAME=ToC_12 HREF="tkasru04.htm#LENDTSESS" >SmDetachSessions</A>
+<LI><A NAME=ToC_13 HREF="tkasru04.htm#LENDISVOC" >SmDisableVocab</A>
+<LI><A NAME=ToC_14 HREF="tkasru04.htm#LENDISDAT" >SmDiscardData</A>
+<LI><A NAME=ToC_15 HREF="tkasru04.htm#LENDISCON" >SmDisconnect</A>
+<LI><A NAME=ToC_16 HREF="tkasru04.htm#LENDISPTCH" >SmDispatch</A>
+<LI><A NAME=ToC_17 HREF="tkasru04.htm#LENENVOC" >SmEnableVocab</A>
+<LI><A NAME=ToC_18 HREF="tkasru04.htm#LENEVNOT" >SmEventNotify</A>
+<LI><A NAME=ToC_19 HREF="tkasru04.htm#LENHALTREC" >SmHaltRecognizer</A>
+<LI><A NAME=ToC_20 HREF="tkasru04.htm#LENMICOFF" >SmMicOff</A>
+<LI><A NAME=ToC_21 HREF="tkasru04.htm#LENMICON" >SmMicOn</A>
+<LI><A NAME=ToC_22 HREF="tkasru04.htm#LENNEWCON" >SmNewContext</A>
+<LI><A NAME=ToC_23 HREF="tkasru04.htm#LENOPEN" >SmOpen</A>
+<LI><A NAME=ToC_24 HREF="tkasru04.htm#LENPLAYMES" >SmPlayMessage</A>
+<LI><A NAME=ToC_25 HREF="tkasru04.htm#LENPLAYUTT" >SmPlayUtterance</A>
+<LI><A NAME=ToC_26 HREF="tkasru04.htm#LENPLAWRD" >SmPlayWords</A>
+<LI><A NAME=ToC_27 HREF="tkasru04.htm#LENQUERY" >SmQuery</A>
+<LI><A NAME=ToC_28 HREF="tkasru04.htm#LENQRYADWD" >SmQueryAddedWords</A>
+<LI><A NAME=ToC_29 HREF="tkasru04.htm#LENQRYALT" >SmQueryAlternates</A>
+<LI><A NAME=ToC_30 HREF="tkasru04.htm#LENQRYDFLT" >SmQueryDefault</A>
+<LI><A NAME=ToC_31 HREF="tkasru04.htm#LENQRYENVC" >SmQueryEnabledVocabs</A>
+<LI><A NAME=ToC_32 HREF="tkasru04.htm#LENQRYENID" >SmQueryEnrollIds</A>
+<LI><A NAME=ToC_33 HREF="tkasru04.htm#LENQRYLANG" >SmQueryLanguages</A>
+<LI><A NAME=ToC_34 HREF="tkasru04.htm#LENQRYPRON" >SmQueryPronunciation</A>
+<LI><A NAME=ToC_35 HREF="tkasru04.htm#LENQRYPRNS" >SmQueryPronunciations</A>
+<LI><A NAME=ToC_36 HREF="tkasru04.htm#LENQRSESS" >SmQuerySessions</A>
+<LI><A NAME=ToC_37 HREF="tkasru04.htm#LENQRSPDA" >SmQuerySpeechData</A>
+<LI><A NAME=ToC_38 HREF="tkasru04.htm#LENQRYTASK" >SmQueryTasks</A>
+<LI><A NAME=ToC_39 HREF="tkasru04.htm#LENQRYUSIN" >SmQueryUserInfo</A>
+<LI><A NAME=ToC_40 HREF="tkasru04.htm#LENQRYUSER" >SmQueryUsers</A>
+<LI><A NAME=ToC_41 HREF="tkasru04.htm#LENQRYVOC" >SmQueryVocabs</A>
+<LI><A NAME=ToC_42 HREF="tkasru04.htm#LENQRYWORD" >SmQueryWord</A>
+<LI><A NAME=ToC_43 HREF="tkasru04.htm#LENRECMSG" >SmReceiveMsg</A>
+<LI><A NAME=ToC_44 HREF="tkasru04.htm#LENRECNXWD" >SmRecognizeNextWord</A>
+<LI><A NAME=ToC_45 HREF="tkasru04.htm#LENRELFOC" >SmReleaseFocus</A>
+<LI><A NAME=ToC_46 HREF="tkasru04.htm#LENRMCLBK" >SmRemoveCallback</A>
+<LI><A NAME=ToC_47 HREF="tkasru04.htm#LENRMFRVOC" >SmRemoveFromVocab</A>
+<LI><A NAME=ToC_48 HREF="tkasru04.htm#LENREMPRON" >SmRemovePronunciation</A>
+<LI><A NAME=ToC_49 HREF="tkasru04.htm#LENREQFOC" >SmRequestFocus</A>
+<LI><A NAME=ToC_50 HREF="tkasru04.htm#LENRMICOFF" >SmRequestMicOff</A>
+<LI><A NAME=ToC_51 HREF="tkasru04.htm#LENRMICON" >SmRequestMicOn</A>
+<LI><A NAME=ToC_52 HREF="tkasru04.htm#LENRESPDA" >SmRestoreSpeechData</A>
+<LI><A NAME=ToC_53 HREF="tkasru04.htm#LENSASPDA" >SmSaveSpeechData</A>
+<LI><A NAME=ToC_54 HREF="tkasru04.htm#LENSET" >SmSet</A>
+<LI><A NAME=ToC_55 HREF="tkasru04.htm#LENSETARG" >SmSetArg</A>
+<LI><A NAME=ToC_56 HREF="tkasru04.htm#LENSETDFLT" >SmSetDefault</A>
+<LI><A NAME=ToC_57 HREF="tkasru04.htm#LENSTUSRIN" >SmSetUserInfo</A>
+<LI><A NAME=ToC_58 HREF="tkasru04.htm#LENUNDVOC" >SmUndefineVocab</A>
+<LI><A NAME=ToC_59 HREF="tkasru04.htm#LENWORDCOR" >SmWordCorrection</A>
+</MENU>
+<P><B><LI><A NAME=ToC_218 HREF="tkasru05.htm#HDRGETS" >Data Access Functions</A></B>
+<MENU>
+<LI><A NAME=ToC_60 HREF="tkasru05.htm#LENGETALP" >SmGetAlphabets</A>
+<LI><A NAME=ToC_61 HREF="tkasru05.htm#LENGETALT" >SmGetAlternates</A>
+<LI><A NAME=ToC_62 HREF="tkasru05.htm#LENGETANN" >SmGetAnnotations</A>
+<LI><A NAME=ToC_63 HREF="tkasru05.htm#LENGETAPP" >SmGetApplication</A>
+<LI><A NAME=ToC_64 HREF="tkasru05.htm#LENGETAPPS" >SmGetApplications</A>
+<LI><A NAME=ToC_65 HREF="tkasru05.htm#LENGTAUDLV" >SmGetAudioLevel</A>
+<LI><A NAME=ToC_66 HREF="tkasru05.htm#LENGETDES" >SmGetDescriptions</A>
+<LI><A NAME=ToC_67 HREF="tkasru05.htm#LENGTENST" >SmGetEngineState</A>
+<LI><A NAME=ToC_68 HREF="tkasru05.htm#LENGTENID" >SmGetEnrollId</A>
+<LI><A NAME=ToC_69 HREF="tkasru05.htm#LENGTENRID" >SmGetEnrollIds</A>
+<LI><A NAME=ToC_70 HREF="tkasru05.htm#LENGETEVID" >SmGetEventId</A>
+<LI><A NAME=ToC_71 HREF="tkasru05.htm#LENGETEVOP" >SmGetEventOptions</A>
+<LI><A NAME=ToC_72 HREF="tkasru05.htm#LENGETFMWD" >SmGetFirmWords</A>
+<LI><A NAME=ToC_73 HREF="tkasru05.htm#LENGETFOST" >SmGetFocusState</A>
+<LI><A NAME=ToC_74 HREF="tkasru05.htm#LENGETGRAM" >SmGetGrammarPath</A>
+<LI><A NAME=ToC_75 HREF="tkasru05.htm#LENGETINWD" >SmGetInfirmWords</A>
+<LI><A NAME=ToC_76 HREF="tkasru05.htm#LENGTITVAL" >SmGetItemValue</A>
+<LI><A NAME=ToC_77 HREF="tkasru05.htm#LENGETLAN" >SmGetLanguages</A>
+<LI><A NAME=ToC_78 HREF="tkasru05.htm#LENGETMIC" >SmGetMicState</A>
+<LI><A NAME=ToC_79 HREF="tkasru05.htm#LENGETMSNM" >SmGetMsgName</A>
+<LI><A NAME=ToC_80 HREF="tkasru05.htm#LENGETMST" >SmGetMsgType</A>
+<LI><A NAME=ToC_81 HREF="tkasru05.htm#LENGETNMVL" >SmGetNameValue</A>
+<LI><A NAME=ToC_82 HREF="tkasru05.htm#LENGNWRDM" >SmGetNumberWordMsgs</A>
+<LI><A NAME=ToC_83 HREF="tkasru05.htm#LENGTPRCNT" >SmGetPercentages</A>
+<LI><A NAME=ToC_84 HREF="tkasru05.htm#LENGETPHRS" >SmGetPhraseState</A>
+<LI><A NAME=ToC_85 HREF="tkasru05.htm#LENGETPRON" >SmGetPronunciations</A>
+<LI><A NAME=ToC_86 HREF="tkasru05.htm#LENGETRC" >SmGetRc</A>
+<LI><A NAME=ToC_87 HREF="tkasru05.htm#LENGETRCD" >SmGetRcDescription</A>
+<LI><A NAME=ToC_88 HREF="tkasru05.htm#LENGETRCN" >SmGetRcName</A>
+<LI><A NAME=ToC_89 HREF="tkasru05.htm#LENGETSCR" >SmGetScripts</A>
+<LI><A NAME=ToC_90 HREF="tkasru05.htm#LENGETSERV" >SmGetService</A>
+<LI><A NAME=ToC_91 HREF="tkasru05.htm#LENGTSESID" >SmGetSessionId</A>
+<LI><A NAME=ToC_92 HREF="tkasru05.htm#LENGETSEV" >SmGetSeverity</A>
+<LI><A NAME=ToC_93 HREF="tkasru05.htm#LENGETARCH" >SmGetSpeechDataArchive</A>
+<LI><A NAME=ToC_94 HREF="tkasru05.htm#LENGETOPT" >SmGetSpeechDataOptions</A>
+<LI><A NAME=ToC_95 HREF="tkasru05.htm#LENGETSIZ" >SmGetSpeechDataSize</A>
+<LI><A NAME=ToC_96 HREF="tkasru05.htm#LENGETVER" >SmGetSpeechDataVersion</A>
+<LI><A NAME=ToC_97 HREF="tkasru05.htm#LENGETSPEL" >SmGetSpelling</A>
+<LI><A NAME=ToC_98 HREF="tkasru05.htm#LENGTSPL" >SmGetSpellings</A>
+<LI><A NAME=ToC_99 HREF="tkasru05.htm#LENGETSTAT" >SmGetStates</A>
+<LI><A NAME=ToC_100 HREF="tkasru05.htm#LENGTSTATU" >SmGetStatus</A>
+<LI><A NAME=ToC_101 HREF="tkasru05.htm#LENGETTAG" >SmGetTags</A>
+<LI><A NAME=ToC_102 HREF="tkasru05.htm#LENGETTSK" >SmGetTask</A>
+<LI><A NAME=ToC_103 HREF="tkasru05.htm#LENGETTASK" >SmGetTasks</A>
+<LI><A NAME=ToC_104 HREF="tkasru05.htm#LENGETTIM" >SmGetTimes</A>
+<LI><A NAME=ToC_105 HREF="tkasru05.htm#LENGTUSRID" >SmGetUserId</A>
+<LI><A NAME=ToC_106 HREF="tkasru05.htm#LENGETUSID" >SmGetUserIds</A>
+<LI><A NAME=ToC_107 HREF="tkasru05.htm#LENGTUSER" >SmGetUsers</A>
+<LI><A NAME=ToC_108 HREF="tkasru05.htm#LENGTUTNUM" >SmGetUtteranceNumber</A>
+<LI><A NAME=ToC_109 HREF="tkasru05.htm#LENGTVCLST" >SmGetVocabList</A>
+<LI><A NAME=ToC_110 HREF="tkasru05.htm#LENGTVOCNM" >SmGetVocabName</A>
+<LI><A NAME=ToC_111 HREF="tkasru05.htm#LENGTVCWD" >SmGetVocWords</A>
+<LI><A NAME=ToC_112 HREF="tkasru05.htm#LENGTWDS" >SmGetWords</A>
+<LI><A NAME=ToC_113 HREF="tkasru05.htm#LENRETRC" >SmReturnRc</A>
+<LI><A NAME=ToC_114 HREF="tkasru05.htm#LENRETRCD" >SmReturnRcDescription</A>
+<LI><A NAME=ToC_115 HREF="tkasru05.htm#LENRETRCN" >SmReturnRcName</A>
+</MENU>
+<P><B><LI><A NAME=ToC_219 HREF="tkasru06.htm#HDRENGMSGS" >Reply Message Structures and Callbacks</A></B>
+<MENU>
+<LI><A NAME=ToC_220 HREF="tkasru06.htm#HDRREPT" >Reply Message Structures Received from the Speech Engine</A>
+<LI><A NAME=ToC_221 HREF="tkasru06.htm#HDRCBACKS" >Callbacks</A>
+<LI><A NAME=ToC_222 HREF="tkasru06.htm#Header_22" >Reply Structure Functions for Unsolicited Callbacks</A>
+</MENU>
+<P><B><LI><A NAME=ToC_223 HREF="tkasru07.htm#HDRDATYP" >Data Types</A></B>
+<MENU>
+<LI><A NAME=ToC_116 HREF="tkasru07.htm#LENSMARG" >SmArg</A>
+<LI><A NAME=ToC_117 HREF="tkasru07.htm#LENSMAVAL" >SmArgVal</A>
+<LI><A NAME=ToC_118 HREF="tkasru07.htm#LENCADDR" >caddr_t</A>
+<LI><A NAME=ToC_119 HREF="tkasru07.htm#LENSMHANDL" >SmHandler</A>
+<LI><A NAME=ToC_120 HREF="tkasru07.htm#LENSMMSG" >SmMsg</A>
+<LI><A NAME=ToC_121 HREF="tkasru07.htm#LENSMVOCWD" >SM_VOCWORD</A>
+<LI><A NAME=ToC_122 HREF="tkasru07.htm#LENSMWORD" >SM_WORD</A>
+</MENU>
+<P><B><LI><A NAME=ToC_224 HREF="tkasru08.htm#HDRATTRIB" >SMAPI Attributes</A></B>
+<MENU>
+<LI><A NAME=ToC_225 HREF="tkasru08.htm#Header_25" >System Dependent Speech Manager Definition for Argument Lists</A>
+<LI><A NAME=ToC_226 HREF="tkasru08.htm#Header_26" >Argument Attribute List</A>
+</MENU></MENU>
+<HR><P><I><B><A NAME=ToC_227 HREF="tkasru09.htm#Header_27" >Appendices</A></B></I><BR>
+<MENU>
+<P><B><LI><A NAME=ToC_228 HREF="tkasru09.htm#HDRSMEM" >Appendix A. SMAPI Return Codes and Messages</A></B>
+<MENU>
+<LI><A NAME=ToC_229 HREF="tkasru09.htm#HDRRTCODE" >SMAPI Return Codes and Messages</A>
+<LI><A NAME=ToC_230 HREF="tkasru09.htm#Header_30" >Speech Manager Return Codes and Messages</A>
+<LI><A NAME=ToC_231 HREF="tkasru09.htm#Header_31" >Status Codes and Messages</A>
+<LI><A NAME=ToC_232 HREF="tkasru09.htm#HDRAPIRC" >SMAPI Message Explanations</A>
+<LI><A NAME=ToC_233 HREF="tkasru09.htm#HDRROUTMSG" >router.msg Log</A>
+</MENU>
+<P><B><LI><A NAME=ToC_234 HREF="tkasru10.htm#Header_34" >Appendix B. Speech Engine Error Messages</A></B>
+<P><B><LI><A NAME=ToC_235 HREF="tkasru11.htm#HDRINDEX_START" >Index</A></B>
+</MENU><HR><P>
+
+<HR>
+<title>Notices</title>
+</head>
+
+<body>
+<h1><a name=notices>Notices</a></h1>
+<HR>
+
+<p><b>First Edition (April 1997)</b>
+</p>
+
+<p>
+<b>The following paragraph does not apply to the United
+Kingdom or any
+country where such provisions are inconsistent with local
+law:</b>
+</p>
+
+<p>INTERNATIONAL
+BUSINESS MACHINES CORPORATION PROVIDES THIS PUBLICATION
+"AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR
+IMPLIED, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
+PARTICULAR PURPOSE.
+</p>
+
+<p>Some states do not allow disclaimer of express or implied warranties
+in certain transactions, therefore, this statement may not
+apply to you.
+</p>
+
+<p>
+This publication could include technical inaccuracies or typographical
+errors.  Changes are periodically made to the information herein;
+these changes will be incorporated in new editions of the publication.
+IBM may make improvements and/or changes in the product(s) and/or
+the program(s) described in this publication at any time.
+</p>
+
+<p>It is possible that this publication may contain reference to, or
+information about, IBM products (machines and programs), programming,
+or services that are not announced in your country.  Such references
+or information must not be construed to mean that IBM intends to
+announce such IBM products, programming, or services in your country.
+</p>
+
+<p>Requests for technical information about IBM
+products should be made to your IBM reseller or IBM marketing representative.
+</p>
+<HR>
+
+<h2>Copyright Notices</h2>
+
+<p><b>&#169 Copyright International Business Machines
+Corporation 1997.  All rights reserved.</b>
+</p>
+
+<p>Note to U.S. Government Users: Documentation related to
+restricted rights - use, duplication or disclosure is
+subject to
+restrictions set forth in GSA ADP Schedule Contract with IBM
+Corp.
+</p>
+<HR>
+
+<h2>Disclaimers</h2>
+
+<p>References in this publication to IBM products, programs,
+or services
+do not imply that IBM intends to make these available in all countries
+in which IBM operates.
+Any reference to an IBM product, program or service is not intended to
+state or imply that only that IBM product, program,
+or service may be used.
+Subject to IBM's valid intellectual property or other legally
+protectable rights, any functionally equivalent product, program, or
+service may be used instead of the IBM product, program, or service.
+The evaluation and verification of operation in conjunction with other products,
+except those expressly designated by IBM, are the responsibility of the user.
+</p>
+
+<p>IBM may have patents or pending patent applications covering
+subject matter in this document.
+The furnishing of this document does not give you any
+license to these patents.
+You can send license inquiries, in writing, to:
+</p>
+
+<p>
+IBM Director of Licensing
+<br>
+IBM Corporation
+<br>
+500 Columbus Avenue
+<br>
+Thornwood, NY  10594
+<br>
+U.S.A.
+</p>
+
+<p>
+Asia-Pacific users can inquire, in writing, to the IBM Director of
+Intellectual Property and Licensing, IBM World Trade Asia Corporation,
+2-31 Roppongi 3-chome, Minato-ku, Tokyo 106, Japan.
+</p>
+
+<p>
+Licensees of this program who wish to have information about it for
+the purpose of enabling: (i) the exchange of information between
+independently created programs and other programs (including this
+one) and (ii) the mutual use of the information which has been
+exchanged, should contact IBM Corporation, Department LZKS,
+11400 Burnet Road, Austin, TX 78758 U.S.A.  Such information may be
+available, subject to appropriate terms and conditions, including
+in some cases, payment of a fee.
+</p>
+<p>
+The following terms are trademarks of the IBM Corporation in
+the United States or other countries or both:
+</p>
+<p>
+IBM
+<br>
+</p>
+
+
+<p>
+Other company, product, and service names, which may be denoted
+by a double asterisk (**), may be trademarks
+or service marks of others.
+</p>
+<P><HR><B>&#91; <A HREF="#Top_Of_Page">Top of Page</A> &#124; <A HREF="tkasru02.htm">Next Page</A> &#124; <A HREF="tkasru11.htm#HDRINDEX_START">Index</A> &#93;</B>
+<A NAME=Bot_Of_Page>&nbsp;</A>
+</BODY></HTML>
+

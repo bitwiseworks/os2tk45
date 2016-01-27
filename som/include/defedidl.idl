@@ -1,0 +1,110 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.9 src/somp/defedidl.idl, somp, som2.1 12/26/95 16:53:37 [7/30/96 14:46:48]
+
+
+#ifndef defedidl_idl
+#define defedidl_idl
+
+#include <somp.idl>
+#include <eda.idl>
+#include <somperrd.idl>
+#include <intfacdf.idl>
+
+// Forward references
+interface Repository;
+interface SOMPMediaInterfaceAbstract;
+interface SOMPPersistentObject;
+
+interface SOMPAttrEncoderDecoder : SOMPEncoderDecoderAbstract
+
+// This class is an EncoderDecoder which can save/restore the IDL
+// attributes of a given persistent object.
+//
+// NOTE: This encoder/decoder assumes structure members have been
+//       aligned. This is the default for most compilers. See your
+//       compiler's documentation for discussion of aligned structures.
+//       The encoder/decoder will also handle structures
+//       which are naturally packed (e.g. a structure containing
+//       members which are all declared "long") however, some compilers
+//       allow options which will pack all structures. This encoder/
+//       decoder will not handle these structures.
+//
+// For example, suppose you have an IDL Interface definition with attributes:
+//
+//  attribute string   name;
+//  attribute string   food;
+//  attribute long     weight;
+//  attribute short    height;
+//
+// You would make attributes "name" and "weight" persistent by specifying
+// the following SOM modifiers in the SOM implementation section of the
+// interface definition:
+//
+//  name: persistent;
+//  weight: persistent;
+//
+// An encoder/decoder is an object which is paired with a persistent object
+// and handles the reading/writing of that persistent object's
+// data.
+//
+// A persistent object's encoder/decoder is instantiated by an
+// IO Group Mgr at the moment that object is save/restored.
+
+{
+
+// typedef enum mytckind {tk_null, tk_long} TCKind;
+// TCKind is a CORBA enumerated type. This type is definded by SOM
+// however, not in IDL and therefore this declaration.
+
+
+#ifdef OLDIDL
+};
+#endif
+
+#ifdef __SOMIDL__
+
+#ifdef OLDIDL
+class SOMPAttrEncoderDecoder
+#else
+implementation
+#endif
+{
+   callstyle=idl;
+   dllname="somp.dll";
+
+   releaseorder: sompGetObjectAttributes, sompGetAttribute,
+		 sompSetObjectAttributes, sompSetAttribute,
+		 sompAttributeSize, sompStoreBuffer,
+		 sompRestoreBuffer, sompDispatchSet,
+		 sompPadSize, sompCallStyleIDL,
+		 sompLookupModifier;
+
+// Class Modifiers
+   majorversion = 2;
+   minorversion = 1;
+   filestem = defedidl;
+
+
+// Method Modifiers
+   somInit: override;
+   sompEDWrite: override;
+   sompEDRead: override;
+
+};
+#endif /* __SOMIDL__ */
+#ifndef OLDIDL
+};
+#endif
+
+#endif  /* defedidl_idl */

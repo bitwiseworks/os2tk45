@@ -1,0 +1,51 @@
+//
+//   COMPONENT_NAME: somr
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.9 src/somr/somr.idl, somr, som2.1 9/1/94 15:53:16 [7/30/96 14:49:34]
+
+
+
+#ifndef somr_idl
+#define somr_idl
+
+#include <somobj.idl>
+#include <snglicls.idl>
+
+interface SOMR : SOMObject
+
+//This class creates one of a kind managers needed for the replication framework.
+//Any application wanting to use the framework must create an instance of this
+//class at the very beginning (for example,  in its main program).
+
+{
+
+  #ifdef __SOMIDL__
+
+  implementation
+  {
+     callstyle=idl;
+
+     // Class Modifiers
+     majorversion = 2;
+     minorversion = 1;
+     filestem = somr;
+     metaclass = SOMMSingleInstance;
+
+     // Method Modifiers
+     somInit: override;
+
+   };
+   #endif /* __SOMIDL__ */
+
+};
+#endif  /* somr_idl */
+

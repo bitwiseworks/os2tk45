@@ -1,0 +1,4 @@
+LIBRARY SHRC
+DESCRIPTION 'DLL file containing resources'
+STUB 'OS2STUB.EXE'
+DATA NONE

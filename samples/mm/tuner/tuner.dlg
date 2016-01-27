@@ -1,0 +1,20 @@
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+DLGINCLUDE 1 "tuner.h"
+
+DLGTEMPLATE ID_DIALOG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "TV Tuner", ID_DIALOG, 1, 1, 193, 123, FS_ICON | NOT
+            FS_DLGBORDER | FS_SIZEBORDER | WS_VISIBLE | WS_SYNCPAINT,
+            FCF_SYSMENU | FCF_TITLEBAR | FCF_TASKLIST
+    BEGIN
+        PUSHBUTTON      "DN", IDC_DOWN, 1, 0, 20, 11, BS_NOPOINTERFOCUS |
+                        NOT WS_TABSTOP
+        PUSHBUTTON      "UP", IDC_UP, 51, 0, 20, 11, BS_NOPOINTERFOCUS | NOT
+                        WS_TABSTOP
+        ENTRYFIELD      "", IDC_ENTRY, 27, 1, 17, 8, NOT ES_MARGIN | NOT
+                        WS_TABSTOP
+    END
+END
+

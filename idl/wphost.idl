@@ -1,0 +1,179 @@
+//
+//   Module Name: WPHOST
+//
+//   OS/2 Work Place Shell - Remote FTP Host object
+//
+//   Copyright (C) 1996 IBM Corporation
+//
+
+#ifndef wphost_idl
+#define wphost_idl
+
+#include "wpfolder.idl"
+#include <somcls.idl>
+
+#include "wpftpobj.idl"
+
+
+interface M_WPHost;
+
+interface WPHost : WPFolder
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder:
+                  WPHostPrivate1,
+                  WPHostPrivate2,
+                  WPHostPrivate3,
+                  WPHostPrivate4,
+                  WPHostPrivate5,
+                  WPHostPrivate6,
+                  WPHostPrivate7,
+                  WPHostPrivate8,
+                  WPHostPrivate9,
+                  WPHostPrivate10,
+                  WPHostPrivate11,
+                  WPHostPrivate12,
+                  WPHostPrivate13,
+                  WPHostPrivate14,
+                  WPHostPrivate15,
+                  WPHostPrivate16,
+                  WPHostPrivate17,
+                  WPHostPrivate18,
+                  WPHostPrivate19,
+                  WPHostPrivate20,
+                  WPHostPrivate21,
+                  WPHostPrivate22,
+                  WPHostPrivate23,
+                  WPHostPrivate24,
+                  WPHostPrivate25,
+                  WPHostPrivate26,
+                  WPHostPrivate27,
+                  WPHostPrivate28,
+                  WPHostPrivate29,
+                  WPHostPrivate30,
+                  WPHostPrivate31,
+                  WPHostPrivate32,
+                  WPHostPrivate33,
+                  WPHostPrivate34,
+                  WPHostPrivate35,
+                  WPHostPrivate36,
+                  WPHostPrivate37,
+                  WPHostPrivate38,
+                  WPHostPrivate39;
+
+    externalstem = wphost;
+    local;
+    externalprefix = host_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wphost;
+    metaclass = M_WPHost;
+    callstyle = oidl;
+    dllname = "wpinet.dll";
+
+    passthru C_ih_before =  ""
+"";
+
+
+    wpCopyObject:        override;
+
+    wpSaveState:        override;
+
+    wpRestoreState:     override;
+
+    wpInitData:         override;
+
+    wpUnInitData:       override;
+
+    wpOpen:             override;
+
+    wpClose:            override;
+
+    wpAddSettingsPages: override;
+
+    wpSetup:            override;
+
+    wpSetupOnce:        override;                                              
+
+    wpMenuItemHelpSelected: override;
+
+    wpMenuItemSelected: override;
+
+    wpModifyPopupMenu:  override;
+
+    wpPopulate:         override;
+
+    wpDrop:             override;
+
+    wpDragOver:         override;
+
+    wpDeleteContents:   override;
+
+    wpAddFolderIncludePage: override;
+
+    wpAddFolderSelfClosePage: override;
+
+    wpCreateFromTemplate: override;
+
+    wpCreateAnother:    override;
+
+    wpDeleteFromObjUseList:  override;
+
+    wpQueryConfirmations: override;
+
+    wpAddFirstChild:    override;
+
+    wpAddFile1Page:     override;
+
+    wpAddFile2Page:     override;
+
+    wpAddFile3Page: override;
+
+    wpAddObjectGeneralPage: override;
+
+    somDefaultInit:     override;
+    somDestruct:        override;
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPHost : M_WPFolder
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wphost;
+    local;
+    externalprefix = hostM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wphost;
+    callstyle = oidl;
+    dllname = "wpinet.dll";
+
+    wpclsQueryTitle: override;
+
+    wpclsQueryIconData: override;
+
+    wpclsQueryIconDataN: override;
+
+    wpclsQueryDefaultHelp: override;
+
+    wpclsQueryStyle: override;
+
+    wpclsQueryDefaultView: override;
+
+    wpclsCreateDefaultTemplates: override;
+
+    wpclsInitData: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wphost_idl */

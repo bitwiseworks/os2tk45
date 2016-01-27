@@ -1,0 +1,117 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.10.1.1 src/somd/orb.idl, somd, som2.1 4/1/95 14:52:38 [7/30/96 14:45:31]
+
+
+
+//   Interface for ORB pseudo-object, from CORBA document (8.1).
+
+
+#ifndef orb_idl
+#define orb_idl
+
+#include <somobj.idl>
+#include <somdtype.idl>
+#include <snglicls.idl>
+
+interface OperationDef;
+interface SOMDObject;
+interface NVList;
+interface Context;
+
+interface ORB : SOMObject
+{
+  string object_to_string(in SOMDObject obj);
+
+  // Converts an object reference to its external form.
+  // OWNERSHIP of allocated memory is transferred to the caller.
+  // Use ORBfree to release the allocated memory.
+
+  SOMDObject string_to_object(in string str);
+
+  // Converts externalized form back to an object reference.
+
+  ORBStatus create_list(in long count, out NVList new_list);
+
+  // Creates a NamedValue list, of specified size,
+  // for use in Requests.
+  // OWNERSHIP of allocated "new_list" is transferred to the caller.
+
+  ORBStatus create_operation_list(in OperationDef oper, out NVList new_list);
+
+  // Creates a NamedValue list for the specified operation,
+  // for use in Requests invoking that operation.
+  // OWNERSHIP of allocated "new_list" is transferred to the caller.
+
+  ORBStatus get_default_context(out Context ctx);
+
+  // Get default context.
+  // OWNERSHIP of allocated Context object is transferred to the caller.
+
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+    releaseorder: object_to_string, string_to_object,
+                  create_list, create_operation_list, get_default_context,
+		  object_to_binary, binary_to_object ;
+  
+    //# Class Modifiers
+    callstyle = idl;
+    metaclass = SOMMSingleInstance;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+  
+    //# Passthrus
+    passthru C_h_after = ""
+      "#ifdef SOM_STRICT_IDL"
+#ifdef _WIN16
+      "#define SOMD_ORBObject (*SOMD_ORBObjectResolve())"
+      "SOMEXTERN ORB * SOMLINK SOMD_ORBObjectResolve(void);"
+#else
+      "SOMEXTERN ORB   SOMD_ORBObject;"
+#endif
+      "#else"
+#ifdef _WIN16
+      "#define SOMD_ORBObject (*SOMD_ORBObjectResolve())"
+      "SOMEXTERN ORB * * SOMLINK SOMD_ORBObjectResolve(void);"
+#else
+      "SOMEXTERN ORB * SOMD_ORBObject;"
+#endif
+      "#endif /* SOM_STRICT_IDL */"
+      ""
+      "#include <somdobj.h>"
+      "";
+
+    passthru C_xh_after = ""
+      "class ORB;"
+#ifdef _WIN16
+      "#define SOMD_ORBObject (*SOMD_ORBObjectResolve())"
+      "SOMEXTERN ORB * * SOMLINK SOMD_ORBObjectResolve(void);"
+#else
+      "SOMEXTERN ORB * SOMD_ORBObject;"
+#endif
+      ""
+      "#include <somdobj.xh>"
+      "";
+
+
+  };
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* orb_idl */

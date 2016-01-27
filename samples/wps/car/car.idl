@@ -1,0 +1,493 @@
+/*
+ *   Module Name: CAR
+ *
+ *   OS/2 Work Place Shell Sample Program - SOM 2.0 / IDL Version
+ *
+ *   Copyright (C) 1992, 1993, 1994 IBM Corporation
+ *
+ *       DISCLAIMER OF WARRANTIES.  The following [enclosed] code is
+ *       sample code created by IBM Corporation. This sample code is not
+ *       part of any standard or IBM product and is provided to you solely
+ *       for  the purpose of assisting you in the development of your
+ *       applications.  The code is provided "AS IS", without
+ *       warranty of any kind.  IBM shall not be liable for any damages
+ *       arising out of your use of the sample code, even if they have been
+ *       advised of the possibility of such damages.
+ */
+
+#ifndef car_idl
+#define car_idl
+
+#include <wpdataf.idl>
+#include <somcls.idl>
+
+interface M_Car;
+
+// CLASS: Car
+//
+// CLASS HIERARCHY:
+//
+//     SOMObject
+//       ÀÄÄ WPObject
+//             ÀÄÄ WPFileSystem
+//                   ÀÄÄ WPDataFile
+//                         ÀÄÄ  Car
+//
+// DESCRIPTION:
+//
+//    This is the sample car object class.
+//
+//    An instance of this class can be created as a Workplace object.
+//
+interface Car : WPDataFile
+{
+   BOOL QueryBrakes();
+   // METHOD: QueryBrakes                                    ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   Query state of car's brakes
+   //
+   // RETURN:
+   //
+   //   TRUE           Brake is on
+   //   FALSE          Brake is off
+
+   VOID SetBrakes(in BOOL fBrake);
+   // METHOD: SetBrakes                                      ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   Put on the brakes
+
+   ULONG QueryDuration();
+   // METHOD: QueryDuration                                  ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   Query Duration of horn beep
+   //
+   // RETURN:
+   //
+   //   ULONG          Duration of beep
+
+   VOID SetDuration(in ULONG ulDuration);
+   // METHOD: SetDuration                                    ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   Set Duration of horn beep
+
+   ULONG QueryHighTone();
+   // METHOD: QueryHighTone                                  ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   Query HighTone of horn
+   //
+   // RETURN:
+   //
+   //   ULONG          High frequency of horn
+
+   VOID SetHighTone(in ULONG ulTone);
+   // METHOD: SetHighTone                                    ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   Set HighTone of horn
+
+   ULONG QueryLowTone();
+   // METHOD: QueryLowTone                                   ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   Query LowTone of horn
+   //
+   // RETURN:
+   //
+   //   ULONG          High frequency of horn
+
+   VOID SetLowTone(in ULONG ulTone);
+   // METHOD: SetLowTone                                     ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   Set LowTone of horn
+
+   ULONG QuerySpeed();
+   // METHOD: QuerySpeed                                     ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   Query Speed of car
+   //
+   // RETURN:
+   //
+   //   ULONG          car speed
+
+   VOID SetSpeed(in ULONG ulSpeed);
+   // METHOD: SetSpeed                                       ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   Set Speed of car
+
+   BOOL BeepHorn();
+   // METHOD: BeepHorn                                       ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   Beep the car's horn.
+   //
+   // RETURN:
+   //
+   //   TRUE           Successful
+   //   FALSE          Unsuccessful
+
+   ULONG AddDashboardPage(in HWND hwndNotebook);
+   // METHOD: AddDashboardPage                               ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   This method adds the dashboard page to the settings notebook.
+   //
+   // RETURN:
+   //
+   //   0              Unsuccessful
+   //   ulPageId       Identifier for the inserted page
+   //
+   // HOW TO OVERRIDE:
+   //
+   //   Method should always be overridden in order to replace or remove
+   //   the dashboard page from an object which is a descendent of Car.
+   //   In most cases, an override of this method will not call the parent.
+
+   ULONG AddHornBeepPage(in HWND hwndNotebook);
+   // METHOD: AddHornBeepPage                                ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   This method adds the horn beep page to the settings
+   //   notebook.
+   //
+   // RETURN:
+   //
+   //   0              Unsuccessful
+   //   ulPageId       Identifier for the inserted page
+   //
+   // HOW TO OVERRIDE:
+   //
+   //   Method should always be overridden in order to replace or remove
+   //   the horn beep page from an object which is a descendent of Car.
+   //   In most cases, an override of this method will not call the parent.
+
+   VOID TrapTest();
+   // METHOD: AddHornBeepPage                                ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   This method tests the exception handling in this sample.
+   //
+   // RETURN:
+   //
+   //   nothing
+   //
+   // HOW TO OVERRIDE:
+   //
+   //   n/a
+   //
+   //
+   //   Methods from the WPObject class
+
+   #ifdef __SOMIDL__
+   implementation
+   {
+      releaseorder: QueryBrakes,SetBrakes,QueryDuration,SetDuration,QueryHighTone,
+                    SetHighTone,QueryLowTone,SetLowTone,QuerySpeed,SetSpeed,
+                    BeepHorn,AddDashboardPage,AddHornBeepPage,TrapTest;
+
+      /*
+       * Class Modifiers
+       */
+      externalstem   = car;
+      externalprefix = car_;
+      majorversion   = 1;
+      minorversion   = 2;
+      filestem       = car;
+      metaclass      = M_Car;
+      callstyle      = oidl;
+
+/* som2 The continuation mark '\' must have a space before the " in the
+   passthru section i.e., \" -> \ " */
+
+    passthru C_ih =     ""
+"   #define INCL_WIN"
+"   #define INCL_DOS"
+"   #define INCL_GPIBITMAPS"
+"   #define INCL_DOSERRORS"
+"   #include <os2.h>"
+""
+"   #define INCL_WPCLASS"
+"   #define INCL_WPFOLDER"
+""
+"   #include <pmwp.h>"
+""
+"   #define ID_TITLE           100"
+"   #define ID_ICON            101"
+""
+"   #define IDD_DASHBOARD      200                  /* settings page (dialog) */"
+"   #define IDD_HORNBEEP       202"
+"   #define IDD_DASHBOARD2    1200                  /* settings page (dialog) */"
+"   #define IDD_HORNBEEP2     1202"
+""
+"   /*"
+"    *   The following user-defined Popup menu items (ID_xxx) should be higher"
+"    *   than WPMENUID_USER."
+"    *"
+"    *   The ID_OPENMENU will become a submenu of the system's popup open menu"
+"    *   id, WPMENUID_OPEN."
+"    */"
+"   #define ID_BEEPMENU        (WPMENUID_USER+1) /* menus added to popup menu */"
+"   #define ID_OPENMENU        (WPMENUID_USER+2)"
+"   #define ID_TRAPMENU        (WPMENUID_USER+3)"
+""
+"   #define IDM_OPENCAR        (WPMENUID_USER+4) /* submenus of added menus */"
+"   #define IDM_BEEPHORN       (WPMENUID_USER+5)"
+"   #define IDM_TRAPCAR        (WPMENUID_USER+6)"
+""
+"   #define IDMSG_ACCESS_VIOLATION  100"
+"   #define IDM_MSGBOX              999"
+""
+"   #define ID_FRAME           3000                       /* client window id */"
+"   #define ID_CLIENT          3001                       /* client window id */"
+""
+"   /*"
+"    *   Set unique view ids."
+"    */"
+"   #define OPEN_CAR           IDM_OPENCAR"
+""
+"   #define CAR_TIMER          1001                               /* timer id */"
+""
+"   /*"
+"    *   IDs of dialog items in CAR.RC"
+"    */"
+"   #define ID_UNDO            801"
+"   #define ID_DEFAULT         802"
+"   #define ID_HELP            803"
+"   #define ID_HITONE          804"
+"   #define ID_LOTONE          805"
+"   #define ID_SPEEDSLIDER     806"
+"   #define ID_STOP            807"
+"   #define ID_SPEEDDATA       808"
+"   #define ID_GO              809"
+""
+"   /*"
+"    *  Keys for save-restore methods"
+"    */"
+"   #define IDKEY_HITONE       1"
+"   #define IDKEY_LOTONE       2"
+"   #define IDKEY_DURATION     3"
+"   #define IDKEY_SPEED        4"
+"   #define IDKEY_BRAKEFLAG    5"
+""
+"   /*"
+"    *   Default values of instance data items"
+"    */"
+"   #define DEFAULT_DURATION   300"
+"   #define DEFAULT_HITONE     400"
+"   #define DEFAULT_LOTONE     400"
+"   #define DEFAULT_SPEED      50"
+"   #define DEFAULT_BRAKEFLAG  FALSE"
+""
+"   /*"
+"    *   Help IDs"
+"    *"
+"    *   NOTE:  At this time, no source file is provided to build help for this"
+"    *   sample.  A pre-built help file, CAR.HLP, is provided containing the"
+"    *   following help ids."
+"    */"
+"   #define ID_HELP_DEFAULT    256"
+"   #define ID_HELP_DASHBOARD  257"
+"   #define ID_HELP_OPENCAR    258"
+"   #define ID_HELP_HORNBEEP   259"
+"   #define ID_HELP_BEEPHORN   260"
+""
+"   /*"
+"    *   Indexes into CARDETAILS information. (arrays)"
+"    */"
+"   #define  INDEX_MAKE         0"
+"   #define  INDEX_MODEL        1"
+"   #define  INDEX_COLOR        2"
+"   #define  INDEX_SALE_DATE    3"
+"   #define  INDEX_PRICE        4"
+""
+"   /*"
+"    *   CARDETAILS:  Structure used for details view"
+"    */"
+"   typedef struct _CARDETAILS"
+"   {"
+"      PSZ     pszMake;     /* Manufacturer      */"
+"      PSZ     pszModel;    /* Model             */"
+"      PSZ     pszColor;    /* Color of car      */"
+"      CDATE   cdateSale;   /* Date of sale      */"
+"      ULONG   ulPrice;     /* Price in dollars  */"
+"   } CARDETAILS;"
+"   typedef CARDETAILS *PCARDETAILS;"
+"";
+
+    passthru C_h_after =  ""
+"   /*"
+"    *   The following structures will be used to store window specific data"
+"    *   and a pointer to the object that created the window/dialog."
+"    *"
+"    *   They're allocated when the Client window is created.  This"
+"    *   allows us to pass the *somSelf pointer and use it in our"
+"    *   window and dialog procedures (the system only passes this"
+"    *   pointer to methods)."
+"    */"
+"   typedef struct _WINDOWDATA"
+"   {"
+"      USHORT   cb;            /* size of this structure */"
+"      Car     *somSelf;       /* pointer to this instance */"
+"      USEITEM  UseItem;       /* global class usage information */"
+"      VIEWITEM ViewItem;      /* global class view information */"
+"      LONG     x;             /* x position of car in open view */"
+"      LONG     y;             /* y position of car in open view */"
+"      LONG     xDir;          /* x direction (CAR_LEFT or CAR_RIGHT) */"
+"      LONG     yDir;          /* y direction (CAR_UP or CAR_DOWN) */"
+"   } WINDOWDATA;"
+"   typedef WINDOWDATA *PWINDOWDATA;"
+""
+"   /*"
+"    *   Window data for the Dashboard dialog (settings page)"
+"    */"
+"   typedef struct _DASHDLGDATA"
+"   {"
+"      USHORT   cb;            /* size of this structure */"
+"      Car    *somSelf;        /* pointer to this instance         */"
+"      BOOL    PrevBrakes;     /* indicates if car is stopped      */"
+"      ULONG   PrevSpeed;      /* Speed car moves across screen    */"
+"   } DASHDLGDATA;"
+"   typedef DASHDLGDATA *PDASHDLGDATA;"
+""
+"   /*"
+"    *   Window data for the Horn dialog (settings page)"
+"    */"
+"   typedef struct _HORNDLGDATA"
+"   {"
+"      USHORT   cb;            /* size of this structure */"
+"      Car    *somSelf;        /* pointer to this instance         */"
+"      ULONG   PrevDuration;   /* Duration of the car's horn beep  */"
+"      ULONG   PrevHighTone;   /* The high note of the car beep    */"
+"      ULONG   PrevLowTone;    /* The low note of the car beep     */"
+"   } HORNDLGDATA;"
+"   typedef HORNDLGDATA *PHORNDLGDATA;"
+""
+"   /*"
+"    *   These defines are used as directional multipliers against x,y position."
+"    */"
+"   #define CAR_LEFT  -1"
+"   #define CAR_RIGHT  1"
+"   #define CAR_DOWN  -1"
+"   #define CAR_UP     1"
+""
+"   #define ICON_WIDTH   32     /* pels */"
+"   #define ICON_HEIGHT  32     /* pels */"
+""
+"   /*"
+"    *   Private Debug helpers go here.  They can be enabled/disabled by"
+"    *   defining DEBUG as a compiler directive."
+"    */"
+"   #if defined(DEBUG)"
+""
+"      #define DebugBox(title, text) \ "
+"                                    \ "
+"                 WinMessageBox(     \ "
+"                    HWND_DESKTOP,   \ "
+"                    HWND_DESKTOP,   \ "
+"                    (PSZ) text,     \ "
+"                    (PSZ) title,    \ "
+"                    20,             \ "
+"                    MB_OK | MB_INFORMATION | MB_MOVEABLE)"
+"   #else"
+"      #define DebugBox(title, text)   /* do nothing if not debugging */"
+"   #endif"
+"";
+
+      /*
+       * Internal Instance Variables
+       */
+      BOOL  BrakeFlag;              // indicates if car is stopped
+      ULONG duration;               // Duration of the car's horn
+      ULONG HighTone;               // The high note of the beep
+      ULONG LowTone;                // The low note of the beep
+      ULONG speed;                  // Speed car moves across screen
+
+      /*
+       * Method Modifiers
+       */
+      wpInitData:                      override;
+      wpUnInitData:                    override;
+      wpSaveState:                     override;
+      wpRestoreState:                  override;
+      wpAddSettingsPages:              override;
+      wpFilterPopupMenu:               override;
+      wpModifyPopupMenu:               override;
+      wpMenuItemSelected:              override;
+      wpMenuItemHelpSelected:          override;
+      wpQueryDetailsData:              override;
+      wpOpen:                          override;
+      wpSetup:                         override;
+   };
+   #endif /* __SOMIDL__ */
+};
+
+interface M_Car
+{
+   HMODULE clsQueryModuleHandle();
+   // METHOD: clsQueryModuleHandle                           ( ) PRIVATE
+   //                                                        (X) PUBLIC
+   // DESCRIPTION:
+   //
+   //   This method returns the module handle of this class.  If this is the
+   //   first invocation, DosQueryModuleHandle is called to save the handle
+   //   for future invocations.
+   //
+   // RETURN:
+   //
+   //   0              Unsuccessful
+   //   non-zero       module handle
+
+   #ifdef __SOMIDL__
+   implementation
+   {
+      releaseorder: clsQueryModuleHandle;
+
+      /*
+       * Class Modifiers
+       */
+      externalstem   = car;
+      externalprefix = carM_;              // som2 changed car_ to carM_
+      functionprefix = carM_;
+      majorversion   = 1;
+      minorversion   = 2;
+      filestem       = car;
+      callstyle      = oidl;
+
+      /*
+       * Method Modifiers
+       */
+      wpclsInitData:                   override;
+      wpclsUnInitData:                 override;
+      wpclsQueryTitle:                 override;
+      wpclsQueryIconData:              override;
+      wpclsQueryDefaultHelp:           override;
+      wpclsQueryDefaultView:           override;
+      wpclsQueryDetailsInfo:           override;
+      wpclsQueryDetails:               override;
+      wpclsQueryInstanceFilter:        override;
+      wpclsQueryStyle:                 override;
+   };
+   #endif /* __SOMIDL__ */
+};
+#endif  /* car_idl */

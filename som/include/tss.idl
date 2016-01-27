@@ -1,0 +1,178 @@
+//#  @(#) 2.12 src/somuc/tss.idl, somuc, som2.1 12/26/95 15:41:32 [7/30/96 14:50:11]
+//
+//   COMPONENT_NAME: somuc
+//
+//   ORIGINS: 82, 81, 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1996,1996  
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//   Copyright © 1988, 1989 Apple Computer, Inc. All rights reserved.
+
+/*
+ * CLASS_NAME: somf_TSortedSequence
+ *
+ * DESCRIPTION: A TSortedSequence is a TSequence.  It is ordered based on
+ *              how the elements in the collections relate to each other.
+ *              Any element in the TSortedSequence is Less Than or Equal to
+ *              the element in front of it, and Greater Than or Equal to
+ *              the element behind it.
+ *
+ */
+
+#ifndef TSS_idl
+#define TSS_idl
+
+#include <tseq.idl>
+#include <morder.idl>
+/* interface somf_MCollectible; */
+interface somf_TSortedSequenceNode;
+interface somf_TSequenceIterator;
+
+interface somf_TSortedSequence : somf_TSequence
+{
+
+  //#   friend class TSortedSequenceIterator;
+
+  //# The following method is overridden below:
+  //#   TSortedSequence();
+
+  somf_TSortedSequence somfTSortedSequenceInitF(in somf_MOrderableCollectible::somf_MBetterOrderableCompareFn testfn);
+  // Initialize the new TSortedSequence
+  //#   TSortedSequence(MBetterOrderableCompareFn testfn);
+
+  somf_TSortedSequence somfTSortedSequenceInitS(in somf_TSortedSequence s);
+  // Initialize the new TSortedSequence
+  //#   TSortedSequence(const TSortedSequence&);
+
+  //# The following method is overridden below:
+  //#   virtual ~TSortedSequence();
+
+  void somfAssign(in somf_TSortedSequence s);
+  // Assign the instance of this equal to the instance of source.
+  //#   const TSortedSequence&          operator=(const TSortedSequence&);
+
+  //# The following methods are overridden below:
+  //#   virtual MCollectible*           Add(MCollectible* obj);
+  //#   virtual MCollectible*           After(const MCollectible& obj) const;
+  //#   virtual MCollectible*           Before(const MCollectible& obj) const;
+  //#   virtual MCollectible*           Last() const;
+  //#   virtual MCollectible*           First() const;
+  //#   virtual long OccurrencesOf(const MCollectible& obj) const;
+
+  //# The following methods are overridden below:
+  //#   virtual MCollectible*           Remove(const MCollectible& obj);
+  //#   virtual void                    RemoveAll();
+  //#   virtual void                    DeleteAll();
+  //#   virtual long                    Count() const;
+  //#   virtual MCollectible*           Member(const MCollectible& obj) const;
+  //#   virtual TIterator*              CreateIterator() const;
+
+  somf_TSequenceIterator  somfCreateSequenceIterator();
+  // This method returns a new iterator which is suitable for use in iterating
+  // over the objects in this collection.
+  //#   virtual TSequenceIterator*      CreateSequenceIterator() const;
+
+  //# The following operators are not ported until Streaming is ported.
+  //#   virtual TStream& operator>>=(TStream& towhere) const;
+  //#   virtual TStream& operator<<=(TStream& towhere);
+
+  //# Temporary stuff which may go away when we have hoops
+  //#   virtual void  PrintDebugInfo(Boolean verbose = FALSE) const;
+
+  //#override somfClone;
+  //# There is no point in overriding somfClone, the code was fixed so it works
+  //# correctly.
+  //#   MCollectibleDeclarationsMacro(TSortedSequence);
+
+  somf_MOrderableCollectible::somf_MBetterOrderableCompareFn  somfGetSequencingFunction();
+  // Return a pointer to the function used to compare elements in the
+  // collection, and consequently determines the sequence of the collection.
+  //#   MBetterOrderableCompareFn       GetSequencingFunction() const;
+
+  void somfSetSequencingFunction(in somf_MOrderableCollectible::somf_MBetterOrderableCompareFn fn);
+  // Sets the pointer to the function used to compare elements in the
+  // collection, and consequently determines the sequence of the collection.
+  //#   void SetSequencingFunction(MBetterOrderableCompareFn);
+
+  somf_TSortedSequenceNode somfCreateSortedSequenceNode(in somf_TSortedSequenceNode n1,
+				       in somf_MOrderableCollectible obj,
+				       in somf_TSortedSequenceNode n2);
+  // Create a new TSortedSequenceNode in the TSortedSequence.
+  //#  protected:
+  //#     virtual TSortedSequenceNode* CreateSortedSequenceNode(TSortedSequenceNode* n1 = SOMF_NIL, MOrderableCollectible* obj=SOMF_NIL, TSortedSequenceNode* n2=SOMF_NIL);
+
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: somfCreateSequenceIterator, somfGetSequencingFunction,
+		  somfSetSequencingFunction, somfCreateSortedSequenceNode,
+		  somfRotate, somfSplit, somfBalance,
+		  somfInternalRemoveAll, somfInternalDeleteAll,
+		  somfAssign, somfTSortedSequenceInitF,
+		  somfTSortedSequenceInitS;
+
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = tss;
+    dllname = "somuc.dll";
+
+
+    passthru C_xh_after =  ""
+"#include <mcollect.xh>"
+"#include <morder.xh>"
+"#include <tssnode.xh>";
+
+    passthru C_h_after =  ""
+"#include <mcollect.h>"
+"#include <morder.h>"
+"#include <tssnode.h>";
+
+    //# Internal Instance Variables
+    unsigned long                 fSeed;
+    somf_TSortedSequenceNode        fSuperRoot;
+    somf_TSortedSequenceNode        fNilNode;
+    long                          fCount;
+    somf_MOrderableCollectible::somf_MBetterOrderableCompareFn fSequencingFunction;
+
+    //# Method Modifiers
+    somInit: override;
+    somUninit: override;
+    somfAdd: override;
+    somfRemove: override;
+    somfDeleteAll: override;
+    somfRemoveAll: override;
+    somfCount: override;
+    somfAfter: override;
+    somfBefore: override;
+    somfLast: override;
+    somfFirst: override;
+    somfMember: override;
+    somfCreateIterator: override;
+    somfOccurrencesOf: override;
+    somfTSortedSequenceInitF : nomodify, nooverride;
+    somfTSortedSequenceInitS : nomodify, nooverride;
+    somfAssign : nomodify;
+    somfGetSequencingFunction : nomodify;
+    somfSetSequencingFunction : nomodify;
+    somfRotate : nomodify;
+    somfSplit : nomodify;
+    somfBalance : nomodify;
+    somfInternalRemoveAll : nomodify;
+    somfInternalDeleteAll : nomodify;
+
+    //# Data Modifiers
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* TSS_idl */

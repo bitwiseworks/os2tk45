@@ -1,0 +1,13 @@
+;+------------------------------------------------------------------------
+;| MCISTRNG.DEF FILE.
+;+------------------------------------------------------------------------
+
+NAME            MCISTRNG                WINDOWAPI
+
+DESCRIPTION     'MCISTRNG MMPM/2 SAMPLE PROGRAM'
+HEAPSIZE        36000
+STACKSIZE       36000
+EXPORTS         MainDialogProc
+                IncludeDialogProc
+                DisplayDialogProc
+                DisplayListBoxProc

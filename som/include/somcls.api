@@ -1,0 +1,511 @@
+#ifndef SOMClass_API
+#define SOMClass_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of bindings for IDL types
+ */
+
+class SOMClass;
+class SOMObject;
+#ifndef _IDL_SEQUENCE_somToken_defined
+#define _IDL_SEQUENCE_somToken_defined
+typedef struct {
+    unsigned long _maximum;
+    unsigned long _length;
+    somToken *_buffer;
+} _IDL_SEQUENCE_somToken;
+#endif /* _IDL_SEQUENCE_somToken_defined */ 
+typedef
+_IDL_SEQUENCE_somToken SOMClass_somTokenSequence;
+/*
+ *  a (generic) sequence of somTokens
+ */
+
+#ifndef _IDL_SEQUENCE_SOMClass_defined
+#define _IDL_SEQUENCE_SOMClass_defined
+typedef struct {
+    unsigned long _maximum;
+    unsigned long _length;
+    SOMClass **_buffer;
+} _IDL_SEQUENCE_SOMClass;
+#endif /* _IDL_SEQUENCE_SOMClass_defined */ 
+typedef
+_IDL_SEQUENCE_SOMClass SOMClass_SOMClassSequence;
+/*
+ *  a sequence of classes
+ */
+
+typedef
+struct SOMClass_somOffsetInfo {
+SOMClass* cls;
+long  offset;
+} SOMClass_somOffsetInfo;
+/*
+ *  a structure to describe a class-related offset
+ */
+
+struct SOMClass_somOffsetInfo;
+#ifndef _IDL_SEQUENCE_SOMClass_somOffsetInfo_defined
+#define _IDL_SEQUENCE_SOMClass_somOffsetInfo_defined
+typedef struct {
+    unsigned long _maximum;
+    unsigned long _length;
+    struct SOMClass_somOffsetInfo *_buffer;
+} _IDL_SEQUENCE_SOMClass_somOffsetInfo;
+#endif /* _IDL_SEQUENCE_SOMClass_somOffsetInfo_defined */ 
+typedef
+_IDL_SEQUENCE_SOMClass_somOffsetInfo SOMClass_somOffsets;
+/*
+ *  a sequence of class-related offsets
+ */
+
+#ifndef _IDL_SEQUENCE_somId_defined
+#define _IDL_SEQUENCE_somId_defined
+typedef struct {
+    unsigned long _maximum;
+    unsigned long _length;
+    somId *_buffer;
+} _IDL_SEQUENCE_somId;
+#endif /* _IDL_SEQUENCE_somId_defined */ 
+typedef
+_IDL_SEQUENCE_somId SOMClass_somIdSequence;
+/*
+ *  a sequence of somIds
+ */
+
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_somTokenSequence
+    #ifdef somTokenSequence
+        #undef somTokenSequence
+        #define SOMTGD_somTokenSequence 1
+    #else
+        #define somTokenSequence SOMClass_somTokenSequence
+    #endif /* somTokenSequence */
+#endif /* SOMTGD_somTokenSequence */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_SOMClassSequence
+    #ifdef SOMClassSequence
+        #undef SOMClassSequence
+        #define SOMTGD_SOMClassSequence 1
+    #else
+        #define SOMClassSequence SOMClass_SOMClassSequence
+    #endif /* SOMClassSequence */
+#endif /* SOMTGD_SOMClassSequence */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+#ifndef SOMTGD_somOffsetInfo
+    #ifdef somOffsetInfo
+        #undef somOffsetInfo
+        #define SOMTGD_somOffsetInfo 1
+    #else
+        #define somOffsetInfo SOMClass_somOffsetInfo
+    #endif /* somOffsetInfo */
+#endif /* SOMTGD_somOffsetInfo */
+#ifndef SOMTGD__IDL_SEQUENCE_somOffsetInfo
+    #ifdef _IDL_SEQUENCE_somOffsetInfo
+        #undef _IDL_SEQUENCE_somOffsetInfo
+        #define SOMTGD__IDL_SEQUENCE_somOffsetInfo 1
+    #else
+        #define _IDL_SEQUENCE_somOffsetInfo _IDL_SEQUENCE_SOMClass_somOffsetInfo
+    #endif /* _IDL_SEQUENCE_somOffsetInfo */
+#endif /* SOMTGD__IDL_SEQUENCE_somOffsetInfo */
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_somOffsets
+    #ifdef somOffsets
+        #undef somOffsets
+        #define SOMTGD_somOffsets 1
+    #else
+        #define somOffsets SOMClass_somOffsets
+    #endif /* somOffsets */
+#endif /* SOMTGD_somOffsets */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_somIdSequence
+    #ifdef somIdSequence
+        #undef somIdSequence
+        #define SOMTGD_somIdSequence 1
+    #else
+        #define somIdSequence SOMClass_somIdSequence
+    #endif /* somIdSequence */
+#endif /* SOMTGD_somIdSequence */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+
+/*
+ * End of bindings for IDL types.
+ */
+
+/* A procedure to create the SOMClass Class */
+SOMEXTERN SOMClass * SOMLINK SOMClassNewClass(
+		integer4 majorVersion,
+		integer4 minorVersion);
+
+/* The API to the SOMClass class object, and the methods it introduces. */
+SOMEXTERN struct SOMClassClassDataStructure {
+	SOMClass *classObject;
+	somMToken somNew;
+	somMToken somRenew;
+	somMToken somInitClass;
+	somMToken somClassReady;
+	somMToken somGetName;
+	somMToken somGetParent;
+	somMToken somDescendedFrom;
+	somMToken somCheckVersion;
+	somMToken somFindMethod;
+	somMToken somFindMethodOk;
+	somMToken somSupportsMethod;
+	somMToken somGetNumMethods;
+	somMToken somGetInstanceSize;
+	somMToken somGetInstanceOffset;
+	somMToken somGetInstancePartSize;
+	somMToken somGetMethodIndex;
+	somMToken somGetNumStaticMethods;
+	somMToken somGetPClsMtab;
+	somMToken somGetClassMtab;
+	somMToken somAddStaticMethod;
+	somMToken somOverrideSMethod;
+	somMToken somAddDynamicMethod;
+	somMToken somcPrivate0;
+	somMToken somGetApplyStub;
+	somMToken somFindSMethod;
+	somMToken somFindSMethodOk;
+	somMToken somGetMethodDescriptor;
+	somMToken somGetNthMethodInfo;
+	somMToken somSetClassData;
+	somMToken somGetClassData;
+	somMToken somNewNoInit;
+	somMToken somRenewNoInit;
+	somMToken somGetInstanceToken;
+	somMToken somGetMemberToken;
+	somMToken somcPrivate1;
+	somMToken somGetMethodData;
+	somMToken somOverrideMtab;
+	somMToken somGetMethodToken;
+	somMToken somGetParents;
+	somMToken somGetPClsMtabs;
+	somMToken somInitMIClass;
+	somMToken somGetVersionNumbers;
+	somMToken somLookupMethod;
+	somMToken _get_somInstanceDataOffsets;
+	somMToken somRenewNoZero;
+	somMToken somRenewNoInitNoZero;
+	somMToken somAllocate;
+	somMToken somDeallocate;
+	somMToken somGetRdStub;
+	somMToken somGetNthMethodData;
+	somMToken somcPrivate2;
+	somMToken somcPrivate3;
+	somMToken _get_somDirectInitClasses;
+	somMToken somcPrivate5;
+	somMToken somcPrivate6;
+	somMToken somcPrivate7;
+	somMToken somcPrivate8;
+	somMToken somcPrivate9;
+	somMToken somcPrivate10;
+	somMToken somcPrivate11;
+	somMToken somcPrivate12;
+	somMToken somDefinedMethod;
+	somMToken somcPrivate13;
+	somMToken somcPrivate14;
+	somMToken somcPrivate15;
+	somMToken somcPrivate16;
+	somMToken somcPrivate17;
+	somMToken somcPrivate18;
+	somMToken somcPrivate19;
+	somMToken somcPrivate20;
+	somMToken _get_somDataAlignment;
+	somMToken somcPrivate21;
+	somMToken somcPrivate22;
+	somMToken somcPrivate23;
+	somMToken somcPrivate24;
+	somMToken somcPrivate25;
+} SOMDLINK SOMClassClassData;
+#define _SOMClass SOMClassClassData.classObject
+
+/* The API to parentMtabs for SOMClass, and the instance data it introduces. */
+SOMEXTERN struct SOMClassCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+} SOMDLINK SOMClassCClassData;
+
+/*
+ * -- Typedefs for SOMClass Method Procedures
+ */
+SOMEXTERN {
+typedef long   SOMLINK somTP_SOMClass__get_somDataAlignment(SOMClass *somSelf);
+typedef somTP_SOMClass__get_somDataAlignment *somTD_SOMClass__get_somDataAlignment;
+typedef SOMClass_somOffsets   SOMLINK somTP_SOMClass__get_somInstanceDataOffsets(SOMClass *somSelf);
+typedef somTP_SOMClass__get_somInstanceDataOffsets *somTD_SOMClass__get_somInstanceDataOffsets;
+typedef SOMClass_SOMClassSequence   SOMLINK somTP_SOMClass__get_somDirectInitClasses(SOMClass *somSelf);
+typedef somTP_SOMClass__get_somDirectInitClasses *somTD_SOMClass__get_somDirectInitClasses;
+typedef SOMObject*   SOMLINK somTP_SOMClass_somNew(SOMClass *somSelf);
+typedef somTP_SOMClass_somNew *somTD_SOMClass_somNew;
+typedef SOMObject*   SOMLINK somTP_SOMClass_somNewNoInit(SOMClass *somSelf);
+typedef somTP_SOMClass_somNewNoInit *somTD_SOMClass_somNewNoInit;
+typedef SOMObject*   SOMLINK somTP_SOMClass_somRenew(SOMClass *somSelf, 
+		void* obj);
+typedef somTP_SOMClass_somRenew *somTD_SOMClass_somRenew;
+typedef SOMObject*   SOMLINK somTP_SOMClass_somRenewNoInit(SOMClass *somSelf, 
+		void* obj);
+typedef somTP_SOMClass_somRenewNoInit *somTD_SOMClass_somRenewNoInit;
+typedef SOMObject*   SOMLINK somTP_SOMClass_somRenewNoZero(SOMClass *somSelf, 
+		void* obj);
+typedef somTP_SOMClass_somRenewNoZero *somTD_SOMClass_somRenewNoZero;
+typedef SOMObject*   SOMLINK somTP_SOMClass_somRenewNoInitNoZero(SOMClass *somSelf, 
+		void* obj);
+typedef somTP_SOMClass_somRenewNoInitNoZero *somTD_SOMClass_somRenewNoInitNoZero;
+typedef somToken   SOMLINK somTP_SOMClass_somAllocate(SOMClass *somSelf, 
+		long size);
+typedef somTP_SOMClass_somAllocate *somTD_SOMClass_somAllocate;
+typedef void   SOMLINK somTP_SOMClass_somDeallocate(SOMClass *somSelf, 
+		somToken memptr);
+typedef somTP_SOMClass_somDeallocate *somTD_SOMClass_somDeallocate;
+typedef void   SOMLINK somTP_SOMClass_somInitClass(SOMClass *somSelf, 
+		string className, 
+		SOMClass* parentClass, 
+		long dataSize, 
+		long maxStaticMethods, 
+		long majorVersion, 
+		long minorVersion);
+typedef somTP_SOMClass_somInitClass *somTD_SOMClass_somInitClass;
+typedef void   SOMLINK somTP_SOMClass_somInitMIClass(SOMClass *somSelf, 
+		long inherit_vars, 
+		string className, 
+		SOMClass_SOMClassSequence* parentClasses, 
+		long dataSize, 
+		long dataAlignment, 
+		long maxStaticMethods, 
+		long majorVersion, 
+		long minorVersion);
+typedef somTP_SOMClass_somInitMIClass *somTD_SOMClass_somInitMIClass;
+typedef somMToken   SOMLINK somTP_SOMClass_somAddStaticMethod(SOMClass *somSelf, 
+		somId methodId, 
+		somId methodDescriptor, 
+		somMethodPtr method, 
+		somMethodPtr redispatchStub, 
+		somMethodPtr applyStub);
+typedef somTP_SOMClass_somAddStaticMethod *somTD_SOMClass_somAddStaticMethod;
+typedef void   SOMLINK somTP_SOMClass_somAddDynamicMethod(SOMClass *somSelf, 
+		somId methodId, 
+		somId methodDescriptor, 
+		somMethodPtr method, 
+		somMethodPtr applyStub);
+typedef somTP_SOMClass_somAddDynamicMethod *somTD_SOMClass_somAddDynamicMethod;
+typedef void   SOMLINK somTP_SOMClass_somOverrideSMethod(SOMClass *somSelf, 
+		somId methodId, 
+		somMethodPtr method);
+typedef somTP_SOMClass_somOverrideSMethod *somTD_SOMClass_somOverrideSMethod;
+typedef void   SOMLINK somTP_SOMClass_somClassReady(SOMClass *somSelf);
+typedef somTP_SOMClass_somClassReady *somTD_SOMClass_somClassReady;
+typedef somMethodPtr   SOMLINK somTP_SOMClass_somGetApplyStub(SOMClass *somSelf, 
+		somId methodId);
+typedef somTP_SOMClass_somGetApplyStub *somTD_SOMClass_somGetApplyStub;
+typedef somClassDataStructure*   SOMLINK somTP_SOMClass_somGetClassData(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetClassData *somTD_SOMClass_somGetClassData;
+typedef void   SOMLINK somTP_SOMClass_somSetClassData(SOMClass *somSelf, 
+		somClassDataStructure* cds);
+typedef somTP_SOMClass_somSetClassData *somTD_SOMClass_somSetClassData;
+typedef somMethodTab*   SOMLINK somTP_SOMClass_somGetClassMtab(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetClassMtab *somTD_SOMClass_somGetClassMtab;
+typedef long   SOMLINK somTP_SOMClass_somGetInstanceOffset(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetInstanceOffset *somTD_SOMClass_somGetInstanceOffset;
+typedef long   SOMLINK somTP_SOMClass_somGetInstancePartSize(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetInstancePartSize *somTD_SOMClass_somGetInstancePartSize;
+typedef long   SOMLINK somTP_SOMClass_somGetInstanceSize(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetInstanceSize *somTD_SOMClass_somGetInstanceSize;
+typedef somDToken   SOMLINK somTP_SOMClass_somGetInstanceToken(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetInstanceToken *somTD_SOMClass_somGetInstanceToken;
+typedef somDToken   SOMLINK somTP_SOMClass_somGetMemberToken(SOMClass *somSelf, 
+		long memberOffset, 
+		somDToken instanceToken);
+typedef somTP_SOMClass_somGetMemberToken *somTD_SOMClass_somGetMemberToken;
+typedef boolean   SOMLINK somTP_SOMClass_somGetMethodData(SOMClass *somSelf, 
+		somId methodId, 
+		somMethodData* md);
+typedef somTP_SOMClass_somGetMethodData *somTD_SOMClass_somGetMethodData;
+typedef somMethodProc*   SOMLINK somTP_SOMClass_somGetRdStub(SOMClass *somSelf, 
+		somId methodId);
+typedef somTP_SOMClass_somGetRdStub *somTD_SOMClass_somGetRdStub;
+typedef somId   SOMLINK somTP_SOMClass_somGetMethodDescriptor(SOMClass *somSelf, 
+		somId methodId);
+typedef somTP_SOMClass_somGetMethodDescriptor *somTD_SOMClass_somGetMethodDescriptor;
+typedef long   SOMLINK somTP_SOMClass_somGetMethodIndex(SOMClass *somSelf, 
+		somId id);
+typedef somTP_SOMClass_somGetMethodIndex *somTD_SOMClass_somGetMethodIndex;
+typedef somMToken   SOMLINK somTP_SOMClass_somGetMethodToken(SOMClass *somSelf, 
+		somId methodId);
+typedef somTP_SOMClass_somGetMethodToken *somTD_SOMClass_somGetMethodToken;
+typedef string   SOMLINK somTP_SOMClass_somGetName(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetName *somTD_SOMClass_somGetName;
+typedef boolean   SOMLINK somTP_SOMClass_somGetNthMethodData(SOMClass *somSelf, 
+		long n, 
+		somMethodData* md);
+typedef somTP_SOMClass_somGetNthMethodData *somTD_SOMClass_somGetNthMethodData;
+typedef somId   SOMLINK somTP_SOMClass_somGetNthMethodInfo(SOMClass *somSelf, 
+		long n, 
+		somId* descriptor);
+typedef somTP_SOMClass_somGetNthMethodInfo *somTD_SOMClass_somGetNthMethodInfo;
+typedef long   SOMLINK somTP_SOMClass_somGetNumMethods(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetNumMethods *somTD_SOMClass_somGetNumMethods;
+typedef long   SOMLINK somTP_SOMClass_somGetNumStaticMethods(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetNumStaticMethods *somTD_SOMClass_somGetNumStaticMethods;
+typedef SOMClass*   SOMLINK somTP_SOMClass_somGetParent(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetParent *somTD_SOMClass_somGetParent;
+typedef SOMClass_SOMClassSequence   SOMLINK somTP_SOMClass_somGetParents(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetParents *somTD_SOMClass_somGetParents;
+typedef void   SOMLINK somTP_SOMClass_somGetVersionNumbers(SOMClass *somSelf, 
+		long* majorVersion, 
+		long* minorVersion);
+typedef somTP_SOMClass_somGetVersionNumbers *somTD_SOMClass_somGetVersionNumbers;
+typedef boolean   SOMLINK somTP_SOMClass_somFindMethod(SOMClass *somSelf, 
+		somId methodId, 
+		somMethodPtr* m);
+typedef somTP_SOMClass_somFindMethod *somTD_SOMClass_somFindMethod;
+typedef boolean   SOMLINK somTP_SOMClass_somFindMethodOk(SOMClass *somSelf, 
+		somId methodId, 
+		somMethodPtr* m);
+typedef somTP_SOMClass_somFindMethodOk *somTD_SOMClass_somFindMethodOk;
+typedef somMethodPtr   SOMLINK somTP_SOMClass_somFindSMethod(SOMClass *somSelf, 
+		somId methodId);
+typedef somTP_SOMClass_somFindSMethod *somTD_SOMClass_somFindSMethod;
+typedef somMethodPtr   SOMLINK somTP_SOMClass_somFindSMethodOk(SOMClass *somSelf, 
+		somId methodId);
+typedef somTP_SOMClass_somFindSMethodOk *somTD_SOMClass_somFindSMethodOk;
+typedef somMethodPtr   SOMLINK somTP_SOMClass_somLookupMethod(SOMClass *somSelf, 
+		somId methodId);
+typedef somTP_SOMClass_somLookupMethod *somTD_SOMClass_somLookupMethod;
+typedef boolean   SOMLINK somTP_SOMClass_somCheckVersion(SOMClass *somSelf, 
+		long majorVersion, 
+		long minorVersion);
+typedef somTP_SOMClass_somCheckVersion *somTD_SOMClass_somCheckVersion;
+typedef boolean   SOMLINK somTP_SOMClass_somDescendedFrom(SOMClass *somSelf, 
+		SOMClass* aClassObj);
+typedef somTP_SOMClass_somDescendedFrom *somTD_SOMClass_somDescendedFrom;
+typedef boolean   SOMLINK somTP_SOMClass_somSupportsMethod(SOMClass *somSelf, 
+		somId mId);
+typedef somTP_SOMClass_somSupportsMethod *somTD_SOMClass_somSupportsMethod;
+typedef somMethodPtr   SOMLINK somTP_SOMClass_somDefinedMethod(SOMClass *somSelf, 
+		somMToken method);
+typedef somTP_SOMClass_somDefinedMethod *somTD_SOMClass_somDefinedMethod;
+typedef void   SOMLINK somTP_SOMClass_somOverrideMtab(SOMClass *somSelf);
+typedef somTP_SOMClass_somOverrideMtab *somTD_SOMClass_somOverrideMtab;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef void   SOMLINK somTP_SOMClass_somDefaultInit(SOMClass *somSelf, 
+		som3InitCtrl* ctrl);
+typedef somTP_SOMClass_somDefaultInit *somTD_SOMClass_somDefaultInit;
+typedef void   SOMLINK somTP_SOMClass_somDestruct(SOMClass *somSelf, 
+		octet doFree, 
+		som3DestructCtrl* ctrl);
+typedef somTP_SOMClass_somDestruct *somTD_SOMClass_somDestruct;
+typedef void   SOMLINK somTP_SOMClass_somDefaultCopyInit(SOMClass *somSelf, 
+		som3InitCtrl* ctrl, 
+		SOMObject* fromObj);
+typedef somTP_SOMClass_somDefaultCopyInit *somTD_SOMClass_somDefaultCopyInit;
+typedef SOMClass*   SOMLINK somTP_SOMClass_somDefaultAssign(SOMClass *somSelf, 
+		som3AssignCtrl* ctrl, 
+		SOMObject* fromObj);
+typedef somTP_SOMClass_somDefaultAssign *somTD_SOMClass_somDefaultAssign;
+typedef void   SOMLINK somTP_SOMClass_somDefaultConstCopyInit(SOMClass *somSelf, 
+		som3InitCtrl* ctrl, 
+		SOMObject* fromObj);
+typedef somTP_SOMClass_somDefaultConstCopyInit *somTD_SOMClass_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_SOMClass_somDefaultVCopyInit(SOMClass *somSelf, 
+		som3InitCtrl* ctrl, 
+		SOMObject* fromObj);
+typedef somTP_SOMClass_somDefaultVCopyInit *somTD_SOMClass_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_SOMClass_somDefaultConstVCopyInit(SOMClass *somSelf, 
+		som3InitCtrl* ctrl, 
+		SOMObject* fromObj);
+typedef somTP_SOMClass_somDefaultConstVCopyInit *somTD_SOMClass_somDefaultConstVCopyInit;
+typedef SOMClass*   SOMLINK somTP_SOMClass_somDefaultConstAssign(SOMClass *somSelf, 
+		som3AssignCtrl* ctrl, 
+		SOMObject* fromObj);
+typedef somTP_SOMClass_somDefaultConstAssign *somTD_SOMClass_somDefaultConstAssign;
+typedef SOMClass*   SOMLINK somTP_SOMClass_somDefaultVAssign(SOMClass *somSelf, 
+		som3AssignCtrl* ctrl, 
+		SOMObject* fromObj);
+typedef somTP_SOMClass_somDefaultVAssign *somTD_SOMClass_somDefaultVAssign;
+typedef SOMClass*   SOMLINK somTP_SOMClass_somDefaultConstVAssign(SOMClass *somSelf, 
+		som3AssignCtrl* ctrl, 
+		SOMObject* fromObj);
+typedef somTP_SOMClass_somDefaultConstVAssign *somTD_SOMClass_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_SOMClass_somInit(SOMClass *somSelf);
+typedef somTP_SOMClass_somInit *somTD_SOMClass_somInit;
+typedef void   SOMLINK somTP_SOMClass_somFree(SOMClass *somSelf);
+typedef somTP_SOMClass_somFree *somTD_SOMClass_somFree;
+typedef void   SOMLINK somTP_SOMClass_somUninit(SOMClass *somSelf);
+typedef somTP_SOMClass_somUninit *somTD_SOMClass_somUninit;
+typedef SOMClass*   SOMLINK somTP_SOMClass_somGetClass(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetClass *somTD_SOMClass_somGetClass;
+typedef string   SOMLINK somTP_SOMClass_somGetClassName(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetClassName *somTD_SOMClass_somGetClassName;
+typedef long   SOMLINK somTP_SOMClass_somGetSize(SOMClass *somSelf);
+typedef somTP_SOMClass_somGetSize *somTD_SOMClass_somGetSize;
+typedef boolean   SOMLINK somTP_SOMClass_somIsA(SOMClass *somSelf, 
+		SOMClass* aClassObj);
+typedef somTP_SOMClass_somIsA *somTD_SOMClass_somIsA;
+typedef boolean   SOMLINK somTP_SOMClass_somIsInstanceOf(SOMClass *somSelf, 
+		SOMClass* aClassObj);
+typedef somTP_SOMClass_somIsInstanceOf *somTD_SOMClass_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_SOMClass_somRespondsTo(SOMClass *somSelf, 
+		somId mId);
+typedef somTP_SOMClass_somRespondsTo *somTD_SOMClass_somRespondsTo;
+typedef boolean   SOMLINK somTP_SOMClass_somDispatch(SOMClass *somSelf, 
+		somToken* retValue, 
+		somId methodId, 
+		va_list ap);
+typedef somTP_SOMClass_somDispatch *somTD_SOMClass_somDispatch;
+typedef boolean   SOMLINK somTP_SOMClass_somClassDispatch(SOMClass *somSelf, 
+		SOMClass* clsObj, 
+		somToken* retValue, 
+		somId methodId, 
+		va_list ap);
+typedef somTP_SOMClass_somClassDispatch *somTD_SOMClass_somClassDispatch;
+typedef boolean   SOMLINK somTP_SOMClass_somCastObj(SOMClass *somSelf, 
+		SOMClass* cls);
+typedef somTP_SOMClass_somCastObj *somTD_SOMClass_somCastObj;
+typedef boolean   SOMLINK somTP_SOMClass_somResetObj(SOMClass *somSelf);
+typedef somTP_SOMClass_somResetObj *somTD_SOMClass_somResetObj;
+typedef void   SOMLINK somTP_SOMClass_somDispatchV(SOMClass *somSelf, 
+		somId methodId, 
+		somId descriptor, 
+		va_list ap);
+typedef somTP_SOMClass_somDispatchV *somTD_SOMClass_somDispatchV;
+typedef long   SOMLINK somTP_SOMClass_somDispatchL(SOMClass *somSelf, 
+		somId methodId, 
+		somId descriptor, 
+		va_list ap);
+typedef somTP_SOMClass_somDispatchL *somTD_SOMClass_somDispatchL;
+typedef void*   SOMLINK somTP_SOMClass_somDispatchA(SOMClass *somSelf, 
+		somId methodId, 
+		somId descriptor, 
+		va_list ap);
+typedef somTP_SOMClass_somDispatchA *somTD_SOMClass_somDispatchA;
+typedef double   SOMLINK somTP_SOMClass_somDispatchD(SOMClass *somSelf, 
+		somId methodId, 
+		somId descriptor, 
+		va_list ap);
+typedef somTP_SOMClass_somDispatchD *somTD_SOMClass_somDispatchD;
+typedef SOMObject*   SOMLINK somTP_SOMClass_somPrintSelf(SOMClass *somSelf);
+typedef somTP_SOMClass_somPrintSelf *somTD_SOMClass_somPrintSelf;
+typedef void   SOMLINK somTP_SOMClass_somDumpSelf(SOMClass *somSelf, 
+		long level);
+typedef somTP_SOMClass_somDumpSelf *somTD_SOMClass_somDumpSelf;
+typedef void   SOMLINK somTP_SOMClass_somDumpSelfInt(SOMClass *somSelf, 
+		long level);
+typedef somTP_SOMClass_somDumpSelfInt *somTD_SOMClass_somDumpSelfInt;
+}
+
+#endif /* SOMClass_API */

@@ -1,0 +1,98 @@
+//#
+//#  COMPONENT_NAME: somi
+//#
+//#  ORIGINS: 27
+//#
+//#
+//#    25H7912  (C)   COPYRIGHT International Business Machines Corp. 1992,1996,1996,1996  
+//#  All Rights Reserved
+//#  Licensed Materials - Property of IBM
+//#  US Government Users Restricted Rights - Use, duplication or
+//#  disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#
+//#  @(#) 2.9.1.5 src/somi/ir/somir/paramdef.idl, somi.corba, som2.1 1/3/96 14:30:02 [7/30/96 14:46:25]
+
+
+//#  ParameterDef: CORBA Interface for parameter definitions
+//#  See CORBA 1.1, 7.5.7, p.136
+
+#ifndef paramdef_idl
+#define paramdef_idl
+
+#include <containd.idl>
+#include <somcls.idl>
+
+interface ParameterDef : Contained
+// This interface is used to access information associated with
+// parameters used with an IDL operation.
+//
+// See CORBA 1.1, 7.5.7, p.136
+{
+    enum ParameterMode {IN, OUT, INOUT};
+
+    struct ParameterDescription {
+	Identifier    name;
+	RepositoryId  id;
+	RepositoryId  defined_in;
+	TypeCode      type;
+	ParameterMode mode;
+    };
+    // The inherited describe method returns an instance of this
+    // (ParameterDescription) structure in the "value" member of the
+    // Description structure defined in the Contained interface.
+
+    attribute TypeCode type;
+    // The TypeCode of the receiving object.  The memory used to hold
+    // the TypeCode is contained in the receiving object, which retains
+    // ownership.  Hence, do not free the returned TypeCode.  If you want
+    // to obtain a separate copy, use the TypeCode_copy operation.
+
+    attribute ParameterMode mode;
+    // The ParameterMode of the receiving object;
+
+#ifdef __SOMIDL__
+  implementation {
+      releaseorder: _get_type,_set_type,_get_mode,_set_mode
+      ;
+
+      //# Class Modifiers
+      callstyle = idl;
+      majorversion = 2;
+      minorversion = 3;
+      filestem = paramdef;
+      dllname = "somir.dll";
+
+      passthru C_h =
+	""
+	"    #include <somtcnst.h>"
+	"    #include <somir.h>"
+	"    #include <containd.h>"
+	"";
+      passthru C_xh =
+	""
+	"    #include <somtcnst.xh>"
+	"    #include <somir.xh>"
+	"    #include <containd.xh>"
+	"";
+
+      //# Attribute Modifiers
+      type: nodata;
+      mode: noget, noset;
+#if defined __SOM_KERNEL_LEVEL && __SOM_KERNEL_LEVEL >= 250
+      _get_type : dual_owned_result;
+#else
+      _set_type : caller_owns_parameters = "type";
+#endif
+
+      //# Method Modifiers
+      somDefaultInit: override, init;
+      somDestruct: override;
+      somDumpSelf: override;
+      somDumpSelfInt: override;
+      describe: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif	/* paramdef_idl */

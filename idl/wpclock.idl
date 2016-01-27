@@ -1,0 +1,90 @@
+
+//  Module Header
+//
+//  Module Name: WPCLOCK
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpclock_idl
+#define wpclock_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface M_WPClock;
+
+interface WPClock : WPAbstract
+
+{
+  ULONG wpAddClockView1Page(in HWND hwndNotebook);
+
+  ULONG wpAddClockView2Page(in HWND hwndNotebook);
+
+  ULONG wpAddClockDateTimePage(in HWND hwndNotebook);
+
+  ULONG wpAddClockAlarmPage(in HWND hwndNotebook);
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddClockView1Page,wpAddClockView2Page,wpAddClockDateTimePage,
+                  wpAddClockAlarmPage;
+
+    externalstem = WPclk;
+    local;
+    externalprefix = clk_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpclock;
+    metaclass = M_WPClock;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    passthru C_h =     ""
+"     /* None right now */";
+
+    wpAddSettingsPages: override;
+    wpOpen: override;
+    wpMenuItemSelected: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpMenuItemHelpSelected: override;
+    wpAddObjectWindowPage: override;
+    wpFilterMenu: override;                                                     
+    wpModifyMenu: override;                                                     
+    somDefaultInit: override;             
+    somDestruct:    override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPClock : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPclk;
+    local;
+    externalprefix = clkM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpclock;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpclsQueryDefaultView: override;
+    wpclsQueryStyle: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryTitle: override;
+    wpclsQueryIconData: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpclock_idl */

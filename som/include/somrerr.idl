@@ -1,0 +1,60 @@
+//
+//   COMPONENT_NAME: somr
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.8 src/somr/somrerr.idl, somr, som2.1 9/1/94 15:53:19 [7/30/96 14:49:35]
+
+
+
+#ifndef SOMRERR_IDL
+#define SOMRERR_IDL
+
+exception somrException {
+  long primary;
+  long secondary;
+};
+
+/*
+Primary Error Codes.
+-------------------- */
+const long SOMR_SYSTEM_ERROR     = 1;
+const long SOMR_FRAMEWORK_ERROR  = 2;
+const long SOMR_FRAMEWORK_STATUS = 3;
+
+/*
+Secondary Error/Status Codes.
+----------------------------- */
+const long SOMR_ACK     = 11111;
+const long SOMR_FAILURE = -1;
+
+const long SOMR_BASE               = 500;
+const long SOMR_TIMEOUT            = SOMR_BASE + 0;
+const long SOMR_OK                 = SOMR_BASE + 1;
+const long SOMR_GRANTED            = SOMR_BASE + 1;
+const long SOMR_UNAUTHORIZED       = SOMR_BASE + 2;
+const long SOMR_TRYLATER           = SOMR_BASE + 3;
+const long SOMR_DENIED             = SOMR_BASE + 4;
+const long SOMR_LOCKBUSY           = SOMR_BASE + 5;
+const long SOMR_AMNOTMASTER        = SOMR_BASE + 6;
+const long SOMR_NOTMYSHDO          = SOMR_BASE + 7;
+const long SOMR_MASTER_UNREACHABLE = SOMR_BASE + 8;
+const long SOMR_NEWMASTER          = SOMR_BASE + 9;
+const long SOMR_URMASTER           = SOMR_BASE +10;
+const long SOMR_DONTHAVIT          = SOMR_BASE +11;
+const long SOMR_RELEASED           = SOMR_BASE +12;
+const long SOMR_CONNECTION_CLOSED  = SOMR_BASE +13;
+const long SOMR_LOCKNLOG_BADIR     = SOMR_BASE +14;
+const long SOMR_LOCKNLOG_PARAM     = SOMR_BASE +15;
+const long SOMR_LOCKNLOG_FAIL      = SOMR_BASE +16;
+
+#endif
+
+

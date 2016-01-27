@@ -1,0 +1,43 @@
+/*********** DIALOG C Sample Program Resource Script File (.RC) **************
+ *
+ *  The window resources used by an application are defined in a resource
+ *  script file .RC.  This file is compiled by the resource compiler to
+ *  produce an executable-format file.
+ *  The definitions are either statements which define resources or
+ *  references to other files containing resources.
+ *
+ *  In this resource script file:
+ *  ------------------------------------------------------------------------
+ *  Statement:                        References:
+ *  ACCELTABLE ID_MAINWND PRELOAD     #include <os2.h>
+ *  MENU       ID_MAINWND PRELOAD     #include "dialog.h"
+ *  STRINGTABLE PRELOAD               ICON ID_MAINWND PRELOAD dialog.ico
+ *                                    rcinclude dialog.dlg
+ *
+ ******************************************************************************/
+
+#include <os2.h>
+#include "dialog.h"
+
+ICON       ID_MAINWND PRELOAD dialog.ico
+BITMAP     ID_BITMAP  PRELOAD prodinfo.bmp
+
+ACCELTABLE ID_MAINWND PRELOAD
+BEGIN
+  VK_F3, ID_EXITPROGRAM, VIRTUALKEY
+END
+
+MENU       ID_MAINWND PRELOAD
+BEGIN
+  SUBMENU "~Options",             ID_COMMANDS
+  BEGIN
+    MENUITEM "~Where...",         ID_WHERE,       MIS_TEXT
+  END
+END
+
+STRINGTABLE PRELOAD
+BEGIN
+  ID_RESPONSE, "You live in "
+END
+
+rcinclude dialog.dlg

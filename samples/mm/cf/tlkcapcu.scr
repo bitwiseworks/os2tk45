@@ -1,0 +1,16 @@
+
+/*  The TLKCAPCU.SCR change file  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPProgram"
+    WPTitle       = "Caption Creation\nUtility"
+    WPSetupString = "EXENAME=$(DEST)CAPTION.EXE;PROGTYPE=PM;STARTUPDIR=$(DIR)26;OBJECTID=<MPM2TLK_CAPTIONCU> "
+    WPLocation    = "<MMPMTLK>"
+    WPFlags       = 1L
+    )
+
+/* end of TLKCAPCU.SCR */

@@ -1,0 +1,58 @@
+/*==============================================================*\
+ *  cliqhelp.rc - Sample queue apps help rc file
+ *      Copyright 1991 IBM Corp.
+ *--------------------------------------------------------------
+ *
+ *  This resource file contains the Help table and subtable
+ *  resources used by the help manager.
+ *
+\*==============================================================*/
+
+#include <os2.h>
+#include "cliqmain.h"
+#include "cliqhelp.h"
+
+
+/*--------------------------------------------------------------*\
+ *  Help table definition
+\*--------------------------------------------------------------*/
+HELPTABLE   CLIQ_HELP_TABLE
+{
+    HELPITEM    IDR_MAIN,       SUBTABLE_MAIN,         PANEL_MAIN
+    HELPITEM    IDD_ABOUTBOX,   SUBTABLE_ABOUTBOXDLG,  PANEL_ABOUTBOXDLG
+}
+
+
+/*--------------------------------------------------------------*\
+ *  Main window subtable, includes menu item help
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     WID_Q_MSG,                  PANEL_MESSAGE
+    HELPSUBITEM     WID_DAY,                    PANEL_DATE
+    HELPSUBITEM     WID_MONTH,                  PANEL_DATE
+    HELPSUBITEM     WID_YEAR,                   PANEL_DATE
+    HELPSUBITEM     WID_Q_PRIORITY,             PANEL_PRIORITY
+    HELPSUBITEM     WID_SEND_MSG,               PANEL_SEND_MSG
+    HELPSUBITEM     WID_SEND_DATE,              PANEL_SEND_DATE
+
+    HELPSUBITEM     IDM_FILE,                   PANEL_FILE
+    HELPSUBITEM     IDM_FILEEXIT,               PANEL_FILEEXIT
+
+    HELPSUBITEM     IDM_HELP,                   PANEL_HELP
+    HELPSUBITEM     IDM_HELPHELPFORHELP,        PANEL_HELPHELPFORHELP
+    HELPSUBITEM     IDM_HELPEXTENDED,           PANEL_HELPEXTENDED
+    HELPSUBITEM     IDM_HELPKEYS,               PANEL_HELPKEYS
+    HELPSUBITEM     IDM_HELPINDEX,              PANEL_HELPINDEX
+    HELPSUBITEM     IDM_HELPABOUT,              PANEL_HELPABOUT
+}
+
+/*--------------------------------------------------------------*\
+ *  Enter text dialog help subtable
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_ABOUTBOXDLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDC_OK,             PANEL_ABOUTBOX_OK
+}

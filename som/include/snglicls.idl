@@ -1,0 +1,62 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) somu/snglicls.idl 2.19 7/10/96 09:56:05 [7/30/96 14:49:52]
+
+
+#ifndef snglicls_idl
+#define snglicls_idl
+
+#include <somcls.idl>
+
+
+interface SOMMSingleInstance  
+			  	 : SOMClass
+// This class is a metaclass for classes which wish to enforce a
+// single instance rule.  That is, classes which specify this class
+// as their metaclass will only be allowed to have a single instance.
+//
+// For example, if a class named dog specified this class as its
+// metaclass, only one dog object could be instantiated. Repeated
+// calls to _somNew on the dog class would simply return the same
+// dog repeatedly.
+//
+// There are two ways to retrieve the single intance of the using
+// class:
+//
+//  1) Invoke sommGetSingleInstance on the class object of the using class.
+//     This is the preferred way.
+//
+//  2) Invoke somNew or somNewNoInit on the class object of the using class.
+//
+{ 
+
+	SOMObject sommGetSingleInstance();
+	// Returns the single instance of the using class.
+	// If there isn't one, then it creates one first with somNew.
+
+	void sommFreeSingleInstance();
+	// If there isn't one, then the method does nothing.
+	// Frees single instance of the class
+
+	#ifdef __SOMIDL__
+
+	implementation {
+		callstyle=idl;
+   		releaseorder: sommGetSingleInstance, sommFreeSingleInstance;   
+	   	majorversion = 2;
+	   	minorversion = 1;
+   		filestem = snglicls;
+	};
+	#endif /* __SOMIDL__ */
+};
+#endif

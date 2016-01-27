@@ -1,0 +1,75 @@
+
+//  Module Header
+//
+//  Module Name: WPICON
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpicon_idl
+#define wpicon_idl
+
+#include "wpdataf.idl"
+#include <somcls.idl>
+
+interface M_WPIcon;
+
+interface WPIcon : WPDataFile
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpico;
+    local;
+    externalprefix = ico_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpicon;
+    metaclass = M_WPIcon;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+    wpQueryIcon: override;
+    wpSetupOnce: override;
+    wpFormatDragItem: override;           
+    wpQueryHandleFromContents: override;  
+    wpSetContentsFromHandle:   override;  
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPIcon : M_WPDataFile
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpico;
+    local;
+    externalprefix = icoM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpicon;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+    wpclsQueryInstanceFilter: override;
+    wpclsQueryInstanceType: override;
+    wpclsInitData: override;
+    wpclsQueryTitle: override;
+    wpclsQueryDefaultHelp: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpicon_idl */

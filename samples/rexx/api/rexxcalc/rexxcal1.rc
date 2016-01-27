@@ -1,0 +1,39 @@
+/********************************************************************/
+/*                                                                  */
+/* REXXCAL1.RC - a simple pocket calculator                         */
+/*                                                                  */
+/********************************************************************/
+
+ #include <os2.h>
+ #include "rexxcal1.h"
+
+ ICON REXXCALC rexxcalc.ico
+
+ WINDOWTEMPLATE REXXCALC
+ BEGIN
+   FRAME "", 0, 100, 40, 108, 122, WS_VISIBLE, FCF_TITLEBAR |
+                FCF_SYSMENU | FCF_MINBUTTON | FCF_BORDER | FCF_TASKLIST
+   BEGIN
+
+     WINDOW "Rexx Calculator", FID_CLIENT, 0, 0, 116, 122, "RexxCalc", WS_VISIBLE
+       BEGIN
+         ENTRYFIELD "0", DISPLAY, 20, 104, 70, 14, ES_RIGHT | ES_MARGIN
+         PUSHBUTTON "9", BUTTON_9, 56, 52, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "6", BUTTON_6, 56, 36, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "3", BUTTON_3, 56, 20, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "8", BUTTON_8, 32, 52, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "5", BUTTON_5, 32, 36, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "2", BUTTON_2, 32, 20, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "7", BUTTON_7, 8,  52, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "4", BUTTON_4, 8,  36, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "1", BUTTON_1, 8,  20, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "0", BUTTON_0, 8,   4, 44, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "/", BUTTON_DIVIDE, 80, 68, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "x", BUTTON_MULTIPLY, 80, 52, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "-", BUTTON_MINUS, 80, 36, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "+", BUTTON_PLUS, 80, 20, 20, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "Enter", BUTTON_ENTER, 56, 4,  44, 14, BS_NOPOINTERFOCUS
+         PUSHBUTTON "C", BUTTON_CLEAR, 80, 84, 20, 14, BS_NOPOINTERFOCUS
+       END
+   END
+ END

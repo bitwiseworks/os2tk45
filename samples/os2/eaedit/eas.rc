@@ -1,0 +1,149 @@
+/*==============================================================*\
+ *                                                              *
+ * EAS.RC - Sample PM application resource file                 *
+ *                                                              *
+\*==============================================================*/
+#include "eas.h"
+
+ICON    ID_RESOURCE  eas.ico
+BITMAP  IDR_BITMAP   "prodinfo.bmp"
+BITMAP  ID_BMP       "eas1.bmp"
+
+MENU ID_RESOURCE
+{
+    SUBMENU     "~File", -1
+    {
+        MENUITEM    "~Open...\tAlt+O",      IDM_OPEN
+        MENUITEM    "~Save",                IDM_SAVE
+    }
+    SUBMENU     "~Attr", -2
+    {
+        MENUITEM    "~Add...",              IDM_ADD
+        MENUITEM    "~Delete...",           IDM_DELETE
+        MENUITEM    "~Edit...",             IDM_EDIT
+    }
+    SUBMENU     "~Help", -3
+    {
+        MENUITEM "~Help index",             IDM_HELPINDEX
+        MENUITEM "~General help",           IDM_GENERALHELP
+        MENUITEM "~Keys help",              IDM_TUTORIAL
+        MENUITEM "~Using help",             IDM_USINGHELP
+        MENUITEM SEPARATOR
+        MENUITEM "~Product information...", IDM_HELPPRODUCTINFO
+    }
+}
+
+ACCELTABLE ID_RESOURCE
+{
+    "O",     IDM_OPEN,          ALT
+    "o",     IDM_OPEN,          ALT
+}
+
+STRINGTABLE
+{
+    IDS_TITLE,                  "EAS Demonstration"
+    IDS_UNTITLED                "Untitled"
+    IDS_APPNAME                 "EAS"
+    IDS_HELPLIBRARYNAME         "EAS.HLP"
+    IDS_HELPWINDOWTITLE         "EAS Help"
+}
+
+MESSAGETABLE
+{
+ IDMSG_INITFAILED          "Initialization failed."
+ IDMSG_MAINWINCREATEFAILED "Failed to create main window."
+ IDMSG_CANNOTLOADEXITLIST  "Cannot load Exit List processor."
+ IDMSG_CANNOTLOADSTRING    "Failed to load string."
+ IDMSG_HELPLOADERROR       "Failed to load help manager."
+ IDMSG_HELPDISPLAYERROR    "Failed to display help panel."
+ IDMSG_FILECHANGED         "The current file has been changed. Do you wish to save?"
+ IDMSG_ERROREANAME         "Cannot create a NULL EA name."
+ IDMSG_DUPLICATENAME       "EA name already exists.  Can't create that name."
+ IDMSG_ERRORVALUE          "An EA cannot have a NULL value."
+ IDMSG_MEMORYFULL          "Sorry, Not enough memory"
+ IDMSG_ERRORSELECT         "No item selected!"
+ IDMSG_NOFILEOPEN          "No File is opened, select a NEW FILE"
+ IDMSG_ERROREATYPE         "Wrong EA data type selected"
+ IDMSG_WRITEERROR          "File is not saved successfully"
+ IDMSG_WRITEOK             "File is saved successfully"
+ IDMSG_ERRORMULTIVALUE     "Multi-value Single-type cannot be selected."
+ IDMSG_ERRORMULTITYPE      "Multi-value Multi-type cannot be selected."
+ IDMSG_ERRORFILEOPEN       "This file does not exist or can't be opened."
+}
+
+/*--------------------------------------------------------------*\
+ *  Help table definition                                       *
+\*--------------------------------------------------------------*/
+HELPTABLE   EAS_HELP_TABLE
+{
+    HELPITEM   ID_RESOURCE,     SUBTABLE_MAIN,            PANEL_MAIN
+    HELPITEM   IDD_PRODUCTINFO, SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+
+    HELPITEM   IDD_OPENBOX,     SUBTABLE_OPENBOXDLG,      PANEL_OPENBOXDLG
+    HELPITEM   IDD_ADDEA,       SUBTABLE_ADDBOXDLG,       PANEL_ADDBOXDLG
+    HELPITEM   IDD_ASCIIEDIT,   SUBTABLE_PRODUCTINFODLG,  PANEL_PRODUCTINFODLG
+    HELPITEM   IDD_MULTIBOX,    SUBTABLE_MULTIBOXDLG,     PANEL_MULTIBOXDLG
+    HELPITEM   IDD_ABOUTBOX,    SUBTABLE_ABOUTBOXDLG,     PANEL_ABOUTBOXDLG
+}
+
+/*--------------------------------------------------------------*\
+ *  Main window subtable, includes menu item help               *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDM_GENERALHELP,         PANEL_GENERALHELP
+    HELPSUBITEM     IDM_USINGHELP,           PANEL_USINGHELP
+    HELPSUBITEM     IDM_TUTORIAL,            PANEL_TUTORIAL
+    HELPSUBITEM     IDM_HELPINDEX,           PANEL_HELPINDEX
+    HELPSUBITEM     IDM_HELPPRODUCTINFO,     PANEL_HELPPRODUCTINFO
+
+    HELPSUBITEM     IDM_OPEN,                PANEL_OPENHELP
+    HELPSUBITEM     IDM_SAVE,                PANEL_SAVEHELP
+    HELPSUBITEM     IDM_ADD,                 PANEL_ADDHELP
+    HELPSUBITEM     IDM_DELETE,              PANEL_DELETEHELP
+    HELPSUBITEM     IDM_EDIT,                PANEL_EDITHELP
+}
+
+/*--------------------------------------------------------------*\
+ *  Enter text dialog help subtable                             *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_PRODUCTINFODLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDD_EANAME,              PANEL_PRODUCTINFO_OK
+    HELPSUBITEM     IDD_EAVALUE,             PANEL_PRODUCTINFO_OK
+    HELPSUBITEM     DID_OK,                  PANEL_PRODUCTINFO_OK
+}
+
+HELPSUBTABLE SUBTABLE_OPENBOXDLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDD_FILEEDIT,            PANEL_OPENBOX_OK
+    HELPSUBITEM     DID_OK,                  PANEL_OPENBOX_OK
+}
+
+HELPSUBTABLE SUBTABLE_ADDBOXDLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDD_EANAME,              PANEL_ADDBOX_OK
+    HELPSUBITEM     DID_OK,                  PANEL_ADDBOX_OK
+}
+
+HELPSUBTABLE SUBTABLE_MULTIBOXDLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     IDD_CODEPAGE,            PANEL_MULTIBOX_OK
+    HELPSUBITEM     IDD_ADD,                 PANEL_MULTIBOX_OK
+    HELPSUBITEM     IDD_DELETE,              PANEL_MULTIBOX_OK
+    HELPSUBITEM     IDD_EDIT,                PANEL_MULTIBOX_OK
+    HELPSUBITEM     DID_DONE,                PANEL_MULTIBOX_OK
+}
+
+HELPSUBTABLE SUBTABLE_ABOUTBOXDLG
+SUBITEMSIZE     2
+{
+    HELPSUBITEM     DID_OK,                  PANEL_ABOUTBOX_OK
+}
+
+rcinclude eas.dlg

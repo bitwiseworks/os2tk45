@@ -1,0 +1,115 @@
+
+//  Module Header
+//
+//  Module Name: WPKEYBD
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpkeybd_idl
+#define wpkeybd_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface M_WPKeyboard;
+
+interface WPKeyboard : WPAbstract
+
+{
+  ULONG wpAddKeyboardMappingsPage(in HWND hwndNotebook);
+
+  ULONG wpAddKeyboardTimingPage(in HWND hwndNotebook);
+
+  ULONG wpAddKeyboardSpecialNeedsPage(in HWND hwndNotebook);
+
+  ULONG wpAddKeyboardLayoutPage(in HWND hwndNotebook);                          
+
+#ifdef _PPC_
+  ULONG wpAddKeyboardInputMethodPage(in HWND hwndNotebook);
+
+#endif
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddKeyboardMappingsPage,wpAddKeyboardTimingPage,
+#ifdef _PPC_
+                  wpAddKeyboardSpecialNeedsPage,wpAddKeyboardInputMethodPage;
+#else
+                  wpAddKeyboardSpecialNeedsPage,wpAddKeyboardLayoutPage;        
+#endif
+
+    externalstem = WPkbd;
+    local;
+    externalprefix = kbd_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpkeybd;
+    metaclass = M_WPKeyboard;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    passthru C_h =     ""
+""
+"/***********************************************************/"
+"/* Defines for wpclsQuerySetting and wpclsSetSetting       */"
+"/***********************************************************/"
+""
+"#define REPEATRATE_DEFAULT        0"
+"#define REPEATRATE_MAX           20"
+"#define REPEATRATE_MIN            1"
+"#define REPEATDELAY_DEFAULT      -1"
+"#define REPEATDELAY_MAX         890"
+"#define REPEATDELAY_MIN           0"
+"#define CURSORBLINK_DEFAULT      -1"
+"#define CURSORBLINK_MAX         890"
+"#define CURSORBLINK_MIN           0"
+"#define POPUPKEY_DEFAULT          0"
+"#define TEXTEDITKEY_DEFAULT       0"
+""
+"";
+
+    wpAddSettingsPages: override;
+    wpAddObjectWindowPage: override;
+    wpFilterMenu: override;                                                     
+    somDefaultInit: override;             
+    somDestruct:    override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPKeyboard : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPkbd;
+    local;
+    externalprefix = kbdM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpkeybd;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpclsQueryTitle: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryStyle: override;
+    wpclsQueryIconData: override;
+    wpclsQuerySettingsPageSize: override;                                       
+
+    wpclsQuerySetting: override;
+
+    wpclsSetSetting: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpkeybd_idl */

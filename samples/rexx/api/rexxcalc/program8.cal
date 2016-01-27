@@ -1,0 +1,23 @@
+/* Rexx Calculator program 4 key - standard deviation of memory      */
+parse arg num                          /* get the count of memories  */
+numeric digits CalcPrecision()         /* set current precision      */
+numeric form value CalcForm()          /* set current form           */
+
+if \datatype(num, 'Whole')             /* must be whole number       */
+  then return 'Error'                  /* return error indicator     */
+
+if num < 1 | num >50                   /* valid for counter          */
+  then return 'Error'                  /* return error indicator     */
+
+mean = program3(num)                   /* get the mean               */
+
+accumulator = 0                        /* start at zero              */
+
+do i = 1 to num                        /* loop for given number      */
+  'GET' i 'REGISTER'                   /* get next register          */
+                                       /* add to total               */
+  accumulator = accumulator + (register - mean)**2
+end
+
+                                       /* return standard deviation  */
+return program2(accumulator / (num - 1))

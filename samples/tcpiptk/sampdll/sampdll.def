@@ -1,0 +1,14 @@
+;========================================================================
+; SAMPDLL.DEF - Intermediate dynamic linking library definition file
+;========================================================================
+LIBRARY     SAMPDLL INITINSTANCE TERMINSTANCE
+
+PROTMODE
+DESCRIPTION 'SAMPDLL'
+CODE LOADONCALL
+DATA MULTIPLE NONSHARED
+
+EXPORTS
+           S_GETHOSTBYNAME=s_gethostbyname
+           s_gethostbyname                                    @1
+

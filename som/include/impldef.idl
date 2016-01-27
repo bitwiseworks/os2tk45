@@ -1,0 +1,107 @@
+//
+//   COMPONENT_NAME: somd
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.18.1.2 src/somd/impldef.idl, somd, som2.1 4/1/95 14:52:34 [7/30/96 14:45:26]
+
+
+//  CLASS SPECIFICATION FOR IMPLEMENTATION DEFINITION
+
+
+#ifndef impldef_idl
+#define impldef_idl
+
+#include <somobj.idl>
+#include <somdtype.idl>
+
+
+
+interface ImplementationDef : SOMObject
+{
+  // ImplementationDef attributes
+  attribute string        impl_id;
+  attribute string        impl_alias;
+  attribute string impl_program;
+  attribute Flags  impl_flags;
+  attribute string impl_server_class;
+  attribute string impl_refdata_file;
+  attribute string impl_refdata_bkup;
+  attribute string impl_hostname;
+
+#ifdef __SOMIDL__
+
+  implementation
+  {
+    releaseorder: _set_impl_id,           _get_impl_id,
+                  _set_impl_alias,        _get_impl_alias,
+                  _set_impl_program,      _get_impl_program,
+                  _set_impl_flags,        _get_impl_flags,
+                  _set_impl_server_class, _get_impl_server_class,
+                  _set_impl_socket_class, _get_impl_socket_class,
+                  _set_impl_refdata_file, _get_impl_refdata_file,
+                  _set_impl_refdata_bkup, _get_impl_refdata_bkup,
+                  _set_impl_hostname,     _get_impl_hostname,
+                  _set_impl_def_struct,   _get_impl_def_struct,
+		  get_impl_winserver_handle;
+
+    //# Class Modifiers
+    callstyle = idl;
+    dllname = "somd.dll";
+    majorversion = 2;
+    minorversion = 1;
+
+    //# Passthrus
+    #define COMMON_H_PASSTHRU \
+      "" \
+      "/* flags */"               \
+      "#define IMPLDEF_MULTI_THREAD  0x00000001" \
+      "#define IMPLDEF_POOL_THREAD   0x00000002" \
+      "#define IMPLDEF_DISABLE_SVR   0x00000004" \
+      "#define IMPLDEF_IMPLID_SET    0x00000008" \
+      "#define IMPLDEF_NONSTOPPABLE  0x00000010" \
+      "#define IMPLDEF_SECUREMODE    0x00000020" \
+      ""
+
+    passthru C_h_after  = COMMON_H_PASSTHRU
+      "#ifdef SOM_STRICT_IDL"
+#ifdef _WIN16
+      "#define SOMD_ImplDefObject (*SOMD_ImplDefObjectResolve())"
+      "SOMEXTERN ImplementationDef * SOMLINK SOMD_ImplDefObjectResolve(void);"
+#else
+      "SOMEXTERN ImplementationDef  SOMDLINK SOMD_ImplDefObject;"
+#endif
+      "#else"
+#ifdef _WIN16
+      "#define SOMD_ImplDefObject (*SOMD_ImplDefObjectResolve())"
+      "SOMEXTERN ImplementationDef ** SOMLINK SOMD_ImplDefObjectResolve(void);"
+#else
+      "SOMEXTERN ImplementationDef*  SOMDLINK SOMD_ImplDefObject;"
+#endif
+      "#endif /* SOM_STRICT_IDL */"
+      "";
+
+    passthru C_xh_after = COMMON_H_PASSTHRU
+      "class ImplementationDef;"
+#ifdef _WIN16
+      "#define SOMD_ImplDefObject (*SOMD_ImplDefObjectResolve())"
+      "SOMEXTERN ImplementationDef ** SOMLINK SOMD_ImplDefObjectResolve(void);"
+#else
+      "SOMEXTERN ImplementationDef* SOMDLINK SOMD_ImplDefObject;"
+#endif
+      "";
+
+};
+
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* impldef_idl */

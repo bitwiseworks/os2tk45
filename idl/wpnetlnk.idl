@@ -1,0 +1,85 @@
+
+//  Module Header
+//
+//  Module Name: WPNETLNK
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpnetlnk_idl
+#define wpnetlnk_idl
+
+#include "wpshadow.idl"
+#include <somcls.idl>
+
+interface M_WPNetLink;
+
+interface WPNetLink : WPShadow
+
+{
+  BOOL wpSetObjectNetId(in PSZ pszNetIdentity);
+
+  PSZ wpQueryObjectNetId();
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpSetObjectNetId,wpQueryObjectNetId;
+
+    externalstem = wpnetlnk;
+    local;
+    externalprefix = netl_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpnetlnk;
+    metaclass = M_WPNetLink;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpInitData: override;
+    wpUnInitData: override;
+    wpMenuItemHelpSelected: override;
+    wpQueryStyle: override;
+    wpCreateShadowObject: override;
+    wpFilterPopupMenu: override;
+    wpModifyPopupMenu: override;
+    wpFilterMenu: override;                                                     
+    wpModifyMenu: override;                                                     
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+    wpSetLinkToObject: override;         
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPNetLink : M_WPShadow
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpnetlnk;
+    local;
+    externalprefix = netlM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpnetlnk;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryTitle: override;
+    wpclsQueryStyle: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpnetlnk_idl */

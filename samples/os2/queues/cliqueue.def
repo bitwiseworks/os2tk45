@@ -1,0 +1,11 @@
+;-------------------------------------
+; CLIQUEUE.DEF module definition file
+;-------------------------------------
+
+NAME           CLIQUEUE  WINDOWAPI
+
+DESCRIPTION    'Client end of Queue program, (c) IBM Corp.'
+PROTMODE
+HEAPSIZE       2048
+STACKSIZE      8192
+EXPORTS        MainWndProc

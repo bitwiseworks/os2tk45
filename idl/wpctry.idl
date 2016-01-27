@@ -1,0 +1,85 @@
+
+//  Module Header
+//
+//  Module Name: WPCTRY
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpctry_idl
+#define wpctry_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface M_WPCountry;
+
+interface WPCountry : WPAbstract
+
+{
+  ULONG wpAddCountryTimePage(in HWND hwndNotebook);
+
+  ULONG wpAddCountryDatePage(in HWND hwndNotebook);
+
+  ULONG wpAddCountryNumbersPage(in HWND hwndNotebook);
+
+  ULONG wpAddCountryPage(in HWND hwndNotebook);
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddCountryTimePage,wpAddCountryDatePage,withdrawn,
+                  wpAddCountryPage,wpAddCountryNumbersPage;
+
+    externalstem = WPcou;
+    local;
+    externalprefix = cou_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpctry;
+    metaclass = M_WPCountry;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+
+    wpAddSettingsPages: override;
+    wpAddObjectWindowPage: override;
+    wpInitData: override;
+    wpFilterMenu: override;                                                     
+    somDefaultInit: override;             
+    somDestruct:    override;             
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPCountry : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPcou;
+    local;
+    externalprefix = couM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpctry;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpclsQueryTitle: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryStyle: override;
+    wpclsQueryIconData: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpctry_idl */

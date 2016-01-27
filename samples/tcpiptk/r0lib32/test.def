@@ -1,0 +1,20 @@
+PHYSICAL DEVICE TEST
+PROTMODE
+SEGMENTS NULL           CLASS'BEGDATA'   MIXED1632
+         _DATA          CLASS'DATA'      MIXED1632
+         CONST          CLASS'CONST'     MIXED1632
+         FAR_BSS        CLASS'FAR_BSS'   MIXED1632
+         _BSS           CLASS'BSS'       MIXED1632
+         c_common       CLASS'BSS'       MIXED1632
+         DATA32         CLASS'DATA'      MIXED1632
+         BSS32          CLASS'BSS'       MIXED1632
+         CONST32_RO     CLASS'CONST'     MIXED1632
+         BUFFERS        CLASS'LAST_DATA' MIXED1632
+         LAST_D         CLASS'LAST_DATA' MIXED1632
+         MAINSEG        CLASS'CODE'      ALIAS
+         CODE32         CLASS'CODE'      ALIAS
+         _TEXT          CLASS'CODE'
+         END_TEXT       CLASS'CODE'
+
+
+

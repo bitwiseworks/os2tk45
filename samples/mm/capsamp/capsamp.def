@@ -1,0 +1,19 @@
+;+------------------------------------------------------------------------
+;| CAPSAMP.DEF FILE
+;|
+;| Copyright (C) IBM 1993
+;+------------------------------------------------------------------------
+
+NAME        capsamp     WINDOWAPI
+
+DESCRIPTION 'Caption Sample Application'
+
+CODE        MOVEABLE
+DATA        MOVEABLE MULTIPLE
+
+STACKSIZE   16384
+HEAPSIZE    4096
+
+IMPORTS     CAP.ccInitialize
+            CAP.ccSendCommand
+            CAP.ccTerminate

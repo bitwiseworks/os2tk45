@@ -1,0 +1,11 @@
+;-------------------------------------
+; SVRQUEUE.DEF module definition file
+;-------------------------------------
+
+NAME           SVRQUEUE  WINDOWAPI
+
+DESCRIPTION    'Server end of Queue program, (c) IBM Corp.'
+PROTMODE
+HEAPSIZE       2048
+STACKSIZE      8192
+EXPORTS        MainWndProc

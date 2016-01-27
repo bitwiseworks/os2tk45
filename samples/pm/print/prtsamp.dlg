@@ -1,0 +1,134 @@
+
+DLGTEMPLATE IDD_FILETYPE LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Select File Type", IDD_FILETYPE, 5, 5, 143, 88, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        AUTORADIOBUTTON "Plain Text", IDC_CK_TEXT, 30, 65, 93, 10, WS_GROUP |
+                        WS_TABSTOP
+        AUTORADIOBUTTON "Bitmap", IDC_CK_BITMAP, 30, 50, 104, 10
+        AUTORADIOBUTTON "Metafile", IDC_CK_METAFILE, 30, 35, 88, 10
+        DEFPUSHBUTTON   "OK", DID_OK, 2, 3, 40, 14, WS_GROUP
+        PUSHBUTTON      "Cancel", DID_CANCEL, 48, 3, 40, 14, NOT WS_TABSTOP
+        PUSHBUTTON      "Help", DID_HELP_BUTTON, 91, 3, 40, 14, BS_HELP
+    END
+END
+
+DLGTEMPLATE IDD_PRODINFO LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Product Information", IDD_PRODINFO, 8, -43, 276, 137,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CONTROL         IDR_PRODINFO, 0, 106, 72, 21, 21, WC_STATIC,
+                        SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT           "(C) Copyright IBM Corporation 1991-1993. All Rights rese"
+                        "rved.", 256, 7, 54, 255, 8
+        CTEXT           "International Business Machines Corp.", 257, 7, 34,
+                        255, 8
+        CTEXT           "OS/2 is a registered trademark of", 258, 7, 44, 255,
+                        8
+        DEFPUSHBUTTON   "~OK", DID_OK,  111, 8, 45, 15
+    END
+END
+
+DLGTEMPLATE IDD_QUERYPRINT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Printing Options", IDD_QUERYPRINT, 9, 36, 257, 127, FS_NOBYTEALIGN
+           | FS_DLGBORDER | WS_VISIBLE | WS_SAVEBITS, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Select printer", IDD_QPTEXT, 12, 112, 65, 8
+        LISTBOX         IDD_QPLISTBOX, 10, 35, 232, 73
+        DEFPUSHBUTTON   "OK", DID_OK_BUTTON, 10, 10, 38, 13,
+                        WS_GROUP
+        PUSHBUTTON      "Cancel", DID_CANCEL_BUTTON, 59, 10, 38, 13
+        PUSHBUTTON      "Job properties...", IDD_QPJOBPROP, 109, 10, 86, 13
+        PUSHBUTTON      "Help", DID_HELP_BUTTON, 205, 10, 38, 13,
+                        BS_HELP
+    END
+END
+
+DLGTEMPLATE IDD_PRINT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "Print", IDD_PRINT, 21, 54, 204, 138, FS_NOBYTEALIGN | FS_DLGBORDER |
+                WS_VISIBLE | WS_SAVEBITS, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        DEFPUSHBUTTON   "Print", DID_OK_BUTTON, 11, 10, 38, 13
+        PUSHBUTTON      "Cancel", DID_CANCEL_BUTTON, 82, 10, 38, 13
+        PUSHBUTTON      "Help", DID_HELP_BUTTON, 157, 10, 38, 13, BS_HELP
+        ENTRYFIELD      "1", IDD_PRTCOPIES, 177, 66, 16, 8,
+                        ES_LEFT | ES_MARGIN | WS_TABSTOP
+        LTEXT           "Copies", -1, 139, 66, 34, 8
+        AUTORADIOBUTTON "All", IDD_PRTALL, 15, 66, 32, 10,
+                        WS_TABSTOP
+        AUTORADIOBUTTON "Selective", IDD_PRTSELECT, 15, 58, 56, 10,
+                        WS_TABSTOP
+        LTEXT           "From", IDD_PRTFROM, 15, 44, 24, 8
+        LTEXT           "To", IDD_PRTTO, 67, 44, 24, 8
+        ENTRYFIELD      "", IDD_PRTFIRSTPAGE, 42, 44, 15, 8,
+                        ES_LEFT | ES_MARGIN | WS_TABSTOP
+        ENTRYFIELD      "", IDD_PRTLASTPAGE, 87, 44, 15, 8,
+                        ES_LEFT | ES_MARGIN | WS_TABSTOP
+        AUTOCHECKBOX    "Preview", IDD_PRTPREVIEW, 139, 44, 54, 10,
+                        WS_TABSTOP
+        GROUPBOX        "Page select", IDD_PRTPAGEGROUP, 10, 33, 114, 58
+        LTEXT           "Document", -1, 10, 100, 47, 8
+        LTEXT           "Printer", -1, 10, 120, 50, 8
+        ENTRYFIELD      "", IDD_PRTPRINTER, 62, 120, 131, 8,
+                        ES_LEFT | ES_AUTOSCROLL | ES_MARGIN | WS_TABSTOP
+        ENTRYFIELD      "", IDD_PRTDOCUMENT, 62, 100, 131, 8,
+                        ES_LEFT | ES_AUTOSCROLL | ES_MARGIN | WS_TABSTOP
+    END
+END
+
+DLGTEMPLATE IDD_PRINTING LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Print Sample", IDD_PRINTING, 8, 21, 205, 80, FS_NOBYTEALIGN |
+            FS_DLGBORDER | WS_VISIBLE | WS_CLIPSIBLINGS | WS_SAVEBITS |
+            WS_SYNCPAINT, FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Printer", -1, 10, 61, 41, 8
+        LTEXT           "Document", -1, 10, 48, 42, 8
+        ENTRYFIELD      "", IDD_PRINTPRINTER, 59, 62, 131, 8, ES_MARGIN |
+                        ES_READONLY | WS_VISIBLE
+        ENTRYFIELD      "", IDD_PRINTDOCUMENT, 59, 47, 131, 8, ES_MARGIN |
+                        ES_READONLY | WS_VISIBLE
+        LTEXT           "Processing...", IDD_PRINTINGTEXT, 10, 28, 180, 10
+        DEFPUSHBUTTON   "Cancel", DID_CANCEL, 79, 5, 42, 16, WS_TABSTOP
+    END
+END
+
+
+DLGTEMPLATE IDD_PAGESETUP LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Page Setup", IDD_PAGESETUP, 47, 10, 245, 116, WS_VISIBLE, FCF_SYSMENU |
+            FCF_TITLEBAR
+    BEGIN
+        PUSHBUTTON      "OK", DID_OK, 6, 5, 40, 14
+        PUSHBUTTON      "Cancel", DID_CANCEL, 105, 5, 40, 14
+        PUSHBUTTON      "Help", DID_HELP_BUTTON, 199, 5, 40, 14, BS_HELP
+        LISTBOX         IDD_FORM, 7, 43, 98, 55, LS_HORZSCROLL
+        LTEXT           "Form name", -1, 7, 100, 51, 8
+        AUTOCHECKBOX    "Duplex formatting", IDD_DUPLEX, 7, 26, 87, 10,
+                        WS_TABSTOP
+        ENTRYFIELD      "1.0", IDD_MARGIN_TOP, 169, 83, 32, 8, ES_MARGIN |
+                        WS_TABSTOP
+        ENTRYFIELD      "1.0", IDD_MARGIN_BOTTOM, 169, 68, 32, 8, ES_MARGIN |
+                        WS_TABSTOP
+        ENTRYFIELD      "1.0", IDD_MARGIN_LEFT, 169, 53, 32, 8, ES_MARGIN |
+                        WS_TABSTOP
+        ENTRYFIELD      "1.0", IDD_MARGIN_RIGHT, 169, 38, 32, 8, ES_MARGIN |
+                        WS_TABSTOP
+        LTEXT           "Top", -1, 128, 83, 35, 8
+        LTEXT           "Bottom", -1, 128, 68, 35, 8
+        LTEXT           "Left", -1, 128, 53, 35, 8
+        LTEXT           "Right", -1, 128, 38, 35, 8
+        LTEXT           "Inches", -1, 204, 83, 28, 8
+        LTEXT           "Inches", -1, 204, 68, 28, 8,
+        LTEXT           "Inches", -1, 204, 53, 28, 8,
+        LTEXT           "Inches", -1, 204, 38, 28, 8
+        GROUPBOX        "Margins", -1, 116, 24, 121, 84
+    END
+END
+
+
+

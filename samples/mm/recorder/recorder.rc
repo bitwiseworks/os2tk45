@@ -1,0 +1,175 @@
+/*************************************************************************
+ * File Name    : RECORDER.RC
+ *
+ * Description  : This is the resource file for the Audio Recorder program.
+ *
+ * Copyright (C) IBM 1993
+ *************************************************************************/
+
+#define  INCL_WIN
+#define  INCL_PM
+#define  INCL_DOS
+#define  INCL_WINMENUS
+
+#define  INCL_CIRCULARSLIDER  /* need this for the circular slider control */
+#define  INCL_GRAPHICBUTTON   /* need this for the graphic buttons control */
+#define  INCL_BITMAP
+
+#include <os2.h>
+#include <sw.h>
+
+#include "RECORDER.H"
+
+ICON ID_ICON recorder.ICO
+
+/*
+ * Bitmap's
+ */
+BITMAP ID_BMP_REC1 LOADONCALL MOVEABLE DISCARDABLE REC1.BMP
+BITMAP ID_BMP_REC0 LOADONCALL MOVEABLE DISCARDABLE REC0.BMP
+
+BITMAP ID_BMP_PLAY0 LOADONCALL MOVEABLE DISCARDABLE PLAY0.BMP
+BITMAP ID_BMP_PLAY1 LOADONCALL MOVEABLE DISCARDABLE PLAY1.BMP
+BITMAP ID_BMP_PLAY2 LOADONCALL MOVEABLE DISCARDABLE PLAY2.BMP
+BITMAP ID_BMP_PLAY3 LOADONCALL MOVEABLE DISCARDABLE PLAY3.BMP
+BITMAP ID_BMP_PLAY4 LOADONCALL MOVEABLE DISCARDABLE PLAY4.BMP
+BITMAP ID_BMP_STOP LOADONCALL MOVEABLE DISCARDABLE STOP.BMP
+BITMAP ID_BMP_REW LOADONCALL MOVEABLE DISCARDABLE REW.BMP
+BITMAP ID_BMP_FASTF LOADONCALL MOVEABLE DISCARDABLE FASTF.BMP
+
+
+MENU ID_DLG_MAIN
+   {
+   SUBMENU "~File",                        IDM_FILE_MENU
+      {
+      MENUITEM  "~New",                    IDM_FILE_NEW
+      MENUITEM  "~Open...",                IDM_FILE_OPEN
+      MENUITEM  SEPARATOR
+      MENUITEM  "~Save",                   IDM_FILE_SAVE
+      MENUITEM  "Save ~as...",             IDM_FILE_SAVE_AS
+      }
+
+   SUBMENU "~Options",                     IDM_OPTIONS_MENU
+      {
+      MENUITEM  "~Microphone",             IDM_MICROPHONE
+      MENUITEM  "~Line in",                IDM_LINEIN
+      MENUITEM  SEPARATOR
+      MENUITEM  "L~ow input level",        IDM_LOW_INPUT
+      MENUITEM  "M~edium input level",     IDM_MEDIUM_INPUT
+      MENUITEM  "~High input level",       IDM_HIGH_INPUT
+      MENUITEM  SEPARATOR
+      MENUITEM  "Mo~nitor input",          IDM_MONITOR_INPUT
+      MENUITEM  SEPARATOR
+      MENUITEM  "~Show status line",       IDM_OPTIONS_STATUSLINE
+      }
+
+   SUBMENU "~Type",                        IDM_TYPE_MENU
+      {
+      MENUITEM  "~Mono",                   IDM_MONO,,
+      MENUITEM  "~Stereo",                 IDM_STEREO
+      MENUITEM  SEPARATOR
+      MENUITEM  "~Voice (11 khz)",         IDM_VOICE
+      MENUITEM  "M~usic (22 khz)",         IDM_MUSIC
+      MENUITEM  "~High fidelity (44 khz)", IDM_HIGH_FIDELITY
+      MENUITEM  SEPARATOR
+      MENUITEM  "~Low quality (8-bit)",    IDM_LOW_QUALITY
+      MENUITEM  "H~igh quality (16-bit)",  IDM_HIGH_QUALITY
+      }
+
+   SUBMENU "~Help",                        IDM_HELP_MENU,       MIS_TEXT
+      {
+      MENUITEM  "Help ~Index...",          IDM_HELP_INDEX,      MIS_TEXT
+      MENUITEM  "~General Help...",        IDM_HELP_GENERAL,    MIS_TEXT
+      MENUITEM  "~Using Help...",          IDM_HELP_USING,      MIS_TEXT
+      MENUITEM  "~Keys Help...",           IDM_HELP_KEYS,       MIS_TEXT
+      MENUITEM  SEPARATOR
+      MENUITEM  "~Product Information...", IDM_HELP_PRODUCTINFO
+      }
+   }
+
+/*
+ * Help Table Definition.
+ *
+ * The help table definition for the dialog window.
+ */
+
+HELPTABLE ID_AUDIO_HELPTABLE
+{
+   HELPITEM ID_DLG_MAIN,         0,                    0
+   HELPITEM ID_MESSAGEBOX, ID_SUBTABLE_MESSAGEBOX, ID_MESSAGEBOX
+}
+
+HELPSUBTABLE ID_SUBTABLE_MESSAGEBOX
+{
+}
+
+/*
+ * String Table Definition.
+ */
+STRINGTABLE
+{
+  IDS_PROGRAM_TITLE,        "Audio Recorder"
+  IDS_AUDIO_RECORDER_ERROR, "Audio Recorder Error"
+  IDS_HELP_WINDOW_TITLE,    "Audio Recorder Help"
+  IDS_HELP_LIBRARY_NAME,    "recorder.hlp"
+  IDS_DEFAULTSIZE,          "~Default Size"
+  IDS_UNTITLED,             "Untitled"
+  IDS_TITLEBARSEPARATOR,    " - "
+  IDS_FILEOPENEXT,          "*.WAV"
+  IDS_FILEOPEN_TITLE,       "Audio Recorder - Open"
+  IDS_FILESAVEAS_TITLE,     "Audio Recorder - Save as"
+  IDS_SAVE_AS,              "Save"
+
+  /*
+   * Needed for status line
+   */
+  IDS_STOPPED,              "Stopped"
+  IDS_PLAYING,              "Playing"
+  IDS_REWINDING,            "Rewinding"
+  IDS_FASTFORWARDING,       "Fast Forwarding"
+  IDS_RECORDING,            "Recording"
+  IDS_PASSED,               "Suspended"
+  IDS_OPENINGDEVICE,        "Opening Device"
+  IDS_LOADINGFILE,          "Loading File"
+  IDS_SAVINGFILE,           "Saving File"
+
+  /*
+   * All the messages.
+   */
+  IDS_HELP_CREATION_FAILED,
+  "Creation of Help failed.  Help will not be available."
+
+  IDS_UNKNOWN,
+  "Unknown MCI Error"
+
+  IDS_COMMAND_CAN_PLAY,
+  "capability waveaudio can play wait";
+
+  IDS_COMMAND_CAN_RECORD,
+  "capability waveaudio can record wait";
+
+  IDS_COMMAND_STATUS_BITSPERSAMPLE,
+  "status waveaudio bitspersample wait";
+
+  IDS_FILE_CHANGED,
+  "The file has been modified. Select 'Yes' to save the file, "
+  "or select 'No' to continue without saving."
+
+  IDS_FILE_EXISTS,
+  "A file with this name already exists.  Select 'Ok' to overwrite the file,"
+  " or select 'Cancel' to reenter the file name."
+
+  IDS_MMIO_GET_HEADER_FAIL,
+  "Error while reading the selected file header information.  Verify that"
+  " the file is a valid WAVE file and retry."
+
+  IDS_CANNOT_OPEN_INPUT_FILE,
+  "The selected file could not be opened to get the header information."
+
+  IDS_CANNOT_SAVE_FILE,
+  "The file could not be saved to the target location.  Verify that the "
+  "target location is valid, and retry."
+
+}
+
+rcinclude RECORDER.DLG

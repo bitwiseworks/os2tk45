@@ -1,0 +1,20 @@
+REM="Japanese text"
+REM="(C) Copyright IBM Corporation 1989"
+
+NOTE="íç: "
+CAUTION="íç: "
+WARNING="åxçê: "
+OLCHARS=abcdefghijklmnopqrstuvwxyz
+OLCLOSE1=.
+OLCLOSE2=)
+ULITEMID1=o
+ULITEMID2=-
+ULITEMID3=•
+GRAMMAR
+WORDS=0 - 9 + A - Z + a - z
+WORDS=ÇO - ÇX + Ç` - Çy + ÇÅ - Çö
+REMOVENL=Å@ - ¸¸
+EGRAMMAR
+CGRAPHICFONTFACENAME=MINCHO
+CGRAPHICFONTWIDTH=6
+CGRAPHICFONTHEIGHT=12

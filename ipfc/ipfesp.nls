@@ -1,0 +1,25 @@
+REM="Spanish"
+REM="(C) Copyright IBM Corporation 1989, 1991"
+
+NOTE="Nota:  "
+CAUTION=PRECAUCION:
+WARNING="Aviso:  "
+OLCHARS=abcdefghijklmn§opqrstuvwxyz
+OLCLOSE1=.
+OLCLOSE2=)
+ULITEMID1=
+ULITEMID2=-
+ULITEMID3=--
+CGRAPHICFONTFACENAME="Courier"
+CGRAPHICFONTWIDTH=11
+CGRAPHICFONTHEIGHT=18
+
+REM=" WORDS defines the characters that make words.  This is used for"
+REM=" searching and data compression.  The following is for Code page 850."
+
+GRAMMAR
+WORDS=0 - 9 + A - Z + a - z +
+Ä + Å + Ç + Ö + á + ä + ã + ê + ï + ö + † + ° + ¢ + £ + § + • + µ + ∑ + ‘ + ÷ +
+ÿ + ‡ + „ + È
+EGRAMMAR
+

@@ -1,0 +1,33 @@
+
+package="IBM Compression/Decompression Sample"
+codepage=437
+filelist="MASTER.DSK"
+groupcount=1
+munitcount=1
+
+medianame="IBM Compression/Decompression Sample Diskette 1"
+
+
+
+
+/*** Source Directorys ***/
+
+sourcedir = "\\"                            = 0
+
+
+
+/*** Destination Directorys ***/
+
+destindir = "\\MMOS2\\DLL\\"                           = 2
+
+
+
+/*** Groups ***/
+
+ssgroup=35              /*  MyCodec group */
+sssize=24
+ssname="Sample Codec"
+ssversion="1.0.0"
+ssinich="SAMPCODC.SCR"
+ssicon="VIDREC.ICO"
+ssselect="YES"

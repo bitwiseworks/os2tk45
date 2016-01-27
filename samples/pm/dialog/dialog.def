@@ -1,0 +1,17 @@
+;******* DIALOG C Sample Program Module Definition File (.DEF) ***********
+;
+;  The module definition file supplies extra information about the program
+;  module to the LINKER.
+
+
+NAME    DIALOG   WINDOWAPI
+
+DESCRIPTION 'OS/2 Presentation Manager Dialog Sample Program'
+
+DATA    MULTIPLE
+
+STACKSIZE   8192
+HEAPSIZE    8192
+
+PROTMODE
+

@@ -1,0 +1,91 @@
+
+//  Module Header
+//
+//  Module Name: WPCLRPAL
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpclrpal_idl
+#define wpclrpal_idl
+
+#include "wppalet.idl"
+#include <somcls.idl>
+
+interface M_WPColorPalette;
+
+interface WPColorPalette : WPPalette
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpclr;
+    local;
+    externalprefix = clr_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpclrpal;
+    metaclass = M_WPColorPalette;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    passthru C_h_after =     ""
+
+"      /* Paintpot structure */"
+""
+"      typedef struct _PAINTPOT"
+"      {"
+"         CELL        cell;     /* Size of the data that follows */"
+"         ULONG       ulRGB;    /* Color of this paintpot */"
+"      } PAINTPOT;"
+"      typedef PAINTPOT *PPAINTPOT;"
+"";
+
+
+    wpPaintCell: override;
+    wpEditCell: override;
+    wpDragCell: override;
+    wpQueryPaletteHelp: override;
+    wpSetupOnce: override;                                                      
+    wpSetup: override;
+    wpMenuItemHelpSelected: override;
+    wpInitData: override;
+    somDefaultInit: override;             
+    somDestruct:    override;             
+    wpSelectCell: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPColorPalette : M_WPPalette
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpclr;
+    local;
+    externalprefix = clrM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpclrpal;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpclsQueryEditString: override;
+    wpclsQueryTitle: override;
+    wpclsQueryStyle: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryIconData: override;
+    wpclsCreateDefaultTemplates: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpclrpal_idl */

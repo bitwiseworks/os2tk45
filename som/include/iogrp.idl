@@ -1,0 +1,113 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.9 src/somp/iogrp.idl, somp, som2.1 12/26/95 16:56:06 [7/30/96 14:46:52]
+
+
+#ifndef iogrp_idl
+#define iogrp_idl
+
+#include <somp.idl>
+#include <srkset.idl>
+interface SOMPPersistentId;
+interface SOMPPersistentObject;
+interface SOMPIteratorHandle; /* for convenience */
+
+interface SOMPIOGroup : SOMPKeyedSet
+
+// An IOGroup is a collection of objects which have been grouped
+// together with the intention that they will be written/read to/from
+// a storage media at the same time. For example, the group of objects
+// could be stored in the same file.
+//
+// Objects are added, located and removed from the group via an integer
+// key.
+{
+   typedef long SOMPIOGroupKey;
+
+
+   long sompCount();
+// Returns the number of objects in this group
+
+   SOMObject sompFirst();
+// Returns the first available object in the group. The object returned
+// is not based on any ordering, it is simply the one closest at hand.
+
+   SOMPIteratorHandle sompNewIterator();
+// Returns a handle which can be used with the sompNextObjectInGroup
+// method of this class to iterate through all the objects contained
+// by an instance of this class.
+
+   SOMObject sompNextObjectInGroup(in SOMPIteratorHandle iteratorHandle);
+// Return the next object in the group. If there are no more objects left,
+// it returns NULL.
+//
+// Example use:
+//
+// hit = _sompNewIterator(myGroup)
+// while (obj = _sompNextObjectInGroup(hit)) {
+//    ...
+//    use obj
+//    ...
+//    }
+// _sompFreeIterator(hit);
+
+   void sompFreeIterator(in SOMPIteratorHandle iteratorHandle);
+// Free the resources used by the given iterator.
+
+   void sompAddToGroup(in SOMObject newObject, in SOMPIOGroupKey key);
+// Adds the given object to this group of objects. The given key for
+// the new object must be unique among all the other objects in
+// this group.
+
+   SOMObject sompRemoveFromGroup(in SOMPIOGroupKey key);
+// Remove from the group and return the object with the given key value.
+
+   SOMObject sompFindByKey(in SOMPIOGroupKey key);
+// Return the object with the given key value.
+
+#ifdef __SOMIDL__
+
+implementation
+{
+  callstyle=idl;
+  dllname="somp.dll";
+
+  releaseorder: sompGetLastOffset, sompGetNextAvailableOffset,
+		sompSetLastOffset, sompFindById,
+		sompSetGroupName, sompGetGroupName,
+		sompCount,
+		sompFirst,
+		sompNewIterator,
+		sompNextObjectInGroup,
+		sompFreeIterator,
+		sompAddToGroup,
+		sompRemoveFromGroup,
+		sompFindByKey;
+
+// Class Modifiers
+   majorversion = 2;
+   minorversion = 1;
+   filestem = iogrp;
+
+
+// Method Modifiers
+   somInit: override;
+   somUninit: override;
+   somDumpSelfInt: override;
+
+};
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* iogrp_idl */

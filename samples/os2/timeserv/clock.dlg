@@ -1,0 +1,120 @@
+DLGINCLUDE 1 "res.h"
+
+DLGTEMPLATE IDD_ALARM LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Set Alarm  ", IDD_ALARM, 57, 10, 155, 80, FS_NOBYTEALIGN | 
+            WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        ENTRYFIELD      "", IDC_HOURMINUTES, 48, 58, 26, 8, NOT 
+                        ES_AUTOSCROLL | ES_MARGIN | WS_GROUP
+        CONTROL         "", SCROLL_MINUTES, 74, 52, 8, 20, WC_SCROLLBAR, 
+                        SBS_VERT | WS_GROUP | WS_VISIBLE
+        CONTROL         "", SCROLL_HOURS, 39, 52, 8, 20, WC_SCROLLBAR, 
+                        SBS_VERT | WS_GROUP | WS_VISIBLE
+        AUTORADIOBUTTON "AM", RB_AM, 89, 50, 25, 10, WS_GROUP
+        AUTORADIOBUTTON "PM", RB_PM, 89, 62, 25, 10
+        GROUPBOX        "Alarm Time", ALARM_TIME, 30, 50, 86, 30, WS_TABSTOP
+        AUTORADIOBUTTON "Alarm On", RB_ALARMON, 12, 35, 70, 14, WS_GROUP
+        AUTORADIOBUTTON "Alarm Off", RB_ALARMOFF, 80, 35, 70, 14
+        AUTOCHECKBOX    "Audio Alarm", IDC_BEEP, 12, 25, 70, 10, WS_GROUP
+        AUTOCHECKBOX    "Message Box", IDC_MSG, 80, 25, 70, 10, WS_GROUP
+        DEFPUSHBUTTON   "~Set", CLKTM_ALWAYS, 10, 8, 40, 13, WS_GROUP
+        PUSHBUTTON      "Cancel", CLKTM_NOTICONIC, 62, 8, 40, 13, NOT 
+                        WS_TABSTOP
+        PUSHBUTTON      "Help", CLKCLR_BUTTONSHIFT, 114, 8, 40, 13, BS_HELP | 
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+    END
+END
+
+DLGTEMPLATE IDD_TICKS LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", IDD_TICKS, 73, -16, 169, 150, FS_NOBYTEALIGN | WS_VISIBLE
+    BEGIN
+        DEFPUSHBUTTON   "OK", CLKTM_ALWAYS, 10, 10, 40, 13, WS_GROUP
+        PUSHBUTTON      "Cancel", CLKTM_NOTICONIC, 60, 10, 40, 13, NOT 
+                        WS_TABSTOP
+        CTEXT           "Clock Tick Mark Preferences", 255, 19, 135, 129, 10, 
+                        DT_VCENTER
+        GROUPBOX        "Draw Major Tick Marks", CLKTM_MAJOR, 23, 85, 120, 
+                        45
+        AUTORADIOBUTTON "Always", CLKCLR_BACKGROUND, 29, 110, 100, 10, 
+                        WS_GROUP
+        AUTORADIOBUTTON "Except When Iconic", CLKCLR_FACE, 29, 100, 100, 10
+        AUTORADIOBUTTON "Never", CLKCLR_MINUTEHAND, 29, 90, 100, 10
+        GROUPBOX        "Draw Minor Tick Marks", CLKTM_MINOR, 23, 34, 120, 
+                        45
+        AUTORADIOBUTTON "Always", 513, 29, 60, 100, 10, WS_GROUP
+        AUTORADIOBUTTON "Except When Iconic", 514, 29, 50, 100, 10
+        AUTORADIOBUTTON "Never", 516, 29, 40, 100, 10
+    END
+END
+
+DLGTEMPLATE IDD_TIME LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Date & Time", IDD_TIME, 49, 24, 200, 65, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        DEFPUSHBUTTON   "~Set", CLKTM_ALWAYS, 10, 8, 40, 13, WS_GROUP
+        PUSHBUTTON      "Cancel", CLKTM_NOTICONIC, 62, 8, 40, 13, NOT 
+                        WS_TABSTOP
+        PUSHBUTTON      "Help", CLKCLR_BUTTONSHIFT, 114, 8, 40, 13, BS_HELP | 
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+        GROUPBOX        "Time", TIME, 15, 30, 76, 26, WS_TABSTOP
+        CONTROL         "", SCROLL_TIME, 83, 30, 10, 22, WC_SCROLLBAR, 
+                        SBS_VERT | WS_GROUP | WS_VISIBLE
+        GROUPBOX        "Date", DATE, 115, 30, 60, 26, WS_TABSTOP
+        CONTROL         "", SCROLL_DATE, 171, 30, 10, 22, WC_SCROLLBAR, 
+                        SBS_VERT | WS_GROUP | WS_VISIBLE
+    END
+END
+
+DLGTEMPLATE TYPEDATE LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", TYPEDATE, 90, -30, 200, 160, FS_NOBYTEALIGN | WS_VISIBLE
+    BEGIN
+        DEFPUSHBUTTON   "OK", CLKTM_ALWAYS, 25, 10, 35, 15, WS_GROUP
+        PUSHBUTTON      "Cancel", CLKTM_NOTICONIC, 70, 10, 50, 15, NOT 
+                        WS_TABSTOP
+        CTEXT           "Clock Color Preferences", 255, 15, 140, 170, 10, 
+                        DT_VCENTER
+        GROUPBOX        "Parts of the Clock", 255, 15, 80, 170, 55
+        AUTORADIOBUTTON "Background", CLKCLR_BACKGROUND, 20, 115, 100, 10, 
+                        WS_GROUP
+        AUTORADIOBUTTON "Face", CLKCLR_FACE, 20, 105, 100, 10
+        AUTORADIOBUTTON "Tick Marks", CLKCLR_HOURHAND, 20, 95, 100, 10
+        AUTORADIOBUTTON "Hands", CLKCLR_MINUTEHAND, 20, 85, 100, 10
+        GROUPBOX        "GPI Colors", 255, 15, 35, 170, 40
+        CONTROL         "Red", TYPETIME, 20, 55, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_GROUP | WS_VISIBLE
+        CONTROL         "Yellow", IDD_ALARM, 40, 55, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "Green", IDD_TICKS, 60, 55, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "Cyan", IDD_ABOUT, 80, 55, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "Blue", DOWNDATE, 100, 55, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "Pink", TYPEDATE, 120, 55, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "PaleGray", IDM_ADD, 140, 55, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "White", UPTIME, 160, 55, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "DarkRed", IDM_ABOUT, 20, 40, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "Brown", IDM_SELECT, 40, 40, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "DarkGreen", IDM_SET, 60, 40, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "DarkCyan", IDM_CLEAR, 80, 40, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "DarkBlue", IDM_EXIT, 100, 40, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "DarkPink", IDM_ALARM, 120, 40, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "DarkGray", IDM_TICKS, 140, 40, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+        CONTROL         "Black", DOWNTIME, 160, 40, 15, 10, WC_BUTTON, 
+                        BS_USERBUTTON | WS_VISIBLE
+    END
+END

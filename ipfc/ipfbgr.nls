@@ -1,0 +1,20 @@
+REM="Bulgarian text"
+REM="(C) Copyright IBM Corporation 1989, 1996"
+
+NOTE="Бележка:"
+CAUTION="ВНИМАНИЕ:"
+WARNING="Предупреждение:"
+DANGER="Опастност:"
+OLCHARS="абвгдежзийклмнопрстуфхцчшщъьюя"
+OLCLOSE1=.
+OLCLOSE2=)
+ULITEMID1=
+ULITEMID2=-
+ULITEMID3=--
+CGRAPHICFONTFACENAME="Courier"
+CGRAPHICFONTWIDTH=11
+CGRAPHICFONTHEIGHT=18
+GRAMMAR
+WORDS=0 - 9 + A - Z + a - z + А - Я + а - я
+GRAPHICS=0x01 - 0x1F + 0x80 - 0xAF + 0xF0 - 0xFF
+EGRAMMAR

@@ -1,0 +1,46 @@
+/*************************************************************************
+ * File Name    : AVCINST.DLG
+ *
+ * Description  : This file holds the dialog windows used in the sample
+ *                program.
+ *
+ * Concepts     : See AVCINST.C file.
+ *                The WS_ANIMATE frame style allows this window to
+ *                respond to system sounds.
+ *
+ * MMPM/2 API's : None.
+ *
+ * Required
+ *    Files     : See AVCINST.C file.
+ *
+ * Copyright (C) IBM 1991, 1992, 1993
+ *************************************************************************/
+
+DLGINCLUDE 1 "AVCINST.H"
+
+DLGTEMPLATE ID_MAIN_DIALOG_BOX LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "", ID_MAIN_DIALOG_BOX, 40, 40, 190, 60
+           WS_VISIBLE    | WS_SYNCPAINT  | FS_NOBYTEALIGN | WS_ANIMATE,
+           FCF_MINBUTTON | FCF_SYSMENU   | FCF_TITLEBAR | FCF_SIZEBORDER |
+           FCF_TASKLIST | FCF_VERTSCROLL | FCF_HORZSCROLL | FCF_ICON
+    BEGIN
+        CONTROL "~Install AVC Audio I/O Procedure", ID_INSTAL,
+                         16, 40, 156, 12, WC_BUTTON, BS_AUTORADIOBUTTON |
+                         WS_TABSTOP | WS_VISIBLE | WS_GROUP
+
+        CONTROL "~Deinstall AVC Audio I/O Procedure", ID_DEINSTAL,
+                         16, 25, 156, 12, WC_BUTTON, BS_AUTORADIOBUTTON |
+                         WS_VISIBLE
+
+
+        CONTROL "~OK", ID_OK_PB, 15, 6, 38, 13, WC_BUTTON, BS_PUSHBUTTON |
+                       WS_GROUP | WS_TABSTOP | WS_VISIBLE | BS_DEFAULT
+
+        CONTROL "Cancel", ID_CANCEL_PB, 74, 6, 38, 13, WC_BUTTON,
+                          BS_PUSHBUTTON | WS_VISIBLE
+
+        CONTROL "Help", ID_HELP_PB, 138, 6, 38, 13, WC_BUTTON, BS_HELP |
+                        WS_VISIBLE
+    END
+END

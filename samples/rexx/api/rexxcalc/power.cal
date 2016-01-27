@@ -1,0 +1,9 @@
+/* Rexx Calculator remainder processor */
+parse arg left, right                  /* get the two operands       */
+numeric digits CalcPrecision()         /* set current precision      */
+numeric form value CalcForm()          /* set current form           */
+
+if \datatype(right,'Whole')            /* if not a whole number      */
+  then return 'Error'                  /* return error indicator     */
+
+return left ** right                   /* return result              */

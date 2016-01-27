@@ -1,0 +1,104 @@
+
+//  Module Header
+//
+//  Module Name: WPMOUSE
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpmouse_idl
+#define wpmouse_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface M_WPMouse;
+
+interface WPMouse : WPAbstract
+
+{
+  ULONG wpAddMouseMappingsPage(in HWND hwndNotebook);
+
+  ULONG wpAddMouseTimingPage(in HWND hwndNotebook);
+
+  ULONG wpAddMouseTypePage(in HWND hwndNotebook);
+
+  ULONG wpAddMousePtrPage (in HWND hwndNotebook);                      
+
+  ULONG wpAddMouseCometPage (in HWND hwndNotebook);
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddMouseMappingsPage,wpAddMouseTimingPage,wpAddMouseTypePage,
+                  wpAddMousePtrPage,wpAddMouseCometPage;                        
+
+    externalstem = WPmse;
+    local;
+    externalprefix = mse_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpmouse;
+    metaclass = M_WPMouse;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    passthru C_h =     ""
+""
+"/**********************************************************/"
+"/* Defines for wpclsQuerySetting and wpclsSetSetting      */"
+"/**********************************************************/"
+""
+"#define DOUBLECLICK_DEFAULT         0"
+"#define TRACKING_DEFAULT            0"
+"#define BUTTONS_RIGHTHANDED         0"
+"#define BUTTONS_LEFTHANDED          1"
+"#define BUTTONS_DEFAULT             2"
+"#define WINDOWLISTBUTTON_DEFAULT    0"
+"#define POPUPBUTTON_DEFAULT         0"
+"#define DRAGBUTTON_DEFAULT          0"
+"#define TEXTEDITBUTTON_DEFAULT      0"
+""
+"";
+
+    wpAddSettingsPages: override;
+    wpAddObjectWindowPage: override;
+    wpFilterMenu: override;                                                     
+    somDefaultInit: override;             
+    somDestruct:    override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPMouse : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPmse;
+    local;
+    externalprefix = mseM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpmouse;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpclsQueryTitle: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryStyle: override;
+    wpclsQueryIconData: override;
+    wpclsQuerySetting: override;
+
+    wpclsSetSetting: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpmouse_idl */

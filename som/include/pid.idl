@@ -1,0 +1,115 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.9 src/somp/pid.idl, somp, som2.1 12/26/95 16:58:54 [7/30/96 14:46:57]
+
+
+
+#ifndef pid_idl
+#define pid_idl
+
+#include <somsid.idl>
+#ifdef junk
+#include <sid.idl>
+#endif
+#include <somperrd.idl>
+
+interface SOMPPersistentId : SOMUTStringId
+
+// This is the class for a persistent ID.
+//
+// A persistent ID is a string of the form:
+//
+//   IOGroupMgrClassname ':' RepositoryName ':' RepositoryOffset
+//
+// For the file system, an example of a persistent ID would be:
+//
+//   "SOMPFSAIOGroupMgr:/u/otp/stuff/animals:0"
+//
+// where:
+//
+//   SOMPFSAIOGroupMgr is the IO Group Mgr Class name
+//
+//   /u/otp/stuff/animals is the Repository name (i.e. the file name)
+//
+//   0 is the Repository offset (roughly, record number)
+
+{
+   void sompSetIOGroupMgrClassName(in string newName) raises (SOMPError::sompException);
+// Sets the IO Group Manager Class portion of the ID.
+
+   string sompGetIOGroupMgrClassName(in string toBuffer);
+// Gets the IO Group Manager Class portion of the ID.
+
+   short sompGetIOGroupMgrClassNameLen();
+// Gets the length of the IO Group Manager Class portion of the ID.
+
+   void sompSetIOGroupName(in string newName)raises (SOMPError::sompException);
+// Sets the path & file portion of the ID.
+
+   string sompGetIOGroupName(in string toBuffer);
+// Gets the path & file portion of the ID.
+
+   short sompGetIOGroupNameLen();
+// Gets the length of the path & file portion of the ID.
+
+   void sompSetGroupOffset(in long offset) raises (SOMPError::sompException);
+// Sets the offset portion of the ID.
+
+   long sompGetGroupOffset();
+// Gets the offset portion of the ID.
+
+   boolean sompEqualsIOGroupName(in SOMPPersistentId id);
+// Compare this object's file & path name the file & path name
+// part of the given ID. Return TRUE if they are equivalent.
+
+
+#ifdef __SOMIDL__
+
+implementation
+{
+   callstyle=idl;
+   dllname="somp.dll";
+
+   releaseorder: sompSetIOGroupMgrClassName, sompGetIOGroupMgrClassName,
+		 sompGetIOGroupMgrClassNameLen, sompSetIOGroupName,
+		 sompGetIOGroupName, sompGetIOGroupNameLen,
+		 sompSetGroupOffset, sompGetGroupOffset,
+		 sompEqualsIOGroupName, sompBuildIdString;
+
+// Class Modifiers
+   majorversion = 2;
+   minorversion = 1;
+   filestem = pid;
+
+
+// Method Modifiers
+   somInit: override;
+   somUninit: override;
+   somDumpSelfInt: override;
+   somutSetIdString: override;
+   somutSetIdId: override;
+   somutGetIdString: override;
+   somutGetIdStringLen: override;
+   somutEqualsId: override;
+   somutEqualsString: override;
+   somutCompareId: override;
+   somutCompareString: override;
+   somutHashId: override;
+
+
+};
+#endif /* __SOMIDL__ */
+
+};
+
+#endif  /* pid_idl */

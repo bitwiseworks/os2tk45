@@ -1,0 +1,97 @@
+
+//  Module Header
+//
+//  Module Name: WPFNTPAL
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpfntpal_idl
+#define wpfntpal_idl
+
+#include "wppalet.idl"
+#include <somcls.idl>
+
+interface M_WPFontPalette;
+
+interface WPFontPalette : WPPalette
+
+{
+  void wpGetFattrsFromPsz(in PSZ pszFont,
+                          in PFATTRS pFattrs);
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpGetFattrsFromPsz;
+
+    externalstem = wpfon;
+    local;
+    externalprefix = fon_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpfntpal;
+    metaclass = M_WPFontPalette;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    passthru C_h_after =  ""
+
+"   #define CCHFONTNAME   80"
+""
+"      /* Fontpot structure */"
+""
+"      typedef struct _FONTPOT"
+"      {"
+"         CELL        cell;     /* Size of the data that follows */"
+"         FATTRS      fAttrs;   /* fattrs from WinFontDlg/wpfattrsfrompsz */"
+"         CHAR        szFont[CCHFONTNAME+1];"
+"      } FONTPOT;"
+"      typedef FONTPOT *PFONTPOT;"
+"";
+
+    wpPaintCell: override;
+    wpEditCell: override;
+    wpSetupCell: override;
+    wpDragCell: override;
+    wpQueryPaletteHelp: override;
+    wpSetupOnce: override;                                                      
+    wpSetup: override;
+    wpMenuItemHelpSelected: override;
+    somDefaultInit: override;             
+    somDestruct:    override;             
+    wpSelectCell: override;
+
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPFontPalette : M_WPPalette
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpfon;
+    local;
+    externalprefix = fonM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpfntpal;
+    callstyle = oidl;
+    dllname = "wpconfig.dll";
+
+    wpclsQueryEditString: override;
+    wpclsQueryTitle: override;
+    wpclsQueryIconData: override;
+    wpclsQueryStyle: override;
+    wpclsQueryDefaultHelp: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpfntpal_idl */

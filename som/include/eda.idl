@@ -1,0 +1,92 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.9 src/somp/eda.idl, somp, som2.1 12/26/95 16:53:27 [7/30/96 14:46:48]
+
+
+
+#ifndef eda_idl
+#define eda_idl
+
+#include <somp.idl>
+#include <somobj.idl>
+#include <somperrd.idl>
+
+interface SOMPMediaInterfaceAbstract;
+interface SOMPPersistentObject;
+
+interface SOMPEncoderDecoderAbstract : SOMObject
+
+// This is the abstract class for an EncoderDecoder.
+//
+// An encoder/decoder is an object which is paired with a persistent object
+// and handles the reading/writing of that persistent object's instance
+// data.  A class derived from this abstract class must be created and
+// paired with a persistent object in order for that persistent object
+// to be save/restored.
+//
+// The derived encoder/decoder class name is bound to a persistent
+// object with the sompSetEncoderDecoderName method (see po.sc).
+//
+// A persistent object's encoder/decoder is instantiated by an
+// IO Group Mgr at the moment that object is save/restored.
+
+{
+   void sompEDWrite(in SOMPMediaInterfaceAbstract thisMedia,
+		    in SOMPPersistentObject thisObject) raises (SOMPError::sompException);
+// This method is responsible for writing out the persistent data of
+// object <thisObject> in a format that is compatible with sompEDRead.
+// This routine should make use of the media interface that is passed in
+// as the first argument <thisMedia>.  This method should assume that
+// the media interface has been initialized and opened.  This method
+// should also assume that the media interface will be closed by the
+// caller of this method.
+//
+// Refer to the class interface of the media interface passed in for
+// the methods which can be used to write instance data.
+
+   void sompEDRead(in SOMPMediaInterfaceAbstract thisMedia,
+		   in SOMPPersistentObject thisObject) raises (SOMPError::sompException);
+// This method is responsible for reading in the persistent data of
+// object <thisObject>.  It should expect the data to be in the format
+// of sompEDWrite.  This routine should make use of the media interface
+// that is passed in as the first argument <thisMedia>.  This method
+// should assume that the media interface has been initialized and
+// opened.  This method should also assume that the media interface will
+// be closed by the caller of this method.
+//
+// Refer to the class interface of the media interface passed in for
+// the methods which can be used to read instance data.
+
+#ifdef __SOMIDL__
+
+implementation
+{
+  callstyle=idl;
+  dllname="somp.dll";
+
+  releaseorder: sompEDWrite, sompEDRead;
+
+// Class Modifiers
+   majorversion = 2;
+   minorversion = 1;
+   filestem = eda;
+
+// Method Modifiers
+
+};
+#endif /* __SOMIDL__ */
+
+};
+
+
+#endif  /* eda_idl */

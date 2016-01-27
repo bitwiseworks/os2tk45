@@ -1,0 +1,278 @@
+start component
+    name        = "FFST Example code"
+    description = "This is the FFST Example code Component"
+//                                                        //
+// This is a particularly complicated file.  Fortunately you only need to deal //
+// with the section at the very bottom, where you put in the information related //
+// to your DMI triplet (Vendor Tag, Tag, and Revision. The rest of this file defines //
+// itself to DMI and layouts the fields of information that DMI will manage            //
+//                                                         //
+//////////////////////////////////////////////////////////////////////
+//                                                                  //
+//                      component id group                          //
+//                                                                  //
+//////////////////////////////////////////////////////////////////////
+// Component ID Group
+
+//
+//   Enumerations for this group
+//
+           Start Enum
+             Name = "Verify_Type"
+             Type = Integer
+             0x00 = "An error occurred; check status code"
+             0x01 = "This component does not exist"
+             0x02 = "The verify is not supported"
+             0x03 = "Reserved"
+             0x04 = "This component exists, but the functionality is untested"
+             0x05 = "This component exists, but the functionality is unknown"
+             0x06 = "This component exists, and is not functioning correctly"
+             0x07 = "This component exists, and is functioning correctly"
+           End Enum
+
+
+    start group
+        name    = "ComponentID"
+        id      = 1
+        class   = "DMTF|ComponentID|1.0"
+        description = "This group defines attributes common to all components."
+                      "This group is required."
+
+        start attribute
+            name    = "Manufacturer"
+            id      = 1
+            description = "The name of the manufacturer that produces this component."
+            access  = READ-ONLY
+            storage = COMMON
+            type    = STRING(64)
+            value   = "IBM Corp."
+        end attribute
+
+        start attribute
+            name    = "Product"
+            id      = 2
+            description = "The name of the component."
+            access  = READ-ONLY
+            storage = COMMON
+            type    = STRING(64)
+            value   = "FFST Example code"
+        end attribute
+
+        start attribute
+            name    = "Version"
+            id      = 3
+            description = "The version for the component."
+            access  = READ-ONLY
+            storage = COMMON
+            type    = STRING(64)
+            value   = ""
+        end attribute
+
+        start attribute
+            name    = "Serial Number"
+            id      = 4
+            description = "The serial number for this instance of this component."
+            access  = READ-ONLY
+            storage = SPECIFIC
+            type    = STRING(64)
+            value   = ""
+        end attribute
+
+        start attribute
+            name    = "Installation"
+            id      = 5
+            description = "The time and date of the last install of this component."
+            access  = READ-ONLY
+            storage = SPECIFIC
+            type    = DATE
+            value   = ""
+        end attribute
+
+        Start Attribute
+            Name = "Verify"
+            Id = 6
+            Access = Read-Only
+            Storage = Specific
+            Type = "Verify_Type"
+            Description = "A code that provides a level of verification "
+                          "that the component is still installed and working."
+            Value = 0x07
+        End Attribute
+
+    end group
+
+//
+//  Software Product Group
+//
+//      This is the group that contains the software Vital Product
+//      Data attributes that identify the software product that is
+//      represented by this DMI component
+//
+//      This group is a template that defines the software product group
+//
+//      This definition should not be modified the actual values are found in the
+//       table which is after this template definition
+//
+//      There are two sample rows defined for the table, however the table can
+//       have one or more rows, what ever is correct for your component
+//
+
+    start group
+        name    = "OS/2 Warp Software Product"
+        class   = "IBM_OS/2 Warp|SoftwareProduct|1.0"
+        description = "OS/2 Warp standard Software Product attributes"
+        key=2,4,5              // The (Tag, VendorTag, Revision) triplet acts
+                                  //   as the key to this group
+
+        start attribute
+            name    = "Title"
+            id      = 1
+            access  = READ-ONLY
+            type    = STRING(256)
+            value   = "     "
+            description = "Long name for software product package unit"
+        end attribute
+
+        start attribute
+            name    = "Tag"
+            id      = 2
+            access  = READ-ONLY
+            type    = STRING(256)
+            value   = "     "
+            description = "Short name for software product package unit"
+        end attribute
+
+        start attribute
+            name    = "VendorTitle"
+            id      = 3
+            access  = READ-ONLY
+            type    = STRING(256)
+            value   = "     "
+            description = "Long name for manufacturer of software product package unit"
+        end attribute
+
+        start attribute
+            name    = "VendorTag"
+            id      = 4
+            access  = READ-ONLY
+            type    = STRING(256)
+            value   = "     "
+            description = "Short name for manufacturer of software product package unit"
+        end attribute
+
+        start attribute
+            name    = "Revision"
+            id      = 5
+            access  = READ-ONLY
+            type    = STRING(256)
+            value   = "     "
+            description = "Major, Minor and Modification levels for software product package unit"
+        end attribute
+
+        start attribute
+            name    = "ModificationLevel"
+            id      = 6
+            access  = READ-ONLY
+            type    = STRING(256)
+            value   = "     "
+            description = "Current CSD level for software product package unit"
+        end attribute
+
+        start attribute
+            name    = "SelectiveFixLevel"
+            id      = 7
+            access  = READ-ONLY
+            type    = STRING(256)
+            value   = "     "
+            description = "Selective Fix level for software product package unit"
+        end attribute
+
+        start attribute
+            name    = "Description"
+            id      = 8
+            access  = READ-ONLY
+            type    = STRING(256)
+            value   = "     "
+            description = "String that describes the software product package unit"
+        end attribute
+
+        start attribute
+            name    = "ParentTag"
+            id      = 9
+            access  = READ-ONLY
+            type    = STRING(256)
+            value   = "     "
+            description = "Short name for the parent package unit of this software product package unit"
+        end attribute
+
+        start attribute
+            name    = "ParentVendorTag"
+            id      = 10
+            access  = READ-ONLY
+            type    = STRING(256)
+            value   = "     "
+            description = "Short manufacturer name for the parent package unit of this software product package unit"
+        end attribute
+
+        start attribute
+            name    = "ParentRevision"
+            id      = 11
+            access  = READ-ONLY
+            type    = STRING(256)
+            value   = "     "
+            description = "Short revision string for the parent package unit of this software product package unit"
+        end attribute
+
+        start attribute
+            name    = "Error Record Template File"
+            id      = 12
+            access  = READ-ONLY
+            type    = STRING(508)
+            value   = "     "
+            description = "Name of the Error Record Template file for this software product package unit"
+        end attribute
+
+    end group
+
+//
+//  Software product group table with actual values
+//
+//      This is the group that contains the software Vital Product
+//      Data attributes that identify the software product that is
+//      represented by this DMI component
+//
+//      There are two sample rows defined for the table, however the table can
+//       have one or more rows, what ever is correct for your component
+//
+//       Note each of the fields which are positionally assigned values below are defined
+//       in the sections abobe. 
+//
+//       THIS IS THE ONLY SECTION YOU NEED TO DEAL WITH FOR THE PURPOSE OF 
+//       BUILDING YOUR OWN EXAMPLE
+//
+    start table
+        name = "Software components and their VPD"
+        id = 2
+        class   = "IBM_OS/2 Warp|SoftwareProduct|1.0"
+
+        {"",
+         "FFSTProbe Sample",  //Tag - Part of the triplet, Identifies your product 
+         "",
+         "IBM",                    // Vendor Tag - Part of the triplet, Identifies your company    
+         "1.00",                   //  Revision - Part of Triplet                                             
+         "000000",               // Modification Level - Specified in your code if not looked up  
+	"010101",               // Selective Fix Level - Specified in your code if not looked up
+         "FFSTProbe Example Program", // Description 
+         "",
+         "",
+         "",
+         "PROBE.REP"}        //Repository (Template File) Name. Should be on your DPATH 
+			    // Other wise full path would be specified. This field is the prime
+                                    // reason FFSTProbe uses DMI. The triplet above forms the key 
+			    // to retrieve the repository file name so that the probe can be 
+			    // formatted by SYSLOG
+
+    end table
+
+end component
+

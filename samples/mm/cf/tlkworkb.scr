@@ -1,0 +1,16 @@
+
+/*  The TLKWORKB.SCR change file for MMPM2.INI  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPProgram"
+    WPTitle       = "MMPM/2\nWorkbook"
+    WPSetupString = "EXENAME=\\OS2\\VIEW.EXE;PROGTYPE=PM;PARAMETERS=$(DEST)WORKBOOK.INF;OBJECTID=<MPM2TLK_WKBK>"
+    WPLocation    = "<MMPMTLK>"
+    WPFlags       = 1L
+    )
+
+/* end of TLKWORKB.SCR */

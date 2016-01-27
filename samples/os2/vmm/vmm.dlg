@@ -1,0 +1,152 @@
+DLGINCLUDE 1 "VMM.H"
+
+DLGTEMPLATE IDD_SETMEM1 LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Set Memory Attributes", IDD_SETMEM1, 39, 25, 283, 80,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR | FCF_SYSMENU
+    {
+        LTEXT           "DosSetMem( pvObjectBase, ulObjectSize, ulAttrs)",
+                           MAXHOSIZE,          9, 60, 230,  8
+        LTEXT           "~Address to set Attributes:  0x",
+                           IDD_ADDRESSTEXT,    9, 45, 125,  8, DT_MNEMONIC
+        ENTRYFIELD      "", IDD_ADDRESS,     136, 45, 104,  8,
+                             NOT ES_AUTOSCROLL | ES_MARGIN
+        LTEXT           "~Size of region to set Attributes (decimal): ",
+                          IDD_ADDRESSTEXT,     9, 30, 175, 8, DT_MNEMONIC
+        ENTRYFIELD      "", IDD_EDITSIZE,    190, 30, 50, 7,
+                          NOT ES_AUTOSCROLL | ES_MARGIN
+        DEFPUSHBUTTON   "~OK", DID_OK,         53, 5, 40, 12
+        PUSHBUTTON      "~Cancel", DID_CANCEL,106, 5, 40, 12
+    }
+}
+
+DLGTEMPLATE IDD_SETMEM2 LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Set Memory Attributes", IDD_SETMEM2, 39, 25, 283, 106,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR | FCF_SYSMENU
+    {
+        LTEXT           "", IDD_ADDRESS,          5, 90, 150, 8, NOT WS_GROUP
+        GROUPBOX        "Access Protection", IDD_ACCESS, 11, 23, 140, 60
+        AUTOCHECKBOX    "~Read", IDD_READ,          20, 42, 42, 10,
+                          BS_NOCURSORSELECT
+        AUTOCHECKBOX    "~Execute", IDD_EXECUTE,    20, 29, 48, 10,
+                          BS_NOCURSORSELECT
+        AUTOCHECKBOX    "~Guard", IDD_GUARD,        85, 42, 50, 10,
+                          BS_NOCURSORSELECT
+        AUTOCHECKBOX    "~Write", IDD_WRITE,        85, 29, 35, 10,
+                          BS_NOCURSORSELECT
+        GROUPBOX        "Allocation Attributes", IDD_ATTRIBUTES,
+                                                   169, 23, 104, 60
+        AUTORADIOBUTTON "~Default", IDD_DEFAULT,   180, 58, 63, 10,
+                          BS_NOCURSORSELECT | WS_TABSTOP
+        AUTORADIOBUTTON "D~ecommit", IDD_DECOMMIT, 180, 43, 63, 10,
+                          BS_NOCURSORSELECT | WS_TABSTOP
+        AUTORADIOBUTTON "Co~mmit", IDD_COMMIT,     180, 29, 63, 10,
+                          BS_NOCURSORSELECT | WS_TABSTOP
+        DEFPUSHBUTTON   "~OK", DID_OK,               39, 5, 40, 12,
+                          BS_NOCURSORSELECT
+        PUSHBUTTON      "~Cancel", DID_CANCEL,       90, 5, 40, 12,
+                          BS_NOCURSORSELECT
+    }
+}
+
+DLGTEMPLATE IDD_FREEMEM LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Free Memory Object", IDD_FREEMEM, 32, 17, 265, 64,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR | FCF_SYSMENU
+    {
+        LTEXT           "DosFreeMem( pvObjectBase)", MAXHOSIZE,
+                                               15, 45, 230, 8
+        LTEXT           "Address of start of block to free:  0x",
+                          IDD_ADDRESSTEXT,     15, 35, 155, 8
+        ENTRYFIELD      "", IDD_ADDRESS,      172, 34,  80, 8,
+                             NOT ES_AUTOSCROLL | ES_MARGIN
+        DEFPUSHBUTTON   "~OK", DID_OK,          31, 12, 40, 12, BS_NOCURSORSELECT
+        PUSHBUTTON      "~Cancel", DID_CANCEL,  97, 12, 40, 12, BS_NOCURSORSELECT
+    }
+}
+
+DLGTEMPLATE IDD_READMEM LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Read from Memory Object", IDD_READMEM, 32, 24, 240, 60,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR | FCF_SYSMENU
+    {
+        LTEXT           "Address to read from:  0x", IDD_ADDRESSTEXT,
+                                               10, 39, 115, 8
+        ENTRYFIELD      "", IDD_ADDRESS,      125, 39, 104, 8,
+                            NOT ES_AUTOSCROLL | ES_MARGIN
+        DEFPUSHBUTTON   "~OK", DID_OK,          53, 5, 40, 12, BS_NOCURSORSELECT
+        PUSHBUTTON      "~Cancel", DID_CANCEL, 106, 5, 40, 12, BS_NOCURSORSELECT
+    }
+}
+
+DLGTEMPLATE IDD_WRITEMEM LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Write to Memory Object", IDD_WRITEMEM, 32, 24, 221, 65,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR | FCF_SYSMENU
+    {
+        LTEXT           "Address to write to:  0x", IDD_ADDRESSTEXT,
+                                            10, 39, 102, 8
+        ENTRYFIELD      "", IDD_ADDRESS,   112, 39,  97, 8,
+                            NOT ES_AUTOSCROLL | ES_MARGIN
+        LTEXT           "Data to write:", IDD_ADDRESSTEXT,
+                                            10, 23, 57, 8
+        ENTRYFIELD      "", IDD_DATA,       69, 23,140, 8,
+                            NOT ES_AUTOSCROLL | ES_MARGIN
+        DEFPUSHBUTTON   "~OK", DID_OK,       53, 5, 40, 10, BS_NOCURSORSELECT
+        PUSHBUTTON      "~Cancel", DID_CANCEL, 106, 5, 40, 11,
+                            BS_NOCURSORSELECT
+    }
+}
+
+DLGTEMPLATE IDD_ALLOCMEM LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Allocate Memory ", IDD_ALLOCMEM,            32, 25, 283, 107,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_TITLEBAR | FCF_SYSMENU
+    {
+        LTEXT           "DosAllocMem( pvObjectBase, ulObjectSize, ulAttrs)",
+                           IDD_TITLE,                     9, 93, 230, 8
+        LTEXT           "~Size to allocate (decimal):", IDD_EDITTEXT,
+                           11, 77, 120, 8, DT_MNEMONIC
+        ENTRYFIELD      "", IDD_EDITSIZE,                135, 77, 65, 8,
+                           NOT ES_AUTOSCROLL | ES_MARGIN
+        LTEXT           "KBytes", IDD_EDITUNIT,          203, 77, 30, 8,
+
+        GROUPBOX        "Access Protection", IDD_ACCESS, 11, 23, 140, 42
+        AUTOCHECKBOX    "~Read", IDD_READ,               20, 42, 42, 10,
+                           BS_NOCURSORSELECT
+        AUTOCHECKBOX    "~Execute", IDD_EXECUTE,         20, 29, 48, 10,
+                          BS_NOCURSORSELECT
+        AUTOCHECKBOX    "~Guard", IDD_GUARD,             85, 42, 50, 10,
+                          BS_NOCURSORSELECT
+        AUTOCHECKBOX    "~Write", IDD_WRITE,             85, 29, 35, 10,
+                          BS_NOCURSORSELECT
+        GROUPBOX        "Allocation Attributes", IDD_ATTRIBUTES,
+                                                        169, 23, 104, 42
+        AUTOCHECKBOX    "~Tile", IDD_TILE,              180, 43, 32, 10,
+                          BS_NOCURSORSELECT
+        AUTOCHECKBOX    "Co~mmit", IDD_COMMIT,          180, 29, 63, 10,
+                          BS_NOCURSORSELECT
+        DEFPUSHBUTTON   "~OK", DID_OK,                    37, 3, 43, 12,
+                          BS_NOCURSORSELECT
+        PUSHBUTTON      "~Cancel", DID_CANCEL,           111, 3, 43, 12,
+                          BS_NOCURSORSELECT
+    }
+}
+
+DLGTEMPLATE IDD_PRODUCTINFO LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Product Information", IDD_PRODUCTINFO, 8, -43, 276, 137,
+            FS_NOBYTEALIGN | WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    {
+        CONTROL         IDR_BITMAP, IDC_BITMAP,   111, 71,  21, 21,
+                            WC_STATIC, SS_BITMAP | WS_GROUP | WS_VISIBLE
+        CTEXT           "(C) Copyright IBM Corporation 1992. All Rights rese"
+                        "rved.",              256,  7, 54, 255,  8
+        CTEXT           "International Business Machines Corp.",
+                                              257,  7, 34, 255,  8
+        CTEXT           "OS/2 is a registered trademark of",
+                                              258,  7, 44, 255,  8
+        DEFPUSHBUTTON   "~OK", DID_OK,            111,  8,  45, 15
+    }
+}

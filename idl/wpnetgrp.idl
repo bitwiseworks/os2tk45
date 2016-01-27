@@ -1,0 +1,97 @@
+
+//  Module Header
+//
+//  Module Name: WPNETGRP
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpnetgrp_idl
+#define wpnetgrp_idl
+
+#include "wpfolder.idl"
+#include <somcls.idl>
+
+interface M_WPNetgrp;
+
+interface WPNetgrp : WPFolder
+{
+  ULONG wpAddNetworkPage(in HWND hwndNotebook);
+
+  PSZ wpQueryNetIdentity();
+
+    BOOL wpSetNetIdentity( in PSZ pszNetIdentity);
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddNetworkPage,wpQueryNetIdentity, wpSetNetIdentity;
+
+    externalstem = wpdom;
+    local;
+    externalprefix = netg_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpnetgrp;
+    metaclass = M_WPNetgrp;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+
+
+    wpAddSettingsPages: override;
+    wpMenuItemHelpSelected: override;
+    wpMenuItemSelected: override;
+    wpSaveState: override;
+    wpRestoreState: override;
+    wpSetup: override;
+    wpInitData: override;
+    wpUnInitData: override;
+    wpOpen: override;
+    wpPopulate: override;
+    wpDeleteContents: override;
+    wpAddFile1Page: override;
+    wpAddFile2Page: override;
+    wpAddFile3Page: override;
+    wpAddFolderIncludePage: override;
+    wpAddObjectGeneralPage: override;
+    wpAddObjectGeneralPage2: override;                                          
+    wpFilterMenu: override;                                                     
+    wpModifyMenu: override;                                                     
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPNetgrp : M_WPFolder
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = wpdom;
+    local;
+    externalprefix = netgM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpnetgrp;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryTitle: override;
+    wpclsQueryIconData: override;
+    wpclsQueryIconDataN: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryStyle: override;
+    wpclsQueryDefaultView: override;
+    wpclsQuerySettingsPageSize: override; 
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpnetgrp_idl */

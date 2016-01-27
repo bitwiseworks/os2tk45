@@ -1,0 +1,71 @@
+//
+//   COMPONENT_NAME: somp
+//
+//   ORIGINS: 27
+//
+//
+//    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1996,1996  
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.13 src/somp/sompstat.idl, somp, som2.1 12/26/95 17:02:50 [7/30/96 14:47:06]
+
+
+/* This IDL structure should match that of the system include stat.h */
+
+#ifndef SOMPSTAT_IDL
+#define SOMPSTAT_IDL
+
+typedef struct  somp_stat {
+#ifdef __OS2__
+  short           st_dev;         /* ID of device containing a directory*/
+                                  /*   entry for this file.  File serial*/
+                                  /*   no + device ID uniquely identify */
+                                  /*   the file within the system */
+  unsigned short  st_ino;         /* File serial number */
+  unsigned short  st_mode;        /* File mode; see #define's below */
+  short           st_nlink;       /* Number of links */
+  short           st_uid;         /* User ID of the file's owner */
+  short           st_gid;         /* Group ID of the file's group */
+  short           st_rdev;        /* ID of device */
+                                  /*   This entry is defined only for */
+                                  /*   character or block special files */
+  long            st_size;        /* File size in bytes */
+  long            st_atime;       /* Time of last access */
+  long            st_mtime;       /* Time of last data modification */
+  long            st_ctime;       /* Time of last file status change */
+#else
+  unsigned long   st_dev;         /* ID of device containing a directory*/
+                                  /*   entry for this file.  File serial*/
+                                  /*   no + device ID uniquely identify */
+                                  /*   the file within the system */
+  unsigned long   st_ino;         /* File serial number */
+  unsigned long   st_mode;        /* File mode; see #define's below */
+  short           st_nlink;       /* Number of links */
+  unsigned long   st_uid;         /* User ID of the file's owner */
+  unsigned long   st_gid;         /* Group ID of the file's group */
+  unsigned long   st_rdev;        /* ID of device */
+                                  /*   This entry is defined only for */
+                                  /*   character or block special files */
+  long            st_size;        /* File size in bytes */
+  long            st_atime;       /* Time of last access */
+  long            st_spare1;
+  long            st_mtime;       /* Time of last data modification */
+  long            st_spare2;
+  long            st_ctime;       /* Time of last file status change */
+  long            st_spare3;
+                                  /* Time measured in seconds since */
+                                  /*   00:00:00 GMT, Jan. 1, 1970 */
+  unsigned long   st_blksize;     /* Optimal blocksize for file system
+                                     i/o ops */
+  unsigned long   st_blocks;      /* Actual number of blocks allocated
+                                     in DEV_BSIZE blocks */
+  unsigned long   st_vfstype;     /* Type of fs (see vnode.h) */
+  unsigned long   st_vfs;         /* Vfs number */
+  unsigned long   st_type;        /* Vnode type */
+#endif
+} sompstat ;
+
+#endif

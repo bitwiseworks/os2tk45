@@ -1,0 +1,74 @@
+
+//  Module Header
+//
+//  Module Name: WPMEM
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpmem_idl
+#define wpmem_idl
+
+#include "wpdevice.idl"
+
+interface M_WPDevMemory;
+
+interface WPDevMemory : WPDevice
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpmemory;
+    functionprefix = memory_;
+    local;
+//    externalprefix = memory_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpmem;
+    metaclass = M_WPDevMemory;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+    passthru C_h =  ""
+"";
+
+/* Private instance data area */
+
+     /* Overridden instance methods area */
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDevMemory : M_WPDevice
+{
+  /* New class methods section */
+
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpmemory;
+    functionprefix = memoryM_;
+    local;
+//    externalprefix = memoryM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpmem;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+
+    /* Overridden class methods section */
+    wpclsInitData:      override;
+    wpclsQueryIconData: override;                                              //bjf152374
+    wpclsQueryTitle:    override;
+    wpclsUnInitData:    override;
+  };
+
+};
+#endif  /* wpmem_idl */

@@ -1,0 +1,25 @@
+
+/*  The TLKBASE.SCR change file for MMPM2.INI  */
+
+/* The basic syntax is KEYWORD = one of (STRING, NUMBER, ARRAY)      */
+/* All keywords are unique.   All keywords are shown                 */
+
+WPObject =
+    (
+    WPClassName   = "WPFolder"
+    WPTitle       = "Multimedia Presentation\nManager Toolkit/2"
+    WPSetupString = "ICONFILE=$(DEST)MMTOOLKT.ICO;OBJECTID=<MMPMTLK>"
+    WPLocation    = "<WP_DESKTOP>"
+    WPFlags       = 2L
+    )
+
+WPObject =
+    (
+    WPClassName   = "WPFolder"
+    WPTitle       = "Neat Stuff"
+    WPSetupString = "OBJECTID=<NEATSTUFF>"
+    WPLocation    = "<MMPMTLK>"
+    WPFlags       = 2L
+    )
+
+/* end of TLKBASE.SCR */

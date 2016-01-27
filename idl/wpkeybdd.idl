@@ -1,0 +1,74 @@
+
+//  Module Header
+//
+//  Module Name: WPKEYBDD
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpkeybdd_idl
+#define wpkeybdd_idl
+
+#include "wpdevice.idl"
+
+interface M_WPDevKeyboard;
+
+interface WPDevKeyboard : WPDevice
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpkeybdd;
+    functionprefix = keybdd_;
+    local;
+//    externalprefix = keybdd_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpkeybdd;
+    metaclass = M_WPDevKeyboard;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+    passthru C_h =  ""
+"";
+
+/* Private instance data area */
+
+     /* Overridden instance methods area */
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDevKeyboard : M_WPDevice
+{
+  /* New class methods section */
+
+  implementation {
+
+    releaseorder: ;
+
+    externalstem = wpkeybdd;
+    functionprefix = keybddM_;
+    local;
+//    externalprefix = keybddM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpkeybdd;
+    callstyle = oidl;
+    dllname = "pnp.dll";
+
+
+    /* Overridden class methods section */
+    wpclsInitData:      override;
+    wpclsQueryIconData: override;                                              //bjf152374
+    wpclsQueryTitle:    override;
+    wpclsUnInitData:    override;
+  };
+
+};
+#endif  /* wpkbdd_idl */

@@ -1,0 +1,144 @@
+#include <os2.h>
+
+#include"teldir.h"
+
+MENU IDM_ORGMENU PRELOAD
+BEGIN
+  SUBMENU "~Â‰·" , IDM_FILE , MIS_TEXT
+  BEGIN
+    MENUITEM "Õ·~ÿ",IDM_SAVE, MIS_TEXT
+    MENUITEM "Œ—~ËÃ",IDM_QUIT, MIS_TEXT
+    SUBMENU "‰⁄~…" , IDM_LANG , MIS_TEXT
+    BEGIN
+      MENUITEM "Ÿ—~»Í",IDM_ARB, MIS_TEXT, MIA_CHECKED
+      MENUITEM "«ÊÃ‰Í“~Í",IDM_ENG, MIS_TEXT
+    END
+  END
+  SUBMENU "Â‘«Áœ~…" , IDM_VIEW , MIS_TEXT
+  BEGIN
+    MENUITEM " ’~«ŸœÍ",IDM_ASCENDING, MIS_TEXT,  MIA_CHECKED
+    MENUITEM " Ê~«“‰Í",IDM_DESCENDING, MIS_TEXT
+  END
+  SUBMENU "Â”~«Ÿœ…" , IDM_HELP , MIS_TEXT
+  BEGIN
+//Start_Help
+    MENUITEM "Â”«Ÿœ… Ÿ~«Â…",          IDM_HELPEXTENDED
+    MENUITEM SEPARATOR
+//End_Help
+    MENUITEM "~ŸÊ ...",IDM_ABOUT, MIS_TEXT
+  END
+END
+
+MENU IDM_ENGLISHMENU PRELOAD
+BEGIN
+  SUBMENU "~File" , IDM_FILE , MIS_TEXT
+  BEGIN
+    MENUITEM "~Save",IDM_SAVE, MIS_TEXT
+    MENUITEM "E~xit",IDM_QUIT, MIS_TEXT
+    SUBMENU "~Language",IDM_LANG , MIS_TEXT
+    BEGIN
+      MENUITEM "~Arabic",IDM_ARB, MIS_TEXT
+      MENUITEM "~English",IDM_ENG, MIS_TEXT, MIA_CHECKED
+    END
+  END
+  SUBMENU "~View" , IDM_VIEW , MIS_TEXT
+  BEGIN
+    MENUITEM "A~scending",IDM_ASCENDING, MIS_TEXT,  MIA_CHECKED
+    MENUITEM "~Descending",IDM_DESCENDING, MIS_TEXT
+  END
+  SUBMENU "~Help" , IDM_HELP , MIS_TEXT
+  BEGIN
+//Start_Help
+         MENUITEM "~General help",          IDM_HELPEXTENDED
+         MENUITEM SEPARATOR
+//End_Help
+         MENUITEM "~About ...",             IDM_ABOUT, MIS_TEXT
+  END
+END
+
+//Start_Help
+/*--------------------------------------------------------------*\
+ *  Help table definition                                       *
+\*--------------------------------------------------------------*/
+HELPTABLE   TELDIR_HELP_TABLE
+{
+    HELPITEM   IDM_ENGLISHMENU,     SUBTABLE_MAIN,    PANEL_IDM_ABOUT
+    HELPITEM   IDM_ORGMENU,         SUBTABLE_MAIN,    PANEL_IDM_ABOUT
+}
+/*--------------------------------------------------------------*\
+ *  Main window subtable, includes menu item help               *
+\*--------------------------------------------------------------*/
+HELPSUBTABLE SUBTABLE_MAIN
+SUBITEMSIZE     2
+{
+   HELPSUBITEM        IDM_FILE,    PANEL_IDM_FILE
+   HELPSUBITEM        IDM_VIEW,    PANEL_IDM_VIEW
+   HELPSUBITEM        IDM_HELP,    PANEL_IDM_HELP
+}
+//End_Help
+
+ICON IDM_ORGMENU TELDIR.ICO
+
+ACCELTABLE    IDM_ORGMENU
+BEGIN
+  "Ê", IDM_ABOUT, ALT
+  "Â", IDM_HELP,  ALT
+END
+
+STRINGTABLE
+{
+   ID_TITLE_A         " œ‰Í‰„ «‰Œ«’ "
+   ID_NAMES_A         "‚«∆Â… «‰√”Â«¡"
+   ID_ADD_A           "«÷«·…"
+   ID_REMOVE_A        "Õ–·"
+   ID_MODIFY_A        " ŸœÍ‰"
+   ID_FIND_A          "»ÕÀ"
+   ID_CHOICE_A        "«‰«Œ Í«—« "
+   ID_ENTERNAME_A     "«œŒ‰ «‰«”Â"
+   ID_TELNUMBER_A     "—‚Â «‰ ‰Í·ËÊ"
+   ID_DO_A            "Õ”Ê«"
+   ID_SAVEFILE_A      " Õ·ÿ «‰Â‰· ø "
+   ID_EXIT_A          "Œ—ËÃ"
+   ID_USES_A          "œ‰Í‰ «‰Á« · ÍÕ·ÿ Ë Í” —ÃŸ «‰√—‚«Â «‰Á« ·Í… "
+   ID_ERROR_A         "Â‘„‰…"
+   ID_HELP_A          " Â”«Ÿœ…"
+   ID_ERRINADD_A      "Œ◊√ ·Í «‰«÷«·…"
+   ID_ERRINMODIFY_A   "Œ◊√ ·Í «‰ ŸœÍ‰"
+   ID_ERRINSEARCH_A   "Œ◊√ ·Í «‰»ÕÀ"
+   ID_ERRINREMOVE_A   "Œ◊√ ·Í «‰Õ–·"
+   ID_INFORMATION_A   "ŸÊ ..."
+//Start_Help
+   ID_CANNOTLOADSTRING_A  "Aailed to load string."
+   ID_HELPLOADERROR_A     "Aailed to load help manager."
+   ID_HELPDISPLAYERROR_A  "Aailed to display help panel."
+   ID_HELPLIBRARYNAME_A   "TELDIRA.HLP"
+   ID_HELPWINDOWTITLE_A   "Â”«Ÿœ… œ‰Í‰„ «‰Œ«’ "
+//End_Help
+   ID_TITLE           "Telphone Directory"
+   ID_NAMES           "List of Names"
+   ID_ADD             "Add"
+   ID_REMOVE          "Remove"
+   ID_MODIFY          "Modify"
+   ID_FIND            "Search"
+   ID_CHOICE          "Choices"
+   ID_ENTERNAME       "Name"
+   ID_TELNUMBER       "Telephone"
+   ID_DO              "OK"
+   ID_SAVEFILE        " Save File?               "
+   ID_EXIT            "Exit"
+   ID_USES            "The Telephone Directory is used in saving and retrieving telephone numbers"
+   ID_ERROR           "Problem"
+   ID_HELP            " Help "
+   ID_ERRINADD        "Error in Add"
+   ID_ERRINMODIFY     "Error in Modify"
+   ID_ERRINSEARCH     "Error in Search"
+   ID_ERRINREMOVE     "Error in Deleting"
+   ID_INFORMATION     "About..."
+//Start_Help
+   ID_CANNOTLOADSTRING "Failed to load string."
+   ID_HELPLOADERROR    "Failed to load help manager."
+   ID_HELPDISPLAYERROR "Failed to display help panel."
+   ID_HELPLIBRARYNAME  "TELDIR.HLP"
+   ID_HELPWINDOWTITLE  "Telephone Directory Help"
+//End_Help
+}

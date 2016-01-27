@@ -1,0 +1,72 @@
+
+//  Module Header
+//
+//  Module Name: WPSHRED
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpshred_idl
+#define wpshred_idl
+
+#include "wpabs.idl"
+#include <somcls.idl>
+
+interface M_WPShredder;
+
+interface WPShredder : WPAbstract
+
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPShred;
+    local;
+    externalprefix = shr_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpshred;
+    metaclass = M_WPShredder;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpAddObjectWindowPage: override;
+    wpDragOver: override;
+    wpDrop: override;
+    wpFilterMenu: override;                                                     
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPShredder : M_WPAbstract
+{
+
+#ifdef __SOMIDL__
+  implementation {
+
+    externalstem = WPShred;
+    local;
+    externalprefix = shrM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpshred;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryDefaultView: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsQueryIconData: override;
+    wpclsQueryStyle: override;
+    wpclsQueryTitle: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpshred_idl */

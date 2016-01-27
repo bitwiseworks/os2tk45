@@ -1,0 +1,229 @@
+
+
+The STYLE application provided here is built as an 'extension' of
+the OS/2 2.0 STYLE Toolkit sample. The 'extenstions' are related
+to work with bidirectional languages.
+
+The following is a description of the bidirectional extensions that
+have been implemented in STYLE.
+
+1)  Client Area
+
+    The client area (client window) of STYLE is divided into two parts:
+    In the upper part a few text strings are displayed. Each one of them
+    is displayed using OS/2 APIs.
+    The strings on the left, are always readable because the program
+    disables the GPI bidirectional support for them.
+    The string on the right side are affected by the process bidi attributes
+    that are in effect for Style.
+
+    Disabling and enabling the GPI support is done with the
+    GpiSetBidiAttr() function, in sty_pnt.c.
+
+    For example, if STYLE is run in a session where the environment
+    contains:   SET BIDIATTR=TEXTTYPE_VISUAL, TEXT_ORIENT_RTL,
+    then the strings on the right side will be simply reversed.
+
+    The last row in the client area will show the last text that
+    was queried from the clipboard. It may be useful for looking
+    at the actual clipboard text, when using Paste with No Conversion.
+
+
+2)  File
+
+      Open
+        In: sty_file.c, FileOpen().
+        The File->Open dialog comes up in the National Language
+        (i,e not in English) and is right-justified.
+        This is a result of setting the FDS_NATIONAL_LANGUAGE
+        flag in the FileDlg structure.
+
+      Save and Save as... -
+             In sty_file.c, FileSave() and FileSaveAs().
+             No code changes have been implemented. However, if the
+             STYLE program is run when 'SET STDDLGLANG=NATIONAL'
+             is defined in the environment, these dialogs will come
+             up Right-To-Left and inthe National Language.
+
+3)  Edit
+
+      In file sty_edit.c.
+
+      Copy   This shows a few techniques of Copying (or cutting)
+             bidirectional text to the PM clipboard.
+
+             No Conversion   - The text is copied to the clipboard.
+                               the clipboard is put in 'no conversion' state.
+                               When pasted to a requesting application
+                               the text will be pasted 'as is'.
+             Auto Conversion - The text is copied to the clipboard.
+                               The process bidi attributues of STYLE is
+                               used as the bidi attributes of the text
+                               that was copied. When the clipboard text
+                               will be converted (as part of the paste
+                               operation) to another application, the
+                               Process Bidi Attributes of STYLE will be
+                               used as the 'source' bidi attributes.
+             Copy Visual       The text is copied to the clipboard.
+                               The clipboard text is marked as having
+                               Visual Texttype.
+                               Visual texttype will be used as the
+                               source bidi attribtues when the text
+                               will be pasted to a requesting application.
+             Copy Implicit     The text is copied to the clipboard.
+                               The clipboard text is marked as having
+                               Implicit Texttype.
+                               Implicit texttype will be used as the
+                               source bidi attribtues when the text
+                               will be pasted to a requesting application.
+
+      Paste  This shows a few techniques of querying data from the clipboard.
+
+             No Conversion     The text, as stroed in the clipboard, is
+                               copied to the application buffer, with
+                               NO text conversion (i.e, as is).
+             Auto Conversion   The clipboard text is converted accoriding
+                               to the Process Bidi Attributes of the
+                               requesting application (STYLE, in this case).
+             Paste Visual      The clipboard text is converted to VISUAL
+                               as part of the WinQueryClipbrd() operation.
+             Paste Implicit    The clipboard text is converted to IMPLICIT
+                               as part of the WinQueryClipbrd() operation.
+
+
+4) Options --> Font
+
+            No Code Change.
+            The font dialog should come up Right-To-Left and in the
+            National Lanauge if the environment variable
+            'SET STDDLGLANG=NATIONAL' is in effect.
+
+            Note: you can explicitly set the font dialog to
+            the national Language also bu setting the
+            FNTS_NATIONAL_LANGUAGE) style flag in the FONTDLG structure.
+
+
+5) Controls
+
+       Dialog Controls:
+
+              Buttons - The whole dialog comes up in Right-To-Left
+                        orientation. All the child controls are also
+                        right-to-left.
+                        This is a result of using BIDIPARAMs in the
+                        resource file.
+
+              Listboxes - The listbox dialog is not right-to-left. but
+                        the listboxes themselves are dynamically set to have
+                        right to left window orientation using
+                        the WinSetLangInfo() API.
+                        Some listboxes have visual text. Some have
+                        Implicit text.
+                        You can see that the national text is sorted
+                        correctly when the text is implicit, and is sorted
+                        incorrectly when the text is visual.
+                        In file: sty_dlg.c, routine: LoadListBox().
+
+
+              Combobox - The combobox dialog is not right-to-left.
+                        The simple combobox is set to visual and to
+                        right-to-left window orientation.
+                        The other comboboxes are set to Implicit text
+                        and right-to-left window orientation.
+
+
+              Single-Line Entry Field - The dialog is set to Right-To-Left
+                        window orientation.
+                        The entry fields themselves are set, in the
+                        dialog template (in sty_main.dlg) as follows:
+                        The first Entry Field is set to Visual text
+                        and left-to-right window orientation.
+                        The second Entry Field is set to Visual text
+                        and right-to-left window orientation.
+                        The third and forth entryfields are set to
+                        Implicit text, contextual orientation, and
+                        left to right window orientation.
+
+              Multi-Lines Entry Field -
+                        The first MLE is set to Visual text, right-to-left
+                        window orientation.
+                        The first MLE is set to Implicit text, right-to-left
+                        window orientation.
+
+              Static -  The whole dialog is set to Right-to-left window
+                        orientation.
+
+              CUA Controls:
+
+              Sliders - Both sliders are set to right-to-left
+                        window orientation, dynamically.
+                        This is done in sty_dlg.c (InitializeSlider()).
+
+              Spin Buttons - both spinbuttons are set to right-to-left
+                        window orientation, dynamically.
+                        This is done in sty_dlg.c (InitializeSpinButton()).
+
+
+              Notebook - The notebook and the page windows are dynamically
+                         set to have right-to-left window orientation.
+                         This is done in sty_dlg.c (InitializeNotebook()).
+                         Also, the strings of the notebook are displayed
+                         in the appropriate language.
+
+              Value Set - The value set window is set to right-to-left
+                         order using the VS_RIGHTOLEFT style.
+                         In addition, the first item is set to have
+                         a TEXT style, and a text orientation of
+                         right-to-left. As a result, it is displayed
+                         with it text inverted.
+
+              Container - The container is set to right-to-left window
+                         orientation and to Implicit text, dynamically,
+                         in sty_dlg.c (InitializeContainer()).
+
+                         As a result, the container items (records)
+                         are right justified.
+                         You may want to change view of the container.
+                         You can do this by clicking with the right mouse
+                         button on the container and selecting a view.
+                         All views will be Right-To-Left.
+                         You can also dynamically edit the text of each
+                         of the icons by pressing the left mouse button
+                         when the ALT key is pressed. Editing will be
+                         in the natural language (i.e, right-to-left
+                         if in Arabic and Left-to-right if
+                         the text is in English).
+
+                         Note that in Details view, the first column
+                         (on the right) has right-to-left window orientation
+                         so that it is right-justified, and the second
+                         column (on its left) has left-to-right
+                         window orientation and is left-justified.
+                         This is done by sending the  CM_SETFIELDBIDIATTR
+                         message.
+
+       Message Controls: No code changes.
+                         When the 'SET STDDLGLANG=NATIONAL' environment
+                         variable is defined, all messagebox are
+                         right-to-left and the text in the push buttons
+                         is displayed in the national language.
+
+                         NOTE, when the MessageBox has right-to-left
+                         window orientation, the MessageBox also comes
+                         up right-to-left. You can try this by inversing
+                         the frame window (see 'Menu' below), and then
+                         bring up a MessageBox.
+
+6)  Menu                 This shows a few examples of creating menus.
+                         The 'Inverse Window' items will reverse the
+                         window orientation of the frame window (and
+                         as a result, the titlebar and the menu).
+
+
+
+7) Text Transform        Shows the interface to the LayoutTransform()
+                         API, for transformations of bidirectional text.
+                         in sty_user.c, TransformText().
+
+
+

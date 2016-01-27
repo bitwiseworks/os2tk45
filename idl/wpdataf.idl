@@ -1,0 +1,187 @@
+
+//  Module Header
+//
+//  Module Name: WPDATAF
+//
+//  OS/2 Presentation Manager Workplace class definitions
+//
+//  Copyright (c) International Business Machines Corporation 1991, 1992
+//
+
+#ifndef wpdataf_idl
+#define wpdataf_idl
+
+#include "wpfsys.idl"
+#include <somcls.idl>
+
+interface M_WPDataFile;
+
+interface WPDataFile : WPFileSystem
+
+{
+
+
+  ULONG wpAddBecomePage(in HWND hwndNotebook);
+
+  ULONG wpAddFileTypePage(in HWND hwndNotebook);
+
+  BOOL wpPrintMetaFile(in PPRINTDEST pPrintDest);
+
+  BOOL wpPrintPifFile(in PPRINTDEST pPrintDest);
+
+  BOOL wpPrintPrinterSpecificFile(in PPRINTDEST pPrintDest);
+
+  BOOL wpPrintUnknownFile(in PPRINTDEST pPrintDest);
+
+  WPObject wpQueryAssociatedProgram(in ULONG ulView,
+                                    in PULONG pulHowMatched,
+                                    in PSZ pszMatchString,
+                                    in ULONG cbMatchString,
+                                    in PSZ pszDefaultType);
+  void wpSetAssociatedFileIcon();
+
+  HPOINTER wpQueryAssociatedFileIcon();
+
+  BOOL wpSetContentsFromPointer(in PVOID pData);
+
+  PVOID wpQueryPointerFromContents();
+
+  BOOL wpSetContentsFromHandle(in LHANDLE handle);
+
+  LHANDLE wpQueryHandleFromContents();
+
+  BOOL wpRenderFromClipboard(in ULONG aRenderAs);
+
+VOID SetUpdateIndicator(in ULONG ulBidiSetting,
+                          in BOOL flSet);
+
+  BOOL QueryUpdateIndicator(in ULONG ulBidiSetting);
+
+  VOID SetNeedSave(in BOOL flNeedSave);
+
+  BOOL QueryNeedSave();
+
+VOID wpSetDefaultBidiSettings(in ULONG ulBidiSetting,
+                                  in BOOL flSet);
+
+  BOOL wpQueryDefaultBidiSettings(in ULONG ulBidiSetting);
+
+  VOID wpSetBidiValues(in ULONG ulBidiSetting,
+                         in ULONG ulBidiValue,
+                         in ULONG ulBidiMask);
+
+  ULONG wpQueryBidiValues(in ULONG ulBidiSetting);
+
+   BOOL wpInsertBidiPage(in HWND hwndNotebook,
+                           in ULONG ulBidiSettings);
+
+   BOOL wpSaveBidiState();
+
+   BOOL wpRestoreBidiState(in ULONG ulReserved);
+
+   void wpInitBidiData();
+
+   BOOL wpBidiSetup(in PSZ pszSetupString);
+
+   HWND wpSettingsNotebook();
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: wpAddFileTypePage,wpPrintMetaFile,wpPrintPifFile,
+                  wpPrintPrinterSpecificFile,wpPrintUnknownFile,wpQueryAssociatedProgram,
+                  wpSetAssociatedFileIcon, wpQueryAssociatedFileIcon,
+                  wpSetContentsFromPointer, wpQueryPointerFromContents,
+                  wpSetContentsFromHandle,  wpQueryHandleFromContents,
+                  wpAddBecomePage, wpRenderFromClipboard,
+                  undefined1, wpSetDefaultBidiSettings,wpQueryDefaultBidiSettings,
+                  SetUpdateIndicator,QueryUpdateIndicator,wpSetBidiValues,
+                  wpQueryBidiValues,SetNeedSave,QueryNeedSave,
+                  wpInsertBidiPage, wpSaveBidiState,
+                  wpRestoreBidiState, wpBidiSetup, wpInitBidiData,
+                  hwndSettingsNotebook, wpSettingsNotebook;
+
+    externalstem = wpdf;
+    local;
+    externalprefix = df_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpdataf;
+    metaclass = M_WPDataFile;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    passthru C_h =      "        #define MAX_ASSOC_ITEMS 12";
+
+    passthru C_h_after =
+" #define DebugBox(title, text) WinMessageBox(  \            "
+"                                 HWND_DESKTOP, \            "
+"                                 HWND_DESKTOP, \            "
+"                                 (PSZ) text,   \            "
+"                                 (PSZ) title,  \            "
+"                                 0, MB_OK | MB_INFORMATION) ";
+
+
+    wpDragOver: override;
+    wpRestoreState: override;
+    wpSetDefaultView: override;
+    wpSetRealName: override;
+    wpSetType: override;
+    wpAddSettingsPages: override;
+    wpAddObjectWindowPage: override;
+    wpOpen: override;
+    wpPrintObject: override;
+    wpModifyMenu: override;                                   
+    wpMenuItemSelected: override;
+    wpMenuItemHelpSelected: override;
+    wpQueryDefaultHelp: override;
+    wpFormatDragItem: override;
+    wpConfirmRenameFileWithExt: override;
+    wpQueryIcon: override;
+    wpSaveState: override;
+    wpInitData: override;
+    wpSetup: override;
+    wpRender:    override;
+    somDefaultInit: override;          
+    somDestruct: override;             
+
+    wpConfirmKeepAssoc: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPDataFile : M_WPFileSystem
+{
+
+  ULONG wpclsAddClipboardAssoc(in ULONG aCBFormat, in PSZ pszClassName);
+
+  ULONG wpclsEnumClipboardClasses(in ULONG aCBFormat, in ULONG aPrevious);
+
+#ifdef __SOMIDL__
+  implementation {
+    releaseorder: wpclsAddClipboardAssoc,    
+                  wpclsEnumClipboardClasses; 
+
+    externalstem = wpdf;
+    local;
+    externalprefix = dfM_;
+    majorversion = 1;
+    minorversion = 2;
+    filestem = wpdataf;
+    callstyle = oidl;
+    dllname = "pmwp.dll";               
+
+    wpclsQueryTitle: override;
+    wpclsQueryIconData: override;
+    wpclsQueryStyle: override;
+    wpclsQueryDefaultView: override;
+    wpclsQueryDefaultHelp: override;
+    wpclsInitData: override;             
+    wpclsUnInitData: override;
+    wpclsQuerySettingsPageSize: override; 
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpdataf_idl */

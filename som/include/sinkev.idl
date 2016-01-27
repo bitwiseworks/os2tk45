@@ -1,0 +1,68 @@
+//
+//   COMPONENT_NAME: somu
+//
+//   ORIGINS: 27
+//
+//
+//   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//
+//#  @(#) 2.7 src/somem/sinkev.idl, somu, som2.1 9/1/94 17:45:37 [7/30/96 14:46:13]
+
+
+
+#ifndef sinkev_idl
+#define sinkev_idl
+
+#include <event.idl>
+
+interface SOMESinkEvent : SOMEEvent
+
+// SOMESinkEvent is the class for generic sink events within the Event Manager.
+// This class should be queried for events of the following type(s):
+//      EMSinkEvent (for files, pipes, and sockets)
+//      EMMsgQEvent (for AIX message queues)
+//
+// On AIX, an instance of this class is created, initialized and passed to the
+// callback routine  for events (input/output/exception) associated with files,
+// sockets, pipes and Message Queues. On OS/2, the same is done for sockets only.
+{
+  long somevGetEventSink();
+
+  // Returns the sink, or source of file i/o, of the generic sink event.
+  // For message queues it is the queue id, for files it is the file descriptor,
+  // for sockets it is the socket id and for pipes it is the pipe descriptor.
+
+  void somevSetEventSink(in long sink);
+
+  // Sets the sink, or source of file i/o, of the generic sink event.
+  // For message queues it is the queue id, for files it is the file descriptor,
+  // for sockets it is the socket id and for pipes it is the pipe descriptor.
+
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: somevGetEventSink,somevSetEventSink;
+
+    //# Class Modifiers
+    majorversion = 2;
+    minorversion = 1;
+    filestem = sinkev;
+    callstyle = idl;
+
+
+    //# Method Modifiers
+    somInit: override;
+
+    //# Data Modifiers
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* sinkev_idl */

@@ -1,0 +1,8 @@
+LIBRARY  MACRO INITINSTANCE
+DESCRIPTION 'Utilities for REXXSAA - Copyright 1989, 1991 IBM Corp.'
+PROTMODE
+DATA MULTIPLE NONSHARED LOADONCALL
+EXPORTS  MacroLoad
+         MacroSave
+         MacroErase
+         MacroQuery

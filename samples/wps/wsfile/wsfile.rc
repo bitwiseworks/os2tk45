@@ -1,0 +1,70 @@
+/******************************************************************************
+*
+*  File Name   : WSFILE.RC
+*
+*  Description : Define Work Place Shell Sample resources and dialogs
+*
+*  Copyright (C) 1995 IBM Corporation
+*
+*      DISCLAIMER OF WARRANTIES.  The following [enclosed] code is
+*      sample code created by IBM Corporation. This sample code is not
+*      part of any standard or IBM product and is provided to you solely
+*      for  the purpose of assisting you in the development of your
+*      applications.  The code is provided "AS IS", without
+*      warranty of any kind.  IBM shall not be liable for any damages
+*      arising out of your use of the sample code, even if they have been
+*      advised of the possibility of such damages.                                                    *
+*
+******************************************************************************/
+
+#include "wsfile.ih"
+
+POINTER ID_ICON LOADONCALL MOVEABLE DISCARDABLE wsfile.ico
+
+STRINGTABLE
+BEGIN
+   ID_TITLE "WSFILE"
+END
+
+MENU ID_ALARMMENU LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   MENUITEM "~Sound Alarm", IDM_SOUNDALARM
+END
+
+MENU ID_OPENMENU LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   MENUITEM "~Open Workplace Shell File", IDM_OPENWSFILE
+END
+
+DLGTEMPLATE IDD_LASTWORKER LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Last Worker", IDD_LASTWORKER, 11, 17, 190, 134, NOT FS_DLGBORDER |
+            WS_VISIBLE
+    BEGIN
+        CTEXT           "Last User:", 100, 64, 112, 50, 8, DT_VCENTER
+        ENTRYFIELD      "", IDC_LASTWORKER, 35,89,90,8, ES_MARGIN
+        PUSHBUTTON      "~Undo", ID_UNDO, 11, 9, 40, 14
+        PUSHBUTTON      "~Default", ID_DEFAULT, 71, 9, 40, 14
+        CONTROL         "~Help", ID_HELP, 131, 9, 40, 14,WC_BUTTON,
+                        BS_PUSHBUTTON | BS_HELP | BS_NOPOINTERFOCUS |
+                        WS_TABSTOP | WS_VISIBLE
+    END
+END
+
+DLGTEMPLATE IDD_LASTWORKER2 LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Last Worker", 200, 0, 0, 109, 28, NOT FS_DLGBORDER | WS_VISIBLE
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        LTEXT           "Last user", 100, 6, 18, 27, 8, DT_VCENTER
+        ENTRYFIELD      "", IDC_LASTWORKER, 8, 8, 90, 8, ES_MARGIN
+        PUSHBUTTON      "~Undo", ID_UNDO, 69, 14, 40, 14,
+                        BS_NOTEBOOKBUTTON | NOT BS_PUSHBUTTON
+        PUSHBUTTON      "~Default", ID_DEFAULT, 67, 14, 40, 14,
+                        BS_NOTEBOOKBUTTON | NOT BS_PUSHBUTTON
+        PUSHBUTTON      "~Help", ID_HELP, 68, 13, 40, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | BS_NOTEBOOKBUTTON |
+                        NOT BS_PUSHBUTTON
+    END
+END
+

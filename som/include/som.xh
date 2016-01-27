@@ -1,0 +1,45 @@
+/*
+ *   COMPONENT_NAME: somk
+ *
+ *   ORIGINS: 27
+ *
+ *
+ *    25H7912  (C)  COPYRIGHT International Business Machines Corp. 1992,1994,1996 
+ *   All Rights Reserved
+ *   Licensed Materials - Property of IBM
+ *   US Government Users Restricted Rights - Use, duplication or
+ *   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+/* @(#) 2.15 src/somk/som.xh, somk.api, som2.1 12/26/95 16:44:52 [7/30/96 14:46:35] */
+
+/*
+ */
+
+/*
+ *    SOM.XH
+ *    First level Public C++ include file for System Object Model
+ */
+
+#ifndef som_xh
+#define som_xh
+#define som_h
+
+#include <somnames.h>
+#include <somltype.h>
+
+#ifdef _WIN16
+#undef SOMLINK
+#define SOMLINK
+#endif
+
+#include <somtypes.xh>
+#include <somcdev.xh>
+#include <somcorba.h>
+#include <somapi.h>
+
+#ifdef _WIN16
+#undef SOMLINK
+#define SOMLINK WIN16_SOMLINK
+#endif
+
+#endif

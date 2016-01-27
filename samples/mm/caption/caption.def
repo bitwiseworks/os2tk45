@@ -1,0 +1,18 @@
+;+------------------------------------------------------------------------
+;| CAPTION.DEF FILE
+;|
+;| Copyright (C) IBM 1993
+;+------------------------------------------------------------------------
+
+NAME            caption        WINDOWAPI
+
+DESCRIPTION     'Caption Creation Utility Sample Program'
+STUB            'OS2STUB.EXE'
+
+DATA            MULTIPLE
+
+STACKSIZE       36000
+HEAPSIZE        36000
+
+PROTMODE
+
