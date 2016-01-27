@@ -1,0 +1,13 @@
+This file contains a brief list of changes to the IBM OS/2 Developer's
+Toolkit compared to Version 4.5.2 released with eComStation 1.2 Media
+Refresh (also known as eComStation 1.2.1).
+
+These changes are maintained in a git repository located at:
+
+  https://github.com/bitwiseworks/os2tk45
+
+
+2016-01-27
+
+- Remove ancient DOS EOF symbol (0x1A) from headers since it is non-standard
+  and breaks GCC.
