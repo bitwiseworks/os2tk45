@@ -144,7 +144,7 @@ typedef int LocaleItem;
 #define LOCI_iCodepage          111  /*0 OS/2 primary codepage             */
 #define LOCI_iAltCodepage       112  /*0 OS/2 alternate codepage           */
 #define LOCI_iMacCodepage       113  /*0 Mac codepage                      */
-#define LOCI_iEbcdicCodepage    114  /*0 Ebcdic codepage                   */                            */
+#define LOCI_iEbcdicCodepage    114  /*0 Ebcdic codepage                   */
 #define LOCI_sOtherCodepages    115  /*0 Other ASCII codepages             */
 #define LOCI_sSetCodepage       116  /*0 Codpage to set on activation      */
 #define LOCI_sKeyboard          117  /*0 Primary keyboard name             */
