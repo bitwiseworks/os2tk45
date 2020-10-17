@@ -20,7 +20,7 @@
    extern "C" {
 #endif
 
-#if defined(__IBMCPP__) || defined(__IBMC__)
+#if defined(__IBMCPP__) || defined(__IBMC__) || defined(__WATCOMC__)
    #define CALLCONV    _System
 #else
    #define CALLCONV
